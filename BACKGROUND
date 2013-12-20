@@ -1,0 +1,81 @@
+Background
+==========
+
+Creation
+--------
+
+In times of ancient Romans, as the Web was just starting out, there were
+two giants: IE and Netscape. However, I found both lacking.
+
+Someone pointed me to a less-known alternative called Opera. And that
+was it. I was hooked.
+
+I've been a loyal Opera user from around Opera 5. It was continually
+improving until 9.64, where its usability peaked.
+
+The next versions started a decline in usability.
+
+10.10 had become slower (in creating tabs, closing tabs, and switching
+tabs mainly).
+
+10.50 dumped Qt in favor of their own theme engine, which meant huge
+usability issues for those on dark gtk+ themes (such as yours truly):
+black text on black background, black highlights on black buttons and
+so on.
+
+11 slowed down even more, and this slow decline continued in 12. It was
+not all bad mind you, Dragonfly for example was much better in 12 than
+in 9, but for the main feature of a browser, usability, 12 was bad.
+
+We all know what happened next. Opera fired their Presto team and turned
+their product to a Chrome skin. In the process, they showed the middle
+finger to their old users, in the form of not supporting the things that
+made Opera Opera any more: bookmarks and the extreme customizability.
+
+Issue's edge
+------------
+
+Astute readers will see how this creates the main issue. Staying on the
+best browser, Opera 9, keeps getting more and more difficult each day as
+the web develops. It's also not the most secure of choices, but as one
+who has a browser open for 90% of their computing time, the browser's
+usability is paramount.
+
+Ona particularly thorny issue is how the latest jquery no longer works,
+which in turn breaks a lot of other sites. It's funny in a way that the
+latest jquery still works on Firefox 2, a much older browser.
+
+Alternatives, dude
+------------------
+
+As soon as the decline began in Opera 10 I started to check out the
+alternatives.
+
+Chrome: no go due to the privacy invasions. I will not let Google or
+any other BigCorp slurp my data, thank you very much.
+
+Chromium: while I could fork it to remove the privacy-reducing
+malfeatures, I dislike the Chromium UI very much, as well as some of
+the technical design decisions made in it. These would make it far too
+big a job to start from Chromium.
+
+Firefox: I never found Firefox particularly good. Nowadays, like that
+hot girl you knew from high school, Firefox got fat. I also disagree with
+the "XML as UI, with full JS and CSS access" decision, those cycles are
+better spent elsewhere.
+
+Dillo, lynx, links: not real alternatives as far as compatibility goes.
+
+This leaves the smaller Webkit players mainly, such as Arora.
+
+A new dawn
+----------
+
+It's become pretty clear now that if I want a browser done right, I will
+need to do it myself. It's also very clear that the path to go is Webkit1.
+
+So, there's the dirty details. A closed-source product answered my needs
+perfectly, but as time passed on, the product was pulled from under me,
+and as it's closed source, I cannot do anything about it.
+
+All I can do is start an alternative. One that is Free software.

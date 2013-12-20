@@ -1,0 +1,55 @@
+Design decisions
+================
+
+These are the main guidelines for Fifth.
+
+1. World domination is not a goal.
+
+	This is my browser, made to fill my needs. If others like it,
+	great! If not, feel free to fork or use one of the alternatives.
+
+2. The browser is for browsing.
+
+	In other words, the browser is _not_ for playing games, playing
+	music, or playing videos.
+
+3. Unix principles.
+
+	For anything it does not do, it should call on a separate tool
+	made for the purpose.
+
+4. Efficiency.
+
+	Every single browser has become fat and bloated. Usability
+	guidelines also require good performance: the user should never
+	wait for the computer.
+
+5. Copy the best.
+
+	All the good features from Opera shall be shamelessly copied,
+	just like those in other browsers.
+
+Tech
+----
+
+Webkit1 will be used. While the multiprocess model of Webkit2 is indeed
+more secure, it also brings both CPU and RAM overhead. This does mean
+that having one tab crash will crash all tabs, but general browser
+quality along with no support for Flash will minimize that.
+
+Ideally, a new webkit port to a light toolkit such as FLTK will be made.
+
+No native video support. Every embedded player generally sucks. Instead,
+we will offer two buttons in place of HTML5 video elements: download
+(as $GOD intended) and stream (ie, launch in your favorite player such
+as mplayer).
+
+SVG will be supported by calling out to rsvg-convert, no native support.
+
+Per-site preferences are a must.
+
+WebGL will not be supported.
+
+Certificates will natively have SSH-like behavior: self-signed certs are
+fully trusted without warning, but if a certificate changes, all bells
+go off.

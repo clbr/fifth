@@ -53,3 +53,7 @@ WebGL will not be supported.
 Certificates will natively have SSH-like behavior: self-signed certs are
 fully trusted without warning, but if a certificate changes, all bells
 go off.
+
+Fingerprinting is avoided. The most common settings from EFF panopticlick
+will be sent to servers. By default Fifth will claim to be Firefox on Windows,
+and so on.

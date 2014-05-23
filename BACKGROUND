@@ -41,7 +41,7 @@ the web develops. It's also not the most secure of choices, but as one
 who has a browser open for 90% of their computing time, the browser's
 usability is paramount.
 
-Ona particularly thorny issue is how the latest jquery no longer works,
+One particularly thorny issue is how the latest jquery no longer works,
 which in turn breaks a lot of other sites. It's funny in a way that the
 latest jquery still works on Firefox 2, a much older browser.
 

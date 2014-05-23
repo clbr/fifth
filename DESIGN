@@ -32,12 +32,12 @@ These are the main guidelines for Fifth.
 Tech
 ----
 
-Webkit1 will be used. While the multiprocess model of Webkit2 is indeed
+Webkit1 will be used. While the multi-process model of Webkit2 is indeed
 more secure, it also brings both CPU and RAM overhead. This does mean
 that having one tab crash will crash all tabs, but general browser
 quality along with no support for Flash will minimize that.
 
-Ideally, a new webkit port to a light toolkit such as FLTK will be made.
+Ideally, a new Webkit port to a light toolkit such as FLTK will be made.
 
 No native video support. Every embedded player generally sucks. Instead,
 we will offer two buttons in place of HTML5 video elements: download
@@ -50,10 +50,14 @@ Per-site preferences are a must.
 
 WebGL will not be supported.
 
+Web fonts will not be supported. There is little reason to fetch extra
+megabytes just to display a site a little more like some designer wanted
+it to (which is often in an unreadable font).
+
 Certificates will natively have SSH-like behavior: self-signed certs are
 fully trusted without warning, but if a certificate changes, all bells
 go off.
 
 Fingerprinting is avoided. The most common settings from EFF panopticlick
-will be sent to servers. By default Fifth will claim to be Firefox on Windows,
-and so on.
+will be sent to servers. By default Fifth will claim to be Firefox on
+Windows, and so on.

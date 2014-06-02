@@ -29,11 +29,10 @@ enum settingtype {
 struct setting {
 	const char name[80];
 	settingtype type;
-	union {
-		char *c;
-		float f;
-		u32 u;
-	} val;
+
+	const char *c;
+	float f;
+	u32 u;
 };
 
 setting *getSetting(const char name[], const char * const site);

@@ -25,5 +25,6 @@ setting *getSetting(const char name[], const char * const site) {
 }
 
 const setting defaultSettings[] = {
-
+	{"general.homepage", ST_CHAR, "about:blank", 0, 0},
+	{"general.javascript", ST_U32, 0, 0, 1},
 };

@@ -156,7 +156,12 @@ int main(int argc, char **argv) {
 		die(_("Failed to lock the lock file\n"));
 	g->newremotes = 0;
 	pthread_mutex_init(&g->remotemutex, NULL);
-	pthread_create(&g->remotetid, NULL, listenRemote, NULL);
+
+	pthread_attr_t attr;
+	pthread_attr_init(&attr);
+	pthread_attr_setstacksize(&attr, 1024*512);
+	pthread_create(&g->remotetid, &attr, listenRemote, NULL);
+	pthread_attr_destroy(&attr);
 
 	if (argc > 1) {
 		u32 i;

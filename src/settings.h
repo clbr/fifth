@@ -27,7 +27,7 @@ enum settingtype {
 };
 
 struct setting {
-	const char name[80];
+	char name[80];
 	enum settingtype type;
 
 	union {

@@ -22,8 +22,60 @@ enum {
 	bufsize = 640
 };
 
-static void parseLine(const char * const line) {
+static settingtype char2type(const char in) {
 
+	switch (in) {
+		case 'c':
+			return ST_CHAR;
+		break;
+		case 'u':
+			return ST_U32;
+		break;
+		case 'f':
+			return ST_FLOAT;
+		break;
+		default:
+			die(_("Corrupt config file\n"));
+	}
+}
+
+static void setupSetting(setting &s, const char * const name,
+			const char * const val) {
+	switch (s.type) {
+		case ST_CHAR:
+		break;
+		case ST_U32:
+		break;
+		case ST_FLOAT:
+		break;
+		default:
+			die(_("Corrupt config file\n"));
+	}
+}
+
+static void parseLine(const char *line) {
+
+	char name[bufsize];
+	char val[bufsize];
+	char type;
+	setting s;
+
+	if (!memcmp(line, "site", 4)) {
+		// Per-site setting
+		char site[bufsize];
+		line += 5;
+		if (sscanf(line, "%s %s %c %s", site, name, &type, val) != 4)
+			die(_("Faulty config line '%s'\n"), line);
+
+		vector<setting> &vec = g->sitesettings[site];
+
+		s.type = char2type(type);
+		setupSetting(s, name, val);
+
+		vec.push_back(s);
+	} else {
+		
+	}
 }
 
 static void parseFile(FILE * const f) {

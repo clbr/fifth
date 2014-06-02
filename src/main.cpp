@@ -61,7 +61,7 @@ static void findProfile(const bool found) {
 }
 
 static void help(const char * const argv0) {
-	printf(_("Fifth %s\n\n"
+	printf(_("\nFifth %s\n\n"
 		"	-h --help		This help\n"
 		"	-p --profile [dir]	Use dir as the profile location\n"
 		"	-v --version		Query the version\n"

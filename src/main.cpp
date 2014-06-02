@@ -158,6 +158,19 @@ int main(int argc, char **argv) {
 	pthread_mutex_init(&g->remotemutex, NULL);
 	pthread_create(&g->remotetid, NULL, listenRemote, NULL);
 
+	if (argc > 1) {
+		u32 i;
+		pthread_mutex_lock(&g->remotemutex);
+		for (i = optind; i < (u32) argc; i++) {
+			remotemsg m;
+			m.type = RT_URL;
+			m.size = strlen(argv[i]);
+			m.data = strdup(argv[i]);
+			g->remotes.push_back(m);
+		}
+		pthread_mutex_unlock(&g->remotemutex);
+	}
+
 	// Mainloop
 	u32 i = 0;
 	while (i < 10) {

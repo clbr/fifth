@@ -2,7 +2,7 @@ NAME = fifth
 
 SRC = $(wildcard *.cpp)
 OBJ = $(SRC:.cpp=.o)
-HDR = $(wildcard *.hpp)
+HDR = $(wildcard *.h)
 
 CXXFLAGS += -Wall -Wextra
 LDFLAGS += -Wl,-O1

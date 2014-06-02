@@ -91,3 +91,11 @@ unsigned npow(unsigned in) {
 
 	return in + 1;
 }
+
+u32 usecs(const timeval old, const timeval now) {
+
+	u32 us = (now.tv_sec - old.tv_sec) * 1000 * 1000;
+	us += now.tv_usec - old.tv_usec;
+
+	return us;
+}

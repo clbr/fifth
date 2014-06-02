@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <sys/time.h>
 #include "lrtypes.h"
 
 #define PRINTF_WARNINGS(a,b) __attribute__ ((format (printf, a, b)))
@@ -36,6 +37,7 @@ float smootherstep(float e0, float e1, float x);
 float mix(float x, float y, float a);
 unsigned ispow(const unsigned in);
 unsigned npow(unsigned in);
+u32 usecs(const struct timeval old, const struct timeval now);
 
 static inline u32 u32max(u32 a, u32 b) {
 	if (a > b) return a;

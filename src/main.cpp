@@ -97,6 +97,7 @@ int main(int argc, char **argv) {
 				return 0;
 			case 'v':
 				printf("Fifth %s\n", VERSION);
+				return 0;
 			break;
 			case 'p':
 				g->profilefd = open(optarg, O_RDONLY | O_DIRECTORY);

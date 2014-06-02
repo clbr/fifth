@@ -22,4 +22,6 @@ void saveConfig();
 
 int settingcmp(const void *p1, const void *p2);
 
+void nukenewline(char *ptr);
+
 #endif

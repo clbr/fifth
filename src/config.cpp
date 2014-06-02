@@ -22,6 +22,16 @@ enum {
 	bufsize = 640
 };
 
+void nukenewline(char *ptr) {
+
+	for (; *ptr; ptr++) {
+		if (*ptr == '\n') {
+			*ptr = '\0';
+			return;
+		}
+	}
+}
+
 int settingcmp(const void *p1, const void *p2) {
 
 	const setting * const a = (setting *) p1;
@@ -132,6 +142,8 @@ static void parseFile(FILE * const f) {
 
 		if (*ptr == '#')
 			continue;
+
+		nukenewline(ptr);
 
 		parseLine(ptr);
 	}

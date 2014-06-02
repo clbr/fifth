@@ -67,7 +67,7 @@ static void help(const char * const argv0) {
 		"	-v --version		Query the version\n"
 		"\n"
 		"	You can also give instructions to existing instances:\n"
-		"	%s		# opens a new tab\n"
+		"	%s			# opens a new tab\n"
 		"	%s google.com	# opens google.com in a new tab\n\n"),
 		VERSION, argv0, argv0);
 }

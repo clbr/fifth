@@ -167,6 +167,7 @@ int main(int argc, char **argv) {
 			m.size = strlen(argv[i]);
 			m.data = strdup(argv[i]);
 			g->remotes.push_back(m);
+			g->newremotes = 1;
 		}
 		pthread_mutex_unlock(&g->remotemutex);
 	}

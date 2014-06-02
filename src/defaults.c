@@ -20,3 +20,5 @@ const struct setting defaultSettings[] = {
 	{"general.homepage", ST_CHAR, { .c = "about:blank"}},
 	{"general.javascript", ST_U32, { .u = 1}},
 };
+
+const u32 numDefaults = sizeof(defaultSettings) / sizeof(struct setting);

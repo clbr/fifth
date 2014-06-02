@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void loadConfig() {
 
+	// Setup defaults
+	g->settings = (setting *) xcalloc(1, sizeof(setting) * numDefaults);
 }
 
 void saveConfig() {

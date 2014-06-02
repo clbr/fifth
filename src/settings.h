@@ -46,4 +46,11 @@ extern
 #endif
 const struct setting defaultSettings[];
 
+#ifdef __cplusplus
+extern "C"
+#else
+extern
+#endif
+const u32 numDefaults;
+
 #endif

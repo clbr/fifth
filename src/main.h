@@ -48,7 +48,6 @@ struct globals {
 	vector<remotemsg> remotes;
 	u8 newremotes;
 	pthread_mutex_t remotemutex;
-	pthread_t remotetid;
 };
 
 extern struct globals *g;

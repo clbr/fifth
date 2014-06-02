@@ -159,10 +159,11 @@ int main(int argc, char **argv) {
 
 	loadConfig();
 
+	pthread_t tid;
 	pthread_attr_t attr;
 	pthread_attr_init(&attr);
 	pthread_attr_setstacksize(&attr, 1024*512);
-	pthread_create(&g->remotetid, &attr, listenRemote, NULL);
+	pthread_create(&tid, &attr, listenRemote, NULL);
 	pthread_attr_destroy(&attr);
 
 	if (argc > 1) {
@@ -205,8 +206,8 @@ int main(int argc, char **argv) {
 		i++;
 	}
 
-	pthread_cancel(g->remotetid);
-	pthread_join(g->remotetid, NULL);
+	pthread_cancel(tid);
+	pthread_join(tid, NULL);
 	unlinkat(g->profilefd, LOCKFILE, 0);
 	delete g;
 	return 0;

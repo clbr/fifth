@@ -18,12 +18,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define CONFIGFILE "config"
 
+enum {
+	bufsize = 640
+};
+
 static void parseLine(const char * const line) {
 
 }
 
 static void parseFile(FILE * const f) {
 
+	char buf[bufsize];
+
+	while (fgets(buf, bufsize, f)) {
+		const u32 len = strlen(buf);
+		if (len < 5)
+			continue;
+
+		char *ptr = buf;
+		while (isspace(*ptr))
+			ptr++;
+
+		if (*ptr == '#')
+			continue;
+
+		parseLine(ptr);
+	}
 }
 
 void loadConfig() {

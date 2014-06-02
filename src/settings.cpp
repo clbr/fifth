@@ -23,3 +23,21 @@ setting *getSetting(const char name[], const char * const site) {
 
 	return NULL;
 }
+
+void url2site(const char url[], char site[], const u32 size) {
+
+	const char *start = strstr(url, "://");
+	if (start)
+		start += 3;
+	else
+		start = url;
+
+	u32 pos;
+	for (pos = 0; pos < size; pos++) {
+		if (start[pos] == '/')
+			break;
+		site[pos] = start[pos];
+	}
+
+	site[pos] = '\0';
+}

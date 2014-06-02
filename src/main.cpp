@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 	if (faccessat(g->profilefd, LOCKFILE, R_OK | W_OK, 0) == 0) {
 		g->lockfd = openat(g->profilefd, LOCKFILE, O_WRONLY | O_NONBLOCK);
 		if (faccessat(g->profilefd, CRASHFILE, R_OK, 0) == 0) {
-			// Crash.
+			// Crash. TODO
 			puts(_("Crash recovery"));
 			if (g->lockfd >= 0) close(g->lockfd);
 			unlinkat(g->profilefd, LOCKFILE, 0);
@@ -115,11 +115,14 @@ int main(int argc, char **argv) {
 			u32 r = 0;
 			const u32 max = g->remotes.size();
 			for (; r < max; r++) {
-				if (g->remotes[r].size)
+				// TODO
+				if (g->remotes[r].size) {
 					printf(_("Opening remote URL %s\n"),
 						g->remotes[r].data);
-				else
+					free(g->remotes[r].data);
+				} else {
 					puts(_("Opening new tab, requested by remote"));
+				}
 			}
 			g->remotes.clear();
 			pthread_mutex_unlock(&g->remotemutex);

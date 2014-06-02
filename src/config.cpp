@@ -41,12 +41,18 @@ static settingtype char2type(const char in) {
 
 static void setupSetting(setting &s, const char * const name,
 			const char * const val) {
+	strncpy(s.name, name, 80);
+	s.name[79] = '\0';
+
 	switch (s.type) {
 		case ST_CHAR:
+			s.val.c = strdup(val);
 		break;
 		case ST_U32:
+			s.val.u = atoi(val);
 		break;
 		case ST_FLOAT:
+			s.val.f = atof(val);
 		break;
 		default:
 			die(_("Corrupt config file\n"));
@@ -74,7 +80,11 @@ static void parseLine(const char *line) {
 
 		vec.push_back(s);
 	} else {
-		
+		if (sscanf(line, "%s %c %s", name, &type, val) != 3)
+			die(_("Faulty config line '%s'\n"), line);
+
+		s.type = char2type(type);
+		setupSetting(s, name, val);
 	}
 }
 

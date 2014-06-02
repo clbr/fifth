@@ -16,13 +16,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <sys/file.h>
 #include "main.h"
+#include "version.h"
 
 globals *g;
 
 #define LOCKFILE "lock"
 #define CRASHFILE "crash"
 
-static void findProfile() {
+static void findProfile(const bool found) {
 
 	const char *exedir = PHYSFS_getBaseDir();
 
@@ -35,6 +36,11 @@ static void findProfile() {
 		if (g->profilefd < 0)
 			die(_("Failed to get embedded profile dir, %s\n"), exedir);
 		g->datafd = g->profilefd;
+	} else if (found) {
+		// System install with custom profile location
+		g->datafd = open(DATADIR, O_RDONLY);
+		if (g->datafd < 0)
+			die(_("Failed to get data dir, %s\n"), DATADIR);
 	} else {
 		// System install
 		const char *homedir = PHYSFS_getUserDir();
@@ -57,9 +63,12 @@ int main(int argc, char **argv) {
 
 	g = new globals;
 
+	// Opts
+	bool customprofile = false;
+
 	// Where are we?
 	PHYSFS_init(argv[0]);
-	findProfile();
+	findProfile(customprofile);
 	PHYSFS_deinit();
 
 	// Is this a crash, a remote call, or a normal start?

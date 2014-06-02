@@ -14,19 +14,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef LRT_TYPES_H
-#define LRT_TYPES_H
+#ifndef REMOTE_H
+#define REMOTE_H
 
-#include <stdint.h>
+#include "helpers.h"
 
-typedef uint64_t u64;
-typedef uint32_t u32;
-typedef uint16_t u16;
-typedef uint8_t u8;
+enum remotetype {
+	RT_URL = 0,
+	RT_COUNT
+};
 
-typedef int64_t s64;
-typedef int32_t s32;
-typedef int16_t s16;
-typedef int8_t s8;
+void *listenRemote(void *);
+
+void sendRemote(const remotetype type, const u32 size, const char * const data);
+
+struct remotemsg {
+	u32 type;
+	u32 size;
+	char *data;
+};
 
 #endif

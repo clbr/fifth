@@ -5,7 +5,9 @@ OBJ = $(SRC:.cpp=.o)
 HDR = $(wildcard *.h)
 
 CXXFLAGS += -Wall -Wextra
+CXXFLAGS += -DDATADIR=\"/usr/share/fifth\"
 LDFLAGS += -Wl,-O1
+LDFLAGS += -lphysfs -pthread
 
 .PHONY: all clean
 

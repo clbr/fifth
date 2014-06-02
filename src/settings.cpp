@@ -14,19 +14,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef LRT_TYPES_H
-#define LRT_TYPES_H
+#include "main.h"
 
-#include <stdint.h>
+setting *getSetting(const char name[], const char * const site) {
 
-typedef uint64_t u64;
-typedef uint32_t u32;
-typedef uint16_t u16;
-typedef uint8_t u8;
+	// Get a setting, possibly overrided at the site level
 
-typedef int64_t s64;
-typedef int32_t s32;
-typedef int16_t s16;
-typedef int8_t s8;
 
-#endif
+	return NULL;
+}
+
+const setting defaultSettings[] = {
+
+};

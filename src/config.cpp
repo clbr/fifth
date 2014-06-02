@@ -94,7 +94,7 @@ static void parseLine(const char *line) {
 		if (check)
 			vec.push_back(s);
 		else
-			printf(_("Tried to add nonexistent site config item %s\n"), name);
+			die(_("Tried to add nonexistent site config item %s\n"), name);
 	} else {
 		if (sscanf(line, "%s %c %s", name, &type, val) != 3)
 			die(_("Faulty config line '%s'\n"), line);
@@ -107,9 +107,11 @@ static void parseLine(const char *line) {
 					settingcmp);
 
 		if (!check) {
-			printf(_("Tried to add nonexistent config item %s\n"), name);
-			return;
+			die(_("Tried to add nonexistent config item %s\n"), name);
 		}
+
+		if (check->type != s.type)
+			die(_("Mismatching type on item %s\n"), name);
 
 		memcpy(&check->val, &s.val, sizeof(s.val));
 	}

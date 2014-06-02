@@ -22,6 +22,14 @@ enum {
 	bufsize = 640
 };
 
+int settingcmp(const void *p1, const void *p2) {
+
+	const setting * const a = (setting *) p1;
+	const setting * const b = (setting *) p2;
+
+	return strcmp(a->name, b->name);
+}
+
 static settingtype char2type(const char in) {
 
 	switch (in) {
@@ -77,6 +85,8 @@ static void parseLine(const char *line) {
 
 		s.type = char2type(type);
 		setupSetting(s, name, val);
+
+		// Check the name is a valid setting
 
 		vec.push_back(s);
 	} else {

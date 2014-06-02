@@ -20,4 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void loadConfig();
 void saveConfig();
 
+int settingcmp(const void *p1, const void *p2);
+
 #endif

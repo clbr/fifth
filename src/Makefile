@@ -16,7 +16,10 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS) $(LDFLAGS)
 
-$(OBJ): $(HDR) Makefile
+$(OBJ): $(HDR) Makefile version.h
+
+version.h: ../.git
+	./getver.sh
 
 clean:
 	rm -f $(OBJ) $(NAME)

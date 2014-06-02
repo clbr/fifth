@@ -14,9 +14,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <sys/file.h>
 #include "main.h"
 #include "version.h"
+#include <sys/file.h>
+#include <getopt.h>
 
 globals *g;
 
@@ -59,12 +60,53 @@ static void findProfile(const bool found) {
 	}
 }
 
+static void help(const char * const argv0) {
+	printf(_("Fifth %s\n\n"
+		"	-h --help		This help\n"
+		"	-p --profile [dir]	Use dir as the profile location\n"
+		"	-v --version		Query the version\n"
+		"\n"
+		"	You can also give instructions to existing instances:\n"
+		"	%s		# opens a new tab\n"
+		"	%s google.com	# opens google.com in a new tab\n\n"),
+		VERSION, argv0, argv0);
+}
+
 int main(int argc, char **argv) {
 
 	g = new globals;
 
 	// Opts
 	bool customprofile = false;
+	const char shorts[] = "hp:v";
+	const struct option opts[] = {
+		{"help", 0, NULL, 'h'},
+		{"profile", 1, NULL, 'p'},
+		{"version", 0, NULL, 'v'},
+		{NULL, 0, NULL, 0},
+	};
+
+	while (1) {
+		int c = getopt_long(argc, argv, shorts, opts, NULL);
+		if (c == -1)
+			break;
+		switch (c) {
+			case 'h':
+			default:
+				help(argv[0]);
+				return 0;
+			case 'v':
+				printf("Fifth %s\n", VERSION);
+			break;
+			case 'p':
+				g->profilefd = open(optarg, O_RDONLY | O_DIRECTORY);
+				if (g->profilefd < 0)
+					die(_("Failed to use custom profile dir %s\n"),
+						optarg);
+				customprofile = true;
+			break;
+		}
+	}
 
 	// Where are we?
 	PHYSFS_init(argv[0]);

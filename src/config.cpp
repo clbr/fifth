@@ -188,18 +188,21 @@ void saveConfig() {
 		switch (g->settings[i].type) {
 			case ST_CHAR:
 				desc = 'c';
-				fprintf(f, "%s %c %s\n", g->settings[i].name, desc,
-					g->settings[i].val.c);
+				if (g->settings[i].val.c != defaultSettings[i].val.c)
+					fprintf(f, "%s %c %s\n", g->settings[i].name, desc,
+						g->settings[i].val.c);
 			break;
 			case ST_FLOAT:
 				desc = 'f';
-				fprintf(f, "%s %c %f\n", g->settings[i].name, desc,
-					g->settings[i].val.f);
+				if (g->settings[i].val.f != defaultSettings[i].val.f)
+					fprintf(f, "%s %c %f\n", g->settings[i].name, desc,
+						g->settings[i].val.f);
 			break;
 			case ST_U32:
 				desc = 'u';
-				fprintf(f, "%s %c %u\n", g->settings[i].name, desc,
-					g->settings[i].val.u);
+				if (g->settings[i].val.u != defaultSettings[i].val.u)
+					fprintf(f, "%s %c %u\n", g->settings[i].name, desc,
+						g->settings[i].val.u);
 			break;
 			case ST_COUNT:
 				die(_("Tried to save corrupt config\n"));

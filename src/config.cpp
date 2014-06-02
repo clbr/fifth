@@ -87,14 +87,31 @@ static void parseLine(const char *line) {
 		setupSetting(s, name, val);
 
 		// Check the name is a valid setting
+		setting *check = (setting *) bsearch(name, g->settings,
+					numDefaults, sizeof(setting),
+					settingcmp);
 
-		vec.push_back(s);
+		if (check)
+			vec.push_back(s);
+		else
+			printf(_("Tried to add nonexistent site config item %s\n"), name);
 	} else {
 		if (sscanf(line, "%s %c %s", name, &type, val) != 3)
 			die(_("Faulty config line '%s'\n"), line);
 
 		s.type = char2type(type);
 		setupSetting(s, name, val);
+
+		setting *check = (setting *) bsearch(name, g->settings,
+					numDefaults, sizeof(setting),
+					settingcmp);
+
+		if (!check) {
+			printf(_("Tried to add nonexistent config item %s\n"), name);
+			return;
+		}
+
+		memcpy(&check->val, &s.val, sizeof(s.val));
 	}
 }
 
@@ -141,7 +158,7 @@ void loadConfig() {
 
 void saveConfig() {
 
-	int fd = openat(g->profilefd, CONFIGFILE, O_WRONLY | O_TRUNC);
+	int fd = openat(g->profilefd, CONFIGFILE, O_WRONLY | O_TRUNC | O_CREAT, 0700);
 	if (fd < 0)
 		die(_("Cannot open config file for saving\n"));
 

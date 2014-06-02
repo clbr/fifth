@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settings.h"
 
+// Must be in alphabetical order.
 const struct setting defaultSettings[] = {
 	{"general.homepage", ST_CHAR, { .c = "about:blank"}},
 	{"general.javascript", ST_U32, { .u = 1}},

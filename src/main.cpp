@@ -157,6 +157,8 @@ int main(int argc, char **argv) {
 	g->newremotes = 0;
 	pthread_mutex_init(&g->remotemutex, NULL);
 
+	loadConfig();
+
 	pthread_attr_t attr;
 	pthread_attr_init(&attr);
 	pthread_attr_setstacksize(&attr, 1024*512);

@@ -19,4 +19,6 @@ struct setting {
 	} val;
 };
 
+setting *getSetting(const char name[]);
+
 #endif

@@ -3,6 +3,7 @@
 
 #include "helpers.h"
 #include "settings.h"
+#include "macros.h"
 
 struct globals {
 	int profilefd;

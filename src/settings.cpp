@@ -19,9 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 setting *getSetting(const char name[], const char * const site) {
 
 	// Get a setting, possibly overrided at the site level
+	if (site && g->sitesettings.count(site)) {
+		vector<setting> &vec = g->sitesettings[site];
+		const u32 max = vec.size();
+		u32 i;
+		for (i = 0; i < max; i++) {
+			if (!strcmp(name, vec[i].name))
+				return &vec[i];
+		}
+	}
 
-
-	return NULL;
+	return (setting *) bsearch(name, g->settings, numDefaults,
+					sizeof(setting), settingcmp);
 }
 
 void url2site(const char url[], char site[], const u32 size) {

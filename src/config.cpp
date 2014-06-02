@@ -139,6 +139,10 @@ static void parseFile(FILE * const f) {
 
 void loadConfig() {
 
+	timeval old, now;
+	if (g->bench)
+		gettimeofday(&old, NULL);
+
 	// Setup defaults
 	g->settings = (setting *) xcalloc(1, sizeof(setting) * numDefaults);
 	memcpy(g->settings, defaultSettings, sizeof(setting) * numDefaults);
@@ -156,9 +160,19 @@ void loadConfig() {
 	parseFile(f);
 
 	fclose(f);
+
+	if (g->bench) {
+		gettimeofday(&now, NULL);
+		printf("Loading the config took %u us\n",
+			usecs(old, now));
+	}
 }
 
 void saveConfig() {
+
+	timeval old, now;
+	if (g->bench)
+		gettimeofday(&old, NULL);
 
 	int fd = openat(g->profilefd, CONFIGFILE, O_WRONLY | O_TRUNC | O_CREAT, 0700);
 	if (fd < 0)
@@ -228,4 +242,10 @@ void saveConfig() {
 	}
 
 	fclose(f);
+
+	if (g->bench) {
+		gettimeofday(&now, NULL);
+		printf("Saving the config took %u us\n",
+			usecs(old, now));
+	}
 }

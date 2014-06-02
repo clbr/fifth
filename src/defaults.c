@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Must be in alphabetical order.
 const struct setting defaultSettings[] = {
+	{"general.download-dir", ST_CHAR, { .c = "/tmp" }},
 	{"general.homepage", ST_CHAR, { .c = "about:blank"}},
 	{"general.javascript", ST_U32, { .u = 1}},
 };

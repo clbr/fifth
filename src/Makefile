@@ -1,10 +1,12 @@
 NAME = fifth
 
-SRC = $(wildcard *.cpp)
-OBJ = $(SRC:.cpp=.o)
+SRC = $(wildcard *.cpp) $(wildcard *.c)
+TMP = $(SRC:.cpp=.o)
+OBJ = $(TMP:.c=.o)
 HDR = $(wildcard *.h)
 
 CXXFLAGS += -Wall -Wextra
+CFLAGS += -Wall -Wextra
 CXXFLAGS += -DDATADIR=\"/usr/share/fifth\"
 LDFLAGS += -Wl,-O1
 LDFLAGS += -lphysfs -pthread

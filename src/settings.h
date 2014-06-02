@@ -28,15 +28,22 @@ enum settingtype {
 
 struct setting {
 	const char name[80];
-	settingtype type;
+	enum settingtype type;
 
-	const char *c;
-	float f;
-	u32 u;
+	union {
+		const char *c;
+		float f;
+		u32 u;
+	} val;
 };
 
-setting *getSetting(const char name[], const char * const site);
+struct setting *getSetting(const char name[], const char * const site);
 
-extern const setting defaultSettings[];
+#ifdef __cplusplus
+extern "C"
+#else
+extern
+#endif
+const struct setting defaultSettings[];
 
 #endif

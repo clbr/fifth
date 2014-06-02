@@ -14,12 +14,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "main.h"
+#include "settings.h"
 
-setting *getSetting(const char name[], const char * const site) {
-
-	// Get a setting, possibly overrided at the site level
-
-
-	return NULL;
-}
+const struct setting defaultSettings[] = {
+	{"general.homepage", ST_CHAR, { .c = "about:blank"}},
+	{"general.javascript", ST_U32, { .u = 1}},
+};

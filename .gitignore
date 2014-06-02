@@ -1,2 +1,4 @@
 fifth
 *.o
+version.h
+*.mo

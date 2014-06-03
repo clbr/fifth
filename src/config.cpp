@@ -186,7 +186,7 @@ void saveConfig() {
 	if (g->bench)
 		gettimeofday(&old, NULL);
 
-	int fd = openat(g->profilefd, CONFIGFILE, O_WRONLY | O_TRUNC | O_CREAT, 0700);
+	int fd = openat(g->profilefd, CONFIGFILE, O_WRONLY | O_TRUNC | O_CREAT, 0600);
 	if (fd < 0)
 		die(_("Cannot open config file for saving\n"));
 

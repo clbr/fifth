@@ -47,7 +47,7 @@ static void findProfile(const bool found) {
 		const char *homedir = PHYSFS_getUserDir();
 
 		test = homedir;
-		test += ".fifth";
+		test += "." LOWERNAME;
 		mkdir(test.c_str(), 0700);
 
 		g->profilefd = open(test.c_str(), O_RDONLY);
@@ -61,7 +61,7 @@ static void findProfile(const bool found) {
 }
 
 static void help(const char * const argv0) {
-	printf(_("\nFifth %s\n\n"
+	printf(_("\n" APPNAME " %s\n\n"
 		"	-b --bench		Benchmark mode\n"
 		"	-h --help		This help\n"
 		"	-p --profile [dir]	Use dir as the profile location\n"
@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
 				help(argv[0]);
 				return 0;
 			case 'v':
-				printf("Fifth %s\n", VERSION);
+				printf(APPNAME " %s\n", VERSION);
 				return 0;
 			break;
 			case 'p':

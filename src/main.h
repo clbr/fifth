@@ -35,6 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gettext.h"
 #include "remote.h"
 
+#define APPNAME "Fifth"
+#define LOWERNAME "fifth"
+
 using namespace std;
 
 struct globals {

@@ -78,6 +78,10 @@ int main(int argc, char **argv) {
 	g = new globals;
 	g->bench = false;
 
+	srand(time(NULL));
+	setlocale(LC_ALL, "");
+	setlocale(LC_NUMERIC, "C");
+
 	// Opts
 	bool customprofile = false;
 	const char shorts[] = "bhp:v";

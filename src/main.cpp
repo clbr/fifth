@@ -246,6 +246,7 @@ int main(int argc, char **argv) {
 	pthread_join(tid, NULL);
 	unlinkat(g->profilefd, LOCKFILE, 0);
 	delete g->w;
+	free(g->settings);
 	delete g;
 	return 0;
 }

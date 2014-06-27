@@ -199,6 +199,8 @@ int main(int argc, char **argv) {
 		pthread_mutex_unlock(&g->remotemutex);
 	}
 
+	webkitInit();
+
 	// Mainloop
 	g->run = 1;
 	while (g->run) {

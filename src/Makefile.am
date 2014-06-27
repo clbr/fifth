@@ -7,6 +7,8 @@ CLEANFILES = version.h
 
 $(fifth_SOURCES): version.h
 
+$(top_srcdir)/.git:
+
 version.h: $(top_srcdir)/.git
 	$(srcdir)/getver.sh
 

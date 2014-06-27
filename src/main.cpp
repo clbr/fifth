@@ -200,8 +200,8 @@ int main(int argc, char **argv) {
 	}
 
 	// Mainloop
-	u32 i = 0;
-	while (i < 10) {
+	g->run = 1;
+	while (g->run) {
 		if (g->newremotes) {
 			pthread_mutex_lock(&g->remotemutex);
 			g->newremotes = 0;
@@ -221,8 +221,7 @@ int main(int argc, char **argv) {
 			pthread_mutex_unlock(&g->remotemutex);
 		}
 
-		sleep(1);
-		i++;
+		Fl::wait(0.5);
 	}
 
 	pthread_cancel(tid);

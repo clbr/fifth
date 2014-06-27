@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <physfs.h>
 #include <pthread.h>
 #include <locale.h>
+#include <FL/Fl.H>
+#include <webkit.h>
 
 #include "autoconfig.h"
 #include "helpers.h"
@@ -52,6 +54,7 @@ struct globals {
 	pthread_mutex_t remotemutex;
 
 	bool bench;
+	bool run;
 };
 
 extern struct globals *g;

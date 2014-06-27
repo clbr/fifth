@@ -47,7 +47,7 @@ static void findProfile(const bool found) {
 		const char *homedir = PHYSFS_getUserDir();
 
 		test = homedir;
-		test += "." LOWERNAME;
+		test += "." PACKAGE;
 		mkdir(test.c_str(), 0700);
 
 		g->profilefd = open(test.c_str(), O_RDONLY);
@@ -61,7 +61,7 @@ static void findProfile(const bool found) {
 }
 
 static void help(const char * const argv0) {
-	printf(_("\n" APPNAME " %s\n\n"
+	printf(_("\n" PACKAGE_NAME " %s\n\n"
 		"	-b --bench		Benchmark mode\n"
 		"	-h --help		This help\n"
 		"	-p --profile [dir]	Use dir as the profile location\n"
@@ -70,7 +70,12 @@ static void help(const char * const argv0) {
 		"	You can also give instructions to existing instances:\n"
 		"	%s			# opens a new tab\n"
 		"	%s google.com	# opens google.com in a new tab\n\n"),
-		VERSION, argv0, argv0);
+#if GIT
+		GITVERSION,
+#else
+		VERSION,
+#endif
+		argv0, argv0);
 }
 
 int main(int argc, char **argv) {
@@ -103,7 +108,11 @@ int main(int argc, char **argv) {
 				help(argv[0]);
 				return 0;
 			case 'v':
-				printf(APPNAME " %s\n", VERSION);
+#if GIT
+				printf(PACKAGE " %s\n", GITVERSION);
+#else
+				printf(PACKAGE " %s\n", VERSION);
+#endif
 				return 0;
 			break;
 			case 'p':

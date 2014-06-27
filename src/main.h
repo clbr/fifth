@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "gettext.h"
 #include "remote.h"
+#include "window.h"
 
 using namespace std;
 
@@ -55,6 +56,8 @@ struct globals {
 
 	bool bench;
 	bool run;
+
+	window *w;
 };
 
 extern struct globals *g;

@@ -1,7 +1,7 @@
 bin_PROGRAMS = fifth
 
 fifth_SOURCES = config.cpp  defaults.c  helpers.cpp  main.cpp  remote.cpp  \
-		settings.cpp
+		settings.cpp window.cpp
 
 CLEANFILES = version.h
 

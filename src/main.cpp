@@ -200,6 +200,9 @@ int main(int argc, char **argv) {
 	}
 
 	webkitInit();
+	g->w = new window(0, 0, 800, 600);
+	g->w->size_range(640, 480, 5120, 5120);
+	g->w->show();
 
 	// Mainloop
 	g->run = 1;
@@ -229,6 +232,7 @@ int main(int argc, char **argv) {
 	pthread_cancel(tid);
 	pthread_join(tid, NULL);
 	unlinkat(g->profilefd, LOCKFILE, 0);
+	delete g->w;
 	delete g;
 	return 0;
 }

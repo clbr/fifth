@@ -21,6 +21,7 @@ const struct setting defaultSettings[] = {
 	{"general.download-dir", ST_CHAR, { .c = "/tmp" }},
 	{"general.homepage", ST_CHAR, { .c = "about:blank"}},
 	{"general.javascript", ST_U32, { .u = 1}},
+	{"window.bars", ST_CHAR, { .c = "tab,url,main"}},
 	{"window.h", ST_U32, { .u = 600}},
 	{"window.w", ST_U32, { .u = 800}},
 	{"window.x", ST_U32, { .u = 0}},

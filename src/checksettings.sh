@@ -20,3 +20,18 @@ else
 	diff -u <(echo "$before") <(echo "$after")
 	echo -e "$NORMAL"
 fi
+
+# Now check types
+lines=`echo "$before" | cut -dS -f2- | cut -d_ -f2- | cut -d= -f1 | sed 's@, { .@ @g'`
+
+IFS="
+"
+
+for i in `echo "$lines"`; do
+	def=`echo $i | cut -d " " -f1 | tr [[:upper:]] [[:lower:]]`
+	letter=`echo $i | cut -d " " -f2`
+
+	def=${def:0:1}
+
+	[ "$def" = "$letter" ] || echo -e "${RED}Failed type check $i $NORMAL"
+done

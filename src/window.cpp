@@ -18,6 +18,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void window::hide() {
 	g->run = 0;
+
+	// Save the last used window position and size
+	setting *s = getSetting("window.x", NULL);
+	s->val.u = x();
+	s = getSetting("window.y", NULL);
+	s->val.u = y();
+	s = getSetting("window.w", NULL);
+	s->val.u = w();
+	s = getSetting("window.h", NULL);
+	s->val.u = h();
+
 	Fl_Widget::hide();
 }
 

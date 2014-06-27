@@ -200,7 +200,18 @@ int main(int argc, char **argv) {
 	}
 
 	webkitInit();
-	g->w = new window(0, 0, 800, 600);
+
+	u32 x, y, w, h;
+	setting *s = getSetting("window.x", NULL);
+	x = s->val.u;
+	s = getSetting("window.y", NULL);
+	y = s->val.u;
+	s = getSetting("window.w", NULL);
+	w = s->val.u;
+	s = getSetting("window.h", NULL);
+	h = s->val.u;
+
+	g->w = new window(x, y, w, h);
 	g->w->size_range(640, 480, 5120, 5120);
 	g->w->show();
 
@@ -228,6 +239,8 @@ int main(int argc, char **argv) {
 
 		Fl::wait(0.5);
 	}
+
+	saveConfig();
 
 	pthread_cancel(tid);
 	pthread_join(tid, NULL);

@@ -39,6 +39,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gettext.h"
 #include "remote.h"
 #include "window.h"
+#include "status.h"
+#include "tabs.h"
+#include "urlbar.h"
+#include "view.h"
 
 using namespace std;
 

@@ -224,13 +224,44 @@ int main(int argc, char **argv) {
 
 	// Menu
 
-	new tabbar(0, 0, w, 28);
-	new urlbar(0, 0, w, 32);
-	view *v = new view(0, 0, 10, 10);
+	// Ordering and presence of the middle widgets
+	s = getSetting("window.bars", NULL);
+
+	u32 num = 1;
+	const char *ptr = s->val.c;
+	for (; *ptr; ptr++)
+		if (*ptr == ',')
+			num++;
+
+	u32 i;
+	ptr = s->val.c;
+	for (i = 0; i < num; i++) {
+		// Get the ith word
+		const char *end = strchrnul(ptr, ',');
+		const u32 len = end - ptr;
+
+		#define entry(a) if (!strncmp(a, ptr, len))
+
+		entry("tab") {
+			new tabbar(0, 0, w, 28);
+		} else entry("url") {
+			new urlbar(0, 0, w, 32);
+		} else entry("main") {
+			view *v = new view(0, 0, 10, 10);
+			pack->resizable(v);
+		} else {
+			printf("Unknown window.bars entry '%.*s'\n",
+				len, ptr);
+		}
+
+		#undef entry
+
+		ptr = end + 1;
+	}
+
 	new statusbar(0, 0, w, 16);
 
 	pack->end();
-	pack->resizable(v);
 
 	g->w->end();
 	g->w->show();

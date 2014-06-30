@@ -47,7 +47,7 @@ if test "$MINOR" -lt 3 || test "$PATCH" -lt 2; then
 	AC_MSG_ERROR([FLTK >= 1.3.2 not found, got $VER])
 fi
 
-CXXFLAGS=["$CXXFLAGS $($fltkconfig --cxxflags)"]
+CXXFLAGS=["$CXXFLAGS $($fltkconfig --cxxflags | sed 's@-I@-isystem @g')"]
 LIBS=["$LIBS $($fltkconfig --ldflags)"]
 
 # Checks for libraries.

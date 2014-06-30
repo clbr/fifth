@@ -235,10 +235,29 @@ int main(int argc, char **argv) {
 	// Menu
 	Fl_Menu_Bar *menu = new Fl_Menu_Bar(0, 0, w, menuheight);
 	menu->textsize(12);
-	menu->add(_("&File/&New tab"), 0, 0);
-	menu->add(_("&File/&Close tab"), 0, 0, 0, FL_MENU_DIVIDER);
-	menu->add(_("&File/&Save screencap"), 0, 0, 0, FL_MENU_DIVIDER);
+	menu->add(_("&File/&New tab"), 0, 0, 0, FL_MENU_INACTIVE);
+	menu->add(_("&File/&Close tab"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+	menu->add(_("&File/&Save screencap"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
 	menu->add(_("&File/&Quit"), 0, quitcb);
+
+	menu->add(_("&Edit/&Undo"), 0, 0, 0, FL_MENU_INACTIVE);
+	menu->add(_("&Edit/&Redo"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+	menu->add(_("&Edit/&Cut"), 0, 0, 0, FL_MENU_INACTIVE);
+	menu->add(_("&Edit/&Copy"), 0, 0, 0, FL_MENU_INACTIVE);
+	menu->add(_("&Edit/&Paste"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+	menu->add(_("&Edit/&Select all"), 0, 0, 0, FL_MENU_INACTIVE);
+	menu->add(_("&Edit/&Find"), 0, 0, 0, FL_MENU_INACTIVE);
+
+	menu->add(_("&Bookmarks/&Add bookmark"), 0, 0, 0, FL_MENU_INACTIVE);
+	menu->add(_("&Bookmarks/&Edit bookmarks"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+
+	menu->add(_("&Tools/&Web inspector"), 0, 0, 0, FL_MENU_INACTIVE);
+	menu->add(_("&Tools/&Error console"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+	menu->add(_("&Tools/&Page settings"), 0, 0, 0, FL_MENU_INACTIVE);
+	menu->add(_("&Tools/&Settings"), 0, 0, 0, FL_MENU_INACTIVE);
+
+	menu->add(_("&Help/&Report a bug"), 0, 0, 0, FL_MENU_INACTIVE);
+	menu->add(_("&Help/&About"), 0, 0, 0, FL_MENU_INACTIVE);
 
 	// Ordering and presence of the middle widgets
 	s = getSetting("window.bars", NULL);

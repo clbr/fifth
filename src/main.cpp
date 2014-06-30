@@ -247,7 +247,7 @@ int main(int argc, char **argv) {
 		} else entry("url") {
 			new urlbar(0, 0, w, 32);
 		} else entry("main") {
-			view *v = new view(0, 0, 10, 10);
+			view *v = new view(0, 0, 10, h - 28 - 32 - 22);
 			pack->resizable(v);
 		} else {
 			printf("Unknown window.bars entry '%.*s'\n",
@@ -259,11 +259,12 @@ int main(int argc, char **argv) {
 		ptr = end + 1;
 	}
 
-	new statusbar(0, 0, w, 16);
+	new statusbar(0, 0, w, 22);
 
 	pack->end();
 
 	g->w->end();
+	g->w->label("Fifth");
 	g->w->show();
 
 	// Mainloop

@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <sys/file.h>
 #include <getopt.h>
 #include <FL/Fl_Pack.H>
+#include <FL/Fl_Menu_Bar.H>
 
 globals *g;
 
@@ -222,7 +223,15 @@ int main(int argc, char **argv) {
 	pack->type(Fl_Pack::VERTICAL);
 	g->w->resizable(pack);
 
+	const u32 menuheight = 22;
+	const u32 tabheight = 28;
+	const u32 urlheight = 32;
+	const u32 statusheight = 22;
+
 	// Menu
+	Fl_Menu_Bar *menu = new Fl_Menu_Bar(0, 0, w, menuheight);
+	menu->textsize(12);
+	menu->add(_("&File"), 0, 0);
 
 	// Ordering and presence of the middle widgets
 	s = getSetting("window.bars", NULL);
@@ -243,11 +252,12 @@ int main(int argc, char **argv) {
 		#define entry(a) if (!strncmp(a, ptr, len))
 
 		entry("tab") {
-			new tabbar(0, 0, w, 28);
+			new tabbar(0, 0, w, tabheight);
 		} else entry("url") {
-			new urlbar(0, 0, w, 32);
+			new urlbar(0, 0, w, urlheight);
 		} else entry("main") {
-			view *v = new view(0, 0, 10, h - 28 - 32 - 22);
+			view *v = new view(0, 0, 10,
+				h - menuheight - tabheight - urlheight - statusheight);
 			pack->resizable(v);
 		} else {
 			printf("Unknown window.bars entry '%.*s'\n",
@@ -259,7 +269,7 @@ int main(int argc, char **argv) {
 		ptr = end + 1;
 	}
 
-	new statusbar(0, 0, w, 22);
+	new statusbar(0, 0, w, statusheight);
 
 	pack->end();
 

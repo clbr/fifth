@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <pthread.h>
 #include <locale.h>
 #include <FL/Fl.H>
+#include <FL/fl_draw.H>
 #include <webkit.h>
 
 #include "autoconfig.h"

@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class statusbar: public Fl_Widget {
 public:
 	statusbar(int x, int y, int w, int h);
+
+	void draw() override;
 };
 
 #endif

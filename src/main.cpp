@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "version.h"
 #include <sys/file.h>
 #include <getopt.h>
+#include <FL/Fl_Pack.H>
 
 globals *g;
 
@@ -216,6 +217,22 @@ int main(int argc, char **argv) {
 
 	g->w = new window(x, y, w, h);
 	g->w->size_range(640, 480, 5120, 5120);
+
+	Fl_Pack *pack = new Fl_Pack(0, 0, w, h);
+	pack->type(Fl_Pack::VERTICAL);
+	g->w->resizable(pack);
+
+	// Menu
+
+	new tabbar(0, 0, w, 28);
+	new urlbar(0, 0, w, 32);
+	view *v = new view(0, 0, 10, 10);
+	new statusbar(0, 0, w, 16);
+
+	pack->end();
+	pack->resizable(v);
+
+	g->w->end();
 	g->w->show();
 
 	// Mainloop

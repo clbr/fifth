@@ -19,3 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 statusbar::statusbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 
 }
+
+void statusbar::draw() {
+
+}

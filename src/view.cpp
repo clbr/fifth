@@ -19,3 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 view::view(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 
 }
+
+void view::draw() {
+
+}

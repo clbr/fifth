@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class view: public Fl_Widget {
 public:
 	view(int x, int y, int w, int h);
+
+	void draw() override;
 };
 
 #endif

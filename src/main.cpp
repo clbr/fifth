@@ -80,6 +80,10 @@ static void help(const char * const argv0) {
 		argv0, argv0);
 }
 
+static void quitcb(Fl_Widget *, void *) {
+	g->w->hide();
+}
+
 int main(int argc, char **argv) {
 
 	g = new globals;
@@ -231,7 +235,10 @@ int main(int argc, char **argv) {
 	// Menu
 	Fl_Menu_Bar *menu = new Fl_Menu_Bar(0, 0, w, menuheight);
 	menu->textsize(12);
-	menu->add(_("&File"), 0, 0);
+	menu->add(_("&File/&New tab"), 0, 0);
+	menu->add(_("&File/&Close tab"), 0, 0, 0, FL_MENU_DIVIDER);
+	menu->add(_("&File/&Save screencap"), 0, 0, 0, FL_MENU_DIVIDER);
+	menu->add(_("&File/&Quit"), 0, quitcb);
 
 	// Ordering and presence of the middle widgets
 	s = getSetting("window.bars", NULL);

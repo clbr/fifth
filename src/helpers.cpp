@@ -99,3 +99,12 @@ u32 usecs(const timeval old, const timeval now) {
 
 	return us;
 }
+
+u64 msec() {
+	struct timeval t;
+	gettimeofday(&t, NULL);
+
+	u64 ms = t.tv_sec * 1000;
+	ms += t.tv_usec / 1000;
+	return ms;
+}

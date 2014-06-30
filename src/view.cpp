@@ -21,5 +21,5 @@ view::view(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 }
 
 void view::draw() {
-
+	fl_rectf(x(), y(), w(), h(), 0, 0, 127);
 }

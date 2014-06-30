@@ -21,5 +21,5 @@ tabbar::tabbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 }
 
 void tabbar::draw() {
-
+	fl_rectf(x(), y(), w(), h(), 127, 0, 0);
 }

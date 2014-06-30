@@ -21,5 +21,5 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 }
 
 void urlbar::draw() {
-
+	fl_rectf(x(), y(), w(), h(), 0, 127, 0);
 }

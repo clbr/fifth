@@ -38,6 +38,10 @@ void tabbar::draw() {
 			mix(g1, g2, pos),
 			mix(b1, b2, pos));
 
+		if (i == gradhalf) {
+			fl_color(40, 50, 60);
+		}
+
 		const u32 posy = y() + 1 + i;
 		fl_line(startx, posy, endx, posy);
 	}
@@ -52,7 +56,7 @@ void tabbar::draw() {
 			mix(g1, g2, pos),
 			mix(b1, b2, pos));
 
-		const u32 posy = y() + 1 + i + gradhalf;
+		const u32 posy = y() + 2 + i + gradhalf;
 		fl_line(startx, posy, endx, posy);
 	}
 

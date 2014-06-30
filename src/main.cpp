@@ -211,6 +211,9 @@ int main(int argc, char **argv) {
 	s = getSetting("window.h", NULL);
 	h = s->val.u;
 
+	s = getSetting("fltk.scheme", NULL);
+	Fl::scheme(s->val.c);
+
 	g->w = new window(x, y, w, h);
 	g->w->size_range(640, 480, 5120, 5120);
 	g->w->show();

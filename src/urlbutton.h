@@ -24,6 +24,7 @@ public:
 	urlbutton(int x, int y, int w, int h);
 
 	void draw() override;
+	int handle(int) override;
 };
 
 #endif

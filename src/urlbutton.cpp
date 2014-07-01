@@ -27,3 +27,16 @@ void urlbutton::draw() {
 	draw_label();
 	if (Fl::focus() == this) draw_focus();
 }
+
+int urlbutton::handle(const int e) {
+
+	// We have a transparent button. If we lose focus, request bg redraw.
+	if (e == FL_FOCUS || e == FL_UNFOCUS) {
+		int X = x() > 0 ? x() - 1 : 0;
+		int Y = y() > 0 ? y() - 1 : 0;
+		if (window()) window()->damage(FL_DAMAGE_ALL, X, Y, w() + 2, h() + 2);
+		return 1;
+	}
+
+	return Fl_Button::handle(e);
+}

@@ -44,6 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "tabs.h"
 #include "urlbar.h"
 #include "view.h"
+#include "inputplace.h"
 
 using namespace std;
 

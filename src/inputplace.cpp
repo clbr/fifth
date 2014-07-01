@@ -18,11 +18,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 inputplace::inputplace(int x, int y, int w, int h): Fl_Input(x, y, w, h),
 		placeholdertext(NULL) {
-
+	align(FL_ALIGN_INSIDE | FL_ALIGN_LEFT);
 }
 
 void inputplace::draw() {
-	Fl_Input::draw();
+	const Fl_Boxtype b = box();
+	if (image()) redraw();
+	if (damage() & FL_DAMAGE_ALL) draw_box(b, color());
+
+	if (image()) {
+		const u32 iw = image()->w();
+		Fl_Input_::drawtext(x() + Fl::box_dx(b) + iw + 6, y()+Fl::box_dy(b),
+					w() - Fl::box_dw(b) - iw - 6, h()-Fl::box_dh(b));
+		draw_label();
+	} else {
+		Fl_Input_::drawtext(x()+Fl::box_dx(b), y()+Fl::box_dy(b),
+					w()-Fl::box_dw(b), h()-Fl::box_dh(b));
+	}
 }
 
 int inputplace::handle(const int e) {

@@ -53,6 +53,9 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	refresh->image(refreshimg);
 	tabs->image(new Fl_PNG_Image("tabs.png", img(tabs_png)));
 	#undef img
+
+	url->input().placeholder("WWW address...");
+	search->input().placeholder("DuckDuckGo");
 }
 
 void urlbar::draw() {

@@ -66,6 +66,7 @@ struct globals {
 	window *w;
 
 	vector<tab> tabs;
+	vector<tab> closedtabs;
 	u32 curtab;
 };
 

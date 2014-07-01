@@ -40,4 +40,5 @@ static void cb(Fl_Widget *w, void*) {
 
 window::window(int x, int y, int w, int h): Fl_Double_Window(x, y, w, h) {
 	callback(cb);
+	color(fl_rgb_color(63, 72, 81));
 }

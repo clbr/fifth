@@ -57,6 +57,11 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 void urlbar::draw() {
 
+	if (damage() == FL_DAMAGE_CHILD) {
+		draw_children();
+		return;
+	}
+
 	const u32 startx = x();
 	const u32 endx = x() + w() - 1;
 

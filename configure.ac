@@ -48,7 +48,7 @@ if test "$MINOR" -lt 3 || test "$PATCH" -lt 2; then
 fi
 
 CXXFLAGS=["$CXXFLAGS $($fltkconfig --cxxflags | sed 's@-I@-isystem @g')"]
-LIBS=["$LIBS $($fltkconfig --ldflags)"]
+LIBS=["$LIBS $($fltkconfig --ldflags --use-images)"]
 
 # Checks for libraries.
 OLD_LDFLAGS=[$LDFLAGS]

@@ -23,6 +23,7 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 	fwd = new urlbutton(0, 0, 0, 0);
 	next = new urlbutton(0, 0, 0, 0);
 	refresh = new urlbutton(0, 0, 0, 0);
+	tabs = new urlbutton(0, 0, 0, 0);
 
 	reposbuttons();
 }
@@ -67,5 +68,37 @@ void urlbar::resize(int x, int y, int w, int h) {
 }
 
 void urlbar::reposbuttons() {
+	const u32 diff = 4;
+	const u32 ydiff = 3;
+	const u32 dim = h() - (ydiff * 2);
 
+	prev->size(dim, dim);
+	back->size(dim, dim);
+	fwd->size(dim, dim);
+	next->size(dim, dim);
+	refresh->size(dim, dim);
+	tabs->size(dim, dim);
+
+	// TODO: removable buttons
+	u32 pos = x() + diff;
+	const u32 posy = y() + ydiff;
+
+	prev->position(pos, posy);
+	pos += diff;
+
+	back->position(pos, posy);
+	pos += diff;
+
+	fwd->position(pos, posy);
+	pos += diff;
+
+	next->position(pos, posy);
+	pos += diff;
+
+	refresh->position(pos, posy);
+	pos += diff;
+
+	// Tabs on the other edge
+	pos = x() + w() - 1 - dim - diff;
+	prev->position(pos, posy);
 }

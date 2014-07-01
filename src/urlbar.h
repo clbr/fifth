@@ -30,7 +30,7 @@ public:
 
 private:
 	void reposbuttons();
-	urlbutton *prev, *back, *fwd, *next, *refresh;
+	urlbutton *prev, *back, *fwd, *next, *refresh, *tabs;
 };
 
 #endif

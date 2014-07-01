@@ -30,7 +30,7 @@ void urlbar::draw() {
 	const u32 max = h() - 3;
 	u32 r1 = 240, g1 = 240, b1 = 240;
 	u32 r2 = 190, g2 = 200, b2 = 205;
-	for (i = 0; i < max; i++) {
+	for (i = 0; i <= max; i++) {
 		const float pos = i / (float) max;
 
 		fl_color(mix(r1, r2, pos),

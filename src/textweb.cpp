@@ -28,5 +28,11 @@ void textweb::draw() {
 int textweb::handle(const int e) {
 	if (Fl_Input_Choice::handle(e)) return 1;
 	// Handle other events
+	if (e == FL_KEYBOARD) {
+		if (Fl::event_key() == FL_Down) {
+			inpmenubutton().popup();
+			return 1;
+		}
+	}
 	return 0;
 }

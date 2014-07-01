@@ -28,7 +28,8 @@ void inputplace::draw() {
 int inputplace::handle(const int e) {
 	if (e == FL_KEYBOARD) {
 		if (Fl::event_key() == FL_Down) {
-			return 1;
+			// Send it up so our parent may use it
+			return 0;
 		}
 	}
 

@@ -141,6 +141,7 @@ public:
 	menuvalue(val);
     }
     Fl_Menu_Button& menubutton() { return(*_menu); }
+    InputMenuButton& inpmenubutton() { return(*_menu); }
     inputplace& input() { return(*_inp); }
 };
 

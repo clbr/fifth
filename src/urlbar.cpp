@@ -26,10 +26,11 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	fwd = new urlbutton(0, 0, 0, 0);
 	next = new urlbutton(0, 0, 0, 0);
 	refresh = new urlbutton(0, 0, 0, 0);
-	tabs = new urlbutton(0, 0, 0, 0);
 
 	url = new textweb(0, 0, 0, 0);
 	search = new textweb(0, 0, 0, 0);
+
+	tabs = new urlbutton(0, 0, 0, 0);
 
 	end();
 

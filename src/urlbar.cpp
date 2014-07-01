@@ -18,6 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 urlbar::urlbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 
+	prev = new urlbutton(0, 0, 0, 0);
+	back = new urlbutton(0, 0, 0, 0);
+	fwd = new urlbutton(0, 0, 0, 0);
+	next = new urlbutton(0, 0, 0, 0);
+	refresh = new urlbutton(0, 0, 0, 0);
+
+	reposbuttons();
 }
 
 void urlbar::draw() {
@@ -49,4 +56,16 @@ void urlbar::draw() {
 	posy = y() + max + 2;
 	fl_color(25, 35, 45);
 	fl_line(startx, posy, endx, posy);
+}
+
+void urlbar::resize(int x, int y, int w, int h) {
+
+	Fl_Widget::resize(x, y, w, h);
+
+	// Reposition buttons
+	reposbuttons();
+}
+
+void urlbar::reposbuttons() {
+
 }

@@ -34,6 +34,8 @@ void inputplace::draw() {
 		draw_label();
 	}
 
+	fl_font(textfont(), textsize());
+
 	Fl_Input_::drawtext(x() + Fl::box_dx(b) + xoff, y()+Fl::box_dy(b),
 				w() - Fl::box_dw(b) - xoff, h()-Fl::box_dh(b));
 

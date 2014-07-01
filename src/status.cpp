@@ -27,8 +27,8 @@ void statusbar::draw() {
 	// Background
 	u32 i;
 	const u32 max = h() - 2;
-	u32 r1 = 240, g1 = 240, b1 = 240;
-	u32 r2 = 190, g2 = 200, b2 = 205;
+	u32 r1 = 209, g1 = 209, b1 = 209;
+	u32 r2 = 120, g2 = 138, b2 = 147;
 	for (i = 0; i <= max; i++) {
 		const float pos = i / (float) max;
 
@@ -42,6 +42,6 @@ void statusbar::draw() {
 
 	// Two border lines
 	u32 posy = y() + max + 1;
-	fl_color(167, 173, 179);
+	fl_color(79, 89, 100);
 	fl_line(startx, posy, endx, posy);
 }

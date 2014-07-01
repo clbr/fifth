@@ -23,17 +23,25 @@ inputplace::inputplace(int x, int y, int w, int h): Fl_Input(x, y, w, h),
 
 void inputplace::draw() {
 	const Fl_Boxtype b = box();
-	if (image()) redraw();
+	if (image() || placeholdertext) redraw();
 	if (damage() & FL_DAMAGE_ALL) draw_box(b, color());
+
+	u32 xoff = 0;
 
 	if (image()) {
 		const u32 iw = image()->w();
-		Fl_Input_::drawtext(x() + Fl::box_dx(b) + iw + 6, y()+Fl::box_dy(b),
-					w() - Fl::box_dw(b) - iw - 6, h()-Fl::box_dh(b));
+		xoff = iw + 6;
 		draw_label();
-	} else {
-		Fl_Input_::drawtext(x()+Fl::box_dx(b), y()+Fl::box_dy(b),
-					w()-Fl::box_dw(b), h()-Fl::box_dh(b));
+	}
+
+	Fl_Input_::drawtext(x() + Fl::box_dx(b) + xoff, y()+Fl::box_dy(b),
+				w() - Fl::box_dw(b) - xoff, h()-Fl::box_dh(b));
+
+	if (placeholdertext && (!value() || strlen(value()) < 1) &&
+		Fl::focus() != this) {
+		fl_color(150, 150, 150);
+		fl_draw(placeholdertext, x() + Fl::box_dx(b) + xoff + 1,
+			y() - fl_descent() + fl_height() + (h() - fl_height())/2);
 	}
 }
 

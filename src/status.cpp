@@ -21,5 +21,27 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 }
 
 void statusbar::draw() {
-	fl_rectf(x(), y(), w(), h(), 0, 0, 0);
+	const u32 startx = x();
+	const u32 endx = x() + w() - 1;
+
+	// Background
+	u32 i;
+	const u32 max = h() - 2;
+	u32 r1 = 240, g1 = 240, b1 = 240;
+	u32 r2 = 190, g2 = 200, b2 = 205;
+	for (i = 0; i <= max; i++) {
+		const float pos = i / (float) max;
+
+		fl_color(mix(r1, r2, pos),
+			mix(g1, g2, pos),
+			mix(b1, b2, pos));
+
+		const u32 posy = y() + i;
+		fl_line(startx, posy, endx, posy);
+	}
+
+	// Two border lines
+	u32 posy = y() + max + 1;
+	fl_color(167, 173, 179);
+	fl_line(startx, posy, endx, posy);
 }

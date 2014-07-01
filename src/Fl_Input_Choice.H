@@ -35,16 +35,41 @@ class Fl_Input_Choice : public Fl_Group {
 protected:
     // Private class to handle slightly 'special' behavior of menu button
     class InputMenuButton : public Fl_Menu_Button {
-	void draw() {
+    public:
+	void draw() override {
 	    draw_box(FL_UP_BOX, color());
 	    fl_color(active_r() ? labelcolor() : fl_inactive(labelcolor()));
 	    int xc = x()+w()/2, yc=y()+h()/2;
 	    fl_polygon(xc-4,yc-2,xc+4,yc-2,xc,yc+2);
 	    if (Fl::focus() == this) draw_focus();
 	}
-    public:
-	InputMenuButton(int x,int y,int w,int h,const char*l=0) : 
+	const Fl_Menu_Item* popup() {
+	    const Fl_Menu_Item* m;
+	    Fl_Widget_Tracker mb(this);
+	    m = menu()->pulldown(pullx, pully, pullw, h(), 0, this);
+	    picked(m);
+	    if (mb.exists()) redraw();
+	    return m;
+	}
+	int pullx, pully, pullw;
+	InputMenuButton(int x,int y,int w,int h,const char*l=0) :
 	    Fl_Menu_Button(x,y,w,h,l) { box(FL_UP_BOX); }
+
+        int handle(const int e) override {
+            if (!menu() || !menu()->text) return 0;
+            if (e == FL_PUSH) {
+                popup();
+                return 1;
+            } else if (e == FL_KEYBOARD) {
+                if (Fl::event_key() == ' ' &&
+                    !(Fl::event_state() & (FL_SHIFT | FL_CTRL | FL_ALT | FL_META))) {
+                    popup();
+                    return 1;
+                }
+            }
+
+            return Fl_Menu_Button::handle(e);
+        }
     };
 
     Fl_Input *_inp;
@@ -76,6 +101,10 @@ public:
 	Fl_Group::resize(X,Y,W,H);
 	_inp->resize(_InpSizeX(), _InpSizeY(), _InpSizeW(), _InpSizeH());
 	_menu->resize(_MenuSizeX(), _MenuSizeY(), _MenuSizeW(), _MenuSizeH());
+
+        _menu->pullx = X;
+        _menu->pully = Y;
+        _menu->pullw = W;
     }
 
     Fl_Input_Choice (int x,int y,int w,int h,const char*l=0) : Fl_Group(x,y,w,h,l) {
@@ -89,6 +118,10 @@ public:
 	_menu->callback(_menu_cb, (void*)this);
 	_menu->box(FL_FLAT_BOX);				// cosmetic
 	end();
+
+        _menu->pullx = x;
+        _menu->pully = y;
+        _menu->pullw = w;
     }
     void menuvalue(int val) {
         _menu->value(val);

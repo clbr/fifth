@@ -30,6 +30,7 @@
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Menu_Button.H>
 #include <FL/fl_draw.H>
+#include "inputplace.h"
 
 class Fl_Input_Choice : public Fl_Group {
 protected:
@@ -72,7 +73,7 @@ protected:
         }
     };
 
-    Fl_Input *_inp;
+    inputplace *_inp;
     InputMenuButton *_menu;
 
     static void _menu_cb(Fl_Widget*, void *data) { 
@@ -110,7 +111,7 @@ public:
     Fl_Input_Choice (int x,int y,int w,int h,const char*l=0) : Fl_Group(x,y,w,h,l) {
 	Fl_Group::box(FL_DOWN_BOX);
 	align(FL_ALIGN_LEFT);				// default like Fl_Input
-        _inp = new Fl_Input(_InpSizeX(), _InpSizeY(),
+        _inp = new inputplace(_InpSizeX(), _InpSizeY(),
 			    _InpSizeW(), _InpSizeH());
         _inp->box(FL_FLAT_BOX); // cosmetic
 	_menu = new InputMenuButton(_MenuSizeX(), _MenuSizeY(),
@@ -140,7 +141,7 @@ public:
 	menuvalue(val);
     }
     Fl_Menu_Button& menubutton() { return(*_menu); }
-    Fl_Input& input() { return(*_inp); }
+    inputplace& input() { return(*_inp); }
 };
 
 #endif /*_FL_INPUT_CHOICE*/

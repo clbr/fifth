@@ -19,11 +19,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <FL/Fl_Widget.H>
 
+class webview;
+
 class tabbar: public Fl_Widget {
 public:
 	tabbar(int x, int y, int w, int h);
 
 	void draw() override;
+};
+
+enum tabstate {
+	TS_WEB,
+	TS_DOWNLOAD,
+	TS_SSLERR,
+	TS_SPEEDDIAL,
+	TS_COUNT
+};
+
+struct tab {
+	tabstate state;
+	webview *web;
+
+	tab();
 };
 
 #endif

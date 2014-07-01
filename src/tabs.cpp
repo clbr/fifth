@@ -65,3 +65,7 @@ void tabbar::draw() {
 	fl_line(startx, y(), endx, y());
 	fl_line(startx, y() + h() - 1, endx, y() + h() - 1);
 }
+
+tab::tab(): state(TS_WEB), web(NULL) {
+
+}

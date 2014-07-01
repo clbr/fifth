@@ -61,13 +61,15 @@ protected:
     // Custom resize behavior -- input stretches, menu button doesn't
     inline int _InpSizeX() { return(x() + Fl::box_dx(box())); }
     inline int _InpSizeY() { return(y() + Fl::box_dy(box())); }
-    inline int _InpSizeW() { return(w() - Fl::box_dw(box()) - 20); }
+    inline int _InpSizeW() { return(w() - Fl::box_dw(box()) - buttonw); }
     inline int _InpSizeH() { return(h() - Fl::box_dh(box())); }
 
-    inline int _MenuSizeX() { return(x() + w() - 20 - Fl::box_dx(box())); }
+    inline int _MenuSizeX() { return(x() + w() - buttonw - Fl::box_dx(box())); }
     inline int _MenuSizeY() { return(y() + Fl::box_dy(box()) + (Fl::scheme()?1:0)); }
-    inline int _MenuSizeW() { return(20); }
+    inline int _MenuSizeW() { return(buttonw); }
     inline int _MenuSizeH() { return(h() - Fl::box_dh(box()) - (Fl::scheme()?1:0)); }
+
+    static const int buttonw = 17;
 
 public:
     void resize(int X, int Y, int W, int H) {

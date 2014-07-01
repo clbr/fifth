@@ -76,16 +76,12 @@ public:
 	_menu->resize(_MenuSizeX(), _MenuSizeY(), _MenuSizeW(), _MenuSizeH());
     }
 
-    void draw() override {
-        draw_children();
-    }
-
     Fl_Input_Choice (int x,int y,int w,int h,const char*l=0) : Fl_Group(x,y,w,h,l) {
 	Fl_Group::box(FL_DOWN_BOX);
 	align(FL_ALIGN_LEFT);				// default like Fl_Input
         _inp = new Fl_Input(_InpSizeX(), _InpSizeY(),
 			    _InpSizeW(), _InpSizeH());
- 	if (!Fl::scheme()) { _inp->box(FL_FLAT_BOX); }		// cosmetic
+        _inp->box(FL_FLAT_BOX); // cosmetic
 	_menu = new InputMenuButton(_MenuSizeX(), _MenuSizeY(),
 				    _MenuSizeW(), _MenuSizeH());
 	_menu->callback(_menu_cb, (void*)this);

@@ -31,32 +31,14 @@ void tabbar::draw() {
 	// Upper half bg
 	u32 r1 = 63, g1 = 72, b1 = 81;
 	u32 r2 = 50, g2 = 60, b2 = 70;
-	for (i = 0; i <= gradhalf; i++) {
+	for (i = 0; i <= gradarea; i++) {
 		const float pos = i / (float) gradhalf;
 
 		fl_color(mix(r1, r2, pos),
 			mix(g1, g2, pos),
 			mix(b1, b2, pos));
-
-		if (i == gradhalf) {
-			fl_color(40, 50, 60);
-		}
 
 		const u32 posy = y() + 1 + i;
-		fl_line(startx, posy, endx, posy);
-	}
-
-	// Lower half bg
-	r1 = 30, g1 = 40, b1 = 50;
-	r2 = 45, g2 = 55, b2 = 65;
-	for (i = 0; i <= gradhalf; i++) {
-		const float pos = i / (float) gradhalf;
-
-		fl_color(mix(r1, r2, pos),
-			mix(g1, g2, pos),
-			mix(b1, b2, pos));
-
-		const u32 posy = y() + 2 + i + gradhalf;
 		fl_line(startx, posy, endx, posy);
 	}
 

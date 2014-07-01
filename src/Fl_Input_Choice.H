@@ -65,9 +65,9 @@ protected:
     inline int _InpSizeH() { return(h() - Fl::box_dh(box())); }
 
     inline int _MenuSizeX() { return(x() + w() - buttonw - Fl::box_dx(box())); }
-    inline int _MenuSizeY() { return(y() + Fl::box_dy(box()) + (Fl::scheme()?1:0)); }
+    inline int _MenuSizeY() { return(y() + Fl::box_dy(box())); }
     inline int _MenuSizeW() { return(buttonw); }
-    inline int _MenuSizeH() { return(h() - Fl::box_dh(box()) - (Fl::scheme()?1:0)); }
+    inline int _MenuSizeH() { return(h() - Fl::box_dh(box())); }
 
     static const int buttonw = 17;
 

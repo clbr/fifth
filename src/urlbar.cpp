@@ -57,6 +57,14 @@ void urlbar::draw() {
 	posy = y() + max + 2;
 	fl_color(25, 35, 45);
 	fl_line(startx, posy, endx, posy);
+
+	// Buttons
+	prev->draw();
+	back->draw();
+	fwd->draw();
+	next->draw();
+	refresh->draw();
+	tabs->draw();
 }
 
 void urlbar::resize(int x, int y, int w, int h) {

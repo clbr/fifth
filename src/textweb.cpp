@@ -17,16 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main.h"
 #include "textweb.h"
 
-textweb::textweb(int x, int y, int w, int h): Fl_Choice(x, y, w, h) {
+textweb::textweb(int x, int y, int w, int h): Fl_Input_Choice(x, y, w, h) {
 
 }
 
 void textweb::draw() {
-	Fl_Choice::draw();
+	Fl_Input_Choice::draw();
 }
 
 int textweb::handle(const int e) {
-	if (Fl_Choice::handle(e)) return 1;
+	if (Fl_Input_Choice::handle(e)) return 1;
 	// Handle other events
 	return 0;
 }

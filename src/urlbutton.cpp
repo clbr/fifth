@@ -22,5 +22,8 @@ urlbutton::urlbutton(int x, int y, int w, int h) : Fl_Button(x, y, w, h) {
 }
 
 void urlbutton::draw() {
-
+	Fl_Color col = value() ? selection_color() : color();
+	draw_box(value() ? FL_DOWN_FRAME : FL_UP_FRAME, col);
+	draw_label();
+	if (Fl::focus() == this) draw_focus();
 }

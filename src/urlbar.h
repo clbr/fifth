@@ -17,20 +17,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef URL_H
 #define URL_H
 
-#include <FL/Fl_Widget.H>
+#include <FL/Fl_Group.H>
 
 #include "urlbutton.h"
 
-class urlbar: public Fl_Widget {
+class Fl_PNG_Image;
+
+class urlbar: public Fl_Group {
 public:
 	urlbar(int x, int y, int w, int h);
 
 	void draw() override;
 	void resize(int x, int y, int w, int h) override;
 
+	urlbutton *prev, *back, *fwd, *next, *refresh, *tabs;
 private:
 	void reposbuttons();
-	urlbutton *prev, *back, *fwd, *next, *refresh, *tabs;
+
+	Fl_PNG_Image *refreshimg, *stopimg;
 };
 
 #endif

@@ -15,8 +15,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "main.h"
+#include "urlicons.h"
+#include <FL/Fl_PNG_Image.H>
 
-urlbar::urlbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
+urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	prev = new urlbutton(0, 0, 0, 0);
 	back = new urlbutton(0, 0, 0, 0);
@@ -25,7 +27,28 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 	refresh = new urlbutton(0, 0, 0, 0);
 	tabs = new urlbutton(0, 0, 0, 0);
 
+	end();
+
 	reposbuttons();
+
+	// TODO: theming
+	#define img(a) a, sizeof(a)
+	refreshimg = new Fl_PNG_Image("refresh.png", img(reload_png));
+	stopimg = new Fl_PNG_Image("stop.png", img(stop_png));
+
+	prev->image(new Fl_PNG_Image("prev.png", img(twoleftarrow_png)));
+	back->image(new Fl_PNG_Image("back.png", img(leftarrow_png)));
+	fwd->image(new Fl_PNG_Image("fwd.png", img(rightarrow_png)));
+	next->image(new Fl_PNG_Image("next.png", img(tworightarrow_png)));
+
+	prev->deimage(new Fl_PNG_Image("deprev.png", img(detwoleftarrow_png)));
+	back->deimage(new Fl_PNG_Image("deback.png", img(deleftarrow_png)));
+	fwd->deimage(new Fl_PNG_Image("defwd.png", img(derightarrow_png)));
+	next->deimage(new Fl_PNG_Image("denext.png", img(detworightarrow_png)));
+
+	refresh->image(refreshimg);
+	tabs->image(new Fl_PNG_Image("tabs.png", img(tabs_png)));
+	#undef img
 }
 
 void urlbar::draw() {
@@ -58,13 +81,8 @@ void urlbar::draw() {
 	fl_color(25, 35, 45);
 	fl_line(startx, posy, endx, posy);
 
-	// Buttons
-	prev->draw();
-	back->draw();
-	fwd->draw();
-	next->draw();
-	refresh->draw();
-	tabs->draw();
+	// Kids
+	draw_children();
 }
 
 void urlbar::resize(int x, int y, int w, int h) {
@@ -92,21 +110,21 @@ void urlbar::reposbuttons() {
 	const u32 posy = y() + ydiff;
 
 	prev->position(pos, posy);
-	pos += diff;
+	pos += diff + dim;
 
 	back->position(pos, posy);
-	pos += diff;
+	pos += diff + dim;
 
 	fwd->position(pos, posy);
-	pos += diff;
+	pos += diff + dim;
 
 	next->position(pos, posy);
-	pos += diff;
+	pos += diff + dim;
 
 	refresh->position(pos, posy);
-	pos += diff;
+	pos += diff + dim;
 
 	// Tabs on the other edge
 	pos = x() + w() - 1 - dim - diff;
-	prev->position(pos, posy);
+	tabs->position(pos, posy);
 }

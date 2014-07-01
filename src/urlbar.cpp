@@ -139,7 +139,7 @@ void urlbar::reposbuttons() {
 	pos = x() + w() - 1 - dim - diff;
 	tabs->position(pos, posy);
 
-	const u32 searchw = 100;
+	const u32 searchw = 170;
 	pos -= diff + searchw;
 	search->resize(pos, posy, searchw, dim);
 

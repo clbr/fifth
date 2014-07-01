@@ -45,6 +45,7 @@ protected:
 	    if (Fl::focus() == this) draw_focus();
 	}
 	const Fl_Menu_Item* popup() {
+            if (!menu() || !menu()->text) return 0;
 	    const Fl_Menu_Item* m;
 	    Fl_Widget_Tracker mb(this);
 	    m = menu()->pulldown(pullx, pully, pullw, h(), 0, this);

@@ -63,6 +63,9 @@ struct globals {
 	bool run;
 
 	window *w;
+
+	vector<tab> tabs;
+	u32 curtab;
 };
 
 extern struct globals *g;

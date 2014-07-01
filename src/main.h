@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <locale.h>
 #include <FL/Fl.H>
 #include <FL/fl_draw.H>
+#include <FL/Fl_Shared_Image.H>
 #include <webkit.h>
 
 #include "autoconfig.h"

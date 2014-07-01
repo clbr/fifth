@@ -14,29 +14,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef URL_H
-#define URL_H
+#ifndef TEXTWEB_H
+#define TEXTWEB_H
 
-#include <FL/Fl_Group.H>
+#include <FL/Fl_Input.H>
 
-#include "urlbutton.h"
-#include "textweb.h"
+// A text field with autocomplete, dropdown, and favicon rendering.
 
-class Fl_PNG_Image;
-
-class urlbar: public Fl_Group {
+class textweb: public Fl_Input {
 public:
-	urlbar(int x, int y, int w, int h);
-
+	textweb(int x, int y, int w, int h);
 	void draw() override;
-	void resize(int x, int y, int w, int h) override;
-
-	urlbutton *prev, *back, *fwd, *next, *refresh, *tabs;
-	textweb *url, *search;
-private:
-	void reposbuttons();
-
-	Fl_PNG_Image *refreshimg, *stopimg;
+	int handle(int) override;
 };
 
 #endif

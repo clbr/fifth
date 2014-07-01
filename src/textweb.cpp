@@ -14,29 +14,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef URL_H
-#define URL_H
-
-#include <FL/Fl_Group.H>
-
-#include "urlbutton.h"
+#include "main.h"
 #include "textweb.h"
 
-class Fl_PNG_Image;
+textweb::textweb(int x, int y, int w, int h): Fl_Input(x, y, w, h) {
 
-class urlbar: public Fl_Group {
-public:
-	urlbar(int x, int y, int w, int h);
+}
 
-	void draw() override;
-	void resize(int x, int y, int w, int h) override;
+void textweb::draw() {
+	Fl_Input::draw();
+}
 
-	urlbutton *prev, *back, *fwd, *next, *refresh, *tabs;
-	textweb *url, *search;
-private:
-	void reposbuttons();
-
-	Fl_PNG_Image *refreshimg, *stopimg;
-};
-
-#endif
+int textweb::handle(const int e) {
+	if (Fl_Input::handle(e)) return 1;
+	// Handle other events
+	return 0;
+}

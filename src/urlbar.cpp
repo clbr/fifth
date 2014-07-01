@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 #include "urlicons.h"
+#include "textweb.h"
 #include <FL/Fl_PNG_Image.H>
 
 urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
@@ -26,6 +27,9 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	next = new urlbutton(0, 0, 0, 0);
 	refresh = new urlbutton(0, 0, 0, 0);
 	tabs = new urlbutton(0, 0, 0, 0);
+
+	url = new textweb(0, 0, 0, 0);
+	search = new textweb(0, 0, 0, 0);
 
 	end();
 
@@ -124,7 +128,17 @@ void urlbar::reposbuttons() {
 	refresh->position(pos, posy);
 	pos += diff + dim;
 
+	const u32 urlstart = pos;
+
 	// Tabs on the other edge
 	pos = x() + w() - 1 - dim - diff;
 	tabs->position(pos, posy);
+
+	const u32 searchw = 100;
+	pos -= diff + searchw;
+	search->resize(pos, posy, searchw, dim);
+
+	pos -= diff;
+
+	url->resize(urlstart, posy, pos - urlstart, dim);
 }

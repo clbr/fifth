@@ -39,6 +39,7 @@ enum tabstate {
 struct tab {
 	tabstate state;
 	webview *web;
+	u64 lastactive;
 
 	tab();
 };

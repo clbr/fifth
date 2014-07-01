@@ -25,6 +25,10 @@ public:
 
 	int handle(int) override;
 	void draw() override;
+
+	void placeholder(const char *);
+private:
+	const char *placeholdertext;
 };
 
 #endif

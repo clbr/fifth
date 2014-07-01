@@ -16,7 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 
-inputplace::inputplace(int x, int y, int w, int h): Fl_Input(x, y, w, h) {
+inputplace::inputplace(int x, int y, int w, int h): Fl_Input(x, y, w, h),
+		placeholdertext(NULL) {
 
 }
 
@@ -32,4 +33,9 @@ int inputplace::handle(const int e) {
 	}
 
 	return Fl_Input::handle(e);
+}
+
+void inputplace::placeholder(const char *s) {
+	free((char *) placeholdertext);
+	placeholdertext = strdup(s);
 }

@@ -21,6 +21,10 @@ inputplace::inputplace(int x, int y, int w, int h): Fl_Input(x, y, w, h),
 	align(FL_ALIGN_INSIDE | FL_ALIGN_LEFT);
 }
 
+inputplace::~inputplace() {
+	free((char *) placeholdertext);
+}
+
 void inputplace::draw() {
 	const Fl_Boxtype b = box();
 	if (image() || placeholdertext) redraw();

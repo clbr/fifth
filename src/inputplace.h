@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class inputplace: public Fl_Input {
 public:
 	inputplace(int x, int y, int w, int h);
+	~inputplace();
 
 	int handle(int) override;
 	void draw() override;

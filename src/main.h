@@ -70,6 +70,8 @@ struct globals {
 	vector<tab> tabs;
 	vector<tab> closedtabs;
 	u32 curtab;
+
+	map<keybinding, keyfunc> keys;
 };
 
 extern struct globals *g;

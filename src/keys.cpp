@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main.h"
 
 void loadkeys() {
-
+	g->keys.clear();
 }
 
 u32 keytou32(const u32 key, const bool ctrl, const bool alt, const bool shift) {

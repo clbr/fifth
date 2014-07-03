@@ -45,6 +45,8 @@ struct keybinding {
 	}
 };
 
+typedef void (*keyfunc)();
+
 void loadkeys();
 u32 keytou32(const u32 key, const bool ctrl, const bool alt, const bool shift);
 keybinding u32tokey(const u32 in);

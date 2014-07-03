@@ -148,20 +148,52 @@ void tabbar::draw() {
 
 int tabbar::handle(const int e) {
 
-	if (e == FL_ENTER) {
-		mousein = true;
-		return 1;
-	}
-	if (e == FL_LEAVE) {
-		mousein = false;
-		redraw();
-		return 1;
-	}
+	bool ontab = false;
+	u32 which = 0;
 
-	if (e == FL_MOVE) {
-		mousex = Fl::event_x();
-		redraw();
-		return 1;
+	switch (e) {
+		case FL_ENTER:
+			mousein = true;
+			return 1;
+		case FL_LEAVE:
+			mousein = false;
+			redraw();
+			return 1;
+		case FL_MOVE:
+			mousex = Fl::event_x();
+			redraw();
+			return 1;
+		case FL_PUSH:
+			// Over a tab?
+			if (mousein) {
+				u32 max;
+				const u32 tabw = calctabw(&max, w());
+
+				if (mousex < max * tabw) {
+					ontab = true;
+					u32 tmp = mousex - x();
+					tmp /= tabw;
+					which = tmp;
+				}
+			}
+
+			// Double click on empty?
+			if (Fl::event_clicks() && Fl::event_button() == FL_LEFT_MOUSE &&
+				!ontab) {
+				newtab();
+				return 1;
+			}
+
+			if (ontab) {
+				if (Fl::event_button() == FL_LEFT_MOUSE) {
+					g->curtab = which;
+				} else if (Fl::event_button() == FL_MIDDLE_MOUSE) {
+					g->curtab = which;
+					closetab();
+				}
+			}
+
+			return 1;
 	}
 
 	return Fl_Widget::handle(e);

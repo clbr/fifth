@@ -23,6 +23,8 @@ class window: public Fl_Double_Window {
 public:
 	window(int x, int y, int w, int h);
 	void hide() override;
+
+	int handle(int e) override;
 };
 
 #endif

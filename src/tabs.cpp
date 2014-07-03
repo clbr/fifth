@@ -117,6 +117,9 @@ vector<u16> taborder() {
 
 	u16 i;
 	for (i = 0; i < max; i++) {
+		if (i == g->curtab)
+			continue;
+
 		out.push_back(i);
 	}
 

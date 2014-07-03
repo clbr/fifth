@@ -29,6 +29,20 @@ void window::hide() {
 	s = getSetting("window.h", NULL);
 	s->val.u = h();
 
+	// Close all tabs
+	u32 max = g->tabs.size();
+	u32 i;
+	for (i = 0; i < max; i++) {
+		if (g->tabs[i].web)
+			delete g->tabs[i].web;
+	}
+
+	max = g->closedtabs.size();
+	for (i = 0; i < max; i++) {
+		if (g->closedtabs[i].web)
+			delete g->closedtabs[i].web;
+	}
+
 	Fl_Widget::hide();
 }
 

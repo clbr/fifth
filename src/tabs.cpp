@@ -52,6 +52,27 @@ tab::tab(): state(TS_WEB), web(NULL), lastactive(msec()) {
 
 }
 
+const char *tab::title() {
+	switch (state) {
+		case TS_WEB:
+			return web->title();
+		break;
+		case TS_DOWNLOAD:
+			return _("Downloads");
+		break;
+		case TS_SPEEDDIAL:
+			return _("Speed dial");
+		break;
+		case TS_SSLERR:
+			return _("Security risk");
+		break;
+		case TS_COUNT:
+			die("Tab corruption\n");
+	}
+
+	die("Tab corruption\n");
+}
+
 void newtab() {
 	Fl_Group::current(0);
 	tab tab;

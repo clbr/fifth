@@ -43,6 +43,7 @@ struct tab {
 	u64 lastactive;
 
 	tab();
+	const char *title();
 };
 
 void newtab();

@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main.h"
 
 tabbar::tabbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
-
+	labelsize(12);
 }
 
 void tabbar::draw() {

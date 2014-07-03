@@ -79,4 +79,10 @@ struct globals {
 
 extern struct globals *g;
 
+enum startup {
+	START_DIAL = 0,
+	START_HOME,
+	START_COUNT
+};
+
 #endif

@@ -22,6 +22,7 @@ const struct setting defaultSettings[] = {
 	{"general.download-dir", ST_CHAR, { .c = "/tmp" }},
 	{"general.homepage", ST_CHAR, { .c = "about:blank"}},
 	{"general.javascript", ST_U32, { .u = 1}},
+	{"general.startup", ST_U32, { .u = 0}},
 	{"keys.back", ST_U32, { .u = 122}}, // z
 	{"keys.closetab", ST_U32, { .u = 33554551}}, // ctrl + w
 	{"keys.fwd", ST_U32, { .u = 120}}, // x

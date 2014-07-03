@@ -83,7 +83,20 @@ void newtab() {
 }
 
 void closetab() {
-	puts("closetab");
+	if (g->tabs.size() == 1) {
+		g->closedtabs.push_back(g->tabs[0]);
+		g->tabs.clear();
+		newtab();
+	} else {
+		const vector<u16> &order = taborder();
+		u16 next = order[0];
+		if (next > g->curtab)
+			next--;
+
+		g->closedtabs.push_back(g->tabs[g->curtab]);
+		g->tabs.erase(g->tabs.begin() + g->curtab);
+		g->curtab = next;
+	}
 }
 
 void newtab(const char *url) {

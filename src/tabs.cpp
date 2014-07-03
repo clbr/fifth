@@ -302,9 +302,9 @@ int tabcmp(const void *ap, const void *bp) {
 	const tmptab * const b = (const tmptab *) bp;
 
 	if (a->time > b->time)
-		return 1;
-	else if (a->time < b->time)
 		return -1;
+	else if (a->time < b->time)
+		return 1;
 	return 0;
 }
 

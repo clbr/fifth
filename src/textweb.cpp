@@ -30,6 +30,7 @@ int textweb::handle(const int e) {
 	// Handle other events
 	if (e == FL_KEYBOARD) {
 		if (Fl::event_key() == FL_Down) {
+			window()->cursor(FL_CURSOR_DEFAULT);
 			inpmenubutton().popup();
 			return 1;
 		}

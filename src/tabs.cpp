@@ -16,7 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 
-tabbar::tabbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
+tabbar::tabbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h),
+		mousex(0), mousein(false) {
 	labelsize(12);
 }
 
@@ -63,6 +64,7 @@ void tabbar::draw() {
 	const u32 lowy = y();
 	const u32 highy = y() + h() - 1;
 	for (i = 0; i < max; i++) {
+		bool hover = false;
 		// Borders
 		fl_color(FL_BLACK);
 		fl_line(posx, lowy, posx, highy);
@@ -75,6 +77,10 @@ void tabbar::draw() {
 		if (i == g->curtab) {
 			r1 = 100, g1 = 160, b1 = 191;
 			r2 = 42, g2 = 100, b2 = 125;
+		} else if (mousein && mousex >= posx && mousex <= (posx + tabw - 1)) {
+			r1 = 150, g1 = 150, b1 = 191;
+			r2 = 100, g2 = 100, b2 = 155;
+			hover = true;
 		}
 
 		for (j = 0; j <= gradarea; j++) {
@@ -100,6 +106,8 @@ void tabbar::draw() {
 		fl_color(200, 200, 200);
 		if (i == g->curtab)
 			fl_color(FL_WHITE);
+		else if (hover)
+			fl_color(230, 230, 230);
 		fl_font(labelfont(), labelsize());
 
 		char tmp[80];
@@ -127,6 +135,27 @@ void tabbar::draw() {
 
 		posx += tabw;
 	}
+}
+
+int tabbar::handle(const int e) {
+
+	if (e == FL_ENTER) {
+		mousein = true;
+		return 1;
+	}
+	if (e == FL_LEAVE) {
+		mousein = false;
+		redraw();
+		return 1;
+	}
+
+	if (e == FL_MOVE) {
+		mousex = Fl::event_x();
+		redraw();
+		return 1;
+	}
+
+	return Fl_Widget::handle(e);
 }
 
 tab::tab(): state(TS_WEB), web(NULL), lastactive(msec()), icon(NULL) {

@@ -27,6 +27,11 @@ public:
 	tabbar(int x, int y, int w, int h);
 
 	void draw() override;
+	int handle(int e) override;
+
+private:
+	u32 mousex;
+	bool mousein;
 };
 
 enum tabstate {

@@ -45,6 +45,8 @@ struct tab {
 };
 
 void newtab();
+void newtab(const char *url);
+void newtabbg(const char *url);
 void closetab();
 
 #endif

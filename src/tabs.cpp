@@ -59,3 +59,11 @@ void newtab() {
 void closetab() {
 	puts("closetab");
 }
+
+void newtab(const char *url) {
+
+}
+
+void newtabbg(const char *url) {
+
+}

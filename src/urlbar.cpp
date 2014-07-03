@@ -40,6 +40,7 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	#define img(a) a, sizeof(a)
 	refreshimg = new Fl_PNG_Image("refresh.png", img(reload_png));
 	stopimg = new Fl_PNG_Image("stop.png", img(stop_png));
+	Fl_PNG_Image p("newtab.png", img(newtab_png));
 
 	prev->image(new Fl_PNG_Image("prev.png", img(twoleftarrow_png)));
 	back->image(new Fl_PNG_Image("back.png", img(leftarrow_png)));

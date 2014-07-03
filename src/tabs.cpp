@@ -89,7 +89,10 @@ void tabbar::draw() {
 			fl_line(posx + 1, posy, posx + tabw - 1, posy);
 		}
 
-		// Icon?
+		// Icon
+		Fl_Image *img = g->tabs[i].icon;
+		if (!img)
+			img = Fl_Shared_Image::get("newtab.png");
 
 		posx += tabw;
 	}

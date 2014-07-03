@@ -85,6 +85,14 @@ static void quitcb(Fl_Widget *, void *) {
 	g->w->hide();
 }
 
+static void newtabcb(Fl_Widget *, void *) {
+	newtab();
+}
+
+static void closetabcb(Fl_Widget *, void *) {
+	closetab();
+}
+
 int main(int argc, char **argv) {
 
 	g = new globals;
@@ -242,9 +250,9 @@ int main(int argc, char **argv) {
 	// Menu
 	Fl_Menu_Bar *menu = new Fl_Menu_Bar(0, 0, w, menuheight);
 	menu->textsize(12);
-	menu->add(_("&File/&New tab"), menukey("keys.newtab"), 0, 0, FL_MENU_INACTIVE);
-	menu->add(_("&File/&Close tab"), menukey("keys.closetab"), 0, 0,
-					FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+	menu->add(_("&File/&New tab"), menukey("keys.newtab"), newtabcb);
+	menu->add(_("&File/&Close tab"), menukey("keys.closetab"), closetabcb, 0,
+					FL_MENU_DIVIDER);
 	menu->add(_("&File/&Save screencap"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
 	menu->add(_("&File/&Quit"), menukey("keys.quit"), quitcb);
 

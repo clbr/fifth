@@ -33,11 +33,11 @@ static void quit() {
 	g->w->hide();
 }
 
-static void newtab() {
+void newtab() {
 	puts("newtab");
 }
 
-static void closetab() {
+void closetab() {
 	puts("closetab");
 }
 

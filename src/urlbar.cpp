@@ -55,8 +55,15 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	tabs->image(new Fl_PNG_Image("tabs.png", img(tabs_png)));
 	#undef img
 
-	url->input().placeholder("WWW address...");
+	url->input().placeholder(_("WWW address..."));
 	search->input().placeholder("DuckDuckGo");
+
+	prev->tooltip(_("First page in session"));
+	back->tooltip(_("Back"));
+	fwd->tooltip(_("Forward"));
+	next->tooltip(_("Next page"));
+
+	tabs->tooltip(_("Closed tabs"));
 }
 
 void urlbar::draw() {

@@ -85,3 +85,19 @@ void newtabbg(const char *url) {
 
 	tab.web->load(url);
 }
+
+vector<u16> taborder() {
+	// Return the indices of all active tabs sans the current one,
+	// ordered by their access times in descending order. TODO
+
+	vector<u16> out;
+	const u16 max = g->tabs.size();
+	out.reserve(max);
+
+	u16 i;
+	for (i = 0; i < max; i++) {
+		out.push_back(i);
+	}
+
+	return out;
+}

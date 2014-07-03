@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TABS_H
 
 #include <FL/Fl_Widget.H>
+#include <vector>
 
 class webview;
 
@@ -48,5 +49,7 @@ void newtab();
 void newtab(const char *url);
 void newtabbg(const char *url);
 void closetab();
+
+std::vector<u16> taborder();
 
 #endif

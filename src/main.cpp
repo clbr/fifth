@@ -65,6 +65,7 @@ static void findProfile(const bool found) {
 static void help(const char * const argv0) {
 	printf(_("\n" PACKAGE_NAME " %s\n\n"
 		"	-b --bench		Benchmark mode\n"
+		"	-k --debug-keys		Print info on unrecognized shortcut keys\n"
 		"	-h --help		This help\n"
 		"	-p --profile [dir]	Use dir as the profile location\n"
 		"	-v --version		Query the version\n"
@@ -88,6 +89,7 @@ int main(int argc, char **argv) {
 
 	g = new globals;
 	g->bench = false;
+	g->debugkeys = false;
 
 	srand(time(NULL));
 	setlocale(LC_ALL, "");
@@ -95,9 +97,10 @@ int main(int argc, char **argv) {
 
 	// Opts
 	bool customprofile = false;
-	const char shorts[] = "bhp:v";
+	const char shorts[] = "bkhp:v";
 	const struct option opts[] = {
 		{"bench", 0, NULL, 'b'},
+		{"debug-keys", 0, NULL, 'k'},
 		{"help", 0, NULL, 'h'},
 		{"profile", 1, NULL, 'p'},
 		{"version", 0, NULL, 'v'},
@@ -130,6 +133,9 @@ int main(int argc, char **argv) {
 			break;
 			case 'b':
 				g->bench = true;
+			break;
+			case 'k':
+				g->debugkeys = true;
 			break;
 		}
 	}

@@ -53,12 +53,14 @@ int window::handle(const int e) {
 		key.shift = Fl::event_shift();
 
 		if (g->keys.count(key) == 0) {
-			printf("Unrecognized shortcut %u%s%s%s (%u, %c)\n", key.key,
-				key.ctrl ? " + ctrl" : "",
-				key.alt ? " + alt" : "",
-				key.shift ? " + shift" : "",
-				keytou32(key),
-				key.key);
+			if (g->debugkeys)
+				printf("Unrecognized shortcut %u%s%s%s (%u, %c)\n", key.key,
+					key.ctrl ? " + ctrl" : "",
+					key.alt ? " + alt" : "",
+					key.shift ? " + shift" : "",
+					keytou32(key),
+					key.key);
+
 			return Fl_Window::handle(e);
 		}
 

@@ -64,6 +64,7 @@ struct globals {
 
 	bool bench;
 	bool run;
+	bool debugkeys;
 
 	window *w;
 

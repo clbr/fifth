@@ -50,5 +50,6 @@ typedef void (*keyfunc)();
 void loadkeys();
 u32 keytou32(const keybinding &k);
 keybinding u32tokey(const u32 in);
+u32 menukey(const char *);
 
 #endif

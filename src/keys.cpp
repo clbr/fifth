@@ -30,7 +30,7 @@ static void fwd() {
 }
 
 static void quit() {
-	puts("quit");
+	g->w->hide();
 }
 
 static void newtab() {
@@ -90,4 +90,19 @@ keybinding u32tokey(const u32 in) {
 	k.key = in & 0xfffff;
 
 	return k;
+}
+
+u32 menukey(const char * const name) {
+
+	keybinding k = settingkey(name);
+	u32 out = k.key;
+
+	if (k.ctrl)
+		out += FL_CTRL;
+	if (k.alt)
+		out += FL_ALT;
+	if (k.shift)
+		out += FL_SHIFT;
+
+	return out;
 }

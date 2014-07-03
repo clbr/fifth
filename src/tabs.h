@@ -41,6 +41,7 @@ struct tab {
 	tabstate state;
 	webview *web;
 	u64 lastactive;
+	Fl_RGB_Image *icon;
 
 	tab();
 	const char *title();

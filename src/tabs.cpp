@@ -89,11 +89,13 @@ void tabbar::draw() {
 			fl_line(posx + 1, posy, posx + tabw - 1, posy);
 		}
 
+		// Icon?
+
 		posx += tabw;
 	}
 }
 
-tab::tab(): state(TS_WEB), web(NULL), lastactive(msec()) {
+tab::tab(): state(TS_WEB), web(NULL), lastactive(msec()), icon(NULL) {
 
 }
 

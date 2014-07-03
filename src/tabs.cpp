@@ -287,20 +287,46 @@ void newtabbg(const char *url) {
 	tab.web->load(url);
 }
 
+struct tmptab {
+	u64 time;
+	u16 i;
+};
+
+int tabcmp(const void *ap, const void *bp) {
+	const tmptab * const a = (const tmptab *) ap;
+	const tmptab * const b = (const tmptab *) bp;
+
+	if (a->time > b->time)
+		return 1;
+	else if (a->time < b->time)
+		return -1;
+	return 0;
+}
+
 vector<u16> taborder() {
 	// Return the indices of all active tabs sans the current one,
-	// ordered by their access times in descending order. TODO
+	// ordered by their access times in descending order.
 
 	vector<u16> out;
 	const u16 max = g->tabs.size();
 	out.reserve(max);
 
-	u16 i;
+	tmptab arr[max];
+
+	u16 i, k = 0;
 	for (i = 0; i < max; i++) {
 		if (i == g->curtab)
 			continue;
 
-		out.push_back(i);
+		arr[k].time = g->tabs[i].lastactive;
+		arr[k].i = i;
+		k++;
+	}
+
+	qsort(arr, max - 1, sizeof(struct tmptab), tabcmp);
+
+	for (i = 0; i < max - 1; i++) {
+		out.push_back(arr[i].i);
 	}
 
 	return out;

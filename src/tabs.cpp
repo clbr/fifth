@@ -21,6 +21,24 @@ tabbar::tabbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h),
 	labelsize(12);
 }
 
+static u32 calctabw(u32 *outmax, const u32 w) {
+
+	const u32 defw = 150, minw = 50;
+	u32 max = g->tabs.size();
+	u32 tabw = defw;
+
+	if (tabw * max >= w) {
+		tabw = w / max;
+		while (tabw < minw) {
+			max--;
+			tabw = w / max;
+		}
+	}
+
+	*outmax = max;
+	return tabw;
+}
+
 void tabbar::draw() {
 	const u32 startx = x();
 	const u32 endx = x() + w() - 1;
@@ -48,17 +66,8 @@ void tabbar::draw() {
 	fl_line(startx, y() + h() - 1, endx, y() + h() - 1);
 
 	// Tabs
-	const u32 defw = 150, minw = 50;
-	u32 max = g->tabs.size();
-	u32 tabw = defw;
-
-	if (tabw * max >= (u32) w()) {
-		tabw = w() / max;
-		while (tabw < minw) {
-			max--;
-			tabw = w() / max;
-		}
-	}
+	u32 max;
+	u32 tabw = calctabw(&max, w());
 
 	u32 posx = x();
 	const u32 lowy = y();

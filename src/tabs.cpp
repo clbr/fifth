@@ -186,12 +186,7 @@ int tabbar::handle(const int e) {
 
 			if (ontab) {
 				if (Fl::event_button() == FL_LEFT_MOUSE) {
-					if (g->tabs[g->curtab].web)
-						g->tabs[g->curtab].web->hide();
-					g->curtab = which;
-					g->tabs[g->curtab].lastactive = msec();
-					if (g->tabs[g->curtab].web)
-						g->tabs[g->curtab].web->show();
+					activatetab(which);
 				} else if (Fl::event_button() == FL_MIDDLE_MOUSE) {
 					g->curtab = which;
 					closetab();
@@ -335,4 +330,35 @@ vector<u16> taborder() {
 	}
 
 	return out;
+}
+
+static void tabmove(const bool fwd) {
+	if (g->tabs.size() == 1)
+		return;
+
+	const vector<u16> &order = taborder();
+	if (fwd)
+		activatetab(order[0]);
+	else
+		activatetab(order[order.size() - 1]);
+}
+
+void nexttab() {
+	tabmove(true);
+}
+
+void prevtab() {
+	tabmove(false);
+}
+
+void activatetab(const u16 tab) {
+
+	if (g->tabs[g->curtab].web)
+		g->tabs[g->curtab].web->hide();
+
+	g->curtab = tab;
+	g->tabs[g->curtab].lastactive = msec();
+
+	if (g->tabs[g->curtab].web)
+		g->tabs[g->curtab].web->show();
 }

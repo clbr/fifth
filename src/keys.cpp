@@ -55,6 +55,12 @@ void loadkeys() {
 
 	key = settingkey("keys.screencap");
 	g->keys[key] = screencap;
+
+	key = settingkey("keys.nexttab");
+	g->keys[key] = nexttab;
+
+	key = settingkey("keys.prevtab");
+	g->keys[key] = prevtab;
 }
 
 u32 keytou32(const keybinding &key) {

@@ -57,6 +57,11 @@ void newtab(const char *url);
 void newtabbg(const char *url);
 void closetab();
 
+void prevtab();
+void nexttab();
+
+void activatetab(const u16);
+
 std::vector<u16> taborder();
 
 #endif

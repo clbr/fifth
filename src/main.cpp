@@ -325,6 +325,22 @@ int main(int argc, char **argv) {
 	g->w->label("Fifth");
 	g->w->show();
 
+	// What to do on startup? If an url was given, don't do the normal start
+	if (optind >= argc) {
+		s = getSetting("general.startup", NULL);
+		switch ((startup) s->val.u) {
+			case START_DIAL:
+				newtab();
+			break;
+			case START_HOME:
+				s = getSetting("general.homepage", NULL);
+				newtab(s->val.c);
+			break;
+			case START_COUNT:
+				die("Config corruption in general.startup\n");
+		}
+	}
+
 	// Mainloop
 	g->run = 1;
 	while (g->run) {
@@ -334,13 +350,14 @@ int main(int argc, char **argv) {
 			u32 r = 0;
 			const u32 max = g->remotes.size();
 			for (; r < max; r++) {
-				// TODO
 				if (g->remotes[r].size) {
 					printf(_("Opening remote URL %s\n"),
 						g->remotes[r].data);
+					newtab(g->remotes[r].data);
 					free(g->remotes[r].data);
 				} else {
 					puts(_("Opening new tab, requested by remote"));
+					newtab();
 				}
 			}
 			g->remotes.clear();

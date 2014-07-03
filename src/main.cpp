@@ -183,6 +183,7 @@ int main(int argc, char **argv) {
 	pthread_mutex_init(&g->remotemutex, NULL);
 
 	loadConfig();
+	loadkeys();
 
 	pthread_t tid;
 	pthread_attr_t attr;

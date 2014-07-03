@@ -31,7 +31,7 @@ struct keybinding {
 	bool alt;
 	bool shift;
 
-	bool operator < (const keybinding &other) {
+	bool operator < (const keybinding &other) const {
 		if (key != other.key)
 			return key < other.key;
 		if (ctrl != other.ctrl)
@@ -48,7 +48,7 @@ struct keybinding {
 typedef void (*keyfunc)();
 
 void loadkeys();
-u32 keytou32(const u32 key, const bool ctrl, const bool alt, const bool shift);
+u32 keytou32(const keybinding &k);
 keybinding u32tokey(const u32 in);
 
 #endif

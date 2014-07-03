@@ -45,6 +45,25 @@ window::window(int x, int y, int w, int h): Fl_Double_Window(x, y, w, h) {
 
 int window::handle(const int e) {
 	if (e == FL_SHORTCUT) {
+		keybinding key;
+
+		key.key = Fl::event_key();
+		key.ctrl = Fl::event_ctrl();
+		key.alt = Fl::event_alt();
+		key.shift = Fl::event_shift();
+
+		if (g->keys.count(key) == 0) {
+			printf("Unrecognized shortcut %u%s%s%s (%u, %c)\n", key.key,
+				key.ctrl ? " + ctrl" : "",
+				key.alt ? " + alt" : "",
+				key.shift ? " + shift" : "",
+				keytou32(key),
+				key.key);
+			return Fl_Window::handle(e);
+		}
+
+		g->keys[key]();
+
 		return 1;
 	}
 

@@ -16,17 +16,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 
-void loadkeys() {
-	g->keys.clear();
+static keybinding settingkey(const char * const name) {
+	setting *s = getSetting(name, NULL);
+	return u32tokey(s->val.u);
 }
 
-u32 keytou32(const u32 key, const bool ctrl, const bool alt, const bool shift) {
-	u32 out = key;
-	if (ctrl)
+static void back() {
+	puts("back");
+}
+
+static void fwd() {
+	puts("fwd");
+}
+
+static void quit() {
+	puts("quit");
+}
+
+static void newtab() {
+	puts("newtab");
+}
+
+static void closetab() {
+	puts("closetab");
+}
+
+void loadkeys() {
+	g->keys.clear();
+
+	keybinding key;
+
+	key = settingkey("keys.back");
+	g->keys[key] = back;
+
+	key = settingkey("keys.fwd");
+	g->keys[key] = fwd;
+
+	key = settingkey("keys.newtab");
+	g->keys[key] = newtab;
+
+	key = settingkey("keys.closetab");
+	g->keys[key] = closetab;
+
+	key = settingkey("keys.quit");
+	g->keys[key] = quit;
+}
+
+u32 keytou32(const keybinding &key) {
+	u32 out = key.key;
+	if (key.ctrl)
 		out |= KEYBIT_CTRL;
-	if (alt)
+	if (key.alt)
 		out |= KEYBIT_ALT;
-	if (shift)
+	if (key.shift)
 		out |= KEYBIT_SHIFT;
 
 	return out;

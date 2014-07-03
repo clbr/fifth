@@ -316,7 +316,7 @@ vector<u16> taborder() {
 	const u16 max = g->tabs.size();
 	out.reserve(max);
 
-	tmptab arr[max];
+	tmptab arr[max - 1];
 
 	u16 i, k = 0;
 	for (i = 0; i < max; i++) {

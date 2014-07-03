@@ -25,14 +25,13 @@ void tabbar::draw() {
 	const u32 endx = x() + w() - 1;
 
 	const u32 gradarea = h() - 2;
-	const u32 gradhalf = gradarea / 2;
-	u32 i;
+	u32 i, j;
 
-	// Upper half bg
+	// bg
 	u32 r1 = 63, g1 = 72, b1 = 81;
-	u32 r2 = 50, g2 = 60, b2 = 70;
+	u32 r2 = 38, g2 = 48, b2 = 59;
 	for (i = 0; i <= gradarea; i++) {
-		const float pos = i / (float) gradhalf;
+		const float pos = i / (float) gradarea;
 
 		fl_color(mix(r1, r2, pos),
 			mix(g1, g2, pos),
@@ -61,8 +60,36 @@ void tabbar::draw() {
 	}
 
 	u32 posx = x();
+	const u32 lowy = y();
+	const u32 highy = y() + h() - 1;
 	for (i = 0; i < max; i++) {
 		printf("tab %u, %s\n", i, g->tabs[i].title());
+		// Borders
+		fl_color(FL_BLACK);
+		fl_line(posx, lowy, posx, highy);
+		fl_line(posx + tabw, lowy, posx + tabw, highy);
+
+		// Bg
+		r1 = 83, g1 = 92, b1 = 101;
+		r2 = 58, g2 = 68, b2 = 79;
+
+		if (i == g->curtab) {
+			r1 = 100, g1 = 160, b1 = 191;
+			r2 = 42, g2 = 100, b2 = 125;
+		}
+
+		for (j = 0; j <= gradarea; j++) {
+			const float pos = j / (float) gradarea;
+
+			fl_color(mix(r1, r2, pos),
+				mix(g1, g2, pos),
+				mix(b1, b2, pos));
+
+			const u32 posy = y() + 1 + j;
+			fl_line(posx + 1, posy, posx + tabw - 1, posy);
+		}
+
+		posx += tabw;
 	}
 }
 

@@ -94,6 +94,38 @@ void tabbar::draw() {
 		if (!img)
 			img = Fl_Shared_Image::get("newtab.png");
 
+		const u32 imgy = y() + (h() - 16) / 2;
+		img->draw(posx + 4, imgy, 16, 16);
+
+		// Text
+		fl_color(200, 200, 200);
+		if (i == g->curtab)
+			fl_color(FL_WHITE);
+		fl_font(labelfont(), labelsize());
+
+		char tmp[80];
+		memset(tmp, 0, 80);
+		strncpy(tmp, g->tabs[i].title(), 79);
+
+		int textw = 0, texth = 0;
+		fl_measure(tmp, textw, texth, 0);
+
+		const u32 textarea = tabw - 2 - 8 - 16;
+		while ((u32) textw >= textarea) {
+			// Shorten it until it fits
+			const u32 len = strlen(tmp) - 1;
+			tmp[len] = '\0';
+			tmp[len - 1] = '.';
+			tmp[len - 2] = '.';
+			tmp[len - 3] = '.';
+
+			textw = texth = 0;
+			fl_measure(tmp, textw, texth, 0);
+		}
+
+		const u32 texty = y() - fl_descent() + fl_height() + (h() - fl_height())/2;
+		fl_draw(tmp, posx + 2 + 8 + 16, texty);
+
 		posx += tabw;
 	}
 }

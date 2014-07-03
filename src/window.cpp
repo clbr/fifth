@@ -58,6 +58,14 @@ window::window(int x, int y, int w, int h): Fl_Double_Window(x, y, w, h) {
 }
 
 int window::handle(const int e) {
+	if (e == FL_KEYDOWN) {
+		unsigned key = Fl::event_key();
+		if (key == FL_Control_L || key == FL_Control_R) startctrl();
+	} else if (e == FL_KEYUP) {
+		unsigned key = Fl::event_key();
+		if (key == FL_Control_L || key == FL_Control_R) endctrl();
+	}
+
 	if (e == FL_SHORTCUT) {
 		keybinding key;
 

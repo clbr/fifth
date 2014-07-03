@@ -332,23 +332,32 @@ vector<u16> taborder() {
 	return out;
 }
 
+static vector<u16> longorder;
+static u16 longpress;
+
 static void tabmove(const bool fwd) {
-	if (g->tabs.size() == 1)
+
+	const u32 max = g->tabs.size();
+
+	if (max == 1)
 		return;
 
-	const vector<u16> &order = taborder();
+	longpress %= longorder.size();
+
 	if (fwd)
-		activatetab(order[0]);
+		activatetab(longorder[longpress]);
 	else
-		activatetab(order[order.size() - 1]);
+		activatetab(longorder[longorder.size() - 1 - longpress]);
 }
 
 void nexttab() {
 	tabmove(true);
+	longpress++;
 }
 
 void prevtab() {
 	tabmove(false);
+	longpress++;
 }
 
 void activatetab(const u16 tab) {
@@ -363,4 +372,13 @@ void activatetab(const u16 tab) {
 		g->tabs[g->curtab].web->show();
 
 	g->w->redraw();
+}
+
+void startctrl() {
+	longorder = taborder();
+	longpress = 0;
+}
+
+void endctrl() {
+	longorder.clear();
 }

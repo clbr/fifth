@@ -62,6 +62,9 @@ void nexttab();
 
 void activatetab(const u16);
 
+void startctrl();
+void endctrl();
+
 std::vector<u16> taborder();
 
 #endif

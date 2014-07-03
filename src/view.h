@@ -24,6 +24,7 @@ public:
 	view(int x, int y, int w, int h);
 
 	void draw() override;
+	void resize(int, int, int, int) override;
 };
 
 #endif

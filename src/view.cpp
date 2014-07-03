@@ -23,3 +23,21 @@ view::view(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 void view::draw() {
 	fl_rectf(x(), y(), w(), h(), 0, 0, 127);
 }
+
+void view::resize(int x, int y, int w, int h) {
+	Fl_Widget::resize(x, y, w, h);
+
+	// Resize all webviews
+	u32 max = g->tabs.size();
+	u32 i;
+	for (i = 0; i < max; i++) {
+		if (g->tabs[i].web)
+			g->tabs[i].web->resize(x, y, w, h);
+	}
+
+	max = g->closedtabs.size();
+	for (i = 0; i < max; i++) {
+		if (g->closedtabs[i].web)
+			g->closedtabs[i].web->resize(x, y, w, h);
+	}
+}

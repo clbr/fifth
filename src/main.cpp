@@ -301,7 +301,7 @@ int main(int argc, char **argv) {
 		entry("tab") {
 			new tabbar(0, 0, w, tabheight);
 		} else entry("url") {
-			new urlbar(0, 0, w, urlheight);
+			g->url = new urlbar(0, 0, w, urlheight);
 		} else entry("main") {
 			view *v = new view(0, 0, 10,
 				h - menuheight - tabheight - urlheight - statusheight);

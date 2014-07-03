@@ -31,6 +31,8 @@ public:
 	void draw() override;
 	void resize(int x, int y, int w, int h) override;
 
+	void refreshstate(const bool refresh);
+
 	urlbutton *prev, *back, *fwd, *next, *refresh, *tabs;
 	textweb *url, *search;
 private:

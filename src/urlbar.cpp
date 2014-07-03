@@ -51,7 +51,7 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	fwd->deimage(new Fl_PNG_Image("defwd.png", img(derightarrow_png)));
 	next->deimage(new Fl_PNG_Image("denext.png", img(detworightarrow_png)));
 
-	refresh->image(refreshimg);
+	refreshstate(true);
 	tabs->image(new Fl_PNG_Image("tabs.png", img(tabs_png)));
 	#undef img
 
@@ -157,4 +157,15 @@ void urlbar::reposbuttons() {
 	pos -= diff;
 
 	url->resize(urlstart, posy, pos - urlstart, dim);
+}
+
+void urlbar::refreshstate(const bool green) {
+
+	if (green) {
+		refresh->image(refreshimg);
+		refresh->tooltip(_("Refresh"));
+	} else {
+		refresh->image(stopimg);
+		refresh->tooltip(_("Stop"));
+	}
 }

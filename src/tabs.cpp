@@ -84,7 +84,14 @@ void newtab() {
 
 void closetab() {
 	if (g->tabs.size() == 1) {
-		g->closedtabs.push_back(g->tabs[0]);
+
+		if (g->tabs[0].state == TS_WEB) {
+			g->closedtabs.push_back(g->tabs[0]);
+		} else {
+			if (g->tabs[0].web)
+				delete g->tabs[0].web;
+		}
+
 		g->tabs.clear();
 		newtab();
 	} else {
@@ -93,7 +100,13 @@ void closetab() {
 		if (next > g->curtab)
 			next--;
 
-		g->closedtabs.push_back(g->tabs[g->curtab]);
+		if (g->tabs[0].state == TS_WEB) {
+			g->closedtabs.push_back(g->tabs[g->curtab]);
+		} else {
+			if (g->tabs[g->curtab].web)
+				delete g->tabs[g->curtab].web;
+		}
+
 		g->tabs.erase(g->tabs.begin() + g->curtab);
 		g->curtab = next;
 	}

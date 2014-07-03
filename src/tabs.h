@@ -44,4 +44,7 @@ struct tab {
 	tab();
 };
 
+void newtab();
+void closetab();
+
 #endif

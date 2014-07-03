@@ -33,14 +33,6 @@ static void quit() {
 	g->w->hide();
 }
 
-void newtab() {
-	puts("newtab");
-}
-
-void closetab() {
-	puts("closetab");
-}
-
 void loadkeys() {
 	g->keys.clear();
 

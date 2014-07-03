@@ -51,3 +51,11 @@ void tabbar::draw() {
 tab::tab(): state(TS_WEB), web(NULL), lastactive(msec()) {
 
 }
+
+void newtab() {
+	puts("newtab");
+}
+
+void closetab() {
+	puts("closetab");
+}

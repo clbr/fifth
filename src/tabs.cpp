@@ -63,7 +63,6 @@ void tabbar::draw() {
 	const u32 lowy = y();
 	const u32 highy = y() + h() - 1;
 	for (i = 0; i < max; i++) {
-		printf("tab %u, %s\n", i, g->tabs[i].title());
 		// Borders
 		fl_color(FL_BLACK);
 		fl_line(posx, lowy, posx, highy);

@@ -361,4 +361,6 @@ void activatetab(const u16 tab) {
 
 	if (g->tabs[g->curtab].web)
 		g->tabs[g->curtab].web->show();
+
+	g->w->redraw();
 }

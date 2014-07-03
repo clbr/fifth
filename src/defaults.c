@@ -27,6 +27,7 @@ const struct setting defaultSettings[] = {
 	{"keys.fwd", ST_U32, { .u = 120}}, // x
 	{"keys.newtab", ST_U32, { .u = 33554548}}, // ctrl + t
 	{"keys.quit", ST_U32, { .u = 33554545}}, // ctrl + q
+	{"keys.screencap", ST_U32, { .u = 33554547 }}, // ctrl + s
 	{"window.bars", ST_CHAR, { .c = "tab,url,main"}},
 	{"window.h", ST_U32, { .u = 600}},
 	{"window.w", ST_U32, { .u = 800}},

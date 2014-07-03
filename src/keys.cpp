@@ -60,6 +60,9 @@ void loadkeys() {
 
 	key = settingkey("keys.quit");
 	g->keys[key] = quit;
+
+	key = settingkey("keys.screencap");
+	g->keys[key] = screencap;
 }
 
 u32 keytou32(const keybinding &key) {

@@ -93,6 +93,10 @@ static void closetabcb(Fl_Widget *, void *) {
 	closetab();
 }
 
+static void screencapcb(Fl_Widget *, void *) {
+	screencap();
+}
+
 int main(int argc, char **argv) {
 
 	g = new globals;
@@ -253,7 +257,8 @@ int main(int argc, char **argv) {
 	menu->add(_("&File/&New tab"), menukey("keys.newtab"), newtabcb);
 	menu->add(_("&File/&Close tab"), menukey("keys.closetab"), closetabcb, 0,
 					FL_MENU_DIVIDER);
-	menu->add(_("&File/&Save screencap"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+	menu->add(_("&File/&Save screencap"), menukey("keys.screencap"), screencapcb, 0,
+					FL_MENU_DIVIDER);
 	menu->add(_("&File/&Quit"), menukey("keys.quit"), quitcb);
 
 	menu->add(_("&Edit/&Undo"), 0, 0, 0, FL_MENU_INACTIVE);

@@ -54,5 +54,6 @@ u32 menukey(const char *);
 
 void newtab();
 void closetab();
+void screencap();
 
 #endif

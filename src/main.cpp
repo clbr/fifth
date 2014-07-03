@@ -306,6 +306,7 @@ int main(int argc, char **argv) {
 			view *v = new view(0, 0, 10,
 				h - menuheight - tabheight - urlheight - statusheight);
 			pack->resizable(v);
+			g->v = v;
 		} else {
 			printf("Unknown window.bars entry '%.*s'\n",
 				len, ptr);

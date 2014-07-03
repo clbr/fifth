@@ -67,6 +67,7 @@ struct globals {
 	bool debugkeys;
 
 	window *w;
+	view *v;
 
 	vector<tab> tabs;
 	vector<tab> closedtabs;

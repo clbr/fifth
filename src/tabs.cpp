@@ -53,7 +53,12 @@ tab::tab(): state(TS_WEB), web(NULL), lastactive(msec()) {
 }
 
 void newtab() {
-	puts("newtab");
+	Fl_Group::current(0);
+	tab tab;
+	tab.state = TS_SPEEDDIAL;
+	tab.web = new webview(g->v->x(), g->v->y(), g->v->w(), g->v->h());
+	g->tabs.push_back(tab);
+	g->curtab = g->tabs.size() - 1;
 }
 
 void closetab() {
@@ -61,9 +66,22 @@ void closetab() {
 }
 
 void newtab(const char *url) {
+	Fl_Group::current(0);
+	tab tab;
+	tab.web = new webview(g->v->x(), g->v->y(), g->v->w(), g->v->h());
+	g->tabs.push_back(tab);
+	g->curtab = g->tabs.size() - 1;
 
+	tab.web->load(url);
 }
 
 void newtabbg(const char *url) {
+	Fl_Group::current(0);
+	tab tab;
+	tab.web = new webview(g->v->x(), g->v->y(), g->v->w(), g->v->h());
+	tab.lastactive = 0; // Put it in the back of the queue
 
+	g->tabs.push_back(tab);
+
+	tab.web->load(url);
 }

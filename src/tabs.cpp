@@ -46,6 +46,24 @@ void tabbar::draw() {
 	fl_color(37, 46, 52);
 	fl_line(startx, y(), endx, y());
 	fl_line(startx, y() + h() - 1, endx, y() + h() - 1);
+
+	// Tabs
+	const u32 defw = 150, minw = 50;
+	u32 max = g->tabs.size();
+	u32 tabw = defw;
+
+	if (tabw * max >= (u32) w()) {
+		tabw = w() / max;
+		while (tabw < minw) {
+			max--;
+			tabw = w() / max;
+		}
+	}
+
+	u32 posx = x();
+	for (i = 0; i < max; i++) {
+		printf("tab %u, %s\n", i, g->tabs[i].title());
+	}
 }
 
 tab::tab(): state(TS_WEB), web(NULL), lastactive(msec()) {

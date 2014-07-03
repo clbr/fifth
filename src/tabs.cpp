@@ -186,7 +186,12 @@ int tabbar::handle(const int e) {
 
 			if (ontab) {
 				if (Fl::event_button() == FL_LEFT_MOUSE) {
+					if (g->tabs[g->curtab].web)
+						g->tabs[g->curtab].web->hide();
 					g->curtab = which;
+					g->tabs[g->curtab].lastactive = msec();
+					if (g->tabs[g->curtab].web)
+						g->tabs[g->curtab].web->show();
 				} else if (Fl::event_button() == FL_MIDDLE_MOUSE) {
 					g->curtab = which;
 					closetab();

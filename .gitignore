@@ -17,3 +17,5 @@ config.cache
 config.status
 stamp-h1
 autoconfig.h
+
+cookies.dat

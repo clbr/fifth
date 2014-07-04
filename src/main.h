@@ -69,6 +69,7 @@ struct globals {
 	window *w;
 	view *v;
 	urlbar *url;
+	tabbar *tabwidget;
 
 	vector<tab> tabs;
 	vector<tab> closedtabs;

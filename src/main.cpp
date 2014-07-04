@@ -299,7 +299,7 @@ int main(int argc, char **argv) {
 		#define entry(a) if (!strncmp(a, ptr, len))
 
 		entry("tab") {
-			new tabbar(0, 0, w, tabheight);
+			g->tabwidget = new tabbar(0, 0, w, tabheight);
 		} else entry("url") {
 			g->url = new urlbar(0, 0, w, urlheight);
 		} else entry("main") {

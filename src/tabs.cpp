@@ -242,6 +242,10 @@ const char *tab::title() {
 	die("Tab corruption\n");
 }
 
+static void titlecb() {
+	g->tabwidget->redraw();
+}
+
 void newtab() {
 	Fl_Group::current(g->v);
 	tab tab;
@@ -250,6 +254,8 @@ void newtab() {
 	g->tabs.push_back(tab);
 	g->curtab = g->tabs.size() - 1;
 	g->w->redraw();
+
+	tab.web->titleChangedCB(titlecb);
 }
 
 void closetab() {
@@ -295,6 +301,7 @@ void newtab(const char *url) {
 	g->curtab = g->tabs.size() - 1;
 	g->w->redraw();
 
+	tab.web->titleChangedCB(titlecb);
 	tab.web->load(url);
 }
 
@@ -306,6 +313,7 @@ void newtabbg(const char *url) {
 
 	g->tabs.push_back(tab);
 
+	tab.web->titleChangedCB(titlecb);
 	tab.web->load(url);
 }
 

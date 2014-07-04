@@ -25,6 +25,7 @@ public:
 
 	void draw() override;
 	void resize(int, int, int, int) override;
+	int handle(int) override;
 };
 
 #endif

@@ -21,11 +21,14 @@ view::view(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 }
 
 void view::draw() {
+
+	tab * const cur = &g->tabs[g->curtab];
+
 	// TODO drawing
-	switch (g->tabs[g->curtab].state) {
+	switch (cur->state) {
 		case TS_WEB:
-			if (g->tabs[g->curtab].web)
-				g->tabs[g->curtab].web->draw();
+			if (cur->web)
+				cur->web->draw();
 		break;
 		case TS_DOWNLOAD:
 		break;
@@ -54,4 +57,27 @@ void view::resize(int x, int y, int w, int h) {
 		if (g->closedtabs[i].web)
 			g->closedtabs[i].web->resize(x, y, w, h);
 	}
+}
+
+int view::handle(const int e) {
+
+	tab * const cur = &g->tabs[g->curtab];
+
+	if (cur->state == TS_WEB && cur->web)
+		return cur->web->handle(e);
+
+	switch (cur->state) {
+		case TS_DOWNLOAD:
+		break;
+		case TS_SSLERR:
+		break;
+		case TS_SPEEDDIAL:
+		break;
+		case TS_WEB:
+		break;
+		case TS_COUNT:
+			die("Not reached\n");
+	}
+
+	return Fl_Widget::handle(e);
 }

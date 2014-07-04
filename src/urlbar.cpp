@@ -45,6 +45,21 @@ static void tabscb(Fl_Widget *w, void *) {
 	const Fl_Menu_Item *ptr = items[0].popup(w->x(), w->y() + w->h());
 
 	if (ptr) {
+		i = (u64) ptr->user_data_;
+		if (i) {
+			// Restore it
+			i--;
+			g->tabs.push_back(g->closedtabs[i]);
+			g->closedtabs.erase(g->closedtabs.begin() + i);
+		} else {
+			// Clear all closed tabs
+			for (i = 0; i < max; i++) {
+				if (g->closedtabs[i].web) {
+					g->closedtabs[i].web->parent()->remove(g->closedtabs[i].web);
+					delete g->closedtabs[i].web;
+				}
+			}
+		}
 	}
 
 	for (i = 0; i < max; i++) {

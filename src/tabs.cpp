@@ -131,7 +131,7 @@ void tabbar::draw() {
 		int textw = 0, texth = 0;
 		fl_measure(tmp, textw, texth, 0);
 
-		const u32 textarea = tabw - 2 - 8 - 16;
+		const u32 textarea = tabw - 2 - 8 - 16 - 4;
 		while ((u32) textw >= textarea) {
 			// Shorten it until it fits
 			const u32 len = strlen(tmp) - 1;

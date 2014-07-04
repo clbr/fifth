@@ -249,8 +249,10 @@ void closetab() {
 		if (g->tabs[0].state == TS_WEB) {
 			g->closedtabs.push_back(g->tabs[0]);
 		} else {
-			if (g->tabs[0].web)
+			if (g->tabs[0].web) {
+				g->tabs[0].web->parent()->remove(g->tabs[0].web);
 				delete g->tabs[0].web;
+			}
 		}
 
 		g->tabs.clear();
@@ -264,8 +266,10 @@ void closetab() {
 		if (g->tabs[0].state == TS_WEB) {
 			g->closedtabs.push_back(g->tabs[g->curtab]);
 		} else {
-			if (g->tabs[g->curtab].web)
+			if (g->tabs[g->curtab].web) {
+				g->tabs[g->curtab].web->parent()->remove(g->tabs[g->curtab].web);
 				delete g->tabs[g->curtab].web;
+			}
 		}
 
 		g->tabs.erase(g->tabs.begin() + g->curtab);

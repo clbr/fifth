@@ -33,14 +33,18 @@ void window::hide() {
 	u32 max = g->tabs.size();
 	u32 i;
 	for (i = 0; i < max; i++) {
-		if (g->tabs[i].web)
+		if (g->tabs[i].web) {
+			g->tabs[i].web->parent()->remove(g->tabs[i].web);
 			delete g->tabs[i].web;
+		}
 	}
 
 	max = g->closedtabs.size();
 	for (i = 0; i < max; i++) {
-		if (g->closedtabs[i].web)
+		if (g->closedtabs[i].web) {
+			g->closedtabs[i].web->parent()->remove(g->closedtabs[i].web);
 			delete g->closedtabs[i].web;
+		}
 	}
 
 	Fl_Widget::hide();

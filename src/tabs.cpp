@@ -156,6 +156,19 @@ int tabbar::handle(const int e) {
 	bool ontab = false;
 	u32 which = 0;
 
+	// Over a tab?
+	if (mousein) {
+		u32 max;
+		const u32 tabw = calctabw(&max, w());
+
+		if (mousex < max * tabw) {
+			ontab = true;
+			u32 tmp = mousex - x();
+			tmp /= tabw;
+			which = tmp;
+		}
+	}
+
 	switch (e) {
 		case FL_ENTER:
 			mousein = true;
@@ -167,21 +180,17 @@ int tabbar::handle(const int e) {
 		case FL_MOVE:
 			mousex = Fl::event_x();
 			redraw();
-			return 1;
-		case FL_PUSH:
-			// Over a tab?
-			if (mousein) {
-				u32 max;
-				const u32 tabw = calctabw(&max, w());
 
-				if (mousex < max * tabw) {
-					ontab = true;
-					u32 tmp = mousex - x();
-					tmp /= tabw;
-					which = tmp;
-				}
+			if (ontab) {
+				copy_tooltip(g->tabs[which].title());
+			} else {
+				tooltip("");
 			}
 
+			// TODO tooltips don't show
+
+			return 1;
+		case FL_PUSH:
 			// Double click on empty?
 			if (Fl::event_clicks() && Fl::event_button() == FL_LEFT_MOUSE &&
 				!ontab) {

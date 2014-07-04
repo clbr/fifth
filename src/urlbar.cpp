@@ -19,6 +19,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "textweb.h"
 #include <FL/Fl_PNG_Image.H>
 
+static void tabscb(Fl_Widget *w, void *) {
+	vector<Fl_Menu_Item> items;
+	const u32 max = g->closedtabs.size();
+	items.reserve(max + 1);
+
+	Fl_Menu_Item empty = {_("Empty trash"), 0, 0, 0, FL_MENU_DIVIDER,
+				FL_NORMAL_LABEL, FL_HELVETICA,
+				FL_NORMAL_SIZE, FL_FOREGROUND_COLOR };
+	items.push_back(empty);
+
+	u32 i;
+	for (i = 0; i < max; i++) {
+		Fl_Menu_Item it = {strdup(g->closedtabs[i].title()),
+					0, 0, (void *) (unsigned long) (i + 1),
+					0,
+					FL_NORMAL_LABEL, FL_HELVETICA,
+					FL_NORMAL_SIZE, FL_FOREGROUND_COLOR };
+		items.push_back(it);
+	}
+	Fl_Menu_Item end;
+	memset(&end, 0, sizeof(Fl_Menu_Item));
+	items.push_back(end);
+
+	const Fl_Menu_Item *ptr = items[0].popup(w->x(), w->y() + w->h());
+
+	if (ptr) {
+	}
+
+	for (i = 0; i < max; i++) {
+		free((char *) items[i + 1].text);
+	}
+}
+
 urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	prev = new urlbutton(0, 0, 0, 0);
@@ -31,6 +64,7 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	search = new textweb(0, 0, 0, 0);
 
 	tabs = new urlbutton(0, 0, 0, 0);
+	tabs->callback(tabscb);
 
 	end();
 

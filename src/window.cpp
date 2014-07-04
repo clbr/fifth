@@ -48,6 +48,8 @@ void window::hide() {
 	}
 
 	Fl_Widget::hide();
+
+	wk_drop_caches();
 }
 
 static void cb(Fl_Widget *w, void*) {

@@ -61,7 +61,7 @@ void view::resize(int x, int y, int w, int h) {
 
 int view::handle(const int e) {
 
-	if (g->tabs.size() < 1)
+	if (g->tabs.size() < 1 || !g->run)
 		return Fl_Widget::handle(e);
 
 	tab * const cur = &g->tabs[g->curtab];

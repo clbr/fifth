@@ -16,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 
-view::view(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
-
+view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
+	end();
 }
 
 void view::draw() {

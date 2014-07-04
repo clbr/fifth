@@ -17,9 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef VIEW_H
 #define VIEW_H
 
-#include <FL/Fl_Widget.H>
+#include <FL/Fl_Group.H>
 
-class view: public Fl_Widget {
+class view: public Fl_Group {
 public:
 	view(int x, int y, int w, int h);
 

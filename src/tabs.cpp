@@ -16,6 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 
+static vector<u16> longorder;
+static u16 longpress;
+
 tabbar::tabbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h),
 		mousex(0), mousein(false) {
 	labelsize(12);
@@ -292,7 +295,7 @@ struct tmptab {
 	u16 i;
 };
 
-int tabcmp(const void *ap, const void *bp) {
+static int tabcmp(const void *ap, const void *bp) {
 	const tmptab * const a = (const tmptab *) ap;
 	const tmptab * const b = (const tmptab *) bp;
 
@@ -331,9 +334,6 @@ vector<u16> taborder() {
 
 	return out;
 }
-
-static vector<u16> longorder;
-static u16 longpress;
 
 static void tabmove(const bool fwd) {
 

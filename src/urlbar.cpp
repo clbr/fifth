@@ -52,6 +52,7 @@ static void tabscb(Fl_Widget *w, void *) {
 			g->tabs.push_back(g->closedtabs[i]);
 			g->closedtabs.erase(g->closedtabs.begin() + i);
 			g->tabwidget->redraw();
+			g->curtab = g->tabs.size() - 1;
 		} else {
 			// Clear all closed tabs
 			for (i = 0; i < max; i++) {

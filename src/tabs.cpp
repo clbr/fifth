@@ -90,7 +90,8 @@ void tabbar::draw() {
 		if (i == g->curtab) {
 			r1 = 100, g1 = 160, b1 = 191;
 			r2 = 42, g2 = 100, b2 = 125;
-		} else if (mousein && mousex >= posx && mousex <= (posx + tabw - 1)) {
+		} else if ((mousein && mousex >= posx && mousex <= (posx + tabw - 1)) ||
+				(!firstpress && longorder[longpress] == i)) {
 			r1 = 150, g1 = 150, b1 = 191;
 			r2 = 100, g2 = 100, b2 = 155;
 			hover = true;
@@ -340,6 +341,7 @@ void nexttab() {
 	longpress++;
 	longpress %= longorder.size();
 	firstpress = false;
+	g->w->redraw();
 }
 
 void prevtab() {
@@ -351,6 +353,7 @@ void prevtab() {
 	else
 		longpress = longorder.size() - 1;
 	firstpress = false;
+	g->w->redraw();
 }
 
 void activatetab(const u16 tab) {

@@ -61,6 +61,9 @@ void view::resize(int x, int y, int w, int h) {
 
 int view::handle(const int e) {
 
+	if (g->tabs.size() < 1)
+		return Fl_Widget::handle(e);
+
 	tab * const cur = &g->tabs[g->curtab];
 
 	if (cur->state == TS_WEB && cur->web)

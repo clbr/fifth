@@ -66,8 +66,10 @@ int view::handle(const int e) {
 
 	tab * const cur = &g->tabs[g->curtab];
 
-	if (cur->state == TS_WEB && cur->web)
-		return cur->web->handle(e);
+	if (cur->state == TS_WEB && cur->web) {
+		if (e != FL_KEYDOWN && e != FL_KEYUP)
+			return cur->web->handle(e);
+	}
 
 	switch (cur->state) {
 		case TS_DOWNLOAD:

@@ -60,6 +60,7 @@ static void tabscb(Fl_Widget *w, void *) {
 					delete g->closedtabs[i].web;
 				}
 			}
+			g->closedtabs.clear();
 		}
 	}
 

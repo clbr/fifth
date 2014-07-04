@@ -21,7 +21,21 @@ view::view(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
 }
 
 void view::draw() {
-	fl_rectf(x(), y(), w(), h(), 0, 0, 127);
+	// TODO drawing
+	switch (g->tabs[g->curtab].state) {
+		case TS_WEB:
+			if (g->tabs[g->curtab].web)
+				g->tabs[g->curtab].web->draw();
+		break;
+		case TS_DOWNLOAD:
+		break;
+		case TS_SSLERR:
+		break;
+		case TS_SPEEDDIAL:
+		break;
+		case TS_COUNT:
+			die("Corrupted tab state\n");
+	}
 }
 
 void view::resize(int x, int y, int w, int h) {

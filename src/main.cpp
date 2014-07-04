@@ -63,7 +63,8 @@ static void findProfile(const bool found) {
 }
 
 static void help(const char * const argv0) {
-	printf(_("\n" PACKAGE_NAME " %s\n\n"
+	printf(_("\n" PACKAGE_NAME " %s\n"
+		"Using WebkitFLTK %u.%u.%u\n\n"
 		"	-b --bench		Benchmark mode\n"
 		"	-k --debug-keys		Print info on unrecognized shortcut keys\n"
 		"	-h --help		This help\n"
@@ -78,6 +79,9 @@ static void help(const char * const argv0) {
 #else
 		VERSION,
 #endif
+		WK_FLTK_MAJOR,
+		WK_FLTK_MINOR,
+		WK_FLTK_PATCH,
 		argv0, argv0);
 }
 

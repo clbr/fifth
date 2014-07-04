@@ -234,7 +234,7 @@ const char *tab::title() {
 }
 
 void newtab() {
-	Fl_Group::current(0);
+	Fl_Group::current(g->v);
 	tab tab;
 	tab.state = TS_SPEEDDIAL;
 	tab.web = new webview(g->v->x(), g->v->y(), g->v->w(), g->v->h());
@@ -275,7 +275,7 @@ void closetab() {
 }
 
 void newtab(const char *url) {
-	Fl_Group::current(0);
+	Fl_Group::current(g->v);
 	tab tab;
 	tab.web = new webview(g->v->x(), g->v->y(), g->v->w(), g->v->h());
 	g->tabs.push_back(tab);
@@ -286,7 +286,7 @@ void newtab(const char *url) {
 }
 
 void newtabbg(const char *url) {
-	Fl_Group::current(0);
+	Fl_Group::current(g->v);
 	tab tab;
 	tab.web = new webview(g->v->x(), g->v->y(), g->v->w(), g->v->h());
 	tab.lastactive = 0; // Put it in the back of the queue

@@ -91,7 +91,7 @@ void tabbar::draw() {
 			r1 = 100, g1 = 160, b1 = 191;
 			r2 = 42, g2 = 100, b2 = 125;
 		} else if ((mousein && mousex >= posx && mousex <= (posx + tabw - 1)) ||
-				(!firstpress && longorder[longpress] == i)) {
+				(!firstpress && longorder.size() && longorder[longpress] == i)) {
 			r1 = 150, g1 = 150, b1 = 191;
 			r2 = 100, g2 = 100, b2 = 155;
 			hover = true;

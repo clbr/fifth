@@ -260,7 +260,6 @@ void newtab() {
 
 void closetab() {
 	if (g->tabs.size() == 1) {
-
 		if (g->tabs[0].state == TS_WEB) {
 			g->closedtabs.push_back(g->tabs[0]);
 		} else {
@@ -278,7 +277,7 @@ void closetab() {
 		if (next > g->curtab)
 			next--;
 
-		if (g->tabs[0].state == TS_WEB) {
+		if (g->tabs[g->curtab].state == TS_WEB) {
 			g->closedtabs.push_back(g->tabs[g->curtab]);
 		} else {
 			if (g->tabs[g->curtab].web) {

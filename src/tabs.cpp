@@ -202,7 +202,7 @@ int tabbar::handle(const int e) {
 				if (Fl::event_button() == FL_LEFT_MOUSE) {
 					activatetab(which);
 				} else if (Fl::event_button() == FL_MIDDLE_MOUSE) {
-					g->curtab = which;
+					activatetab(which);
 					closetab();
 				}
 			}

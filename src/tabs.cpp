@@ -209,9 +209,13 @@ tab::tab(): state(TS_WEB), web(NULL), lastactive(msec()), icon(NULL) {
 }
 
 const char *tab::title() {
+
+	const char *tmp = NULL;
+
 	switch (state) {
 		case TS_WEB:
-			return web->title();
+			tmp = web->title();
+			return tmp ? tmp : "";
 		break;
 		case TS_DOWNLOAD:
 			return _("Downloads");

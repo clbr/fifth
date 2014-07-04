@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static vector<u16> longorder;
 static u16 longpress;
+static bool firstpress;
 
 tabbar::tabbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h),
 		mousex(0), mousein(false) {
@@ -251,7 +252,7 @@ void closetab() {
 		newtab();
 	} else {
 		const vector<u16> &order = taborder();
-		u16 next = order[0];
+		u16 next = order[1];
 		if (next > g->curtab)
 			next--;
 
@@ -307,57 +308,49 @@ static int tabcmp(const void *ap, const void *bp) {
 }
 
 vector<u16> taborder() {
-	// Return the indices of all active tabs sans the current one,
+	// Return the indices of all active tabs,
 	// ordered by their access times in descending order.
 
 	vector<u16> out;
 	const u16 max = g->tabs.size();
 	out.reserve(max);
 
-	tmptab arr[max - 1];
+	tmptab arr[max];
 
 	u16 i, k = 0;
 	for (i = 0; i < max; i++) {
-		if (i == g->curtab)
-			continue;
-
 		arr[k].time = g->tabs[i].lastactive;
 		arr[k].i = i;
 		k++;
 	}
 
-	qsort(arr, max - 1, sizeof(struct tmptab), tabcmp);
+	qsort(arr, max, sizeof(struct tmptab), tabcmp);
 
-	for (i = 0; i < max - 1; i++) {
+	for (i = 0; i < max; i++) {
 		out.push_back(arr[i].i);
 	}
 
 	return out;
 }
 
-static void tabmove(const bool fwd) {
-
-	const u32 max = g->tabs.size();
-
-	if (max == 1)
+void nexttab() {
+	if (g->tabs.size() == 1)
 		return;
 
-	longpress %= longorder.size();
-
-	if (fwd)
-		activatetab(longorder[longpress]);
-	else
-		activatetab(longorder[longorder.size() - 1 - longpress]);
-}
-
-void nexttab() {
-	tabmove(true);
 	longpress++;
+	longpress %= longorder.size();
+	firstpress = false;
 }
 
 void prevtab() {
-	tabmove(false);
-	longpress++;
+	if (g->tabs.size() == 1)
+		return;
+
+	if (longpress)
+		longpress--;
+	else
+		longpress = longorder.size() - 1;
+	firstpress = false;
 }
 
 void activatetab(const u16 tab) {
@@ -377,8 +370,11 @@ void activatetab(const u16 tab) {
 void startctrl() {
 	longorder = taborder();
 	longpress = 0;
+	firstpress = true;
 }
 
 void endctrl() {
+	if (!firstpress)
+		activatetab(longorder[longpress]);
 	longorder.clear();
 }

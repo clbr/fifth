@@ -24,7 +24,9 @@ static void tabscb(Fl_Widget *w, void *) {
 	const u32 max = g->closedtabs.size();
 	items.reserve(max + 1);
 
-	Fl_Menu_Item empty = {_("Empty trash"), 0, 0, 0, FL_MENU_DIVIDER,
+	const int inactive = max ? 0 : FL_MENU_INACTIVE;
+
+	Fl_Menu_Item empty = {_("Empty trash"), 0, 0, 0, FL_MENU_DIVIDER | inactive,
 				FL_NORMAL_LABEL, FL_HELVETICA,
 				FL_NORMAL_SIZE, FL_FOREGROUND_COLOR };
 	items.push_back(empty);

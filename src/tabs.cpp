@@ -242,8 +242,23 @@ const char *tab::title() {
 	die("Tab corruption\n");
 }
 
+static void windowtitle() {
+	static char *oldtitle = NULL;
+	static char *store = NULL;
+
+	if (!oldtitle || strcmp(oldtitle, g->tabs[g->curtab].title())) {
+		free(oldtitle);
+		free(store);
+		asprintf(&store, "%s - Fifth", g->tabs[g->curtab].title());
+		g->w->label(store);
+		oldtitle = strdup(g->tabs[g->curtab].title());
+	}
+}
+
 static void titlecb() {
 	g->tabwidget->redraw();
+
+	windowtitle();
 }
 
 void newtab() {
@@ -253,6 +268,7 @@ void newtab() {
 	tab.web = new webview(g->v->x(), g->v->y(), g->v->w(), g->v->h());
 	g->tabs.push_back(tab);
 	g->curtab = g->tabs.size() - 1;
+	windowtitle();
 	g->w->redraw();
 
 	tab.web->titleChangedCB(titlecb);
@@ -290,6 +306,7 @@ void closetab() {
 		g->curtab = next;
 		g->w->redraw();
 	}
+	windowtitle();
 }
 
 void newtab(const char *url) {
@@ -391,6 +408,7 @@ void activatetab(const u16 tab) {
 	if (g->tabs[g->curtab].web)
 		g->tabs[g->curtab].web->show();
 
+	windowtitle();
 	g->w->redraw();
 }
 

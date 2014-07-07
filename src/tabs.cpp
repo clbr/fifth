@@ -214,7 +214,7 @@ int tabbar::handle(const int e) {
 }
 
 tab::tab(): state(TS_WEB), engine(TSE_DDG), web(NULL), lastactive(msec()),
-		icon(NULL) {
+		icon(NULL), url(NULL), search(NULL) {
 
 }
 
@@ -270,6 +270,22 @@ static void searchenginestate() {
 	}
 }
 
+static void urlbarstate() {
+	const tab * const cur = &g->tabs[g->curtab];
+
+	if (cur->url) {
+		g->url->url->input().value(cur->url);
+	} else {
+		g->url->url->input().static_value("");
+	}
+
+	if (cur->search) {
+		g->url->search->input().value(cur->search);
+	} else {
+		g->url->search->input().static_value("");
+	}
+}
+
 static void titlecb() {
 	g->tabwidget->redraw();
 
@@ -285,6 +301,7 @@ void newtab() {
 	g->curtab = g->tabs.size() - 1;
 	windowtitle();
 	searchenginestate();
+	urlbarstate();
 	g->w->redraw();
 
 	tab.web->titleChangedCB(titlecb);
@@ -425,6 +442,7 @@ void activatetab(const u16 tab) {
 
 	windowtitle();
 	searchenginestate();
+	urlbarstate();
 
 	g->w->redraw();
 }

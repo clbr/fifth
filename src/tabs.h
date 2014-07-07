@@ -56,6 +56,9 @@ struct tab {
 	u64 lastactive;
 	Fl_RGB_Image *icon;
 
+	const char *url;
+	const char *search;
+
 	tab();
 	const char *title();
 };

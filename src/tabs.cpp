@@ -256,6 +256,20 @@ static void windowtitle() {
 	}
 }
 
+static void searchenginestate() {
+	// Check search engine state
+	switch (g->tabs[g->curtab].engine) {
+		case TSE_DDG:
+			g->url->search->input().placeholder("DuckDuckGo");
+		break;
+		case TSE_GOOGLE:
+			g->url->search->input().placeholder("Google");
+		break;
+		case TSE_COUNT:
+			die("Search engine corruption\n");
+	}
+}
+
 static void titlecb() {
 	g->tabwidget->redraw();
 
@@ -270,6 +284,7 @@ void newtab() {
 	g->tabs.push_back(tab);
 	g->curtab = g->tabs.size() - 1;
 	windowtitle();
+	searchenginestate();
 	g->w->redraw();
 
 	tab.web->titleChangedCB(titlecb);
@@ -409,6 +424,8 @@ void activatetab(const u16 tab) {
 		g->tabs[g->curtab].web->show();
 
 	windowtitle();
+	searchenginestate();
+
 	g->w->redraw();
 }
 

@@ -286,6 +286,23 @@ static void urlbarstate() {
 	}
 }
 
+static void saveurlbar() {
+	tab * const cur = &g->tabs[g->curtab];
+
+	free((char *) cur->url);
+	free((char *) cur->search);
+	cur->url = NULL;
+	cur->search = NULL;
+
+	const char * const urlval = g->url->url->input().value();
+	const char * const searchval = g->url->search->input().value();
+
+	if (strlen(urlval) > 1 && !allspace(urlval))
+		cur->url = strdup(urlval);
+	if (strlen(searchval) > 1 && !allspace(searchval))
+		cur->search = strdup(searchval);
+}
+
 static void titlecb() {
 	g->tabwidget->redraw();
 
@@ -293,6 +310,9 @@ static void titlecb() {
 }
 
 void newtab() {
+	if (g->tabs.size())
+		saveurlbar();
+
 	Fl_Group::current(g->v);
 	tab tab;
 	tab.state = TS_SPEEDDIAL;
@@ -310,6 +330,7 @@ void newtab() {
 void closetab() {
 	if (g->tabs.size() == 1) {
 		if (g->tabs[0].state == TS_WEB) {
+			saveurlbar();
 			g->closedtabs.push_back(g->tabs[0]);
 		} else {
 			if (g->tabs[0].web) {
@@ -327,6 +348,7 @@ void closetab() {
 			next--;
 
 		if (g->tabs[g->curtab].state == TS_WEB) {
+			saveurlbar();
 			g->closedtabs.push_back(g->tabs[g->curtab]);
 		} else {
 			if (g->tabs[g->curtab].web) {
@@ -342,6 +364,9 @@ void closetab() {
 }
 
 void newtab(const char *url) {
+	if (g->tabs.size())
+		saveurlbar();
+
 	Fl_Group::current(g->v);
 	tab tab;
 	tab.web = new webview(g->v->x(), g->v->y(), g->v->w(), g->v->h());
@@ -354,6 +379,9 @@ void newtab(const char *url) {
 }
 
 void newtabbg(const char *url) {
+	if (g->tabs.size())
+		saveurlbar();
+
 	Fl_Group::current(g->v);
 	tab tab;
 	tab.web = new webview(g->v->x(), g->v->y(), g->v->w(), g->v->h());
@@ -431,8 +459,10 @@ void prevtab() {
 
 void activatetab(const u16 tab) {
 
-	if (g->tabs[g->curtab].web && g->curtab != tab)
+	if (g->tabs[g->curtab].web && g->curtab != tab) {
 		g->tabs[g->curtab].web->hide();
+		saveurlbar();
+	}
 
 	g->curtab = tab;
 	g->tabs[g->curtab].lastactive = msec();

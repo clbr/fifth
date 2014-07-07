@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "textweb.h"
 
 textweb::textweb(int x, int y, int w, int h): Fl_Input_Choice(x, y, w, h) {
-	when(FL_WHEN_ENTER_KEY|FL_WHEN_NOT_CHANGED);
+	input().when(FL_WHEN_ENTER_KEY|FL_WHEN_NOT_CHANGED);
 }
 
 void textweb::draw() {

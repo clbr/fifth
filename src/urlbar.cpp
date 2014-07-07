@@ -91,6 +91,33 @@ static void searchenginecb(Fl_Widget *w, void *) {
 	g->url->search->redraw();
 }
 
+static int allspace(const char *in) {
+	for (; *in; in++) {
+		if (!isspace(*in))
+			return 0;
+	}
+
+	return 1;
+}
+
+static void dosearch(Fl_Widget *w, void *) {
+	const Fl_Input * const i = (Fl_Input *) w;
+	const char * const val = i->value();
+	if (strlen(val) < 2 || allspace(val))
+		return;
+
+	printf("Search for %s\n", i->value());
+}
+
+static void dogo(Fl_Widget *w, void *) {
+	const Fl_Input * const i = (Fl_Input *) w;
+	const char * const val = i->value();
+	if (strlen(val) < 2 || allspace(val))
+		return;
+
+	printf("Go for %s\n", i->value());
+}
+
 urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	prev = new urlbutton(0, 0, 0, 0);
@@ -130,7 +157,9 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	#undef img
 
 	url->input().placeholder(_("WWW address..."));
+	url->input().callback(dogo);
 	search->input().placeholder("DuckDuckGo");
+	search->input().callback(dosearch);
 
 	search->menubutton().add("DuckDuckGo", 0, 0);
 	search->menubutton().add("Google", 0, 0);

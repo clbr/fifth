@@ -33,8 +33,11 @@ static void tabscb(Fl_Widget *w, void *) {
 
 	u32 i;
 	for (i = 0; i < max; i++) {
+		int shortcut = 0;
+		if (!i) shortcut = menukey("keys.undotab");
+
 		Fl_Menu_Item it = {strdup(g->closedtabs[i].title()),
-					0, 0, (void *) (unsigned long) (i + 1),
+					shortcut, 0, (void *) (unsigned long) (i + 1),
 					0,
 					FL_NORMAL_LABEL, FL_HELVETICA,
 					FL_NORMAL_SIZE, FL_FOREGROUND_COLOR };

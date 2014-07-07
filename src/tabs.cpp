@@ -304,9 +304,8 @@ void closetab() {
 
 		g->tabs.erase(g->tabs.begin() + g->curtab);
 		g->curtab = next;
-		g->w->redraw();
+		activatetab(g->curtab);
 	}
-	windowtitle();
 }
 
 void newtab(const char *url) {

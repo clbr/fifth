@@ -74,6 +74,23 @@ static void tabscb(Fl_Widget *w, void *) {
 	}
 }
 
+static void searchenginecb(Fl_Widget *w, void *) {
+
+	const Fl_Menu_Button * const b = (Fl_Menu_Button *) w;
+	const char * const label = b->text();
+	g->url->search->input().placeholder(label);
+
+	if (strcasestr(label, "duckduckgo")) {
+		g->tabs[g->curtab].engine = TSE_DDG;
+	} else if (strcasestr(label, "google")) {
+		g->tabs[g->curtab].engine = TSE_GOOGLE;
+	} else {
+		die("Tried to set an unknown search engine\n");
+	}
+
+	g->url->search->redraw();
+}
+
 urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	prev = new urlbutton(0, 0, 0, 0);
@@ -114,6 +131,10 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	url->input().placeholder(_("WWW address..."));
 	search->input().placeholder("DuckDuckGo");
+
+	search->menubutton().add("DuckDuckGo", 0, 0);
+	search->menubutton().add("Google", 0, 0);
+	search->menubutton().callback(searchenginecb);
 
 	prev->tooltip(_("First page in session"));
 	back->tooltip(_("Back"));

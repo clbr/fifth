@@ -399,7 +399,7 @@ void prevtab() {
 
 void activatetab(const u16 tab) {
 
-	if (g->tabs[g->curtab].web)
+	if (g->tabs[g->curtab].web && g->curtab != tab)
 		g->tabs[g->curtab].web->hide();
 
 	g->curtab = tab;

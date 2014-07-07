@@ -42,11 +42,19 @@ enum tabstate {
 	TS_COUNT
 };
 
+enum tabsearch {
+	TSE_DDG,
+	TSE_GOOGLE,
+	TSE_COUNT
+};
+
 struct tab {
 	tabstate state;
 	webview *web;
 	u64 lastactive;
 	Fl_RGB_Image *icon;
+
+	tabsearch engine;
 
 	tab();
 	const char *title();

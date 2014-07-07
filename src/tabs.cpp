@@ -213,7 +213,8 @@ int tabbar::handle(const int e) {
 	return Fl_Widget::handle(e);
 }
 
-tab::tab(): state(TS_WEB), web(NULL), lastactive(msec()), icon(NULL) {
+tab::tab(): state(TS_WEB), web(NULL), lastactive(msec()), icon(NULL),
+		engine(TSE_DDG) {
 
 }
 

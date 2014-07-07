@@ -115,7 +115,8 @@ static void dogo(Fl_Widget *w, void *) {
 	if (strlen(val) < 2 || allspace(val))
 		return;
 
-	printf("Go for %s\n", i->value());
+	g->tabs[g->curtab].state = TS_WEB;
+	g->tabs[g->curtab].web->load(val);
 }
 
 urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {

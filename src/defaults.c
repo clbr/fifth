@@ -31,6 +31,7 @@ const struct setting defaultSettings[] = {
 	{"keys.prevtab",	ST_U32, { .u = 167837449}}, // ctrl + shift + tab
 	{"keys.quit", 		ST_U32, { .u = 33554545}}, // ctrl + q
 	{"keys.screencap",	ST_U32, { .u = 33554547 }}, // ctrl + s
+	{"keys.undotab",	ST_U32, { .u = 100663418 }}, // ctrl + alt + z
 	{"window.bars", 	ST_CHAR, { .c = "tab,url,main"}},
 	{"window.h", 		ST_U32, { .u = 600}},
 	{"window.w", 		ST_U32, { .u = 800}},

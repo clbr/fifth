@@ -422,3 +422,12 @@ void endctrl() {
 		activatetab(longorder[longpress]);
 	longorder.clear();
 }
+
+void undotab() {
+	if (!g->closedtabs.size())
+		return;
+
+	g->tabs.push_back(g->closedtabs[0]);
+	g->closedtabs.erase(g->closedtabs.begin());
+	activatetab(g->tabs.size() - 1);
+}

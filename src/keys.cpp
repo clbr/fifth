@@ -61,6 +61,9 @@ void loadkeys() {
 
 	key = settingkey("keys.prevtab");
 	g->keys[key] = prevtab;
+
+	key = settingkey("keys.undotab");
+	g->keys[key] = undotab;
 }
 
 u32 keytou32(const keybinding &key) {

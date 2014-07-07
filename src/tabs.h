@@ -56,6 +56,7 @@ void newtab();
 void newtab(const char *url);
 void newtabbg(const char *url);
 void closetab();
+void undotab();
 
 void prevtab();
 void nexttab();

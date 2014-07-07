@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <ctype.h>
 #include "helpers.h"
 
 void *xcalloc(size_t nmemb, size_t size) {
@@ -107,4 +108,13 @@ u64 msec() {
 	u64 ms = t.tv_sec * 1000;
 	ms += t.tv_usec / 1000;
 	return ms;
+}
+
+int allspace(const char *in) {
+	for (; *in; in++) {
+		if (!isspace(*in))
+			return 0;
+	}
+
+	return 1;
 }

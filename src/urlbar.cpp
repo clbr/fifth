@@ -91,15 +91,6 @@ static void searchenginecb(Fl_Widget *w, void *) {
 	g->url->search->redraw();
 }
 
-static int allspace(const char *in) {
-	for (; *in; in++) {
-		if (!isspace(*in))
-			return 0;
-	}
-
-	return 1;
-}
-
 static void dosearch(Fl_Widget *w, void *) {
 	const Fl_Input * const i = (Fl_Input *) w;
 	const char * const val = i->value();

@@ -50,11 +50,11 @@ enum tabsearch {
 
 struct tab {
 	tabstate state;
+	tabsearch engine;
+
 	webview *web;
 	u64 lastactive;
 	Fl_RGB_Image *icon;
-
-	tabsearch engine;
 
 	tab();
 	const char *title();

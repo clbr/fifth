@@ -307,6 +307,21 @@ static void titlecb() {
 	g->tabwidget->redraw();
 
 	windowtitle();
+
+	// Titles are often changed with urls. Sync urls here.
+	u32 i;
+	const u32 max = g->tabs.size();
+
+	for (i = 0; i < max; i++) {
+		tab * const cur = &g->tabs[i];
+
+		free((char *) cur->url);
+		cur->url = NULL;
+		if (cur->web)
+			cur->url = strdup(cur->web->url());
+	}
+
+	urlbarstate();
 }
 
 void newtab() {

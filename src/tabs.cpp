@@ -278,12 +278,14 @@ static void urlbarstate() {
 	} else {
 		g->url->url->input().static_value("");
 	}
+	g->url->url->input().position(0);
 
 	if (cur->search) {
 		g->url->search->input().value(cur->search);
 	} else {
 		g->url->search->input().static_value("");
 	}
+	g->url->search->input().position(0);
 }
 
 static void saveurlbar() {

@@ -97,7 +97,34 @@ static void dosearch(Fl_Widget *w, void *) {
 	if (strlen(val) < 2 || allspace(val))
 		return;
 
-	printf("Search for %s\n", i->value());
+	char *first = strdup(i->value());
+	char *ptr = first;
+	for (; *ptr; ptr++) {
+		if (*ptr == ' ')
+			*ptr = '+';
+	}
+
+	ptr = wk_urlencode(first);
+	free(first);
+
+	switch (g->tabs[g->curtab].engine) {
+		case TSE_DDG:
+			asprintf(&first, "https://duckduckgo.com/html?q=%s", ptr);
+		break;
+		case TSE_GOOGLE:
+			asprintf(&first, "https://google.com/search?q=%s", ptr);
+		break;
+		case TSE_COUNT:
+			die("Search engine corruption\n");
+	}
+
+	free(ptr);
+
+	g->tabs[g->curtab].state = TS_WEB;
+	g->tabs[g->curtab].web->load(first);
+	g->tabs[g->curtab].web->take_focus();
+
+	free(first);
 }
 
 static void dogo(Fl_Widget *w, void *) {

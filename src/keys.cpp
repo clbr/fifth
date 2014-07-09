@@ -33,6 +33,16 @@ static void quit() {
 	g->w->hide();
 }
 
+static void urlfocus() {
+	g->url->url->input().position(0, g->url->url->input().size());
+	g->url->url->input().take_focus();
+}
+
+static void searchfocus() {
+	g->url->search->input().position(0, g->url->search->input().size());
+	g->url->search->input().take_focus();
+}
+
 void loadkeys() {
 	g->keys.clear();
 
@@ -64,6 +74,12 @@ void loadkeys() {
 
 	key = settingkey("keys.undotab");
 	g->keys[key] = undotab;
+
+	key = settingkey("keys.urlfield");
+	g->keys[key] = urlfocus;
+
+	key = settingkey("keys.searchfield");
+	g->keys[key] = searchfocus;
 }
 
 u32 keytou32(const keybinding &key) {

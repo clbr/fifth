@@ -2,3 +2,6 @@ Noting relevant webkit bugs here.
 
 Scrolling with arrow keys or mouse wheel does not update cursor/tooltip:
 https://bugs.webkit.org/show_bug.cgi?id=17052
+
+Cannot select text in a link:
+http://code.google.com/p/chromium/issues/detail?id=120352

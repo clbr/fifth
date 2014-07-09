@@ -120,6 +120,9 @@ static void dosearch(Fl_Widget *w, void *) {
 
 	free(ptr);
 
+	free((char *) g->tabs[g->curtab].search);
+	g->tabs[g->curtab].search = strdup(i->value());
+
 	g->tabs[g->curtab].state = TS_WEB;
 	g->tabs[g->curtab].web->load(first);
 	g->tabs[g->curtab].web->take_focus();

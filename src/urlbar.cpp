@@ -108,6 +108,7 @@ static void dogo(Fl_Widget *w, void *) {
 
 	g->tabs[g->curtab].state = TS_WEB;
 	g->tabs[g->curtab].web->load(val);
+	g->tabs[g->curtab].web->take_focus();
 }
 
 urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {

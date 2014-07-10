@@ -16,8 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 #include "urlicons.h"
+#include "searchicons.h"
 #include "textweb.h"
 #include <FL/Fl_PNG_Image.H>
+
+static Fl_PNG_Image *ddglogo, *googlelogo;
 
 static void tabscb(Fl_Widget *w, void *) {
 	vector<Fl_Menu_Item> items;
@@ -82,8 +85,10 @@ static void searchenginecb(Fl_Widget *w, void *) {
 
 	if (strcasestr(label, "duckduckgo")) {
 		g->tabs[g->curtab].engine = TSE_DDG;
+		g->url->search->image(ddglogo);
 	} else if (strcasestr(label, "google")) {
 		g->tabs[g->curtab].engine = TSE_GOOGLE;
+		g->url->search->image(googlelogo);
 	} else {
 		die("Tried to set an unknown search engine\n");
 	}
@@ -161,6 +166,9 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	// TODO: theming
 	#define img(a) a, sizeof(a)
+	googlelogo = new Fl_PNG_Image("google.png", img(google_png));
+	ddglogo = new Fl_PNG_Image("ddg.png", img(ddg_png));
+
 	refreshimg = new Fl_PNG_Image("refresh.png", img(reload_png));
 	stopimg = new Fl_PNG_Image("stop.png", img(stop_png));
 	new Fl_PNG_Image("newtab.png", img(newtab_png));
@@ -182,6 +190,7 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	url->input().placeholder(_("WWW address..."));
 	url->input().callback(dogo);
 	search->input().placeholder("DuckDuckGo");
+	search->image(ddglogo);
 	search->input().callback(dosearch);
 
 	search->menubutton().add("DuckDuckGo", 0, 0);

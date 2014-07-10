@@ -324,7 +324,7 @@ static void titlecb() {
 
 		free((char *) cur->url);
 		cur->url = NULL;
-		if (cur->web)
+		if (cur->web && cur->web->url())
 			cur->url = strdup(cur->web->url());
 	}
 

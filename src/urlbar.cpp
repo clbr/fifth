@@ -85,10 +85,10 @@ static void searchenginecb(Fl_Widget *w, void *) {
 
 	if (strcasestr(label, "duckduckgo")) {
 		g->tabs[g->curtab].engine = TSE_DDG;
-		g->url->search->image(ddglogo);
+		g->url->search->input().image(ddglogo);
 	} else if (strcasestr(label, "google")) {
 		g->tabs[g->curtab].engine = TSE_GOOGLE;
-		g->url->search->image(googlelogo);
+		g->url->search->input().image(googlelogo);
 	} else {
 		die("Tried to set an unknown search engine\n");
 	}
@@ -190,7 +190,7 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	url->input().placeholder(_("WWW address..."));
 	url->input().callback(dogo);
 	search->input().placeholder("DuckDuckGo");
-	search->image(ddglogo);
+	search->input().image(ddglogo);
 	search->input().callback(dosearch);
 
 	search->menubutton().add("DuckDuckGo", 0, 0);

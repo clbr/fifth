@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "textweb.h"
 #include <FL/Fl_PNG_Image.H>
 
-static Fl_PNG_Image *ddglogo, *googlelogo;
+Fl_PNG_Image *ddglogo, *googlelogo;
 
 static void tabscb(Fl_Widget *w, void *) {
 	vector<Fl_Menu_Item> items;

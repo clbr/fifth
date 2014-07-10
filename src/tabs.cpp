@@ -15,10 +15,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "main.h"
+#include <FL/Fl_PNG_Image.H>
 
 static vector<u16> longorder;
 static u16 longpress;
 static bool firstpress;
+
+extern Fl_PNG_Image *ddglogo, *googlelogo;
 
 tabbar::tabbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h),
 		mousex(0), mousein(false) {
@@ -261,9 +264,11 @@ static void searchenginestate() {
 	switch (g->tabs[g->curtab].engine) {
 		case TSE_DDG:
 			g->url->search->input().placeholder("DuckDuckGo");
+			g->url->search->input().image(ddglogo);
 		break;
 		case TSE_GOOGLE:
 			g->url->search->input().placeholder("Google");
+			g->url->search->input().image(googlelogo);
 		break;
 		case TSE_COUNT:
 			die("Search engine corruption\n");

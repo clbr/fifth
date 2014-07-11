@@ -63,6 +63,9 @@ void stop() {
 	} else {
 		// TODO stop gif animations
 	}
+
+	g->url->refreshstate(true);
+	g->url->redraw();
 }
 
 void refresh() {

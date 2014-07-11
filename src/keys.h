@@ -58,5 +58,7 @@ void back();
 void fwd();
 void prev();
 void next();
+void stop();
+void refresh();
 
 #endif

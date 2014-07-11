@@ -53,6 +53,26 @@ void next() {
 	cur->web->next();
 }
 
+void stop() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	if (cur->web->isLoading()) {
+		cur->web->stop();
+	} else {
+		// TODO stop gif animations
+	}
+}
+
+void refresh() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	cur->web->refresh();
+}
+
 static void quit() {
 	g->w->hide();
 }
@@ -110,6 +130,12 @@ void loadkeys() {
 
 	key = settingkey("keys.next");
 	g->keys[key] = next;
+
+	key = settingkey("keys.stop");
+	g->keys[key] = stop;
+
+	key = settingkey("keys.refresh");
+	g->keys[key] = refresh;
 }
 
 u32 keytou32(const keybinding &key) {

@@ -162,6 +162,13 @@ static void nextcb(Fl_Widget *, void *) {
 	next();
 }
 
+static void stopcb(Fl_Widget *, void *) {
+	if (g->url->isStop())
+		stop();
+	else
+		refresh();
+}
+
 urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	prev = new urlbutton(0, 0, 0, 0);
@@ -224,6 +231,7 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	next->callback(nextcb);
 	back->callback(backcb);
 	fwd->callback(fwdcb);
+	refresh->callback(stopcb);
 }
 
 void urlbar::draw() {

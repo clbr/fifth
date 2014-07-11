@@ -146,6 +146,22 @@ static void dogo(Fl_Widget *w, void *) {
 	g->tabs[g->curtab].web->take_focus();
 }
 
+static void backcb(Fl_Widget *, void *) {
+	back();
+}
+
+static void fwdcb(Fl_Widget *, void *) {
+	fwd();
+}
+
+static void prevcb(Fl_Widget *, void *) {
+	prev();
+}
+
+static void nextcb(Fl_Widget *, void *) {
+	next();
+}
+
 urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	prev = new urlbutton(0, 0, 0, 0);
@@ -203,6 +219,11 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	next->tooltip(_("Next page"));
 
 	tabs->tooltip(_("Closed tabs"));
+
+	prev->callback(prevcb);
+	next->callback(nextcb);
+	back->callback(backcb);
+	fwd->callback(fwdcb);
 }
 
 void urlbar::draw() {

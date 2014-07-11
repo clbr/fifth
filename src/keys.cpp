@@ -21,12 +21,20 @@ static keybinding settingkey(const char * const name) {
 	return u32tokey(s->val.u);
 }
 
-static void back() {
+void back() {
 	puts("back");
 }
 
-static void fwd() {
+void fwd() {
 	puts("fwd");
+}
+
+void prev() {
+	puts("prev");
+}
+
+void next() {
+	puts("next");
 }
 
 static void quit() {
@@ -80,6 +88,12 @@ void loadkeys() {
 
 	key = settingkey("keys.searchfield");
 	g->keys[key] = searchfocus;
+
+	key = settingkey("keys.prev");
+	g->keys[key] = prev;
+
+	key = settingkey("keys.next");
+	g->keys[key] = next;
 }
 
 u32 keytou32(const keybinding &key) {

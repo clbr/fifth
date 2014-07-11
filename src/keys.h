@@ -54,4 +54,9 @@ u32 menukey(const char *);
 
 void screencap();
 
+void back();
+void fwd();
+void prev();
+void next();
+
 #endif

@@ -361,6 +361,19 @@ static void titlecb() {
 	urlbarstate();
 }
 
+static void stopcb(webview * const view) {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB || cur->web != view)
+		return;
+
+	if (cur->web->isLoading())
+		g->url->refreshstate(false);
+	else
+		g->url->refreshstate(true);
+
+	g->url->redraw();
+}
+
 void newtab() {
 	if (g->tabs.size())
 		saveurlbar();
@@ -377,6 +390,7 @@ void newtab() {
 	g->w->redraw();
 
 	tab.web->titleChangedCB(titlecb);
+	tab.web->loadStateChangedCB(stopcb);
 }
 
 void closetab() {
@@ -427,6 +441,7 @@ void newtab(const char *url) {
 	g->w->redraw();
 
 	tab.web->titleChangedCB(titlecb);
+	tab.web->loadStateChangedCB(stopcb);
 	tab.web->load(url);
 }
 
@@ -442,6 +457,7 @@ void newtabbg(const char *url) {
 	g->tabs.push_back(tab);
 
 	tab.web->titleChangedCB(titlecb);
+	tab.web->loadStateChangedCB(stopcb);
 	tab.web->load(url);
 }
 

@@ -329,3 +329,7 @@ void urlbar::refreshstate(const bool green) {
 		refresh->tooltip(_("Stop"));
 	}
 }
+
+bool urlbar::isStop() const {
+	return refresh->image() == stopimg;
+}

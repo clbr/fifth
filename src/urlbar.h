@@ -32,6 +32,7 @@ public:
 	void resize(int x, int y, int w, int h) override;
 
 	void refreshstate(const bool refresh);
+	bool isStop() const;
 
 	urlbutton *prev, *back, *fwd, *next, *refresh, *tabs;
 	textweb *url, *search;

@@ -275,6 +275,34 @@ static void searchenginestate() {
 	}
 }
 
+static void urlbuttonstate() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB) {
+		g->url->prev->deactivate();
+		g->url->back->deactivate();
+		g->url->fwd->deactivate();
+		g->url->next->deactivate();
+		g->url->refresh->deactivate();
+	} else if (cur->web) {
+		g->url->refresh->activate();
+		g->url->next->activate();
+
+		if (cur->web->canBack()) {
+			g->url->prev->activate();
+			g->url->back->activate();
+		} else {
+			g->url->prev->deactivate();
+			g->url->back->deactivate();
+		}
+
+		if (cur->web->canFwd()) {
+			g->url->fwd->activate();
+		} else {
+			g->url->fwd->deactivate();
+		}
+	}
+}
+
 static void urlbarstate() {
 	const tab * const cur = &g->tabs[g->curtab];
 
@@ -291,6 +319,8 @@ static void urlbarstate() {
 		g->url->search->input().static_value("");
 	}
 	g->url->search->input().position(0);
+
+	urlbuttonstate();
 }
 
 static void saveurlbar() {

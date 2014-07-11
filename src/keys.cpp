@@ -22,19 +22,35 @@ static keybinding settingkey(const char * const name) {
 }
 
 void back() {
-	puts("back");
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB || !cur->web->canBack())
+		return;
+
+	cur->web->back();
 }
 
 void fwd() {
-	puts("fwd");
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB || !cur->web->canFwd())
+		return;
+
+	cur->web->fwd();
 }
 
 void prev() {
-	puts("prev");
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB || !cur->web->canBack())
+		return;
+
+	cur->web->prev();
 }
 
 void next() {
-	puts("next");
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	cur->web->next();
 }
 
 static void quit() {

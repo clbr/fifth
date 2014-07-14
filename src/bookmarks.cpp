@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void loadbookmarks() {
 
+	g->bookmarks.clear();
+
 	const int fd = openat(g->profilefd, BOOKMARKFILE, O_RDONLY);
 	if (fd < 0)
 		return;

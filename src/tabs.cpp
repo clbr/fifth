@@ -221,7 +221,7 @@ tab::tab(): state(TS_WEB), engine(TSE_DDG), web(NULL), lastactive(msec()),
 
 }
 
-const char *tab::title() {
+const char *tab::title() const {
 
 	const char *tmp = NULL;
 

@@ -60,7 +60,7 @@ struct tab {
 	const char *search;
 
 	tab();
-	const char *title();
+	const char *title() const;
 };
 
 void newtab();

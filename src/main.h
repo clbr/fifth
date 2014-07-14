@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <FL/Fl.H>
 #include <FL/fl_draw.H>
 #include <FL/Fl_Shared_Image.H>
+#include <FL/Fl_Menu_Bar.H>
 #include <webkit.h>
 
 #include "autoconfig.h"
@@ -71,6 +72,7 @@ struct globals {
 	view *v;
 	urlbar *url;
 	tabbar *tabwidget;
+	Fl_Menu_Bar *menu;
 
 	vector<tab> tabs;
 	vector<tab> closedtabs;
@@ -88,5 +90,7 @@ enum startup {
 	START_HOME,
 	START_COUNT
 };
+
+void generatemenu();
 
 #endif

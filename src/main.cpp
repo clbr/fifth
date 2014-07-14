@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <sys/file.h>
 #include <getopt.h>
 #include <FL/Fl_Pack.H>
-#include <FL/Fl_Menu_Bar.H>
 
 globals *g;
 
@@ -99,6 +98,37 @@ static void closetabcb(Fl_Widget *, void *) {
 
 static void screencapcb(Fl_Widget *, void *) {
 	screencap();
+}
+
+void generatemenu() {
+
+	g->menu->clear();
+
+	g->menu->add(_("&File/&New tab"), menukey("keys.newtab"), newtabcb);
+	g->menu->add(_("&File/&Close tab"), menukey("keys.closetab"), closetabcb, 0,
+					FL_MENU_DIVIDER);
+	g->menu->add(_("&File/&Save screencap"), menukey("keys.screencap"), screencapcb, 0,
+					FL_MENU_DIVIDER);
+	g->menu->add(_("&File/&Quit"), menukey("keys.quit"), quitcb);
+
+	g->menu->add(_("&Edit/&Undo"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Edit/&Redo"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+	g->menu->add(_("&Edit/&Cut"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Edit/&Copy"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Edit/&Paste"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+	g->menu->add(_("&Edit/&Select all"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Edit/&Find"), 0, 0, 0, FL_MENU_INACTIVE);
+
+	g->menu->add(_("&Bookmarks/&Add bookmark"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Bookmarks/&Edit bookmarks"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+
+	g->menu->add(_("&Tools/&Web inspector"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Tools/&Error console"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+	g->menu->add(_("&Tools/&Page settings"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Tools/&Settings"), 0, 0, 0, FL_MENU_INACTIVE);
+
+	g->menu->add(_("&Help/&Report a bug"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Help/&About"), 0, 0, 0, FL_MENU_INACTIVE);
 }
 
 int main(int argc, char **argv) {
@@ -259,31 +289,8 @@ int main(int argc, char **argv) {
 	// Menu
 	Fl_Menu_Bar *menu = new Fl_Menu_Bar(0, 0, w, menuheight);
 	menu->textsize(12);
-	menu->add(_("&File/&New tab"), menukey("keys.newtab"), newtabcb);
-	menu->add(_("&File/&Close tab"), menukey("keys.closetab"), closetabcb, 0,
-					FL_MENU_DIVIDER);
-	menu->add(_("&File/&Save screencap"), menukey("keys.screencap"), screencapcb, 0,
-					FL_MENU_DIVIDER);
-	menu->add(_("&File/&Quit"), menukey("keys.quit"), quitcb);
-
-	menu->add(_("&Edit/&Undo"), 0, 0, 0, FL_MENU_INACTIVE);
-	menu->add(_("&Edit/&Redo"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
-	menu->add(_("&Edit/&Cut"), 0, 0, 0, FL_MENU_INACTIVE);
-	menu->add(_("&Edit/&Copy"), 0, 0, 0, FL_MENU_INACTIVE);
-	menu->add(_("&Edit/&Paste"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
-	menu->add(_("&Edit/&Select all"), 0, 0, 0, FL_MENU_INACTIVE);
-	menu->add(_("&Edit/&Find"), 0, 0, 0, FL_MENU_INACTIVE);
-
-	menu->add(_("&Bookmarks/&Add bookmark"), 0, 0, 0, FL_MENU_INACTIVE);
-	menu->add(_("&Bookmarks/&Edit bookmarks"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
-
-	menu->add(_("&Tools/&Web inspector"), 0, 0, 0, FL_MENU_INACTIVE);
-	menu->add(_("&Tools/&Error console"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
-	menu->add(_("&Tools/&Page settings"), 0, 0, 0, FL_MENU_INACTIVE);
-	menu->add(_("&Tools/&Settings"), 0, 0, 0, FL_MENU_INACTIVE);
-
-	menu->add(_("&Help/&Report a bug"), 0, 0, 0, FL_MENU_INACTIVE);
-	menu->add(_("&Help/&About"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu = menu;
+	generatemenu();
 
 	// Ordering and presence of the middle widgets
 	s = getSetting("window.bars", NULL);

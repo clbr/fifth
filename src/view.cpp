@@ -16,7 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 
-view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
+view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
+		mousex(0), mousey(0), mousein(false) {
 	end();
 }
 
@@ -78,6 +79,18 @@ int view::handle(const int e) {
 		case TS_SSLERR:
 		break;
 		case TS_SPEEDDIAL:
+			switch (e) {
+				case FL_ENTER:
+					mousein = true;
+					return 1;
+				case FL_LEAVE:
+					mousein = false;
+					return 1;
+				case FL_MOVE:
+					mousex = Fl::event_x();
+					mousey = Fl::event_y();
+				break;
+			}
 		break;
 		case TS_WEB:
 		break;

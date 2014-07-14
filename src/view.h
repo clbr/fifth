@@ -29,6 +29,9 @@ public:
 
 private:
 	void drawdial();
+
+	u32 mousex, mousey;
+	bool mousein;
 };
 
 #endif

@@ -77,8 +77,8 @@ void savebookmarks() {
 	u32 i;
 	const u32 max = g->bookmarks.size();
 	for (i = 0; i < max; i++) {
-		fprintf(f, "name %s\nurl %s\n\n", g->bookmarks[i].name,
-			g->bookmarks[i].url);
+		fprintf(f, "name %s\n", g->bookmarks[i].name ? g->bookmarks[i].name : "");
+		fprintf(f, "url %s\n\n", g->bookmarks[i].url ? g->bookmarks[i].url : "");
 	}
 
 	fflush(f);

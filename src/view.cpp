@@ -35,6 +35,7 @@ void view::draw() {
 		case TS_SSLERR:
 		break;
 		case TS_SPEEDDIAL:
+			drawdial();
 		break;
 		case TS_COUNT:
 			die("Corrupted tab state\n");
@@ -85,4 +86,40 @@ int view::handle(const int e) {
 	}
 
 	return Fl_Widget::handle(e);
+}
+
+void view::drawdial() {
+
+	u32 ew, eh;
+	const u32 pad = 20;
+
+	// Calculate the dimensions of one box.
+	if (w() > h()) {
+		u32 amount = h() - 2 * pad;
+		amount /= 4;
+		eh = amount;
+		ew = eh * 1.333f;
+	} else {
+		u32 amount = w() - 2 * pad;
+		amount /= 4;
+		ew = amount;
+		eh = amount / 1.333f;
+	}
+
+	const u32 totalw = ew * 3 + pad * 2;
+	const u32 totalh = eh * 3 + pad * 2;
+	const u32 startx = x() + (w() - totalw) / 2;
+	const u32 starty = y() + (h() - totalh) / 2;
+
+	u32 i;
+	for (i = 0; i < 9; i++) {
+		const u32 col = i % 3;
+		const u32 row = i / 3;
+
+		const u32 ex = startx + col * (ew + pad);
+		const u32 ey = starty + row * (eh + pad);
+
+		fl_color(80, 90, 100);
+		fl_rectf(ex, ey, ew, eh);
+	}
 }

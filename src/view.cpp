@@ -121,5 +121,13 @@ void view::drawdial() {
 
 		fl_color(80, 90, 100);
 		fl_rectf(ex, ey, ew, eh);
+
+		fl_color(FL_WHITE);
+		fl_font(FL_HELVETICA + FL_BOLD, 14);
+
+		char tmp[2] = "1";
+		tmp[0] += i;
+
+		fl_draw(tmp, ex + 3, ey - fl_descent() + fl_height() + 2);
 	}
 }

@@ -89,6 +89,7 @@ int view::handle(const int e) {
 				case FL_MOVE:
 					mousex = Fl::event_x();
 					mousey = Fl::event_y();
+					redraw();
 				break;
 			}
 		break;
@@ -160,7 +161,13 @@ void view::drawdial() {
 			fl_draw(site, ex + pad, ey + eh - pad, ew - 2 * pad, pad,
 				FL_ALIGN_CENTER);
 		} else {
-			fl_color(63, 72, 81);
+			if (mousein && mousex >= ex && mousex <= ex + ew &&
+				mousey >= ey && mousey <= ey + eh) {
+				fl_color(93, 102, 111);
+			} else {
+				fl_color(63, 72, 81);
+			}
+
 			fl_rectf(ex + pad, ey + pad, ew - pad * 2, eh - pad * 2);
 
 			fl_color(FL_WHITE);

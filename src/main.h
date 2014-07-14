@@ -47,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "view.h"
 #include "inputplace.h"
 #include "keys.h"
+#include "bookmarks.h"
 
 using namespace std;
 
@@ -76,6 +77,8 @@ struct globals {
 	u32 curtab;
 
 	map<keybinding, keyfunc> keys;
+
+	vector<bookmark> bookmarks;
 };
 
 extern struct globals *g;

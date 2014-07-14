@@ -205,6 +205,7 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	back->deimage(new Fl_PNG_Image("deback.png", img(deleftarrow_png)));
 	fwd->deimage(new Fl_PNG_Image("defwd.png", img(derightarrow_png)));
 	next->deimage(new Fl_PNG_Image("denext.png", img(detworightarrow_png)));
+	refresh->deimage(new Fl_PNG_Image("dereload.png", img(dereload_png)));
 
 	refreshstate(true);
 	tabs->image(new Fl_PNG_Image("tabs.png", img(tabs_png)));

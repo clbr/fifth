@@ -100,6 +100,10 @@ static void screencapcb(Fl_Widget *, void *) {
 	screencap();
 }
 
+static void bugcb(Fl_Widget *, void *) {
+	newtab("http://github.com/clbr/fifth/issues");
+}
+
 void generatemenu() {
 
 	g->menu->clear();
@@ -127,7 +131,7 @@ void generatemenu() {
 	g->menu->add(_("&Tools/&Page settings"), 0, 0, 0, FL_MENU_INACTIVE);
 	g->menu->add(_("&Tools/&Settings"), 0, 0, 0, FL_MENU_INACTIVE);
 
-	g->menu->add(_("&Help/&Report a bug"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Help/&Report a bug"), 0, bugcb);
 	g->menu->add(_("&Help/&About"), 0, 0, 0, FL_MENU_INACTIVE);
 }
 

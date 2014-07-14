@@ -74,6 +74,15 @@ void savebookmarks() {
 	if (!f)
 		die("Failed saving bookmarks\n");
 
+	u32 i;
+	const u32 max = g->bookmarks.size();
+	for (i = 0; i < max; i++) {
+		fprintf(f, "name %s\nurl %s\n\n", g->bookmarks[i].name,
+			g->bookmarks[i].url);
+	}
+
+	fflush(f);
+	fsync(fd);
 	fclose(f);
 
 }

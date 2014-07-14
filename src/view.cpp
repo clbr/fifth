@@ -125,9 +125,30 @@ void view::drawdial() {
 		fl_color(FL_WHITE);
 		fl_font(FL_HELVETICA + FL_BOLD, 14);
 
-		char tmp[2] = "1";
+		char tmp[10] = "1";
 		tmp[0] += i;
 
-		fl_draw(tmp, ex + 3, ey - fl_descent() + fl_height() + 2);
+		fl_draw(tmp, ex, ey + 3, pad, pad, FL_ALIGN_CENTER);
+
+		fl_font(FL_HELVETICA, 12);
+
+		strcpy(tmp, "dial.1");
+		tmp[5] += i;
+		const setting * const s = getSetting(tmp, NULL);
+		if (s->val.c && s->val.c[0]) {
+			char site[64];
+			url2site(s->val.c, site, 64);
+			if (!memcmp(site, "www.", 4)) {
+				const u32 len = strlen(site);
+				memmove(site, site + 4, len - 4);
+				site[len - 4] = '\0';
+			}
+			// TODO favicon
+			fl_draw(site, ex + pad, ey + eh - pad, ew - 2 * pad, pad,
+				FL_ALIGN_CENTER);
+		} else {
+			fl_color(63, 72, 81);
+			fl_rectf(ex + pad, ey + pad, ew - pad * 2, eh - pad * 2);
+		}
 	}
 }

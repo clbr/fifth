@@ -1,0 +1,38 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0110 
+i18n_type 1 
+i18n_include "main.h" 
+i18n_function _ 
+header_name {.h} 
+code_name {.cxx}
+Function {addbookmark()} {open return_type void
+} {
+  Fl_Window addwin {
+    label {Add bookmark} open
+    private xywh {352 388 480 190} type Double visible
+  } {
+    Fl_Button {} {
+      label Cancel
+      callback {addwin->hide();}
+      private xywh {270 145 85 25}
+    }
+    Fl_Input name {
+      label {Name:}
+      private xywh {125 20 330 25}
+    }
+    Fl_Input url {
+      label {Address:}
+      private xywh {125 55 330 25}
+    }
+    Fl_Choice dir {
+      label {Into directory:} open
+      private xywh {125 90 330 25} down_box BORDER_BOX
+    } {}
+    Fl_Return_Button {} {
+      label OK
+      callback {doadd();
+addwin->hide();} selected
+      private xywh {145 145 85 25}
+    }
+  }
+} 

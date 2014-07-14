@@ -26,4 +26,6 @@ struct bookmark {
 	// Bookmarks without url are directories. Without both are end-dir markers.
 };
 
+void addbookmark();
+
 #endif

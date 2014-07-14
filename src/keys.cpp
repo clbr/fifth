@@ -139,6 +139,9 @@ void loadkeys() {
 
 	key = settingkey("keys.refresh");
 	g->keys[key] = refresh;
+
+	key = settingkey("keys.addbookmark");
+	g->keys[key] = addbookmark;
 }
 
 u32 keytou32(const keybinding &key) {

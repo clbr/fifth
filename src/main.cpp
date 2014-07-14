@@ -111,6 +111,10 @@ static void bookmarkcb(Fl_Widget *, void *ptr) {
 	g->tabs[g->curtab].web->take_focus();
 }
 
+static void addbookmarkcb(Fl_Widget *, void *) {
+	addbookmark();
+}
+
 void generatemenu() {
 
 	g->menu->clear();
@@ -130,7 +134,7 @@ void generatemenu() {
 	g->menu->add(_("&Edit/&Select all"), 0, 0, 0, FL_MENU_INACTIVE);
 	g->menu->add(_("&Edit/&Find"), 0, 0, 0, FL_MENU_INACTIVE);
 
-	g->menu->add(_("&Bookmarks/&Add bookmark"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Bookmarks/&Add bookmark"), menukey("keys.addbookmark"), addbookmarkcb);
 	g->menu->add(_("&Bookmarks/&Edit bookmarks"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
 
 	u32 i;

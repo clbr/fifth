@@ -88,3 +88,7 @@ void savebookmarks() {
 	fclose(f);
 
 }
+
+void addbookmark() {
+
+}

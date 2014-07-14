@@ -149,6 +149,10 @@ void view::drawdial() {
 		} else {
 			fl_color(63, 72, 81);
 			fl_rectf(ex + pad, ey + pad, ew - pad * 2, eh - pad * 2);
+
+			fl_color(FL_WHITE);
+			fl_draw(_("Add..."), ex + pad, ey + pad, ew - pad * 2, eh - pad * 2,
+				FL_ALIGN_CENTER);
 		}
 	}
 }

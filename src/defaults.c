@@ -18,6 +18,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Must be in alphabetical order.
 const struct setting defaultSettings[] = {
+	{"dial.1",		ST_CHAR, { .c = "" }},
+	{"dial.2",		ST_CHAR, { .c = "" }},
+	{"dial.3",		ST_CHAR, { .c = "" }},
+	{"dial.4",		ST_CHAR, { .c = "" }},
+	{"dial.5",		ST_CHAR, { .c = "" }},
+	{"dial.6",		ST_CHAR, { .c = "" }},
+	{"dial.7",		ST_CHAR, { .c = "" }},
+	{"dial.8",		ST_CHAR, { .c = "http://www.phoronix.com/scan.php?page=home" }},
+	{"dial.9",		ST_CHAR, { .c = "" }},
 	{"fltk.scheme",		ST_CHAR, { .c = "gtk+" }},
 	{"general.download-dir", ST_CHAR, { .c = "/tmp" }},
 	{"general.homepage", 	ST_CHAR, { .c = "about:blank"}},

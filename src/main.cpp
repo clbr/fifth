@@ -104,6 +104,13 @@ static void bugcb(Fl_Widget *, void *) {
 	newtab("http://github.com/clbr/fifth/issues");
 }
 
+static void bookmarkcb(Fl_Widget *, void *ptr) {
+	const char *url = (const char *) ptr;
+	g->tabs[g->curtab].state = TS_WEB;
+	g->tabs[g->curtab].web->load(url);
+	g->tabs[g->curtab].web->take_focus();
+}
+
 void generatemenu() {
 
 	g->menu->clear();
@@ -125,6 +132,35 @@ void generatemenu() {
 
 	g->menu->add(_("&Bookmarks/&Add bookmark"), 0, 0, 0, FL_MENU_INACTIVE);
 	g->menu->add(_("&Bookmarks/&Edit bookmarks"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+
+	u32 i;
+	const u32 max = g->bookmarks.size();
+	const string base = _("&Bookmarks/");
+	u32 depth = 0;
+	string dirs[32];
+	for (i = 0; i < max; i++) {
+		const bookmark &cur = g->bookmarks[i];
+		if (!cur.name) {
+			depth--;
+		} else if (!cur.url) {
+			depth++;
+			if (depth >= 32)
+				die("Too deep bookmark hierarchy\n");
+			dirs[depth] = cur.name;
+		} else {
+			string todo = base;
+			u32 d;
+			for (d = 1; d <= depth; d++) {
+				todo += dirs[d];
+				todo += "/";
+			}
+			todo += cur.name;
+
+			g->menu->add(todo.c_str(), 0, bookmarkcb, g->bookmarks[i].url);
+		}
+	}
+	if (depth != 0)
+		die("Bookmark corruption\n");
 
 	g->menu->add(_("&Tools/&Web inspector"), 0, 0, 0, FL_MENU_INACTIVE);
 	g->menu->add(_("&Tools/&Error console"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);

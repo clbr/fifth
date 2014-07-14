@@ -160,6 +160,24 @@ void view::drawdial() {
 			// TODO favicon
 			fl_draw(site, ex + pad, ey + eh - pad, ew - 2 * pad, pad,
 				FL_ALIGN_CENTER);
+
+			// Deletion cross
+			const u32 cornerx1 = ex + ew - pad;
+			const u32 cornerx2 = ex + ew;
+			const u32 cornery1 = ey;
+			const u32 cornery2 = ey + pad;
+			if (mousein && mousex >= cornerx1 && mousex <= cornerx2 &&
+				mousey >= cornery1 && mousey <= cornery2) {
+				fl_color(FL_WHITE);
+			} else {
+				fl_color(113, 122, 131);
+			}
+
+			const u32 off = pad / 3;
+			fl_line(cornerx1 + off, cornery1 + off,
+				cornerx2 - off, cornery2 - off);
+			fl_line(cornerx1 + off, cornery2 - off,
+				cornerx2 - off, cornery1 + off);
 		} else {
 			if (mousein && mousex >= ex && mousex <= ex + ew &&
 				mousey >= ey && mousey <= ey + eh) {

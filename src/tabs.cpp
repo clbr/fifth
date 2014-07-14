@@ -410,7 +410,7 @@ void closetab() {
 	} else {
 		const vector<u16> &order = taborder();
 		u16 next = order[1];
-		if (next > g->curtab)
+		if (next >= g->curtab)
 			next--;
 
 		if (g->tabs[g->curtab].state == TS_WEB) {

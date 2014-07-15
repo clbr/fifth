@@ -139,7 +139,7 @@ int view::handle(const int e) {
 							mousey >= cornery1 &&
 							mousey <= cornery2) {
 							// Yes, known leak.
-							s->val.c = NULL;
+							s->val.c = "";
 						} else {
 							g->tabs[g->curtab].state = TS_WEB;
 							g->tabs[g->curtab].web->load(s->val.c);

@@ -32,6 +32,8 @@ public:
 private:
 	u32 mousex;
 	bool mousein;
+	bool dragging;
+	u32 srctab;
 };
 
 enum tabstate {

@@ -24,7 +24,7 @@ static bool firstpress;
 extern Fl_PNG_Image *ddglogo, *googlelogo;
 
 tabbar::tabbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h),
-		mousex(0), mousein(false) {
+		mousex(0), mousein(false), dragging(false), srctab(0) {
 	labelsize(12);
 }
 
@@ -158,6 +158,7 @@ int tabbar::handle(const int e) {
 
 	bool ontab = false;
 	u32 which = 0;
+	bool leftcloser = false;
 
 	// Over a tab?
 	if (mousein) {
@@ -167,6 +168,11 @@ int tabbar::handle(const int e) {
 		if (mousex < x() + max * tabw && mousex >= (u32) x()) {
 			ontab = true;
 			u32 tmp = mousex - x();
+
+			const u32 whichmod = tmp % tabw;
+			if (whichmod < tabw / 2)
+				leftcloser = true;
+
 			tmp /= tabw;
 			which = tmp;
 		}
@@ -180,6 +186,12 @@ int tabbar::handle(const int e) {
 			mousein = false;
 			redraw();
 			return 1;
+		case FL_DRAG:
+			if (!dragging && ontab && Fl::event_state(FL_BUTTON1)) {
+				srctab = which;
+				dragging = true;
+			}
+			// Fallthrough
 		case FL_MOVE:
 			mousex = Fl::event_x();
 			redraw();
@@ -201,7 +213,48 @@ int tabbar::handle(const int e) {
 				return 1;
 			}
 
-			if (ontab) {
+			return 1;
+		case FL_RELEASE:
+			if (dragging) {
+				const tab tmp = g->tabs[srctab];
+
+				if (ontab) {
+					u32 newpos = which;
+
+					// No drag?
+					if ((srctab == newpos - 1 && leftcloser) ||
+						(srctab == newpos + 1 && !leftcloser) ||
+						srctab == which)
+						goto dragdone;
+
+					if (!leftcloser && newpos < srctab)
+						newpos++;
+					g->tabs.erase(g->tabs.begin() + srctab);
+
+					if (newpos < g->tabs.size())
+						g->tabs.insert(g->tabs.begin() + newpos, tmp);
+					else
+						g->tabs.push_back(tmp);
+
+					if (g->curtab == srctab)
+						g->curtab = newpos;
+					else if (g->curtab > srctab && g->curtab <= newpos)
+						g->curtab--;
+					else if (g->curtab < srctab && g->curtab >= newpos)
+						g->curtab++;
+
+					if (g->curtab >= g->tabs.size())
+						g->curtab = g->tabs.size() - 1;
+				} else {
+					g->tabs.erase(g->tabs.begin() + srctab);
+					g->tabs.push_back(tmp);
+
+					if (g->curtab > srctab)
+						g->curtab--;
+					else if (g->curtab == srctab)
+						g->curtab = g->tabs.size() - 1;
+				}
+			} else if (ontab) {
 				if (Fl::event_button() == FL_LEFT_MOUSE) {
 					activatetab(which);
 				} else if (Fl::event_button() == FL_MIDDLE_MOUSE) {
@@ -210,6 +263,8 @@ int tabbar::handle(const int e) {
 				}
 			}
 
+			dragdone:
+			dragging = false;
 			return 1;
 	}
 

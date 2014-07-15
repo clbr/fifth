@@ -108,12 +108,13 @@ int view::handle(const int e) {
 					// Inside a tile?
 					u32 i;
 					u32 tile = INT_MAX;
+					u32 ex, ey;
 					for (i = 0; i < 9; i++) {
 						const u32 col = i % 3;
 						const u32 row = i / 3;
 
-						const u32 ex = startx + col * (ew + pad);
-						const u32 ey = starty + row * (eh + pad);
+						ex = startx + col * (ew + pad);
+						ey = starty + row * (eh + pad);
 						if (mousex >= ex && mousex <= ex + ew &&
 							mousey >= ey && mousey <= ey + eh) {
 							tile = i;
@@ -126,9 +127,24 @@ int view::handle(const int e) {
 
 					char tmp[10] = "dial.1";
 					tmp[5] += tile;
-					const setting * const s = getSetting(tmp, NULL);
+					setting * const s = getSetting(tmp, NULL);
 					if (s->val.c && s->val.c[0]) {
 						// Delete cross or normal click?
+						const u32 cornerx1 = ex + ew - pad;
+						const u32 cornerx2 = ex + ew;
+						const u32 cornery1 = ey;
+						const u32 cornery2 = ey + pad;
+						if (mousein && mousex >= cornerx1 &&
+							mousex <= cornerx2 &&
+							mousey >= cornery1 &&
+							mousey <= cornery2) {
+							// Yes, known leak.
+							s->val.c = NULL;
+						} else {
+							g->tabs[g->curtab].state = TS_WEB;
+							g->tabs[g->curtab].web->load(s->val.c);
+							g->tabs[g->curtab].web->take_focus();
+						}
 					} else {
 						// Add new one
 					}

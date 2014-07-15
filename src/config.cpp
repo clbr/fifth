@@ -88,8 +88,23 @@ static void parseLine(const char *line) {
 		// Per-site setting
 		char site[bufsize];
 		line += 5;
-		if (sscanf(line, "%s %s %c %s", site, name, &type, val) != 4)
+		if (sscanf(line, "%s %s %c", site, name, &type) != 3)
 			die(_("Faulty config line '%s'\n"), line);
+
+		while (!isspace(*line))
+			line++;
+		while (isspace(*line))
+			line++;
+		while (!isspace(*line))
+			line++;
+		while (isspace(*line))
+			line++;
+		while (!isspace(*line))
+			line++;
+		while (isspace(*line))
+			line++;
+		strncpy(val, line, bufsize);
+		val[bufsize - 1] = '\0';
 
 		vector<setting> &vec = g->sitesettings[site];
 
@@ -106,8 +121,19 @@ static void parseLine(const char *line) {
 		else
 			die(_("Tried to add nonexistent site config item %s\n"), name);
 	} else {
-		if (sscanf(line, "%s %c %s", name, &type, val) != 3)
+		if (sscanf(line, "%s %c", name, &type) != 2)
 			die(_("Faulty config line '%s'\n"), line);
+
+		while (!isspace(*line))
+			line++;
+		while (isspace(*line))
+			line++;
+		while (!isspace(*line))
+			line++;
+		while (isspace(*line))
+			line++;
+		strncpy(val, line, bufsize);
+		val[bufsize - 1] = '\0';
 
 		s.type = char2type(type);
 		setupSetting(s, name, val);

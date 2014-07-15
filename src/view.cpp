@@ -102,28 +102,38 @@ int view::handle(const int e) {
 	return Fl_Widget::handle(e);
 }
 
-void view::drawdial() {
-
-	u32 ew, eh;
-	const u32 pad = 20;
+void view::dialdims(u32 *dx, u32 *dy, u32 *dw, u32 *dh, u32 *pad,
+			u32 *ew, u32 *eh) const {
+	*pad = 20;
 
 	// Calculate the dimensions of one box.
 	if (w() > h()) {
-		u32 amount = h() - 2 * pad;
+		u32 amount = h() - 2 * *pad;
 		amount /= 4;
-		eh = amount;
-		ew = eh * 1.333f;
+		*eh = amount;
+		*ew = amount * 1.333f;
 	} else {
-		u32 amount = w() - 2 * pad;
+		u32 amount = w() - 2 * *pad;
 		amount /= 4;
-		ew = amount;
-		eh = amount / 1.333f;
+		*ew = amount;
+		*eh = amount / 1.333f;
 	}
 
-	const u32 totalw = ew * 3 + pad * 2;
-	const u32 totalh = eh * 3 + pad * 2;
+	const u32 totalw = *ew * 3 + *pad * 2;
+	const u32 totalh = *eh * 3 + *pad * 2;
 	const u32 startx = x() + (w() - totalw) / 2;
 	const u32 starty = y() + (h() - totalh) / 2;
+
+	*dx = startx;
+	*dy = starty;
+	*dw = totalw;
+	*dh = totalh;
+}
+
+void view::drawdial() {
+
+	u32 ew, eh, pad, totalw, totalh, startx, starty;
+	dialdims(&startx, &starty, &totalw, &totalh, &pad, &ew, &eh);
 
 	u32 i;
 	for (i = 0; i < 9; i++) {

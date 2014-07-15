@@ -79,6 +79,12 @@ int view::handle(const int e) {
 		case TS_SSLERR:
 		break;
 		case TS_SPEEDDIAL:
+		{
+			u32 ew, eh, pad, totalw, totalh, startx, starty;
+
+			if (e != FL_MOVE)
+				dialdims(&startx, &starty, &totalw, &totalh, &pad, &ew, &eh);
+
 			switch (e) {
 				case FL_ENTER:
 					mousein = true;
@@ -91,7 +97,44 @@ int view::handle(const int e) {
 					mousey = Fl::event_y();
 					redraw();
 				break;
+				case FL_PUSH:
+					mousex = Fl::event_x();
+					mousey = Fl::event_y();
+
+					// Inside the dial area?
+					if (mousex < startx || mousex >= startx + totalw ||
+						mousey < starty || mousey >= starty + totalh)
+						break;
+					// Inside a tile?
+					u32 i;
+					u32 tile = INT_MAX;
+					for (i = 0; i < 9; i++) {
+						const u32 col = i % 3;
+						const u32 row = i / 3;
+
+						const u32 ex = startx + col * (ew + pad);
+						const u32 ey = starty + row * (eh + pad);
+						if (mousex >= ex && mousex <= ex + ew &&
+							mousey >= ey && mousey <= ey + eh) {
+							tile = i;
+							break;
+						}
+					}
+
+					if (tile >= 9)
+						break;
+
+					char tmp[10] = "dial.1";
+					tmp[5] += tile;
+					const setting * const s = getSetting(tmp, NULL);
+					if (s->val.c && s->val.c[0]) {
+						// Delete cross or normal click?
+					} else {
+						// Add new one
+					}
+				break;
 			}
+		}
 		break;
 		case TS_WEB:
 		break;

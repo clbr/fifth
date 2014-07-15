@@ -177,13 +177,13 @@ void addbookmark() {
 			while (g->bookmarks[pos].name || g->bookmarks[pos].url)
 				pos++;
 
-			string todo;
+			string tmp;
 			u32 d;
 			for (d = 0; d < depth; d++) {
-				todo += "    ";
+				tmp += "    ";
 			}
-			todo += cur.name;
-			dir->add(todo.c_str(), 0, 0, (void *) (uintptr_t) pos);
+			tmp += cur.name;
+			dir->add(tmp.c_str(), 0, 0, (void *) (uintptr_t) pos);
 		}
 	}
 	dir->value(0);

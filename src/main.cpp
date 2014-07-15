@@ -152,15 +152,15 @@ void generatemenu() {
 				die("Too deep bookmark hierarchy\n");
 			dirs[depth] = cur.name;
 		} else {
-			string todo = base;
+			string tmp = base;
 			u32 d;
 			for (d = 1; d <= depth; d++) {
-				todo += dirs[d];
-				todo += "/";
+				tmp += dirs[d];
+				tmp += "/";
 			}
-			todo += cur.name;
+			tmp += cur.name;
 
-			g->menu->add(todo.c_str(), 0, bookmarkcb, g->bookmarks[i].url);
+			g->menu->add(tmp.c_str(), 0, bookmarkcb, g->bookmarks[i].url);
 		}
 	}
 	if (depth != 0)

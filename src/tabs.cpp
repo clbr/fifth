@@ -388,6 +388,7 @@ void newtab() {
 	searchenginestate();
 	urlbarstate();
 	g->w->redraw();
+	g->url->url->take_focus();
 
 	tab.web->titleChangedCB(titlecb);
 	tab.web->loadStateChangedCB(stopcb);

@@ -242,6 +242,8 @@ int tabbar::handle(const int e) {
 
 					if (!leftcloser && newpos < srctab)
 						newpos++;
+					else if (leftcloser && newpos > srctab)
+						newpos--;
 					g->tabs.erase(g->tabs.begin() + srctab);
 
 					if (newpos < g->tabs.size())

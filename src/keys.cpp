@@ -27,6 +27,7 @@ void back() {
 		return;
 
 	cur->web->back();
+	urlbuttonstate();
 }
 
 void fwd() {
@@ -35,6 +36,7 @@ void fwd() {
 		return;
 
 	cur->web->fwd();
+	urlbuttonstate();
 }
 
 void prev() {
@@ -43,6 +45,7 @@ void prev() {
 		return;
 
 	cur->web->prev();
+	urlbuttonstate();
 }
 
 void next() {
@@ -51,6 +54,7 @@ void next() {
 		return;
 
 	cur->web->next();
+	urlbuttonstate();
 }
 
 void stop() {

@@ -357,6 +357,11 @@ static void urlbuttonstate() {
 		g->url->refresh->activate();
 		g->url->next->activate();
 
+		if (cur->web->isLoading())
+			g->url->refreshstate(false);
+		else
+			g->url->refreshstate(true);
+
 		if (cur->web->canBack()) {
 			g->url->prev->activate();
 			g->url->back->activate();

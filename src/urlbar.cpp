@@ -342,3 +342,36 @@ void urlbar::refreshstate(const bool green) {
 bool urlbar::isStop() const {
 	return refresh->image() == stopimg;
 }
+
+void urlbuttonstate() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB) {
+		g->url->prev->deactivate();
+		g->url->back->deactivate();
+		g->url->fwd->deactivate();
+		g->url->next->deactivate();
+		g->url->refresh->deactivate();
+	} else if (cur->web) {
+		g->url->refresh->activate();
+		g->url->next->activate();
+
+		if (cur->web->isLoading())
+			g->url->refreshstate(false);
+		else
+			g->url->refreshstate(true);
+
+		if (cur->web->canBack()) {
+			g->url->prev->activate();
+			g->url->back->activate();
+		} else {
+			g->url->prev->deactivate();
+			g->url->back->deactivate();
+		}
+
+		if (cur->web->canFwd()) {
+			g->url->fwd->activate();
+		} else {
+			g->url->fwd->deactivate();
+		}
+	}
+}

@@ -42,4 +42,6 @@ private:
 	Fl_PNG_Image *refreshimg, *stopimg;
 };
 
+void urlbuttonstate();
+
 #endif

@@ -76,6 +76,10 @@ void tabbar::draw() {
 	u32 max;
 	u32 tabw = calctabw(&max, w());
 
+	bool highborder = false;
+	if ((mousex - x()) % tabw > tabw / 2)
+		highborder = true;
+
 	u32 posx = x();
 	const u32 lowy = y();
 	const u32 highy = y() + h() - 1;
@@ -83,7 +87,8 @@ void tabbar::draw() {
 		bool hover = false;
 		// Borders
 		fl_color(FL_BLACK);
-		fl_line(posx, lowy, posx, highy);
+		if (!i)
+			fl_line(posx, lowy, posx, highy);
 		fl_line(posx + tabw, lowy, posx + tabw, highy);
 
 		// Bg
@@ -98,6 +103,14 @@ void tabbar::draw() {
 			r1 = 150, g1 = 150, b1 = 191;
 			r2 = 100, g2 = 100, b2 = 155;
 			hover = true;
+		}
+
+		if (dragging && mousein && mousex >= posx && mousex <= (posx + tabw - 1)) {
+			fl_color(FL_WHITE);
+			if (!highborder)
+				fl_line(posx, lowy, posx, highy);
+			else
+				fl_line(posx + tabw, lowy, posx + tabw, highy);
 		}
 
 		for (j = 0; j <= gradarea; j++) {

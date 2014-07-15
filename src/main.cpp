@@ -115,6 +115,10 @@ static void addbookmarkcb(Fl_Widget *, void *) {
 	addbookmark();
 }
 
+static void aboutcb(Fl_Widget *, void *) {
+	newtab("about:fifth");
+}
+
 void generatemenu() {
 
 	g->menu->clear();
@@ -172,7 +176,7 @@ void generatemenu() {
 	g->menu->add(_("&Tools/&Settings"), 0, 0, 0, FL_MENU_INACTIVE);
 
 	g->menu->add(_("&Help/&Report a bug"), 0, bugcb);
-	g->menu->add(_("&Help/&About"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Help/&About"), 0, aboutcb);
 }
 
 int main(int argc, char **argv) {

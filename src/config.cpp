@@ -200,9 +200,14 @@ void saveConfig() {
 		switch (g->settings[i].type) {
 			case ST_CHAR:
 				desc = 'c';
-				if (g->settings[i].val.c != defaultSettings[i].val.c)
+				if (g->settings[i].val.c != defaultSettings[i].val.c) {
+					if (g->settings[i].val.c &&
+						!strcmp(g->settings[i].val.c,
+							defaultSettings[i].val.c))
+						break;
 					fprintf(f, "%s %c %s\n", g->settings[i].name, desc,
 						g->settings[i].val.c);
+				}
 			break;
 			case ST_FLOAT:
 				desc = 'f';

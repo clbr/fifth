@@ -29,7 +29,7 @@ static setting *target;
 
 static void act() {
 	target->val.c = strdup(dialurl->value());
-	g->v->redraw();
+	g->w->redraw();
 }
 
 static void cb_OK(Fl_Return_Button*, void*) {

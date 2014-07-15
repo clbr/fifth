@@ -28,4 +28,6 @@ struct bookmark {
 
 void addbookmark();
 
+void adddial(const u32 which);
+
 #endif

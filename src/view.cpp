@@ -147,6 +147,7 @@ int view::handle(const int e) {
 						}
 					} else {
 						// Add new one
+						adddial(tile);
 					}
 				break;
 			}

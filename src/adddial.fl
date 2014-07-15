@@ -1,0 +1,34 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0110 
+i18n_type 1 
+i18n_include "main.h" 
+i18n_function _ 
+header_name {.h} 
+code_name {.cxx}
+Function {adddial(u32 which)} {open return_type void
+} {
+  Fl_Window {} {
+    label {Add speed dial entry} open
+    xywh {279 345 420 125} type Double visible
+  } {
+    Fl_Input dialurl {
+      label {URL:}
+      private xywh {90 15 305 25}
+    }
+    Fl_Choice {} {
+      label {Open tabs:} open
+      xywh {90 45 305 25} down_box BORDER_BOX
+    } {}
+    Fl_Return_Button {} {
+      label OK
+      callback {act();
+parent()->hide();}
+      xywh {115 85 95 25}
+    }
+    Fl_Button {} {
+      label Cancel
+      callback {parent()->hide();}
+      xywh {235 85 95 25}
+    }
+  }
+} 

@@ -53,7 +53,7 @@ static settingtype char2type(const char in) {
 			return ST_FLOAT;
 		break;
 		default:
-			die(_("Corrupt config file\n"));
+			die(_("Corrupt config file (char2type)\n"));
 	}
 }
 
@@ -73,7 +73,7 @@ static void setupSetting(setting &s, const char * const name,
 			s.val.f = atof(val);
 		break;
 		default:
-			die(_("Corrupt config file\n"));
+			die(_("Corrupt config file (setupSetting)\n"));
 	}
 }
 

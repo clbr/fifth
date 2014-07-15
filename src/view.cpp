@@ -222,11 +222,7 @@ void view::drawdial() {
 		if (s->val.c && s->val.c[0]) {
 			char site[64];
 			url2site(s->val.c, site, 64);
-			if (!memcmp(site, "www.", 4)) {
-				const u32 len = strlen(site);
-				memmove(site, site + 4, len - 4);
-				site[len - 4] = '\0';
-			}
+
 			// TODO favicon
 			fl_draw(site, ex + pad, ey + eh - pad, ew - 2 * pad, pad,
 				FL_ALIGN_CENTER);

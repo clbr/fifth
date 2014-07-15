@@ -41,6 +41,9 @@ void url2site(const char url[], char site[], const u32 size) {
 	else
 		start = url;
 
+	if (!memcmp(start, "www.", 4))
+		start += 4;
+
 	u32 pos;
 	for (pos = 0; pos < size; pos++) {
 		if (start[pos] == '/')

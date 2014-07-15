@@ -164,7 +164,7 @@ int tabbar::handle(const int e) {
 		u32 max;
 		const u32 tabw = calctabw(&max, w());
 
-		if (mousex < max * tabw) {
+		if (mousex < x() + max * tabw && mousex >= (u32) x()) {
 			ontab = true;
 			u32 tmp = mousex - x();
 			tmp /= tabw;

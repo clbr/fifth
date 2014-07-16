@@ -65,7 +65,11 @@ static void tabscb(Fl_Widget *w, void *) {
 			for (i = 0; i < max; i++) {
 				if (g->closedtabs[i].web) {
 					g->closedtabs[i].web->parent()->remove(g->closedtabs[i].web);
-					delete g->closedtabs[i].web;
+
+					// Can't delete one with active downloads.
+					if (g->closedtabs[i].web->numDownloads() == 0)
+						delete g->closedtabs[i].web;
+					// TODO leak
 				}
 			}
 			g->closedtabs.clear();

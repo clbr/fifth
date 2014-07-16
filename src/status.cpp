@@ -15,13 +15,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "main.h"
+#include "lockicon.h"
+#include <FL/Fl_PNG_Image.H>
+
+static Fl_PNG_Image *lockicon;
 
 statusbar::statusbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
-
+	lockicon = new Fl_PNG_Image("lock.png", lock_png, sizeof(lock_png));
 }
 
 void statusbar::draw() {
-	const u32 startx = x();
+	u32 startx = x();
 	const u32 endx = x() + w() - 1;
 
 	// Background
@@ -44,4 +48,19 @@ void statusbar::draw() {
 	u32 posy = y() + max + 1;
 	fl_color(79, 89, 100);
 	fl_line(startx, posy, endx, posy);
+
+	// SSL secure? TODO
+	if (1) {
+		const u32 secw = h();
+		fl_color(0, 70, 0);
+		fl_rectf(startx, y(), secw, h());
+
+		u32 ix, iy;
+		ix = startx + (secw - lockicon->w()) / 2;
+		iy = y() + (h() - lockicon->h()) / 2;
+
+		lockicon->draw(ix, iy);
+
+		startx += secw;
+	}
 }

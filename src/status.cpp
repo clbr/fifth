@@ -52,8 +52,6 @@ void statusbar::draw() {
 	// SSL secure? TODO
 	if (1) {
 		const u32 secw = h();
-		fl_color(0, 70, 0);
-		fl_rectf(startx, y(), secw, h());
 
 		u32 ix, iy;
 		ix = startx + (secw - lockicon->w()) / 2;

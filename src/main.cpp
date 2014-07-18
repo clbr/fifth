@@ -24,6 +24,7 @@ globals *g;
 
 #define LOCKFILE "lock"
 #define CRASHFILE "crash"
+#define CERTDIR "certs"
 
 static void findProfile(const bool found) {
 
@@ -279,6 +280,13 @@ int main(int argc, char **argv) {
 	g->lockfd = openat(g->profilefd, LOCKFILE, O_RDONLY | O_NONBLOCK);
 	if (flock(g->lockfd, LOCK_EX | LOCK_NB))
 		die(_("Failed to lock the lock file\n"));
+	g->certfd = openat(g->profilefd, CERTDIR, O_RDONLY);
+	if (g->certfd < 0) {
+		mkdirat(g->profilefd, CERTDIR, 0700);
+		g->certfd = openat(g->profilefd, CERTDIR, O_RDONLY);
+	}
+	if (g->certfd < 0)
+		die(_("Failed to create certs directory\n"));
 	g->newremotes = 0;
 	pthread_mutex_init(&g->remotemutex, NULL);
 

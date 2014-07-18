@@ -58,6 +58,7 @@ struct globals {
 	int profilefd;
 	int datafd;
 	int lockfd;
+	int certfd;
 
 	setting *settings;
 	map<string, vector<setting> > sitesettings;

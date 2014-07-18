@@ -58,4 +58,5 @@ void certerr(webview *view, const char *url) {
 	cur->state = TS_SSLERR;
 	free((char *) cur->sslsite);
 	cur->sslsite = strdup(url);
+	urlbuttonstate();
 }

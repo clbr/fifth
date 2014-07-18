@@ -20,6 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static Fl_PNG_Image *lockicon;
 
+static void nextcb(Fl_Widget *, void *) {
+
+}
+
+static void prevcb(Fl_Widget *, void *) {
+
+}
+
 statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	lockicon = new Fl_PNG_Image("lock.png", lock_png, sizeof(lock_png));
 
@@ -32,6 +40,11 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	hidefind();
 
 	end();
+
+	next->callback(nextcb);
+	prev->callback(prevcb);
+	search->callback(nextcb);
+	search->when(FL_WHEN_CHANGED);
 }
 
 void statusbar::draw() {
@@ -91,17 +104,21 @@ int statusbar::handle(const int e) {
 
 void statusbar::startfind() {
 
+	search->value("");
+
 	search->show();
 	next->show();
 	prev->show();
+
+	search->take_focus();
 }
 
 void statusbar::findnext() {
-
+	nextcb(NULL, NULL);
 }
 
 void statusbar::findprev() {
-
+	prevcb(NULL, NULL);
 }
 
 void statusbar::hidefind() {

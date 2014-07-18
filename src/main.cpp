@@ -120,6 +120,34 @@ static void aboutcb(Fl_Widget *, void *) {
 	newtab("about:fifth");
 }
 
+static void undocb(Fl_Widget *, void *) {
+	undo();
+}
+
+static void redocb(Fl_Widget *, void *) {
+	redo();
+}
+
+static void copycb(Fl_Widget *, void *) {
+	copy();
+}
+
+static void pastecb(Fl_Widget *, void *) {
+	paste();
+}
+
+static void cutcb(Fl_Widget *, void *) {
+	cut();
+}
+
+static void findcb(Fl_Widget *, void *) {
+	find();
+}
+
+static void selectallcb(Fl_Widget *, void *) {
+	selectall();
+}
+
 void generatemenu() {
 
 	g->menu->clear();
@@ -131,13 +159,13 @@ void generatemenu() {
 					FL_MENU_DIVIDER);
 	g->menu->add(_("&File/&Quit"), menukey("keys.quit"), quitcb);
 
-	g->menu->add(_("&Edit/&Undo"), 0, 0, 0, FL_MENU_INACTIVE);
-	g->menu->add(_("&Edit/&Redo"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
-	g->menu->add(_("&Edit/&Cut"), 0, 0, 0, FL_MENU_INACTIVE);
-	g->menu->add(_("&Edit/&Copy"), 0, 0, 0, FL_MENU_INACTIVE);
-	g->menu->add(_("&Edit/&Paste"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
-	g->menu->add(_("&Edit/&Select all"), 0, 0, 0, FL_MENU_INACTIVE);
-	g->menu->add(_("&Edit/&Find"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Edit/&Undo"), menukey("keys.undo"), undocb);
+	g->menu->add(_("&Edit/&Redo"), menukey("keys.redo"), redocb, 0, FL_MENU_DIVIDER);
+	g->menu->add(_("&Edit/&Cut"), menukey("keys.cut"), cutcb);
+	g->menu->add(_("&Edit/&Copy"), menukey("keys.copy"), copycb);
+	g->menu->add(_("&Edit/&Paste"), menukey("keys.paste"), pastecb, 0, FL_MENU_DIVIDER);
+	g->menu->add(_("&Edit/&Select all"), menukey("keys.selectall"), selectallcb);
+	g->menu->add(_("&Edit/&Find"), menukey("keys.find"), findcb);
 
 	g->menu->add(_("&Bookmarks/&Add bookmark"), menukey("keys.addbookmark"), addbookmarkcb);
 	g->menu->add(_("&Bookmarks/&Edit bookmarks"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);

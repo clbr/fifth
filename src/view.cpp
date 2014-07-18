@@ -136,6 +136,9 @@ int view::handle(const int e) {
 
 	tab * const cur = &g->tabs[g->curtab];
 
+	if (e == FL_PUSH)
+		g->status->hidefind();
+
 	if (cur->state == TS_WEB && cur->web) {
 		if (e != FL_KEYDOWN && e != FL_KEYUP)
 			return cur->web->handle(e);

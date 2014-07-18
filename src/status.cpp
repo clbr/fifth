@@ -29,9 +29,7 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	prev = new Fl_Button(x + h + 150 + 3 + 100 + 3, y + 1, 100, h - 2,
 				_("Find previous"));
 
-	search->hide();
-	next->hide();
-	prev->hide();
+	hidefind();
 
 	end();
 }
@@ -104,4 +102,11 @@ void statusbar::findnext() {
 
 void statusbar::findprev() {
 
+}
+
+void statusbar::hidefind() {
+
+	search->hide();
+	next->hide();
+	prev->hide();
 }

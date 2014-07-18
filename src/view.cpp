@@ -15,15 +15,74 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "main.h"
+#include "FL/fl_ask.H"
+
+#define SSLCHECKFWD "ilovebieber"
+#define SSLCHECKBACK "rebeibevoli"
+
+class sslview: public Fl_Group {
+public:
+	sslview(int x, int y, int w, int h): Fl_Group(x, y, w, h) {}
+};
+
+static void sslcb(Fl_Widget *w, void *url) {
+
+	char site[120];
+	url2site((const char *) url, site, 120);
+
+	// Was it typed correctly?
+	Fl_Group *parent = w->parent();
+	const u32 num = parent->children();
+	u32 i;
+	Fl_Input *text = NULL;
+	for (i = 0; i < num; i++) {
+		Fl_Widget *t = parent->child(i);
+		if (t == w)
+			continue;
+		if (t->user_data() == w) {
+			text = (Fl_Input *) t;
+			break;
+		}
+	}
+
+	if (!text)
+		return;
+
+	if (strcmp(SSLCHECKFWD, text->value())) {
+		fl_alert(_("Text doesn't match."));
+	} else {
+		fl_alert(_("Erasing the old certificate and returning to web view."));
+		if (unlinkat(g->certfd, site, 0))
+			die(_("Error removing certificate\n"));
+		g->tabs[g->curtab].state = TS_WEB;
+	}
+}
 
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 		mousex(0), mousey(0), mousein(false) {
+
+	sslgroup = new sslview(x, y, w, h);
+
+	ssltext = new Fl_Input(0, 0, 300, 25);
+	sslbutton = new Fl_Button(0, 0, 200, 25, _("I understand, proceed"));
+	sslbutton->hide();
+	sslbutton->callback(sslcb);
+	ssltext->hide();
+	ssltext->user_data(sslbutton);
+
+	sslgroup->end();
+
 	end();
 }
 
 void view::draw() {
 
 	tab * const cur = &g->tabs[g->curtab];
+
+	if (cur->state != TS_SSLERR) {
+		sslbutton->hide();
+		ssltext->hide();
+	}
 
 	// TODO drawing
 	switch (cur->state) {
@@ -34,7 +93,13 @@ void view::draw() {
 		case TS_DOWNLOAD:
 		break;
 		case TS_SSLERR:
+			ssltext->show();
+			sslbutton->show();
+			sslbutton->user_data((void *) cur->sslsite);
+
 			drawssl();
+			draw_child(*ssltext);
+			draw_child(*sslbutton);
 		break;
 		case TS_SPEEDDIAL:
 			drawdial();
@@ -78,6 +143,8 @@ int view::handle(const int e) {
 		case TS_DOWNLOAD:
 		break;
 		case TS_SSLERR:
+			if (e != FL_UNFOCUS)
+				return sslgroup->handle(e);
 		break;
 		case TS_SPEEDDIAL:
 		{
@@ -291,4 +358,22 @@ void view::drawssl() {
 	cury += fl_height() * 3;
 	fl_draw(_("This might be a man-in-the-middle attack. You're advised to close this tab."),
 		x(), cury, w(), smallsize, FL_ALIGN_CENTER);
+
+	snprintf(tmp, 320, _("If you're absolutely certain you want to continue at your risk, "
+				"to make sure you understand the gravity of the situation, "
+				"type %s backwards into the field below."),
+			SSLCHECKBACK);
+	cury += fl_height() * 3;
+	fl_draw(tmp, x() + 200, cury, w() - 400, smallsize * 5, FL_ALIGN_CENTER | FL_ALIGN_WRAP);
+
+	cury += fl_height() * 5;
+	ssltext->resize(x() + 200, cury, ssltext->w(), ssltext->h());
+	((Fl_Widget *) ssltext)->draw();
+
+	sslbutton->position(x() + 200 + 6 + ssltext->w(), cury);
+	((Fl_Widget *) sslbutton)->draw();
+}
+
+void view::resetssl() {
+	ssltext->value("");
 }

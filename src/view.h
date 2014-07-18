@@ -19,6 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <FL/Fl_Group.H>
 
+class Fl_Button;
+class Fl_Input;
+class sslview;
+
 class view: public Fl_Group {
 public:
 	view(int x, int y, int w, int h);
@@ -27,6 +31,7 @@ public:
 	void resize(int, int, int, int) override;
 	int handle(int) override;
 
+	void resetssl();
 private:
 	void drawdial();
 	void drawssl();
@@ -34,6 +39,10 @@ private:
 
 	u32 mousex, mousey;
 	bool mousein;
+
+	sslview *sslgroup;
+	Fl_Button *sslbutton;
+	Fl_Input *ssltext;
 };
 
 #endif

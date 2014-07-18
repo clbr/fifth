@@ -59,5 +59,6 @@ void certerr(webview *view, const char *url) {
 	free((char *) cur->sslsite);
 	cur->sslsite = strdup(url);
 	urlbuttonstate();
+	g->v->resetssl();
 	g->w->redraw();
 }

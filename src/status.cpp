@@ -19,13 +19,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <FL/Fl_PNG_Image.H>
 
 static Fl_PNG_Image *lockicon;
+static Fl_Input *search;
 
 static void nextcb(Fl_Widget *, void *) {
+	if (g->tabs[g->curtab].state != TS_WEB
+		|| search->size() < 2)
+		return;
 
+	g->tabs[g->curtab].web->find(search->value());
 }
 
 static void prevcb(Fl_Widget *, void *) {
+	if (g->tabs[g->curtab].state != TS_WEB
+		|| search->size() < 2)
+		return;
 
+	g->tabs[g->curtab].web->find(search->value(), false, false);
 }
 
 statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
@@ -45,6 +54,8 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	prev->callback(prevcb);
 	search->callback(nextcb);
 	search->when(FL_WHEN_CHANGED);
+
+	::search = search;
 }
 
 void statusbar::draw() {

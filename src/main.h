@@ -50,6 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "inputplace.h"
 #include "keys.h"
 #include "bookmarks.h"
+#include "ssl.h"
 
 using namespace std;
 

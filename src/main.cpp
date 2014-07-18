@@ -415,7 +415,7 @@ int main(int argc, char **argv) {
 		ptr = end + 1;
 	}
 
-	new statusbar(0, 0, w, statusheight);
+	g->status = new statusbar(0, 0, w, statusheight);
 
 	pack->end();
 

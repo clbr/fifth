@@ -75,6 +75,7 @@ struct globals {
 	view *v;
 	urlbar *url;
 	tabbar *tabwidget;
+	statusbar *status;
 	Fl_Menu_Bar *menu;
 
 	vector<tab> tabs;

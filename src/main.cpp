@@ -165,7 +165,7 @@ void generatemenu() {
 
 	g->menu->add(_("&Edit/&Undo"), menukey("keys.undo"), undocb);
 	g->menu->add(_("&Edit/&Redo"), menukey("keys.redo"), redocb, 0, FL_MENU_DIVIDER);
-	g->menu->add(_("&Edit/&Cut"), menukey("keys.cut"), cutcb);
+	g->menu->add(_("&Edit/Cu&t"), menukey("keys.cut"), cutcb);
 	g->menu->add(_("&Edit/&Copy"), menukey("keys.copy"), copycb);
 	g->menu->add(_("&Edit/&Paste"), menukey("keys.paste"), pastecb, 0, FL_MENU_DIVIDER);
 	g->menu->add(_("&Edit/&Select all"), menukey("keys.selectall"), selectallcb);

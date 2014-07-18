@@ -4,7 +4,7 @@ RED="$(echo -e '\033[1;31m')"
 GREEN="$(echo -e '\033[1;32m')"
 NORMAL="$(echo -e '\033[0;39m')"
 
-before=`grep ST_ defaults.c`
+before=`grep ST_ defaults.c | cut -d, -f1`
 after=`echo "$before" | sort`
 
 beforemd5=`echo "$before" | md5sum`
@@ -22,7 +22,7 @@ else
 fi
 
 # Now check types
-lines=`echo "$before" | cut -dS -f2- | cut -d_ -f2- | cut -d= -f1 | sed 's@, { .@ @g'`
+lines=`grep ST_ defaults.c | cut -dS -f2- | cut -d_ -f2- | cut -d= -f1 | sed 's@, { .@ @g'`
 
 IFS="
 "

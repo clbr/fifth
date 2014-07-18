@@ -587,6 +587,7 @@ void activatetab(const u16 tab) {
 	windowtitle();
 	searchenginestate();
 	urlbarstate();
+	g->status->hidefind();
 
 	g->w->redraw();
 }

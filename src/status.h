@@ -19,12 +19,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <FL/Fl_Group.H>
 
+class Fl_Input;
+class Fl_Button;
+
 class statusbar: public Fl_Group {
 public:
 	statusbar(int x, int y, int w, int h);
 
 	void draw() override;
 	int handle(int e) override;
+
+	void startfind();
+	void findnext();
+
+private:
+	Fl_Input *search;
+	Fl_Button *next, *prev;
 };
 
 #endif

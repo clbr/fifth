@@ -115,7 +115,7 @@ void find() {
 	if (cur->state != TS_WEB)
 		return;
 
-	// TODO find dialog
+	g->status->startfind();
 }
 
 void findnext() {
@@ -123,7 +123,7 @@ void findnext() {
 	if (cur->state != TS_WEB)
 		return;
 
-	// TODO findnext
+	g->status->findnext();
 }
 
 void cut() {

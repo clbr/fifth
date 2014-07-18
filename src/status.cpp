@@ -22,11 +22,28 @@ static Fl_PNG_Image *lockicon;
 
 statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	lockicon = new Fl_PNG_Image("lock.png", lock_png, sizeof(lock_png));
+
+	search = new Fl_Input(x + h, y + 1, 150, h - 2);
+	next = new Fl_Button(x + h + 150 + 3, y + 1, 100, h - 2,
+				_("Find next"));
+	prev = new Fl_Button(x + h + 150 + 3 + 100 + 3, y + 1, 100, h - 2,
+				_("Find previous"));
+
+	search->hide();
+	next->hide();
+	prev->hide();
+
+	end();
 }
 
 void statusbar::draw() {
 	u32 startx = x();
 	const u32 endx = x() + w() - 1;
+
+	if (damage() == FL_DAMAGE_CHILD) {
+		draw_children();
+		return;
+	}
 
 	// Background
 	u32 i;
@@ -62,8 +79,25 @@ void statusbar::draw() {
 
 		startx += secw;
 	}
+
+	// If search not visible, draw status text, if any TODO
+	if (!search->visible() && 0) {
+	}
+
+	draw_children();
 }
 
 int statusbar::handle(const int e) {
 	return Fl_Group::handle(e);
+}
+
+void statusbar::startfind() {
+
+	search->show();
+	next->show();
+	prev->show();
+}
+
+void statusbar::findnext() {
+
 }

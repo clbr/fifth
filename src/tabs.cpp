@@ -488,6 +488,7 @@ void newtab(const char *url) {
 	tab.web->titleChangedCB(titlecb);
 	tab.web->loadStateChangedCB(stopcb);
 	tab.web->load(url);
+	tab.web->take_focus();
 }
 
 void newtabbg(const char *url) {

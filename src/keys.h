@@ -61,4 +61,12 @@ void next();
 void stop();
 void refresh();
 
+void undo();
+void redo();
+void find();
+void cut();
+void copy();
+void selectall();
+void paste();
+
 #endif

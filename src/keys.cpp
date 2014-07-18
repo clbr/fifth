@@ -94,6 +94,62 @@ static void searchfocus() {
 	g->url->search->input().take_focus();
 }
 
+void undo() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	cur->web->undo();
+}
+
+void redo() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	cur->web->redo();
+}
+
+void find() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	// TODO find dialog
+}
+
+void cut() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	cur->web->cut();
+}
+
+void copy() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	cur->web->copy();
+}
+
+void selectall() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	cur->web->selectAll();
+}
+
+void paste() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	cur->web->paste();
+}
+
 void loadkeys() {
 	g->keys.clear();
 
@@ -146,6 +202,27 @@ void loadkeys() {
 
 	key = settingkey("keys.addbookmark");
 	g->keys[key] = addbookmark;
+
+	key = settingkey("keys.undo");
+	g->keys[key] = undo;
+
+	key = settingkey("keys.redo");
+	g->keys[key] = redo;
+
+	key = settingkey("keys.copy");
+	g->keys[key] = copy;
+
+	key = settingkey("keys.paste");
+	g->keys[key] = paste;
+
+	key = settingkey("keys.cut");
+	g->keys[key] = cut;
+
+	key = settingkey("keys.selectall");
+	g->keys[key] = selectall;
+
+	key = settingkey("keys.find");
+	g->keys[key] = find;
 }
 
 u32 keytou32(const keybinding &key) {

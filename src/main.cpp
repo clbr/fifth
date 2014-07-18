@@ -317,6 +317,7 @@ int main(int argc, char **argv) {
 
 	webkitInit();
 	wk_set_ssl_func(certcheck);
+	wk_set_ssl_err_func(certerr);
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);

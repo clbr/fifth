@@ -18,5 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FIFTH_SSL_H
 
 int certcheck(const char *, const char *);
+void certerr(webview *, const char *);
 
 #endif

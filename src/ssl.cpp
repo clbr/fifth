@@ -31,7 +31,6 @@ int certcheck(const char *str, const char *host) {
 		close(fd);
 
 		if (memcmp(buf, str, len)) {
-			// TODO big scary SSL warning
 			return 0;
 		}
 	} else {
@@ -47,4 +46,16 @@ int certcheck(const char *str, const char *host) {
 	}
 
 	return 1;
+}
+
+void certerr(webview *view, const char *url) {
+
+	// Find the tab with this view
+	tab * const cur = findtab(view);
+	if (!cur)
+		return;
+
+	cur->state = TS_SSLERR;
+	free((char *) cur->sslsite);
+	cur->sslsite = strdup(url);
 }

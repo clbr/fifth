@@ -60,6 +60,7 @@ struct tab {
 
 	const char *url;
 	const char *search;
+	const char *sslsite;
 
 	tab();
 	const char *title() const;

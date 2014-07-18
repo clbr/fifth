@@ -287,7 +287,7 @@ int tabbar::handle(const int e) {
 }
 
 tab::tab(): state(TS_WEB), engine(TSE_DDG), web(NULL), lastactive(msec()),
-		icon(NULL), url(NULL), search(NULL) {
+		icon(NULL), url(NULL), search(NULL), sslsite(NULL) {
 
 }
 

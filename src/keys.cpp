@@ -99,7 +99,7 @@ void undo() {
 	if (cur->state != TS_WEB)
 		return;
 
-	cur->web->undo();
+//	cur->web->undo();
 }
 
 void redo() {
@@ -123,7 +123,7 @@ void cut() {
 	if (cur->state != TS_WEB)
 		return;
 
-	cur->web->cut();
+//	cur->web->cut();
 }
 
 void copy() {
@@ -131,7 +131,7 @@ void copy() {
 	if (cur->state != TS_WEB)
 		return;
 
-	cur->web->copy();
+//	cur->web->copy();
 }
 
 void selectall() {
@@ -139,7 +139,7 @@ void selectall() {
 	if (cur->state != TS_WEB)
 		return;
 
-	cur->web->selectAll();
+//	cur->web->selectAll();
 }
 
 void paste() {
@@ -147,7 +147,7 @@ void paste() {
 	if (cur->state != TS_WEB)
 		return;
 
-	cur->web->paste();
+//	cur->web->paste();
 }
 
 void loadkeys() {

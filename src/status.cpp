@@ -17,16 +17,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main.h"
 #include "lockicon.h"
 #include <FL/Fl_PNG_Image.H>
+#include <FL/Fl_Box.H>
 
 static Fl_PNG_Image *lockicon;
 static Fl_Input *search;
+static Fl_Box *total;
 
 static void nextcb(Fl_Widget *, void *) {
-	if (g->tabs[g->curtab].state != TS_WEB
+	tab * const cur = &g->tabs[g->curtab];
+
+	if (cur->state != TS_WEB
 		|| search->size() < 2)
 		return;
 
-	g->tabs[g->curtab].web->find(search->value());
+	cur->web->find(search->value());
+
+	const u32 found = cur->web->countFound(search->value());
+	char tmp[64];
+	snprintf(tmp, 64, "%u matches", found);
+	tmp[63] = '\0';
+
+	total->copy_label(tmp);
 }
 
 static void prevcb(Fl_Widget *, void *) {
@@ -45,6 +56,7 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 				_("Find next"));
 	prev = new Fl_Button(x + h + 150 + 3 + 100 + 3, y + 1, 100, h - 2,
 				_("Find previous"));
+	total = new Fl_Box(prev->x() + 100 + 3, y + 1, 100, h - 2);
 
 	hidefind();
 
@@ -56,6 +68,7 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	search->when(FL_WHEN_CHANGED | FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
 
 	::search = search;
+	::total = total;
 }
 
 void statusbar::draw() {
@@ -120,10 +133,12 @@ int statusbar::handle(const int e) {
 void statusbar::startfind() {
 
 	search->value("");
+	total->label("");
 
 	search->show();
 	next->show();
 	prev->show();
+	total->show();
 
 	search->take_focus();
 }
@@ -141,4 +156,5 @@ void statusbar::hidefind() {
 	search->hide();
 	next->hide();
 	prev->hide();
+	total->hide();
 }

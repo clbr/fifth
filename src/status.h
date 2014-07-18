@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Fl_Input;
 class Fl_Button;
+class Fl_Box;
 
 class statusbar: public Fl_Group {
 public:
@@ -37,6 +38,7 @@ public:
 private:
 	Fl_Input *search;
 	Fl_Button *next, *prev;
+	Fl_Box *total;
 };
 
 #endif

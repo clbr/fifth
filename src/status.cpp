@@ -101,3 +101,7 @@ void statusbar::startfind() {
 void statusbar::findnext() {
 
 }
+
+void statusbar::findprev() {
+
+}

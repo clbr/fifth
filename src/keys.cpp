@@ -126,6 +126,14 @@ void findnext() {
 	g->status->findnext();
 }
 
+void findprev() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	g->status->findprev();
+}
+
 void cut() {
 	const tab * const cur = &g->tabs[g->curtab];
 	if (cur->state != TS_WEB)
@@ -234,6 +242,9 @@ void loadkeys() {
 
 	key = settingkey("keys.findnext");
 	g->keys[key] = findnext;
+
+	key = settingkey("keys.findprev");
+	g->keys[key] = findprev;
 }
 
 u32 keytou32(const keybinding &key) {

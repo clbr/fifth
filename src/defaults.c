@@ -48,6 +48,7 @@ const struct setting defaultSettings[] = {
 	{"keys.dial9",		ST_U32, { .u = 33554489 }}, // ctrl + 9
 	{"keys.find",		ST_U32, { .u = 33554534 }}, // ctrl + f
 	{"keys.findnext",	ST_U32, { .u = 65472 }}, // F3
+	{"keys.findprev",	ST_U32, { .u = 134283200 }}, // shift + F3
 	{"keys.fwd", 		ST_U32, { .u = 120}}, // x
 	{"keys.newtab",	 	ST_U32, { .u = 33554548}}, // ctrl + t
 	{"keys.next",		ST_U32, { .u = 134217848}}, // shift + x

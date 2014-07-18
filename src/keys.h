@@ -69,5 +69,6 @@ void selectall();
 void paste();
 void find();
 void findnext();
+void findprev();
 
 #endif

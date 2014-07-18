@@ -31,6 +31,7 @@ public:
 
 	void startfind();
 	void findnext();
+	void findprev();
 
 private:
 	Fl_Input *search;

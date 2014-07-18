@@ -34,6 +34,7 @@ void view::draw() {
 		case TS_DOWNLOAD:
 		break;
 		case TS_SSLERR:
+			drawssl();
 		break;
 		case TS_SPEEDDIAL:
 			drawdial();
@@ -259,4 +260,10 @@ void view::drawdial() {
 				FL_ALIGN_CENTER);
 		}
 	}
+}
+
+void view::drawssl() {
+
+	fl_color(FL_BLACK);
+	fl_rectf(x(), y(), w(), h());
 }

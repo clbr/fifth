@@ -29,6 +29,7 @@ public:
 
 private:
 	void drawdial();
+	void drawssl();
 	void dialdims(u32 *, u32 *, u32 *, u32 *, u32 *, u32 *, u32 *) const;
 
 	u32 mousex, mousey;

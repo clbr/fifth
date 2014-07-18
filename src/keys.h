@@ -63,10 +63,11 @@ void refresh();
 
 void undo();
 void redo();
-void find();
 void cut();
 void copy();
 void selectall();
 void paste();
+void find();
+void findnext();
 
 #endif

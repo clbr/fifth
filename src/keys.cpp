@@ -118,6 +118,14 @@ void find() {
 	// TODO find dialog
 }
 
+void findnext() {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	// TODO findnext
+}
+
 void cut() {
 	const tab * const cur = &g->tabs[g->curtab];
 	if (cur->state != TS_WEB)
@@ -223,6 +231,9 @@ void loadkeys() {
 
 	key = settingkey("keys.find");
 	g->keys[key] = find;
+
+	key = settingkey("keys.findnext");
+	g->keys[key] = findnext;
 }
 
 u32 keytou32(const keybinding &key) {

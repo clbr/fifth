@@ -144,6 +144,10 @@ static void findcb(Fl_Widget *, void *) {
 	find();
 }
 
+static void findnextcb(Fl_Widget *, void *) {
+	findnext();
+}
+
 static void selectallcb(Fl_Widget *, void *) {
 	selectall();
 }
@@ -166,6 +170,7 @@ void generatemenu() {
 	g->menu->add(_("&Edit/&Paste"), menukey("keys.paste"), pastecb, 0, FL_MENU_DIVIDER);
 	g->menu->add(_("&Edit/&Select all"), menukey("keys.selectall"), selectallcb);
 	g->menu->add(_("&Edit/&Find"), menukey("keys.find"), findcb);
+	g->menu->add(_("&Edit/Find &next"), menukey("keys.findnext"), findnextcb);
 
 	g->menu->add(_("&Bookmarks/&Add bookmark"), menukey("keys.addbookmark"), addbookmarkcb);
 	g->menu->add(_("&Bookmarks/&Edit bookmarks"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);

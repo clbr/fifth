@@ -481,6 +481,7 @@ void newtab(const char *url) {
 	tab.web = new webview(g->v->x(), g->v->y(), g->v->w(), g->v->h());
 	g->tabs.push_back(tab);
 	g->curtab = g->tabs.size() - 1;
+	urlbarstate();
 	g->w->redraw();
 
 	tab.web->titleChangedCB(titlecb);

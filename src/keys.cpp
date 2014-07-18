@@ -240,6 +240,9 @@ void loadkeys() {
 	key = settingkey("keys.find");
 	g->keys[key] = find;
 
+	key = settingkey("keys.find2");
+	g->keys[key] = find;
+
 	key = settingkey("keys.findnext");
 	g->keys[key] = findnext;
 

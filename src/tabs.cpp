@@ -298,7 +298,7 @@ const char *tab::title() const {
 	switch (state) {
 		case TS_WEB:
 			tmp = web->title();
-			return tmp ? tmp : "";
+			return tmp ? tmp : "(no title)";
 		break;
 		case TS_DOWNLOAD:
 			return _("Downloads");

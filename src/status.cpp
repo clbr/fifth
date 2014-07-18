@@ -110,6 +110,10 @@ void statusbar::draw() {
 }
 
 int statusbar::handle(const int e) {
+
+	if (e == FL_KEYDOWN && Fl::event_key() == FL_Escape)
+		hidefind();
+
 	return Fl_Group::handle(e);
 }
 

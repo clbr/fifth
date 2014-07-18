@@ -15,7 +15,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "main.h"
+#include <FL/Fl_File_Chooser.H>
 
 void screencap() {
-	puts("screencap");
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	setting *s = getSetting("general.download-dir", NULL);
+	Fl_File_Chooser c(s->val.c, _("PNG files (*.png)"),
+				Fl_File_Chooser::CREATE, _("Save screencap as"));
+	c.show();
+
+	while (c.shown())
+		Fl::wait();
+	if (!c.value())
+		return;
+
+	cur->web->snapshot(c.value());
 }

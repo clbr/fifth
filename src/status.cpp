@@ -53,7 +53,7 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	next->callback(nextcb);
 	prev->callback(prevcb);
 	search->callback(nextcb);
-	search->when(FL_WHEN_CHANGED);
+	search->when(FL_WHEN_CHANGED | FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
 
 	::search = search;
 }

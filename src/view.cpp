@@ -264,6 +264,31 @@ void view::drawdial() {
 
 void view::drawssl() {
 
+	tab * const cur = &g->tabs[g->curtab];
+	const u32 bigsize = 32;
+	const u32 smallsize = bigsize / 2;
+
 	fl_color(FL_BLACK);
 	fl_rectf(x(), y(), w(), h());
+
+	fl_color(FL_WHITE);
+	fl_font(FL_HELVETICA, bigsize);
+
+	u32 cury = y() + bigsize * 2;
+
+	fl_draw(_("Security risk: certificate changed!"), x(), cury, w(), bigsize,
+		FL_ALIGN_CENTER);
+
+	cury += bigsize * 2;
+	fl_font(FL_HELVETICA, smallsize);
+
+	char tmp[320];
+	snprintf(tmp, 320, _("Site: %s"), cur->sslsite);
+	tmp[319] = '\0';
+
+	fl_draw(tmp, x(), cury, w(), smallsize, FL_ALIGN_CENTER);
+
+	cury += fl_height() * 3;
+	fl_draw(_("This might be a man-in-the-middle attack. You're advised to close this tab."),
+		x(), cury, w(), smallsize, FL_ALIGN_CENTER);
 }

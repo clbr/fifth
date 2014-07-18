@@ -363,6 +363,7 @@ static void urlbarstate() {
 	g->url->search->input().position(0);
 
 	urlbuttonstate();
+	g->status->redraw(); // maybe SSL state changed
 }
 
 static void saveurlbar() {

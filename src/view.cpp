@@ -55,6 +55,8 @@ static void sslcb(Fl_Widget *w, void *url) {
 		if (unlinkat(g->certfd, site, 0))
 			die(_("Error removing certificate\n"));
 		g->tabs[g->curtab].state = TS_WEB;
+		g->w->redraw();
+		urlbuttonstate();
 	}
 }
 

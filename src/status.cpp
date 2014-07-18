@@ -49,8 +49,9 @@ void statusbar::draw() {
 	fl_color(79, 89, 100);
 	fl_line(startx, posy, endx, posy);
 
-	// SSL secure? TODO
-	if (1) {
+	// SSL secure?
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->url && !strncmp(cur->url, "https://", 8)) {
 		const u32 secw = h();
 
 		u32 ix, iy;

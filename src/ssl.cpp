@@ -37,7 +37,7 @@ int certcheck(const char *str, const char *host) {
 	} else {
 		// Never seen this site before, save its cert
 		// TODO option for asking the user on all new certs
-		fd = openat(g->certfd, site, O_WRONLY | O_CREAT);
+		fd = openat(g->certfd, site, O_WRONLY | O_CREAT, 0644);
 		if (fd < 0)
 			die(_("Failed to create the certificate file\n"));
 

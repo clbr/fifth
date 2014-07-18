@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static Fl_PNG_Image *lockicon;
 
-statusbar::statusbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h) {
+statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	lockicon = new Fl_PNG_Image("lock.png", lock_png, sizeof(lock_png));
 }
 
@@ -61,4 +61,8 @@ void statusbar::draw() {
 
 		startx += secw;
 	}
+}
+
+int statusbar::handle(const int e) {
+	return Fl_Group::handle(e);
 }

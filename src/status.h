@@ -17,13 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef STATUS_H
 #define STATUS_H
 
-#include <FL/Fl_Widget.H>
+#include <FL/Fl_Group.H>
 
-class statusbar: public Fl_Widget {
+class statusbar: public Fl_Group {
 public:
 	statusbar(int x, int y, int w, int h);
 
 	void draw() override;
+	int handle(int e) override;
 };
 
 #endif

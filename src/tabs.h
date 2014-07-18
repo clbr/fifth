@@ -81,4 +81,6 @@ void endctrl();
 
 std::vector<u16> taborder();
 
+tab *findtab(const webview *, bool closedok = false);
+
 #endif

@@ -608,3 +608,23 @@ void undotab() {
 	g->closedtabs.erase(g->closedtabs.begin());
 	activatetab(g->tabs.size() - 1);
 }
+
+tab *findtab(const webview * const view, bool closedok) {
+
+	u32 max = g->tabs.size();
+	u32 i;
+	for (i = 0; i < max; i++) {
+		if (view == g->tabs[i].web)
+			return &g->tabs[i];
+	}
+
+	if (closedok) {
+		max = g->closedtabs.size();
+		for (i = 0; i < max; i++) {
+			if (view == g->closedtabs[i].web)
+				return &g->closedtabs[i];
+		}
+	}
+
+	return NULL;
+}

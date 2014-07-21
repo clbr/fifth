@@ -22,4 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 void loadblocking();
 void saveblocking();
 
+int isblocked(const char *);
+
 #endif

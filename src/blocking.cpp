@@ -126,3 +126,23 @@ void saveblocking() {
 			usecs(old, now));
 	}
 }
+
+// Return 0 for ok, 1 to block
+int isblocked(const char *url) {
+
+	int ret;
+
+	if (g->whitelist) {
+		ret = url_match(g->whitelist, url);
+		if (!ret)
+			return 1;
+	}
+
+	if (g->blacklist) {
+		ret = url_match(g->blacklist, url);
+		if (ret)
+			return 1;
+	}
+
+	return 0;
+}

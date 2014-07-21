@@ -287,7 +287,8 @@ int tabbar::handle(const int e) {
 }
 
 tab::tab(): state(TS_WEB), engine(TSE_DDG), web(NULL), lastactive(msec()),
-		icon(NULL), url(NULL), search(NULL), sslsite(NULL) {
+		icon(NULL), url(NULL), search(NULL), sslsite(NULL),
+		progress(100) {
 
 }
 
@@ -417,6 +418,26 @@ static void stopcb(webview * const view) {
 	g->url->redraw();
 }
 
+static void progresscb(webview * const view, float val) {
+	tab * const cur = findtab(view);
+	if (cur->state != TS_WEB)
+		return;
+
+	val *= 100;
+
+	cur->progress = val;
+
+	if (cur == &g->tabs[g->curtab])
+		g->url->redraw();
+}
+
+static void setcbs(webview * const web) {
+
+	web->titleChangedCB(titlecb);
+	web->loadStateChangedCB(stopcb);
+	web->progressChangedCB(progresscb);
+}
+
 void newtab() {
 	if (g->tabs.size())
 		saveurlbar();
@@ -433,8 +454,7 @@ void newtab() {
 	g->w->redraw();
 	g->url->url->take_focus();
 
-	tab.web->titleChangedCB(titlecb);
-	tab.web->loadStateChangedCB(stopcb);
+	setcbs(tab.web);
 }
 
 void closetab() {
@@ -485,8 +505,8 @@ void newtab(const char *url) {
 	urlbarstate();
 	g->w->redraw();
 
-	tab.web->titleChangedCB(titlecb);
-	tab.web->loadStateChangedCB(stopcb);
+	setcbs(tab.web);
+
 	tab.web->load(url);
 	tab.web->take_focus();
 }
@@ -502,8 +522,8 @@ void newtabbg(const char *url) {
 
 	g->tabs.push_back(tab);
 
-	tab.web->titleChangedCB(titlecb);
-	tab.web->loadStateChangedCB(stopcb);
+	setcbs(tab.web);
+
 	tab.web->load(url);
 }
 

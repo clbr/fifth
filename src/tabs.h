@@ -62,6 +62,8 @@ struct tab {
 	const char *search;
 	const char *sslsite;
 
+	float progress;
+
 	tab();
 	const char *title() const;
 };

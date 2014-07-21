@@ -64,6 +64,7 @@ const struct setting defaultSettings[] = {
 	{"keys.searchfield",	ST_U32, { .u = 134283205 }}, // shift + F8
 	{"keys.selectall",	ST_U32, { .u = 33554529 }}, // ctrl + a
 	{"keys.stop",		ST_U32, { .u = 65307 }}, // esc
+	{"keys.transfers",	ST_U32, { .u = 100663412 }}, // ctrl + alt + t
 	{"keys.undo",		ST_U32, { .u = 33554554 }}, // ctrl + z
 	{"keys.undotab",	ST_U32, { .u = 100663418 }}, // ctrl + alt + z
 	{"keys.urlfield",	ST_U32, { .u = 65477 }}, // F8

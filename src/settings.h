@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "helpers.h"
 
 enum settingtype {
-	ST_CHAR,
+	ST_CHAR = 0,
 	ST_FLOAT,
 	ST_U32,
 	ST_COUNT

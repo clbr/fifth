@@ -71,4 +71,6 @@ void find();
 void findnext();
 void findprev();
 
+void transfers();
+
 #endif

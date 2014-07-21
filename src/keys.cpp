@@ -80,6 +80,12 @@ void refresh() {
 	cur->web->refresh();
 }
 
+void transfers() {
+	newtab();
+	g->tabs[g->curtab].state = TS_DOWNLOAD;
+	g->w->redraw();
+}
+
 static void quit() {
 	g->w->hide();
 }
@@ -248,6 +254,9 @@ void loadkeys() {
 
 	key = settingkey("keys.findprev");
 	g->keys[key] = findprev;
+
+	key = settingkey("keys.transfers");
+	g->keys[key] = transfers;
 }
 
 u32 keytou32(const keybinding &key) {

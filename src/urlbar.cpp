@@ -217,6 +217,7 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	url->input().placeholder(_("WWW address..."));
 	url->input().callback(dogo);
+	url->input().drawprogress = true;
 	search->input().placeholder("DuckDuckGo");
 	search->input().image(ddglogo);
 	search->input().callback(dosearch);

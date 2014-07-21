@@ -28,6 +28,7 @@ public:
 	void draw() override;
 
 	void placeholder(const char *);
+	bool drawprogress;
 private:
 	const char *placeholdertext;
 };

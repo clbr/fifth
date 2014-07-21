@@ -218,6 +218,13 @@ void generatemenu() {
 	g->menu->add(_("&Help/&About"), 0, aboutcb);
 }
 
+static webview *popupcb(const char *url) {
+
+	// TODO don't allow blocked urls to pop up
+	newtab(url);
+	return g->tabs[g->curtab].web;
+}
+
 int main(int argc, char **argv) {
 
 	g = new globals;
@@ -356,6 +363,7 @@ int main(int argc, char **argv) {
 	webkitInit();
 	wk_set_ssl_func(certcheck);
 	wk_set_ssl_err_func(certerr);
+	wk_set_popup_func(popupcb);
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);

@@ -58,11 +58,11 @@ void inputplace::draw() {
 		const u32 dw = 100 - Fl::box_dw(b);
 		const u32 dh = h() - Fl::box_dh(b);
 
-		fl_color(50, 60, 90);
+		fl_color(20, 30, 60);
 		fl_rectf(dx, dy, dw, dh);
 
 		const u32 neww = dw * (prog * 0.01f);
-		fl_color(100, 110, 140);
+		fl_color(70, 80, 110);
 		fl_rectf(dx + 1, dy + 1, neww, dh - 1);
 
 		fl_color(FL_WHITE);

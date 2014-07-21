@@ -82,6 +82,7 @@ struct globals {
 	vector<tab> tabs;
 	vector<tab> closedtabs;
 	u32 curtab;
+	vector<webview *> dlwebs;
 
 	map<keybinding, keyfunc> keys;
 

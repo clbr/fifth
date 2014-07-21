@@ -35,14 +35,23 @@ public:
 private:
 	void drawdial();
 	void drawssl();
+	void drawdl();
+
 	void dialdims(u32 *, u32 *, u32 *, u32 *, u32 *, u32 *, u32 *) const;
+	void regendl();
 
 	u32 mousex, mousey;
 	bool mousein;
 
+	u32 downloads;
+
 	sslview *sslgroup;
 	Fl_Button *sslbutton;
 	Fl_Input *ssltext;
+
+	Fl_Group *dlgroup;
 };
+
+u32 numdownloads();
 
 #endif

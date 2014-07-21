@@ -61,7 +61,7 @@ static void sslcb(Fl_Widget *w, void *url) {
 }
 
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
-		mousex(0), mousey(0), mousein(false) {
+		mousex(0), mousey(0), mousein(false), downloads(UINT_MAX) {
 
 	sslgroup = new sslview(x, y, w, h);
 
@@ -73,6 +73,9 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	ssltext->user_data(sslbutton);
 
 	sslgroup->end();
+
+	dlgroup = new Fl_Group(x, y, w, h);
+	dlgroup->end();
 
 	end();
 }
@@ -86,13 +89,13 @@ void view::draw() {
 		ssltext->hide();
 	}
 
-	// TODO drawing
 	switch (cur->state) {
 		case TS_WEB:
 			if (cur->web)
 				cur->web->draw();
 		break;
 		case TS_DOWNLOAD:
+			drawdl();
 		break;
 		case TS_SSLERR:
 			ssltext->show();
@@ -381,4 +384,49 @@ void view::drawssl() {
 
 void view::resetssl() {
 	ssltext->value("");
+}
+
+void view::drawdl() {
+
+	// If the amount of downloads changed, regenerate the widgets
+	const u32 total = numdownloads();
+	if (total != downloads) {
+		regendl();
+		downloads = total;
+	}
+}
+
+void view::regendl() {
+}
+
+u32 numdownloads() {
+	u32 total = 0, i, max;
+
+	max = g->tabs.size();
+	for (i = 0; i < max; i++) {
+		if (g->tabs[i].state == TS_WEB && g->tabs[i].web &&
+			g->tabs[i].web->numDownloads())
+			total += g->tabs[i].web->numDownloads();
+	}
+
+	max = g->closedtabs.size();
+	for (i = 0; i < max; i++) {
+		if (g->closedtabs[i].state == TS_WEB && g->closedtabs[i].web &&
+			g->closedtabs[i].web->numDownloads())
+			total += g->closedtabs[i].web->numDownloads();
+	}
+
+	max = g->dlwebs.size();
+	for (i = 0; i < max; i++) {
+		if (g->dlwebs[i]->numDownloads())
+			total += g->dlwebs[i]->numDownloads();
+	}
+
+	// Erasing check
+	for (i = 0; i < g->dlwebs.size(); i++) {
+		if (!g->dlwebs[i]->numDownloads())
+			g->dlwebs.erase(g->dlwebs.begin() + i);
+	}
+
+	return total;
 }

@@ -213,7 +213,7 @@ void generatemenu() {
 	if (depth != 0)
 		die("Bookmark corruption\n");
 
-	g->menu->add(_("&Tools/&Transfers"), menukey("keys.transfers"), transfercb);
+	g->menu->add(_("&Tools/&Downloads"), menukey("keys.transfers"), transfercb);
 	g->menu->add(_("&Tools/&Web inspector"), 0, 0, 0, FL_MENU_INACTIVE);
 	g->menu->add(_("&Tools/&Error console"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
 	g->menu->add(_("&Tools/&Page settings"), 0, 0, 0, FL_MENU_INACTIVE);

@@ -23,6 +23,16 @@ class Fl_Button;
 class Fl_Input;
 class sslview;
 
+struct dl {
+	const char *name;
+	const char *url;
+	long long size;
+	long long received;
+	time_t start;
+	bool finished;
+	bool failed;
+};
+
 class view: public Fl_Group {
 public:
 	view(int x, int y, int w, int h);
@@ -38,7 +48,7 @@ private:
 	void drawdl();
 
 	void dialdims(u32 *, u32 *, u32 *, u32 *, u32 *, u32 *, u32 *) const;
-	void regendl();
+	void regendl(const std::vector<dl> &vec);
 
 	u32 mousex, mousey;
 	bool mousein;
@@ -50,16 +60,6 @@ private:
 	Fl_Input *ssltext;
 
 	Fl_Group *dlgroup;
-};
-
-struct dl {
-	const char *name;
-	const char *url;
-	long long size;
-	long long received;
-	time_t start;
-	bool finished;
-	bool failed;
 };
 
 std::vector<dl> getdownloads();

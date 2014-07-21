@@ -389,14 +389,15 @@ void view::resetssl() {
 void view::drawdl() {
 
 	// If the amount of downloads changed, regenerate the widgets
-	const u32 total = getdownloads().size();
+	const vector<dl> &vec = getdownloads();
+	const u32 total = vec.size();
 	if (total != downloads) {
-		regendl();
+		regendl(vec);
 		downloads = total;
 	}
 }
 
-void view::regendl() {
+void view::regendl(const vector<dl> &vec) {
 }
 
 vector<dl> getdownloads() {

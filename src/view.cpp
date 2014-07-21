@@ -398,6 +398,15 @@ void view::drawdl() {
 }
 
 void view::regendl(const vector<dl> &vec) {
+
+	const u32 max = vec.size();
+	u32 i;
+
+	for (i = 0; i < max; i++) {
+		printf("Download %u: %s %s %lld/%lld finished %u failed %u %lu\n",
+			i, vec[i].name, vec[i].url, vec[i].received, vec[i].size,
+			vec[i].finished, vec[i].failed, vec[i].start);
+	}
 }
 
 vector<dl> getdownloads() {

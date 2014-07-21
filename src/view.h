@@ -52,6 +52,16 @@ private:
 	Fl_Group *dlgroup;
 };
 
-u32 numdownloads();
+struct dl {
+	const char *name;
+	const char *url;
+	long long size;
+	long long received;
+	time_t start;
+	bool finished;
+	bool failed;
+};
+
+std::vector<dl> getdownloads();
 
 #endif

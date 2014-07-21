@@ -389,7 +389,7 @@ void view::resetssl() {
 void view::drawdl() {
 
 	// If the amount of downloads changed, regenerate the widgets
-	const u32 total = numdownloads();
+	const u32 total = getdownloads().size();
 	if (total != downloads) {
 		regendl();
 		downloads = total;
@@ -399,34 +399,68 @@ void view::drawdl() {
 void view::regendl() {
 }
 
-u32 numdownloads() {
-	u32 total = 0, i, max;
+vector<dl> getdownloads() {
+	u32 i, max, d, dls;
+	vector<dl> vec;
+	vec.reserve(256);
 
 	max = g->tabs.size();
 	for (i = 0; i < max; i++) {
 		if (g->tabs[i].state == TS_WEB && g->tabs[i].web &&
-			g->tabs[i].web->numDownloads())
-			total += g->tabs[i].web->numDownloads();
+			g->tabs[i].web->numDownloads()) {
+			dls = g->tabs[i].web->numDownloads();
+			for (d = 0; d < dls; d++) {
+				dl entry;
+				g->tabs[i].web->downloadStats(d, &entry.start,
+						&entry.size, &entry.received,
+						&entry.name, &entry.url);
+				entry.finished = g->tabs[i].web->downloadFinished(d);
+				entry.failed = g->tabs[i].web->downloadFailed(d);
+				vec.push_back(entry);
+			}
+		}
 	}
 
 	max = g->closedtabs.size();
 	for (i = 0; i < max; i++) {
 		if (g->closedtabs[i].state == TS_WEB && g->closedtabs[i].web &&
-			g->closedtabs[i].web->numDownloads())
-			total += g->closedtabs[i].web->numDownloads();
+			g->closedtabs[i].web->numDownloads()) {
+			dls = g->closedtabs[i].web->numDownloads();
+			for (d = 0; d < dls; d++) {
+				dl entry;
+				g->closedtabs[i].web->downloadStats(d, &entry.start,
+						&entry.size, &entry.received,
+						&entry.name, &entry.url);
+				entry.finished = g->closedtabs[i].web->downloadFinished(d);
+				entry.failed = g->closedtabs[i].web->downloadFailed(d);
+				vec.push_back(entry);
+			}
+		}
 	}
 
 	max = g->dlwebs.size();
 	for (i = 0; i < max; i++) {
-		if (g->dlwebs[i]->numDownloads())
-			total += g->dlwebs[i]->numDownloads();
+		if (g->dlwebs[i]->numDownloads()) {
+			dls = g->dlwebs[i]->numDownloads();
+			for (d = 0; d < dls; d++) {
+				dl entry;
+				g->dlwebs[i]->downloadStats(d, &entry.start,
+						&entry.size, &entry.received,
+						&entry.name, &entry.url);
+				entry.finished = g->dlwebs[i]->downloadFinished(d);
+				entry.failed = g->dlwebs[i]->downloadFailed(d);
+				vec.push_back(entry);
+			}
+		}
 	}
 
 	// Erasing check
 	for (i = 0; i < g->dlwebs.size(); i++) {
-		if (!g->dlwebs[i]->numDownloads())
+		if (!g->dlwebs[i]->numDownloads()) {
 			g->dlwebs.erase(g->dlwebs.begin() + i);
+			i--;
+		}
 	}
 
-	return total;
+	return vec;
 }

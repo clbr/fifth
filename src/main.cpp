@@ -233,6 +233,8 @@ int main(int argc, char **argv) {
 	g = new globals;
 	g->bench = false;
 	g->debugkeys = false;
+	g->tabs.reserve(128);
+	g->closedtabs.reserve(128);
 
 	srand(time(NULL));
 	setlocale(LC_ALL, "");

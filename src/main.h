@@ -51,6 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keys.h"
 #include "bookmarks.h"
 #include "ssl.h"
+#include "blocking.h"
 
 using namespace std;
 
@@ -85,6 +86,9 @@ struct globals {
 	map<keybinding, keyfunc> keys;
 
 	vector<bookmark> bookmarks;
+
+	urlctx *blacklist;
+	urlctx *whitelist;
 };
 
 extern struct globals *g;

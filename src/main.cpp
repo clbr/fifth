@@ -338,6 +338,7 @@ int main(int argc, char **argv) {
 	loadConfig();
 	loadkeys();
 	loadbookmarks();
+	loadblocking();
 
 	pthread_t tid;
 	pthread_attr_t attr;

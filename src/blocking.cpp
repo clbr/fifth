@@ -32,7 +32,7 @@ static void blacktext() {
 	const int fd = openat(g->profilefd, BLACKNAME, O_RDONLY);
 	if (fd < 0)
 		die("Blacklist exists but failed open?\n");
-	g->whitelist = url_init_file2(fd);
+	g->blacklist = url_init_file2(fd);
 }
 
 void loadblocking() {

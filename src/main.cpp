@@ -220,7 +220,10 @@ void generatemenu() {
 
 static webview *popupcb(const char *url) {
 
-	// TODO don't allow blocked urls to pop up
+	// Don't allow blocked urls to pop up
+	if (isblocked(url))
+		return NULL;
+
 	newtab(url);
 	return g->tabs[g->curtab].web;
 }

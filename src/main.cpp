@@ -160,6 +160,11 @@ static void transfercb(Fl_Widget *, void *) {
 	transfers();
 }
 
+static void downloadrefresh() {
+	if (g->tabs[g->curtab].state == TS_DOWNLOAD)
+		g->v->redraw();
+}
+
 void generatemenu() {
 
 	g->menu->clear();
@@ -376,6 +381,7 @@ int main(int argc, char **argv) {
 	wk_set_ssl_err_func(certerr);
 	wk_set_popup_func(popupcb);
 	wk_set_urlblock_func(isblocked);
+	wk_set_download_refresh_func(downloadrefresh);
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);

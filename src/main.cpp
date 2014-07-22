@@ -166,6 +166,25 @@ static void downloadrefresh() {
 	}
 }
 
+static void downloadfinish(const char *, const char *file) {
+
+	static const setting *s = getSetting("exec.downloadnotify", NULL);
+
+	g->v->refreshdownloads(true);
+	if (!s->val.c || strlen(s->val.c) < 3)
+		return;
+
+	const pid_t pid = fork();
+	if (pid == -1)
+		die(_("Fork failed\n"));
+	if (pid == 0) {
+		char tmp[360];
+		snprintf(tmp, 360, _("%s \"Download %s finished\""), s->val.c, file);
+		system(tmp);
+		exit(0);
+	}
+}
+
 void generatemenu() {
 
 	g->menu->clear();
@@ -384,6 +403,7 @@ int main(int argc, char **argv) {
 	wk_set_urlblock_func(isblocked);
 	wk_set_download_refresh_func(downloadrefresh);
 	wk_set_new_download_func(transfers);
+	wk_set_download_func(downloadfinish);
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);

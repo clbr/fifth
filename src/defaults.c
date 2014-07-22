@@ -27,6 +27,7 @@ const struct setting defaultSettings[] = {
 	{"dial.7",		ST_CHAR, { .c = "" }},
 	{"dial.8",		ST_CHAR, { .c = "http://www.phoronix.com/scan.php?page=home" }},
 	{"dial.9",		ST_CHAR, { .c = "" }},
+	{"exec.downloadnotify",	ST_CHAR, { .c = "flnotify -bg '#1e2832' -fg white -b -r -t 4" }},
 	{"fltk.scheme",		ST_CHAR, { .c = "gtk+" }},
 	{"general.downloaddir", ST_CHAR, { .c = "/tmp" }},
 	{"general.homepage", 	ST_CHAR, { .c = "about:blank"}},

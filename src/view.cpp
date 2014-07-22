@@ -15,7 +15,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "main.h"
-#include "FL/fl_ask.H"
+#include <FL/fl_ask.H>
+#include <FL/Fl_Hold_Browser.H>
 
 #define SSLCHECKFWD "ilovebieber"
 #define SSLCHECKBACK "rebeibevoli"
@@ -60,12 +61,51 @@ static void sslcb(Fl_Widget *w, void *url) {
 	}
 }
 
+const dl *view::selecteddl() const {
+	if (g->tabs[g->curtab].state != TS_DOWNLOAD)
+		return NULL;
+	const int val = dlbrowser->value();
+	if (val < 2)
+		return NULL;
+
+	return (const dl *) dlbrowser->data(val);
+}
+
 static void dlstopcb(Fl_Widget *, void *) {
 
+	const dl *cur = g->v->selecteddl();
+	if (!cur) return;
+
+	cur->owner->stopDownload(cur->id);
+	g->v->refreshdownloads();
 }
 
 static void dlredocb(Fl_Widget *, void *) {
 
+	const dl *cur = g->v->selecteddl();
+	if (!cur) return;
+
+	const char *url = strdup(cur->url);
+	const char *name = strdup(cur->name);
+	const char *last = strrchr(name, '/');
+
+	cur->owner->stopDownload(cur->id);
+	cur->owner->removeDownload(cur->id);
+
+	cur->owner->download(url, last ? last + 1 : name);
+	free((char *) url);
+	free((char *) name);
+}
+
+static void dlbrowsercb(Fl_Widget *w, void *) {
+
+	Fl_Hold_Browser *b = (Fl_Hold_Browser *) w;
+
+	if (b->value() < 2) {
+		b->select(1, 0);
+	}
+
+	g->v->redraw();
 }
 
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
@@ -99,6 +139,10 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	dlredo->callback(dlredocb);
 	dlredo->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
 	dlredo->show();
+
+	dlbrowser = new Fl_Hold_Browser(x, y + 3 + 3 + 40, w, h - 3 - 3 - 40);
+	dlbrowser->column_char('\t');
+	dlbrowser->callback(dlbrowsercb);
 
 	dlgroup->end();
 
@@ -159,6 +203,22 @@ void view::resize(int x, int y, int w, int h) {
 	// Download button positions
 	dlstop->position(x + 3, y + 3);
 	dlredo->position(x + 3 + 100 + 3, y + 3);
+	dlbrowser->resize(x, y + 3 + 3 + 40, w, h - 3 - 3 - 40);
+
+	int others = w / 8;
+	int first = w / 2;
+	if (others > 100) {
+		others = 100;
+		first = w - others * 4;
+	}
+	static int widths[6];
+	widths[0] = first;
+	widths[1] = others;
+	widths[2] = others;
+	widths[3] = others;
+	widths[4] = others;
+	widths[5] = 0;
+	dlbrowser->column_widths(widths);
 }
 
 int view::handle(const int e) {
@@ -419,16 +479,26 @@ void view::resetssl() {
 
 void view::drawdl() {
 
-	draw_child(*dlstop);
-	draw_child(*dlredo);
-
 	// If the amount of downloads changed, regenerate the widgets
 	const vector<dl> &vec = getdownloads();
 	const u32 total = vec.size();
 	if (total != downloads) {
-		regendl(vec);
+		lastdls = vec;
+		regendl(lastdls);
 		downloads = total;
 	}
+
+	if (downloads && dlbrowser->value() > 1) {
+		dlstop->activate();
+		dlredo->activate();
+	} else {
+		dlstop->deactivate();
+		dlredo->deactivate();
+	}
+
+	draw_child(*dlstop);
+	draw_child(*dlredo);
+	draw_child(*dlbrowser);
 }
 
 void view::regendl(const vector<dl> &vec) {
@@ -436,10 +506,97 @@ void view::regendl(const vector<dl> &vec) {
 	const u32 max = vec.size();
 	u32 i;
 
+	// Keep selection if possible
+	const int oldval = dlbrowser->value();
+	const u32 oldsize = dlbrowser->size();
+
+	dlbrowser->clear();
+	char tmp[1024];
+	const time_t now = time(NULL);
+
+	dlbrowser->add(_("@B49Name\t@B49Size\t@B49Status\t@B49ETA\t@B49Speed"));
+
 	for (i = 0; i < max; i++) {
-		printf("Download %u: %s %s %lld/%lld finished %u failed %u %lu\n",
-			i, vec[i].name, vec[i].url, vec[i].received, vec[i].size,
-			vec[i].finished, vec[i].failed, vec[i].start);
+		char size[80];
+		char percent[80];
+		char eta[80];
+		char speed[80];
+		const time_t taken = now - vec[i].start;
+		float avgspeed = (float) vec[i].received / taken;
+		if (vec[i].size > 0) {
+			float rounded = vec[i].size;
+			const char *unit = "B";
+
+			if (rounded > 1024) {
+				unit = "KB";
+				rounded /= 1024;
+			}
+			if (rounded > 1024) {
+				unit = "MB";
+				rounded /= 1024;
+			}
+			if (rounded > 1024) {
+				unit = "GB";
+				rounded /= 1024;
+			}
+
+			snprintf(size, 80, "%.1f %s", rounded, unit);
+			snprintf(percent, 80, "%.1f%%", 100.0f * vec[i].received / vec[i].size);
+
+			const long long remaining = vec[i].size - vec[i].received;
+			float secs = remaining / avgspeed;
+			unit = "s";
+
+			if (secs > 120) {
+				secs /= 60;
+				unit = "min";
+			}
+			if (secs > 120) {
+				secs /= 60;
+				unit = "h";
+			}
+
+			snprintf(eta, 80, "%.0f %s", secs, unit);
+		} else {
+			strcpy(size, "?");
+			strcpy(percent, "?");
+			strcpy(eta, "?");
+		}
+
+		const char *unit = "B";
+
+		if (avgspeed > 1024) {
+			unit = "KB";
+			avgspeed /= 1024;
+		}
+		if (avgspeed > 1024) {
+			unit = "MB";
+			avgspeed /= 1024;
+		}
+		if (avgspeed > 1024) {
+			unit = "GB";
+			avgspeed /= 1024;
+		}
+
+		snprintf(speed, 80, "%.1f %s/s", avgspeed, unit);
+
+		if (vec[i].finished) {
+			strcpy(percent, _("Finished"));
+			strcpy(eta, _("Finished"));
+		} else if (vec[i].failed) {
+			strcpy(percent, _("Failed"));
+			strcpy(eta, _("Never"));
+		}
+
+		// Name Size Percentage ETA Speed
+		snprintf(tmp, 1024, "%s\t%s\t%s\t%s\t%s",
+			vec[i].name, size, percent, eta, speed);
+		dlbrowser->add(tmp, (void *) &vec[i]);
+	}
+
+	// Keep selection if possible
+	if (oldval > 1 && oldsize == (u32) dlbrowser->size()) {
+		dlbrowser->value(oldval);
 	}
 }
 
@@ -460,6 +617,8 @@ vector<dl> getdownloads() {
 						&entry.name, &entry.url);
 				entry.finished = g->tabs[i].web->downloadFinished(d);
 				entry.failed = g->tabs[i].web->downloadFailed(d);
+				entry.id = d;
+				entry.owner = g->tabs[i].web;
 				vec.push_back(entry);
 			}
 		}
@@ -477,6 +636,8 @@ vector<dl> getdownloads() {
 						&entry.name, &entry.url);
 				entry.finished = g->closedtabs[i].web->downloadFinished(d);
 				entry.failed = g->closedtabs[i].web->downloadFailed(d);
+				entry.id = d;
+				entry.owner = g->closedtabs[i].web;
 				vec.push_back(entry);
 			}
 		}
@@ -493,6 +654,8 @@ vector<dl> getdownloads() {
 						&entry.name, &entry.url);
 				entry.finished = g->dlwebs[i]->downloadFinished(d);
 				entry.failed = g->dlwebs[i]->downloadFailed(d);
+				entry.id = d;
+				entry.owner = g->dlwebs[i];
 				vec.push_back(entry);
 			}
 		}
@@ -507,4 +670,13 @@ vector<dl> getdownloads() {
 	}
 
 	return vec;
+}
+
+void view::refreshdownloads() {
+	static u64 last = 0;
+	const u64 now = msec();
+	if (now - last > 1000) {
+		downloads = UINT_MAX;
+		last = now;
+	}
 }

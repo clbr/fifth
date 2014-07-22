@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Fl_Button;
 class Fl_Input;
+class Fl_Hold_Browser;
 class sslview;
 
 struct dl {
@@ -29,6 +30,10 @@ struct dl {
 	long long size;
 	long long received;
 	time_t start;
+
+	webview *owner;
+	u32 id;
+
 	bool finished;
 	bool failed;
 };
@@ -42,6 +47,9 @@ public:
 	int handle(int) override;
 
 	void resetssl();
+	void refreshdownloads();
+
+	const dl *selecteddl() const;
 private:
 	void drawdial();
 	void drawssl();
@@ -61,6 +69,8 @@ private:
 
 	Fl_Group *dlgroup;
 	Fl_Button *dlstop, *dlredo;
+	Fl_Hold_Browser *dlbrowser;
+	std::vector<dl> lastdls;
 };
 
 std::vector<dl> getdownloads();

@@ -161,8 +161,10 @@ static void transfercb(Fl_Widget *, void *) {
 }
 
 static void downloadrefresh() {
-	if (g->tabs[g->curtab].state == TS_DOWNLOAD)
+	if (g->tabs[g->curtab].state == TS_DOWNLOAD) {
+		g->v->refreshdownloads();
 		g->v->redraw();
+	}
 }
 
 void generatemenu() {

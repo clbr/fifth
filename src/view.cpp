@@ -521,7 +521,8 @@ void view::regendl(const vector<dl> &vec) {
 		char percent[80];
 		char eta[80];
 		char speed[80];
-		const time_t taken = now - vec[i].start;
+		time_t taken = now - vec[i].start;
+		if (!taken) taken = 1;
 		float avgspeed = (float) vec[i].received / taken;
 		if (vec[i].size > 0) {
 			float rounded = vec[i].size;

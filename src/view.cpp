@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SSLCHECKFWD "ilovebieber"
 #define SSLCHECKBACK "rebeibevoli"
 
-#define DLBUTTONH 40
+#define DLBUTTONH 30
 
 class sslview: public Fl_Group {
 public:

@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SSLCHECKFWD "ilovebieber"
 #define SSLCHECKBACK "rebeibevoli"
 
+#define DLBUTTONH 40
+
 class sslview: public Fl_Group {
 public:
 	sslview(int x, int y, int w, int h): Fl_Group(x, y, w, h) {}
@@ -142,7 +144,7 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 
 	dlgroup = new Fl_Group(x, y, w, h);
 
-	dlstop = new Fl_Button(x + 3, y + 3, 100, 40);
+	dlstop = new Fl_Button(x + 3, y + 3, 100, DLBUTTONH);
 	dlstop->image(Fl_Shared_Image::get("stop.png"));
 	dlstop->deimage(Fl_Shared_Image::get("destop.png"));
 	dlstop->label(_(" Stop"));
@@ -150,7 +152,7 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	dlstop->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
 	dlstop->show();
 
-	dlredo = new Fl_Button(x + 3 + 100 + 3, y + 3, 150, 40);
+	dlredo = new Fl_Button(x + 3 + 100 + 3, y + 3, 150, DLBUTTONH);
 	dlredo->image(Fl_Shared_Image::get("refresh.png"));
 	dlredo->deimage(Fl_Shared_Image::get("dereload.png"));
 	dlredo->label(_(" Redownload"));
@@ -158,7 +160,7 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	dlredo->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
 	dlredo->show();
 
-	dlbrowser = new delbrowser(x, y + 3 + 3 + 40, w, h - 3 - 3 - 40);
+	dlbrowser = new delbrowser(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 	dlbrowser->column_char('\t');
 	dlbrowser->callback(dlbrowsercb);
 
@@ -221,7 +223,7 @@ void view::resize(int x, int y, int w, int h) {
 	// Download button positions
 	dlstop->position(x + 3, y + 3);
 	dlredo->position(x + 3 + 100 + 3, y + 3);
-	dlbrowser->resize(x, y + 3 + 3 + 40, w, h - 3 - 3 - 40);
+	dlbrowser->resize(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 
 	int others = w / 8;
 	int first = w / 2;

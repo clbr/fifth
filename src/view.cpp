@@ -61,6 +61,24 @@ static void sslcb(Fl_Widget *w, void *url) {
 	}
 }
 
+class delbrowser: public Fl_Hold_Browser {
+public:
+	delbrowser(int x, int y, int w, int h): Fl_Hold_Browser(x, y, w, h) {}
+
+	int handle(const int e) override {
+		if (e == FL_KEYDOWN && Fl::event_key() == FL_Delete) {
+			if (value() > 1) {
+				const dl * cur = (const dl *) data(value());
+				cur->owner->removeDownload(cur->id);
+				g->v->refreshdownloads(true);
+			}
+			return 1;
+		}
+
+		return Fl_Hold_Browser::handle(e);
+	}
+};
+
 const dl *view::selecteddl() const {
 	if (g->tabs[g->curtab].state != TS_DOWNLOAD)
 		return NULL;
@@ -140,7 +158,7 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	dlredo->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
 	dlredo->show();
 
-	dlbrowser = new Fl_Hold_Browser(x, y + 3 + 3 + 40, w, h - 3 - 3 - 40);
+	dlbrowser = new delbrowser(x, y + 3 + 3 + 40, w, h - 3 - 3 - 40);
 	dlbrowser->column_char('\t');
 	dlbrowser->callback(dlbrowsercb);
 

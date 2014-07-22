@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SSLCHECKBACK "rebeibevoli"
 
 #define DLBUTTONH 30
+#define STOPW 80
 
 class sslview: public Fl_Group {
 public:
@@ -144,7 +145,7 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 
 	dlgroup = new Fl_Group(x, y, w, h);
 
-	dlstop = new Fl_Button(x + 3, y + 3, 100, DLBUTTONH);
+	dlstop = new Fl_Button(x + 3, y + 3, STOPW, DLBUTTONH);
 	dlstop->image(Fl_Shared_Image::get("stop.png"));
 	dlstop->deimage(Fl_Shared_Image::get("destop.png"));
 	dlstop->label(_(" Stop"));
@@ -152,7 +153,7 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	dlstop->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
 	dlstop->show();
 
-	dlredo = new Fl_Button(x + 3 + 100 + 3, y + 3, 150, DLBUTTONH);
+	dlredo = new Fl_Button(x + 3 + STOPW + 3, y + 3, 150, DLBUTTONH);
 	dlredo->image(Fl_Shared_Image::get("refresh.png"));
 	dlredo->deimage(Fl_Shared_Image::get("dereload.png"));
 	dlredo->label(_(" Redownload"));
@@ -222,7 +223,7 @@ void view::resize(int x, int y, int w, int h) {
 
 	// Download button positions
 	dlstop->position(x + 3, y + 3);
-	dlredo->position(x + 3 + 100 + 3, y + 3);
+	dlredo->position(x + 3 + STOPW + 3, y + 3);
 	dlbrowser->resize(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 
 	int others = w / 8;

@@ -86,6 +86,7 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 
 	dlstop = new Fl_Button(x + 3, y + 3, 100, 40);
 	dlstop->image(Fl_Shared_Image::get("stop.png"));
+	dlstop->deimage(Fl_Shared_Image::get("destop.png"));
 	dlstop->label(_(" Stop"));
 	dlstop->callback(dlstopcb);
 	dlstop->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
@@ -93,6 +94,7 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 
 	dlredo = new Fl_Button(x + 3 + 100 + 3, y + 3, 150, 40);
 	dlredo->image(Fl_Shared_Image::get("refresh.png"));
+	dlredo->deimage(Fl_Shared_Image::get("dereload.png"));
 	dlredo->label(_(" Redownload"));
 	dlredo->callback(dlredocb);
 	dlredo->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);

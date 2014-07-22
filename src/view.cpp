@@ -84,16 +84,18 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 
 	dlgroup = new Fl_Group(x, y, w, h);
 
-	Fl_Button *dlstop = new Fl_Button(x, y, 100, 40);
+	dlstop = new Fl_Button(x + 3, y + 3, 100, 40);
 	dlstop->image(Fl_Shared_Image::get("stop.png"));
-	dlstop->label(_("Stop"));
+	dlstop->label(_(" Stop"));
 	dlstop->callback(dlstopcb);
+	dlstop->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
 	dlstop->show();
 
-	Fl_Button *dlredo = new Fl_Button(x + 100 + 3, y, 100, 40);
+	dlredo = new Fl_Button(x + 3 + 100 + 3, y + 3, 150, 40);
 	dlredo->image(Fl_Shared_Image::get("refresh.png"));
-	dlredo->label(_("Redownload"));
+	dlredo->label(_(" Redownload"));
 	dlredo->callback(dlredocb);
+	dlredo->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
 	dlredo->show();
 
 	dlgroup->end();
@@ -151,6 +153,10 @@ void view::resize(int x, int y, int w, int h) {
 		if (g->closedtabs[i].web)
 			g->closedtabs[i].web->resize(x, y, w, h);
 	}
+
+	// Download button positions
+	dlstop->position(x + 3, y + 3);
+	dlredo->position(x + 3 + 100 + 3, y + 3);
 }
 
 int view::handle(const int e) {
@@ -411,7 +417,8 @@ void view::resetssl() {
 
 void view::drawdl() {
 
-	((Fl_Widget *) dlgroup)->draw();
+	draw_child(*dlstop);
+	draw_child(*dlredo);
 
 	// If the amount of downloads changed, regenerate the widgets
 	const vector<dl> &vec = getdownloads();

@@ -60,6 +60,7 @@ private:
 	Fl_Input *ssltext;
 
 	Fl_Group *dlgroup;
+	Fl_Button *dlstop, *dlredo;
 };
 
 std::vector<dl> getdownloads();

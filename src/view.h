@@ -68,7 +68,7 @@ private:
 	Fl_Input *ssltext;
 
 	Fl_Group *dlgroup;
-	Fl_Button *dlstop, *dlredo;
+	Fl_Button *dlstop, *dlredo, *dlclean;
 	Fl_Hold_Browser *dlbrowser;
 	std::vector<dl> lastdls;
 };

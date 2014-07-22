@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DLBUTTONH 30
 #define STOPW 80
+#define REDOW 150
 
 class sslview: public Fl_Group {
 public:
@@ -118,6 +119,34 @@ static void dlredocb(Fl_Widget *, void *) {
 	free((char *) name);
 }
 
+static void dlcleancb(Fl_Widget *, void *) {
+
+	while (1) {
+		const vector<dl> &vec = getdownloads();
+		const u32 max = vec.size();
+		u32 i;
+
+		if (!max)
+			break;
+
+		bool acted = false;
+		for (i = 0; i < max; i++) {
+			if (vec[i].finished) {
+				vec[i].owner->removeDownload(vec[i].id);
+				acted = true;
+				// This may shift the other numbers, so re-calculate all.
+				// Could be optimized, but not really important.
+				break;
+			}
+		}
+
+		if (!acted)
+			break;
+	}
+
+	g->v->refreshdownloads(true);
+}
+
 static void dlbrowsercb(Fl_Widget *w, void *) {
 
 	Fl_Hold_Browser *b = (Fl_Hold_Browser *) w;
@@ -153,13 +182,21 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	dlstop->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
 	dlstop->show();
 
-	dlredo = new Fl_Button(x + 3 + STOPW + 3, y + 3, 150, DLBUTTONH);
+	dlredo = new Fl_Button(x + 3 + STOPW + 3, y + 3, REDOW, DLBUTTONH);
 	dlredo->image(Fl_Shared_Image::get("refresh.png"));
 	dlredo->deimage(Fl_Shared_Image::get("dereload.png"));
 	dlredo->label(_(" Redownload"));
 	dlredo->callback(dlredocb);
 	dlredo->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
 	dlredo->show();
+
+	dlclean = new Fl_Button(dlredo->x() + REDOW + 3, y + 3, 120, DLBUTTONH);
+	dlclean->image(Fl_Shared_Image::get("arrange.png"));
+	dlclean->label(_(" Cleanup"));
+	dlclean->tooltip(_("Remove all finished downloads from the list."));
+	dlclean->callback(dlcleancb);
+	dlclean->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
+	dlclean->show();
 
 	dlbrowser = new delbrowser(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 	dlbrowser->column_char('\t');
@@ -224,6 +261,7 @@ void view::resize(int x, int y, int w, int h) {
 	// Download button positions
 	dlstop->position(x + 3, y + 3);
 	dlredo->position(x + 3 + STOPW + 3, y + 3);
+	dlclean->position(dlredo->x() + REDOW + 3, y + 3);
 	dlbrowser->resize(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 
 	int others = w / 8;
@@ -519,6 +557,7 @@ void view::drawdl() {
 
 	draw_child(*dlstop);
 	draw_child(*dlredo);
+	draw_child(*dlclean);
 	draw_child(*dlbrowser);
 }
 

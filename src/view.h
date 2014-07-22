@@ -47,7 +47,7 @@ public:
 	int handle(int) override;
 
 	void resetssl();
-	void refreshdownloads();
+	void refreshdownloads(const bool force = false);
 
 	const dl *selecteddl() const;
 private:

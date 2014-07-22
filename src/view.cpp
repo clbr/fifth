@@ -77,7 +77,7 @@ static void dlstopcb(Fl_Widget *, void *) {
 	if (!cur) return;
 
 	cur->owner->stopDownload(cur->id);
-	g->v->refreshdownloads();
+	g->v->refreshdownloads(true);
 }
 
 static void dlredocb(Fl_Widget *, void *) {
@@ -672,11 +672,12 @@ vector<dl> getdownloads() {
 	return vec;
 }
 
-void view::refreshdownloads() {
+void view::refreshdownloads(const bool force) {
 	static u64 last = 0;
 	const u64 now = msec();
-	if (now - last > 1000) {
+	if (now - last > 1000 || force) {
 		downloads = UINT_MAX;
 		last = now;
+		redraw();
 	}
 }

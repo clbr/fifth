@@ -619,7 +619,7 @@ void startctrl() {
 }
 
 void endctrl() {
-	if (!firstpress)
+	if (!firstpress && longorder.size() > longpress)
 		activatetab(longorder[longpress]);
 	longorder.clear();
 }

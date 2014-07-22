@@ -22,7 +22,7 @@ void screencap() {
 	if (cur->state != TS_WEB)
 		return;
 
-	setting *s = getSetting("general.download-dir", NULL);
+	setting *s = getSetting("general.downloaddir", NULL);
 	Fl_File_Chooser c(s->val.c, _("PNG files (*.png)"),
 				Fl_File_Chooser::CREATE, _("Save screencap as"));
 	c.show();

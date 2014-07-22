@@ -382,6 +382,7 @@ int main(int argc, char **argv) {
 	wk_set_popup_func(popupcb);
 	wk_set_urlblock_func(isblocked);
 	wk_set_download_refresh_func(downloadrefresh);
+	wk_set_new_download_func(transfers);
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);

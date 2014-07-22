@@ -81,6 +81,21 @@ void refresh() {
 }
 
 void transfers() {
+
+	// Early exit: do nothing if current tab is downloads
+	if (g->tabs[g->curtab].state == TS_DOWNLOAD)
+		return;
+
+	// Does a transfers tab already exist?
+	const u32 max = g->tabs.size();
+	u32 i;
+	for (i = 0; i < max; i++) {
+		if (g->tabs[i].state == TS_DOWNLOAD) {
+			activatetab(i);
+			return;
+		}
+	}
+
 	newtab();
 	g->tabs[g->curtab].state = TS_DOWNLOAD;
 	g->w->redraw();

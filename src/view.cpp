@@ -60,6 +60,14 @@ static void sslcb(Fl_Widget *w, void *url) {
 	}
 }
 
+static void dlstopcb(Fl_Widget *, void *) {
+
+}
+
+static void dlredocb(Fl_Widget *, void *) {
+
+}
+
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 		mousex(0), mousey(0), mousein(false), downloads(UINT_MAX) {
 
@@ -75,6 +83,19 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	sslgroup->end();
 
 	dlgroup = new Fl_Group(x, y, w, h);
+
+	Fl_Button *dlstop = new Fl_Button(x, y, 100, 40);
+	dlstop->image(Fl_Shared_Image::get("stop.png"));
+	dlstop->label(_("Stop"));
+	dlstop->callback(dlstopcb);
+	dlstop->show();
+
+	Fl_Button *dlredo = new Fl_Button(x + 100 + 3, y, 100, 40);
+	dlredo->image(Fl_Shared_Image::get("refresh.png"));
+	dlredo->label(_("Redownload"));
+	dlredo->callback(dlredocb);
+	dlredo->show();
+
 	dlgroup->end();
 
 	end();
@@ -149,6 +170,8 @@ int view::handle(const int e) {
 
 	switch (cur->state) {
 		case TS_DOWNLOAD:
+			if (e != FL_UNFOCUS)
+				return dlgroup->handle(e);
 		break;
 		case TS_SSLERR:
 			if (e != FL_UNFOCUS)
@@ -387,6 +410,8 @@ void view::resetssl() {
 }
 
 void view::drawdl() {
+
+	((Fl_Widget *) dlgroup)->draw();
 
 	// If the amount of downloads changed, regenerate the widgets
 	const vector<dl> &vec = getdownloads();

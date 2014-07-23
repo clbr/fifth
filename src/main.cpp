@@ -261,6 +261,22 @@ static webview *popupcb(const char *url) {
 	return g->tabs[g->curtab].web;
 }
 
+static void initfavicons() {
+	vector<const char *> vec;
+	vec.reserve(9);
+
+	u32 i;
+	for (i = 0; i < 9; i++) {
+		char tmp[10] = "dial.1";
+		tmp[5] += i;
+		const setting *s = getSetting(tmp);
+		if (s->val.c && s->val.c[0])
+			vec.push_back(s->val.c);
+	}
+
+	wk_set_favicon_dir(g->profilepath, &vec);
+}
+
 int main(int argc, char **argv) {
 
 	g = new globals;
@@ -409,7 +425,7 @@ int main(int argc, char **argv) {
 	wk_set_download_refresh_func(downloadrefresh);
 	wk_set_new_download_func(transfers);
 	wk_set_download_func(downloadfinish);
-	wk_set_favicon_dir(g->profilepath);
+	initfavicons();
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);

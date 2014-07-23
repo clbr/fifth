@@ -409,6 +409,7 @@ int main(int argc, char **argv) {
 	wk_set_download_refresh_func(downloadrefresh);
 	wk_set_new_download_func(transfers);
 	wk_set_download_func(downloadfinish);
+	wk_set_favicon_dir(g->profilepath);
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);

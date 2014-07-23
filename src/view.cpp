@@ -33,7 +33,7 @@ public:
 static void sslcb(Fl_Widget *w, void *url) {
 
 	char site[120];
-	url2site((const char *) url, site, 120);
+	url2site((const char *) url, site, 120, false);
 
 	// Was it typed correctly?
 	Fl_Group *parent = w->parent();

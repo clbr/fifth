@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 int certcheck(const char *str, const char *host) {
 
 	char site[128];
-	url2site(host, site, 128);
+	url2site(host, site, 128, false);
 
 	const u32 len = strlen(str);
 	int fd = openat(g->certfd, site, O_RDONLY);

@@ -483,6 +483,12 @@ void view::drawdial() {
 						ey + pad + ((eh - pad * 2) - icon->h()) / 2);
 			}
 
+			// Highlight?
+			if (mousein && mousex >= ex && mousex <= ex + ew &&
+				mousey >= ey && mousey <= ey + eh) {
+				// TODO
+			}
+
 			fl_draw(site, ex + pad, ey + eh - pad, ew - 2 * pad, pad,
 				FL_ALIGN_CENTER);
 

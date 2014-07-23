@@ -39,6 +39,7 @@ static void findProfile(const bool found) {
 		if (g->profilefd < 0)
 			die(_("Failed to get embedded profile dir, %s\n"), exedir);
 		g->datafd = g->profilefd;
+		g->profilepath = exedir;
 	} else if (found) {
 		// System install with custom profile location
 		g->datafd = open(DATADIR, O_RDONLY);
@@ -59,6 +60,8 @@ static void findProfile(const bool found) {
 		g->datafd = open(DATADIR, O_RDONLY);
 		if (g->datafd < 0)
 			die(_("Failed to get data dir, %s\n"), DATADIR);
+
+		g->profilepath = strdup(test.c_str());
 	}
 }
 
@@ -305,6 +308,7 @@ int main(int argc, char **argv) {
 					die(_("Failed to use custom profile dir %s\n"),
 						optarg);
 				customprofile = true;
+				g->profilepath = strdup(optarg);
 			break;
 			case 'b':
 				g->bench = true;

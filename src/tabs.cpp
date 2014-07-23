@@ -637,6 +637,9 @@ void activatetab(const u16 tab) {
 	g->status->hidefind();
 
 	g->w->redraw();
+
+	if (g->tabs[g->curtab].state == TS_WEB && g->tabs[g->curtab].web)
+		g->tabs[g->curtab].web->take_focus();
 }
 
 void startctrl() {

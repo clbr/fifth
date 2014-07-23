@@ -40,6 +40,8 @@ unsigned npow(unsigned in);
 u32 usecs(const struct timeval old, const struct timeval now);
 u64 msec();
 int allspace(const char *in);
+ssize_t sread(const int fd, void *buf, const size_t count);
+ssize_t swrite(const int fd, const void *buf, const size_t count);
 
 static inline u32 u32max(u32 a, u32 b) {
 	if (a > b) return a;

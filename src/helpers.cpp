@@ -118,3 +118,38 @@ int allspace(const char *in) {
 
 	return 1;
 }
+
+ssize_t sread(const int fd, void *buf, const size_t count) {
+
+	u32 read = 0;
+	u8 *pos = (u8 *) buf;
+	while (read != count) {
+		const int ret = ::read(fd, pos, count);
+
+		if (ret <= 0)
+			return ret;
+
+		pos += ret;
+		read += ret;
+	}
+
+	return read;
+}
+
+ssize_t swrite(const int fd, const void *buf, const size_t count) {
+
+	u32 written = 0;
+	const u8 *pos = (const u8 *) buf;
+
+	while (written != count) {
+		const int ret = write(fd, pos, count);
+
+		if (ret <= 0)
+			return ret;
+
+		pos += ret;
+		written += ret;
+	}
+
+	return written;
+}

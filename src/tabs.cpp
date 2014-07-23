@@ -418,6 +418,28 @@ static void stopcb(webview * const view) {
 	g->url->redraw();
 }
 
+static void faviconcb(webview * const view) {
+	tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB || cur->web != view)
+		return;
+
+	if (cur->icon)
+		delete cur->icon;
+	cur->icon = wk_get_favicon(cur->url);
+
+	if (!cur->icon)
+		return;
+
+	// It may be in a wrong resolution - resize in that case
+	if (cur->icon->w() != 16 || cur->icon->h() != 16) {
+		Fl_RGB_Image *old = cur->icon;
+		cur->icon = (Fl_RGB_Image *) old->copy(16, 16);
+		delete old;
+	}
+
+	g->url->redraw();
+}
+
 static void progresscb(webview * const view, float val) {
 	tab * const cur = findtab(view);
 	if (cur->state != TS_WEB)
@@ -436,6 +458,7 @@ static void setcbs(webview * const web) {
 	web->titleChangedCB(titlecb);
 	web->loadStateChangedCB(stopcb);
 	web->progressChangedCB(progresscb);
+	web->faviconChangedCB(faviconcb);
 }
 
 void newtab() {

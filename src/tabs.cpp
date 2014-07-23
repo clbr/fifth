@@ -441,6 +441,7 @@ static void faviconcb(webview * const view) {
 
 	g->url->url->input().image(cur->icon);
 	g->url->redraw();
+	g->tabwidget->redraw();
 }
 
 static void progresscb(webview * const view, float val) {

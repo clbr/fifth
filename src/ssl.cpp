@@ -26,7 +26,7 @@ int certcheck(const char *str, const char *host) {
 	if (fd >= 0) {
 		// It must match byte-to-byte with the new one.
 		char buf[len];
-		if (read(fd, buf, len) != len)
+		if (sread(fd, buf, len) != len)
 			die(_("Failed reading the certificate\n"));
 		close(fd);
 
@@ -40,7 +40,7 @@ int certcheck(const char *str, const char *host) {
 		if (fd < 0)
 			die(_("Failed to create the certificate file\n"));
 
-		if (write(fd, str, len) != len)
+		if (swrite(fd, str, len) != len)
 			die(_("Failed writing the certificate\n"));
 		close(fd);
 	}

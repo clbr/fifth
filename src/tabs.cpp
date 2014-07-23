@@ -363,6 +363,7 @@ static void urlbarstate() {
 	}
 	g->url->search->input().position(0);
 
+	g->url->url->input().image(cur->icon);
 	urlbuttonstate();
 	g->status->redraw(); // maybe SSL state changed
 }
@@ -427,6 +428,7 @@ static void faviconcb(webview * const view) {
 		delete cur->icon;
 	cur->icon = wk_get_favicon(cur->url);
 
+	g->url->url->input().image(NULL);
 	if (!cur->icon)
 		return;
 
@@ -437,6 +439,7 @@ static void faviconcb(webview * const view) {
 		delete old;
 	}
 
+	g->url->url->input().image(cur->icon);
 	g->url->redraw();
 }
 

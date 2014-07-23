@@ -449,7 +449,29 @@ void view::drawdial() {
 			char site[64];
 			url2site(s->val.c, site, 64);
 
-			// TODO favicon
+			// Favicon
+			Fl_RGB_Image *icon = wk_get_favicon(s->val.c, 256);
+
+			if (icon) {
+				u32 iw = ew - pad * 2;
+				u32 ih = eh - pad * 2;
+				if (iw < ih)
+					ih = iw;
+				else
+					iw = ih;
+
+				if ((u32) icon->w() != iw) {
+					Fl_RGB_Image *copy = (Fl_RGB_Image *) icon->copy(iw, ih);
+					delete icon;
+					icon = copy;
+				}
+
+				icon->draw(ex + pad + ((ew - pad * 2) - iw) / 2,
+						ey + pad + ((eh - pad * 2) - ih) / 2);
+				delete icon;
+				// TODO cache it
+			}
+
 			fl_draw(site, ex + pad, ey + eh - pad, ew - 2 * pad, pad,
 				FL_ALIGN_CENTER);
 

@@ -49,7 +49,7 @@ void window::hide() {
 
 	Fl_Widget::hide();
 
-	wk_drop_caches();
+	wk_exit();
 }
 
 static void cb(Fl_Widget *w, void*) {

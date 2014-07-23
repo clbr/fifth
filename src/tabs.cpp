@@ -455,6 +455,14 @@ static void progresscb(webview * const view, float val) {
 
 	if (cur == &g->tabs[g->curtab])
 		g->url->redraw();
+
+	// If this is a new one, reset the favicon
+	if (val < 15) {
+		if (cur->icon)
+			delete cur->icon;
+		cur->icon = NULL;
+		g->url->url->input().image(NULL);
+	}
 }
 
 static void setcbs(webview * const web) {

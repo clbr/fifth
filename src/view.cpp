@@ -368,6 +368,10 @@ int view::handle(const int e) {
 							mousey <= cornery2) {
 							// Yes, known leak.
 							s->val.c = "";
+
+							if (dialicons[tile])
+								delete dialicons[tile];
+							dialicons[tile] = NULL;
 						} else {
 							g->tabs[g->curtab].state = TS_WEB;
 							g->tabs[g->curtab].web->load(s->val.c);

@@ -26,8 +26,10 @@ int certcheck(const char *str, const char *host) {
 	if (fd >= 0) {
 		// It must match byte-to-byte with the new one.
 		char buf[len];
-		if (sread(fd, buf, len) != len)
-			die(_("Failed reading the certificate\n"));
+		if (sread(fd, buf, len) != len) {
+			close(fd);
+			return 0;
+		}
 		close(fd);
 
 		if (memcmp(buf, str, len)) {

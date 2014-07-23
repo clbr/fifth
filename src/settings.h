@@ -37,11 +37,10 @@ struct setting {
 	} val;
 };
 
-struct setting *getSetting(const char name[], const char * const site);
-
-void url2site(const char url[], char site[], const u32 size);
-
 #ifdef __cplusplus
+void url2site(const char url[], char site[], const u32 size, const bool nowww = true);
+struct setting *getSetting(const char name[], const char * const site = NULL);
+
 extern "C"
 #else
 extern

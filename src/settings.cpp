@@ -33,7 +33,7 @@ setting *getSetting(const char name[], const char * const site) {
 					sizeof(setting), settingcmp);
 }
 
-void url2site(const char url[], char site[], const u32 size) {
+void url2site(const char url[], char site[], const u32 size, const bool nowww) {
 
 	const char *start = strstr(url, "://");
 	if (start)
@@ -41,7 +41,7 @@ void url2site(const char url[], char site[], const u32 size) {
 	else
 		start = url;
 
-	if (!memcmp(start, "www.", 4))
+	if (!memcmp(start, "www.", 4) && nowww)
 		start += 4;
 
 	u32 pos;

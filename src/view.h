@@ -71,6 +71,8 @@ private:
 	Fl_Button *dlstop, *dlredo, *dlclean;
 	Fl_Hold_Browser *dlbrowser;
 	std::vector<dl> lastdls;
+
+	Fl_RGB_Image *dialicons[9];
 };
 
 std::vector<dl> getdownloads();

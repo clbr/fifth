@@ -161,6 +161,8 @@ static void dlbrowsercb(Fl_Widget *w, void *) {
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 		mousex(0), mousey(0), mousein(false), downloads(UINT_MAX) {
 
+	memset(dialicons, 0, 9 * sizeof(void *));
+
 	sslgroup = new sslview(x, y, w, h);
 
 	ssltext = new Fl_Input(0, 0, 300, 25);
@@ -450,26 +452,31 @@ void view::drawdial() {
 			url2site(s->val.c, site, 64);
 
 			// Favicon
-			Fl_RGB_Image *icon = wk_get_favicon(s->val.c, 256);
+			Fl_RGB_Image *icon = dialicons[i];
+			if (!icon) {
+				icon = wk_get_favicon(s->val.c, 256);
+
+				if (icon) {
+					u32 iw = ew - pad * 2;
+					u32 ih = eh - pad * 2;
+					if (iw < ih)
+						ih = iw;
+					else
+						iw = ih;
+
+					if ((u32) icon->w() != iw) {
+						Fl_RGB_Image *copy = (Fl_RGB_Image *)
+								icon->copy(iw, ih);
+						delete icon;
+						icon = copy;
+					}
+					dialicons[i] = icon;
+				}
+			}
 
 			if (icon) {
-				u32 iw = ew - pad * 2;
-				u32 ih = eh - pad * 2;
-				if (iw < ih)
-					ih = iw;
-				else
-					iw = ih;
-
-				if ((u32) icon->w() != iw) {
-					Fl_RGB_Image *copy = (Fl_RGB_Image *) icon->copy(iw, ih);
-					delete icon;
-					icon = copy;
-				}
-
-				icon->draw(ex + pad + ((ew - pad * 2) - iw) / 2,
-						ey + pad + ((eh - pad * 2) - ih) / 2);
-				delete icon;
-				// TODO cache it
+				icon->draw(ex + pad + ((ew - pad * 2) - icon->w()) / 2,
+						ey + pad + ((eh - pad * 2) - icon->h()) / 2);
 			}
 
 			fl_draw(site, ex + pad, ey + eh - pad, ew - 2 * pad, pad,

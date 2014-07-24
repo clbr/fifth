@@ -65,6 +65,7 @@ static void tabscb(Fl_Widget *w, void *) {
 			for (i = 0; i < max; i++) {
 				if (g->closedtabs[i].web) {
 					g->closedtabs[i].web->parent()->remove(g->closedtabs[i].web);
+					g->closedtabs[i].web->stop();
 
 					// Can't delete one with active downloads.
 					if (g->closedtabs[i].web->numDownloads() == 0)

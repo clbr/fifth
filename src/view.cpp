@@ -162,6 +162,7 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 		mousex(0), mousey(0), mousein(false), downloads(UINT_MAX) {
 
 	memset(dialicons, 0, 9 * sizeof(void *));
+	memset(dialdeicons, 0, 9 * sizeof(void *));
 
 	sslgroup = new sslview(x, y, w, h);
 
@@ -372,6 +373,9 @@ int view::handle(const int e) {
 							if (dialicons[tile])
 								delete dialicons[tile];
 							dialicons[tile] = NULL;
+							if (dialdeicons[tile])
+								delete dialdeicons[tile];
+							dialdeicons[tile] = NULL;
 						} else {
 							g->tabs[g->curtab].state = TS_WEB;
 							g->tabs[g->curtab].web->load(s->val.c);
@@ -420,6 +424,21 @@ void view::dialdims(u32 *dx, u32 *dy, u32 *dw, u32 *dh, u32 *pad,
 	*dy = starty;
 	*dw = totalw;
 	*dh = totalh;
+}
+
+static void maketrans(Fl_RGB_Image *img) {
+
+	if (img->d() != 4 || !img->alloc_array)
+		return;
+
+	const u32 w = img->w();
+	const u32 h = img->h();
+	for (u32 y = 0; y < h; y++) {
+		for (u32 x = 0; x < w; x++) {
+			u8 *p = (u8 *) &img->array[y * w * 4 + x * 4];
+			p[3] *= 0.5f;
+		}
+	}
 }
 
 void view::drawdial() {
@@ -487,12 +506,14 @@ void view::drawdial() {
 						icon = copy;
 					}
 					dialicons[i] = icon;
+					dialdeicons[i] = (Fl_RGB_Image *) icon->copy();
+					maketrans(dialdeicons[i]);
 				}
 			}
 
 			if (icon) {
-				//if (!hover)
-				//	icon = dialdeicons[i];
+				if (!hover)
+					icon = dialdeicons[i];
 				icon->draw(ex + pad + ((ew - pad * 2) - icon->w()) / 2,
 						ey + pad + ((eh - pad * 2) - icon->h()) / 2);
 			}

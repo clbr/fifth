@@ -446,7 +446,7 @@ static void faviconcb(webview * const view) {
 
 static void progresscb(webview * const view, float val) {
 	tab * const cur = findtab(view);
-	if (cur->state != TS_WEB)
+	if (!cur || cur->state != TS_WEB)
 		return;
 
 	val *= 100;

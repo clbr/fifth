@@ -446,7 +446,19 @@ void view::drawdial() {
 
 		fl_draw(tmp, ex, ey + 3, pad, pad, FL_ALIGN_CENTER);
 
+		bool hover = false;
+		if (mousein && mousex >= ex && mousex <= ex + ew &&
+			mousey >= ey && mousey <= ey + eh) {
+			fl_color(93, 102, 111);
+			hover = true;
+		} else {
+			fl_color(63, 72, 81);
+		}
+
+		fl_rectf(ex + pad, ey + pad, ew - pad * 2, eh - pad * 2);
+
 		fl_font(FL_HELVETICA, 12);
+		fl_color(FL_WHITE);
 
 		strcpy(tmp, "dial.1");
 		tmp[5] += i;
@@ -479,14 +491,10 @@ void view::drawdial() {
 			}
 
 			if (icon) {
+				//if (!hover)
+				//	icon = dialdeicons[i];
 				icon->draw(ex + pad + ((ew - pad * 2) - icon->w()) / 2,
 						ey + pad + ((eh - pad * 2) - icon->h()) / 2);
-			}
-
-			// Highlight?
-			if (mousein && mousex >= ex && mousex <= ex + ew &&
-				mousey >= ey && mousey <= ey + eh) {
-				// TODO
 			}
 
 			fl_draw(site, ex + pad, ey + eh - pad, ew - 2 * pad, pad,
@@ -510,15 +518,6 @@ void view::drawdial() {
 			fl_line(cornerx1 + off, cornery2 - off,
 				cornerx2 - off, cornery1 + off);
 		} else {
-			if (mousein && mousex >= ex && mousex <= ex + ew &&
-				mousey >= ey && mousey <= ey + eh) {
-				fl_color(93, 102, 111);
-			} else {
-				fl_color(63, 72, 81);
-			}
-
-			fl_rectf(ex + pad, ey + pad, ew - pad * 2, eh - pad * 2);
-
 			fl_color(FL_WHITE);
 			fl_draw(_("Add..."), ex + pad, ey + pad, ew - pad * 2, eh - pad * 2,
 				FL_ALIGN_CENTER);

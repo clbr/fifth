@@ -65,16 +65,45 @@ static void sslcb(Fl_Widget *w, void *url) {
 	}
 }
 
+static void opendl(const char path[]) {
+
+	const setting *s = getSetting("exec.open");
+
+	const pid_t pid = fork();
+	if (pid == -1)
+		die(_("Fork failed\n"));
+	if (pid == 0) {
+		execlp(s->val.c, s->val.c, path, NULL);
+		exit(1);
+	}
+}
+
 class delbrowser: public Fl_Hold_Browser {
 public:
 	delbrowser(int x, int y, int w, int h): Fl_Hold_Browser(x, y, w, h) {}
 
 	int handle(const int e) override {
-		if (e == FL_KEYDOWN && Fl::event_key() == FL_Delete) {
-			if (value() > 1) {
+		if (e == FL_KEYDOWN) {
+			const u32 key = Fl::event_key();
+			if (key == FL_Delete) {
+				if (value() > 1) {
+					const dl * cur = (const dl *) data(value());
+					cur->owner->removeDownload(cur->id);
+					g->v->refreshdownloads(true);
+				}
+				return 1;
+			} else if (key == FL_Enter) {
+				if (value() > 1) {
+					const dl * cur = (const dl *) data(value());
+					opendl(cur->name);
+				}
+				return 1;
+			}
+		} else if (e == FL_PUSH && Fl::event_clicks()) {
+			// Double click
+			if (Fl::event_button() == FL_LEFT_MOUSE && value() > 1) {
 				const dl * cur = (const dl *) data(value());
-				cur->owner->removeDownload(cur->id);
-				g->v->refreshdownloads(true);
+				opendl(cur->name);
 			}
 			return 1;
 		}

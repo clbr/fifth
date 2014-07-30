@@ -171,7 +171,7 @@ static void downloadrefresh() {
 
 static void downloadfinish(const char *, const char *file) {
 
-	static const setting *s = getSetting("exec.downloadnotify", NULL);
+	const setting *s = getSetting("exec.downloadnotify");
 
 	g->v->refreshdownloads(true);
 	if (!s->val.c || strlen(s->val.c) < 3)

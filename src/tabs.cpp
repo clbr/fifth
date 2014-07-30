@@ -465,12 +465,21 @@ static void progresscb(webview * const view, float val) {
 	}
 }
 
+static void statuscb(webview * const view) {
+	tab * const cur = findtab(view);
+	if (!cur || cur->state != TS_WEB)
+		return;
+
+	g->status->redraw();
+}
+
 static void setcbs(webview * const web) {
 
 	web->titleChangedCB(titlecb);
 	web->loadStateChangedCB(stopcb);
 	web->progressChangedCB(progresscb);
 	web->faviconChangedCB(faviconcb);
+	web->statusChangedCB(statuscb);
 }
 
 void newtab() {

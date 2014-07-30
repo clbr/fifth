@@ -115,8 +115,13 @@ void statusbar::draw() {
 		startx += secw;
 	}
 
-	// If search not visible, draw status text, if any TODO
-	if (!search->visible() && 0) {
+	// If search not visible, draw status text, if any
+	if (!search->visible() && cur->state == TS_WEB && cur->web->statusbar()) {
+		startx++;
+		const char * const text = cur->web->statusbar();
+		fl_font(FL_HELVETICA, 12);
+		fl_color(FL_BLACK);
+		fl_draw(text, startx, y(), w() - startx, h(), FL_ALIGN_LEFT);
 	}
 
 	draw_children();

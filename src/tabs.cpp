@@ -210,12 +210,12 @@ int tabbar::handle(const int e) {
 			redraw();
 
 			if (ontab) {
-				copy_tooltip(g->tabs[which].title());
+				if (!tooltip() || strcmp(tooltip(), g->tabs[which].title()))
+					copy_tooltip(g->tabs[which].title());
 			} else {
-				tooltip("");
+				if (!tooltip() || strcmp(tooltip(), ""))
+					tooltip("");
 			}
-
-			// TODO tooltips don't show
 
 			return 1;
 		case FL_PUSH:

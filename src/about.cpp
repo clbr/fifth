@@ -42,7 +42,21 @@ static const char *aboutme() {
 static const char *aboutconfig() {
 
 	string s = "<html><head><title>about:config</title>"
-			"<script type=\"text/javascript\"></script>"
+			"<script type=\"text/javascript\">"
+			"function filter(val) {"
+				"var elem = document.getElementsByTagName('tr');"
+				"for (i = 0; i < elem.length; i++) {"
+					"if (val.length < 1) {"
+						"elem[i].style.display = '';"
+					"} else {"
+						"if (elem[i].className.indexOf(val) == -1)"
+							"elem[i].style.display = 'none';"
+						"else "
+							"elem[i].style.display = '';"
+					"}"
+				"}"
+			"}"
+			"</script>"
 			"<style type=\"text/css\">"
 				"table { width: 100%; border-collapse: collapse; }\n"
 				"tr { border-top: 1px green solid;"
@@ -60,7 +74,9 @@ static const char *aboutconfig() {
 	s.reserve(16384);
 
 
-	s += "<input type=\"text\" size=\"80\" placeholder=\"Filter...\"><hr>";
+	s += "<input type=\"text\" size=\"80\" placeholder=\"Filter...\" "
+		"oninput=\"filter(this.value)\">"
+		"<hr>";
 
 	s += "<div id=\"scroller\"><table>\n";
 	u32 i;

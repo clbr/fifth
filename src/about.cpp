@@ -15,8 +15,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "main.h"
+#include "version.h"
+
+#define xstr(s) str(s)
+#define str(s) #s
+
+static const char *aboutme() {
+
+	const char str[] = "<html><body><center>"
+				"<h3>Fifth "
+#if GIT
+				GITVERSION
+#else
+				VERSION
+#endif
+				", built on " __DATE__
+				"<p>"
+				"Running on WebkitFLTK " xstr(WK_FLTK_MAJOR) "."
+				xstr(WK_FLTK_MINOR) "." xstr(WK_FLTK_PATCH)
+				"</h3>"
+				"</center></body></html>";
+
+	return strdup(str);
+}
+
+static const char *aboutconfig() {
+	return NULL;
+}
 
 const char *aboutpage(const char * const page) {
-	printf("Requested about page %s\n", page);
+
+	#define is(a) if (!strcmp(page, a))
+	is ("fifth") {
+		return aboutme();
+	} else is ("config") {
+		return aboutconfig();
+	}
+	#undef is
+
 	return NULL;
 }

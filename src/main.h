@@ -52,6 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bookmarks.h"
 #include "ssl.h"
 #include "blocking.h"
+#include "about.h"
 
 using namespace std;
 

@@ -43,14 +43,26 @@ static const char *aboutconfig() {
 
 	string s = "<html><head><title>about:config</title>"
 			"<script type=\"text/javascript\"></script>"
-			"<style type=\"text/css\"></style></head><body><center>";
+			"<style type=\"text/css\">"
+				"table { width: 100%; border-collapse: collapse; }\n"
+				"tr { border-top: 1px green solid;"
+					"border-bottom: 1px green solid;"
+				"}\n"
+				"td {"
+					"padding: 0.3em;"
+				"}\n"
+				"div#scroller {"
+					"height: 90%;"
+					"overflow: auto;"
+				"}\n"
+			"</style></head><body><center>";
 
 	s.reserve(16384);
 
 
 	s += "<input type=\"text\" size=\"80\" placeholder=\"Filter...\"><hr>";
 
-	s += "<table>\n";
+	s += "<div id=\"scroller\"><table>\n";
 	u32 i;
 	for (i = 0; i < numDefaults; i++) {
 		s += "<tr class=\"";
@@ -99,7 +111,7 @@ static const char *aboutconfig() {
 			"<input type=\"button\" value=\"Reset\" name=\"reset\">"
 			"</td></tr>\n";
 	}
-	s += "</table>";
+	s += "</table></div>";
 
 	s += "</center></body></html>";
 

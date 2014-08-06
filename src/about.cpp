@@ -43,7 +43,7 @@ static const char *aboutconfig() {
 
 	string s = "<html><head><title>about:config</title>"
 			"<script type=\"text/javascript\"></script>"
-			"<style type=\"text/css\"></style></head><body>";
+			"<style type=\"text/css\"></style></head><body><center>";
 
 	s.reserve(16384);
 
@@ -94,11 +94,14 @@ static const char *aboutconfig() {
 				die("Setting corruption\n");
 		}
 
-		s += "\"><input type=\"button\" value=\"Save\" name=\"save\"></td></tr>\n";
+		s += "\">"
+			"<input type=\"button\" value=\"Save\" name=\"save\">"
+			"<input type=\"button\" value=\"Reset\" name=\"reset\">"
+			"</td></tr>\n";
 	}
 	s += "</table>";
 
-	s += "</body></html>";
+	s += "</center></body></html>";
 
 	return strdup(s.c_str());
 }

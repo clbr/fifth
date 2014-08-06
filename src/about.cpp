@@ -40,7 +40,67 @@ static const char *aboutme() {
 }
 
 static const char *aboutconfig() {
-	return NULL;
+
+	string s = "<html><head><title>about:config</title>"
+			"<script type=\"text/javascript\"></script>"
+			"<style type=\"text/css\"></style></head><body>";
+
+	s.reserve(16384);
+
+
+	s += "<input type=\"text\" size=\"80\" placeholder=\"Filter...\"><hr>";
+
+	s += "<table>\n";
+	u32 i;
+	for (i = 0; i < numDefaults; i++) {
+		s += "<tr class=\"";
+		s += defaultSettings[i].name;
+		s += "\"><td class=\"name\">";
+		s += defaultSettings[i].name;
+		s += "</td><td class=\"type\">";
+
+		switch (defaultSettings[i].type) {
+			case ST_CHAR:
+				s += "char";
+			break;
+			case ST_FLOAT:
+				s += "float";
+			break;
+			case ST_U32:
+				s += "unsigned";
+			break;
+			case ST_COUNT:
+				die("Setting corruption\n");
+		}
+
+		s += "</td><td class=\"input\">"
+			"<input type=\"text\" size=\"40\" value=\"";
+		const setting * const set = getSetting(defaultSettings[i].name);
+
+		char tmp[16];
+		switch (set->type) {
+			case ST_CHAR:
+				s += set->val.c;
+			break;
+			case ST_FLOAT:
+				snprintf(tmp, 16, "%f", set->val.f);
+				s += tmp;
+			break;
+			case ST_U32:
+				snprintf(tmp, 16, "%u", set->val.u);
+				s += tmp;
+			break;
+			case ST_COUNT:
+				die("Setting corruption\n");
+		}
+
+		s += "\"><input type=\"button\" value=\"Save\" name=\"save\"></td></tr>\n";
+	}
+	s += "</table>";
+
+	s += "</body></html>";
+
+	return strdup(s.c_str());
 }
 
 const char *aboutpage(const char * const page) {

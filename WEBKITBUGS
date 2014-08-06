@@ -5,3 +5,8 @@ https://bugs.webkit.org/show_bug.cgi?id=17052
 
 Cannot select text in a link:
 http://code.google.com/p/chromium/issues/detail?id=120352
+
+Input fields don't work inside iframes + other input/iframe issues:
+https://bugs.webkit.org/show_bug.cgi?id=15697
+https://bugs.webkit.org/show_bug.cgi?id=20387
+https://bugs.webkit.org/show_bug.cgi?id=125384

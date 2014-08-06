@@ -124,7 +124,7 @@ static const char *aboutconfig() {
 
 		s += "\">"
 			"<input type=\"button\" value=\"Save\" name=\"save\">"
-			"<input type=\"button\" value=\"Reset\" name=\"reset\">"
+			"<input type=\"button\" value=\"Set default\" name=\"reset\">"
 			"</td></tr>\n";
 	}
 	s += "</table></div>";

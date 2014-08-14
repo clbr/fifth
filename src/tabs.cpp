@@ -565,6 +565,7 @@ void newtabbg(const char *url) {
 	tab.lastactive = 0; // Put it in the back of the queue
 
 	g->tabs.push_back(tab);
+	g->tabwidget->redraw();
 
 	setcbs(tab.web);
 

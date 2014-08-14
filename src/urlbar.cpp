@@ -103,7 +103,7 @@ static void searchenginecb(Fl_Widget *w, void *) {
 }
 
 static void dosearch(Fl_Widget *w, void *) {
-	const Fl_Input * const i = (Fl_Input *) w;
+	const inputplace * const i = (inputplace *) w;
 	const char * const val = i->value();
 	if (strlen(val) < 2 || allspace(val))
 		return;
@@ -134,22 +134,34 @@ static void dosearch(Fl_Widget *w, void *) {
 	free((char *) g->tabs[g->curtab].search);
 	g->tabs[g->curtab].search = strdup(i->value());
 
-	g->tabs[g->curtab].state = TS_WEB;
-	g->tabs[g->curtab].web->load(first);
-	g->tabs[g->curtab].web->take_focus();
+	if (i->shift && !i->ctrl) { // new tab
+		newtab(first);
+	} else if (i->shift && i->ctrl) { // bg tab
+		newtabbg(first);
+	} else {
+		g->tabs[g->curtab].state = TS_WEB;
+		g->tabs[g->curtab].web->load(first);
+		g->tabs[g->curtab].web->take_focus();
+	}
 
 	free(first);
 }
 
 static void dogo(Fl_Widget *w, void *) {
-	const Fl_Input * const i = (Fl_Input *) w;
+	const inputplace * const i = (inputplace *) w;
 	const char * const val = i->value();
 	if (strlen(val) < 2 || allspace(val))
 		return;
 
-	g->tabs[g->curtab].state = TS_WEB;
-	g->tabs[g->curtab].web->load(val);
-	g->tabs[g->curtab].web->take_focus();
+	if (i->shift && !i->ctrl) { // new tab
+		newtab(val);
+	} else if (i->shift && i->ctrl) { // bg tab
+		newtabbg(val);
+	} else {
+		g->tabs[g->curtab].state = TS_WEB;
+		g->tabs[g->curtab].web->load(val);
+		g->tabs[g->curtab].web->take_focus();
+	}
 }
 
 static void backcb(Fl_Widget *, void *) {

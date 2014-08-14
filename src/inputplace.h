@@ -29,6 +29,8 @@ public:
 
 	void placeholder(const char *);
 	bool drawprogress;
+
+	bool ctrl, shift;
 private:
 	const char *placeholdertext;
 };

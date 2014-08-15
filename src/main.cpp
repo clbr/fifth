@@ -297,9 +297,12 @@ static void crashsig(int) {
 	const u16 max = g->tabs.size();
 	swrite(fd, &max, sizeof(u16));
 
+	const u16 active = g->curtab;
+	swrite(fd, &active, sizeof(u16));
+
 	u32 i;
 	for (i = 0; i < max; i++) {
-		if (!g->tabs[i].url) {
+		if (!g->tabs[i].url || g->tabs[i].state != TS_WEB) {
 			const u16 len = 0;
 			swrite(fd, &len, sizeof(u16));
 			continue;
@@ -314,6 +317,41 @@ static void crashsig(int) {
 	close(fd);
 	inhandler = 0;
 	exit(1);
+}
+
+static void crashrestore() {
+
+	const int fd = openat(g->profilefd, CRASHFILE, O_RDONLY);
+	if (fd < 0)
+		return;
+	FILE * const f = fdopen(fd, "r");
+	if (!f)
+		return;
+
+	u16 total, len, active;
+	if (fread(&total, sizeof(u16), 1, f) != 1)
+		goto out;
+	if (fread(&active, sizeof(u16), 1, f) != 1)
+		goto out;
+
+	u32 i;
+	for (i = 0; i < total; i++) {
+		if (fread(&len, sizeof(u16), 1, f) != 1)
+			goto out;
+		if (!len) continue;
+		char tmp[len + 1];
+		if (fread(tmp, 1, len, f) != len)
+			goto out;
+		tmp[len] = '\0';
+
+		newtab(tmp);
+	}
+
+	if (active < g->tabs.size())
+		activatetab(active);
+
+	out:
+	fclose(f);
 }
 
 int main(int argc, char **argv) {
@@ -380,13 +418,31 @@ int main(int argc, char **argv) {
 	PHYSFS_deinit();
 
 	// Is this a crash, a remote call, or a normal start?
+	bool blankonly = false;
+	bool restore = false;
 	if (faccessat(g->profilefd, LOCKFILE, R_OK | W_OK, 0) == 0) {
 		g->lockfd = openat(g->profilefd, LOCKFILE, O_WRONLY | O_NONBLOCK);
 		if (faccessat(g->profilefd, CRASHFILE, R_OK, 0) == 0) {
-			// Crash. TODO
+			// Crash.
 			puts(_("Crash recovery"));
 			if (g->lockfd >= 0) close(g->lockfd);
 			unlinkat(g->profilefd, LOCKFILE, 0);
+
+			const crashchoice pick = crashdialog();
+			switch (pick) {
+				case CRASH_RESTORE:
+					restore = true;
+				break;
+				case CRASH_NORMAL:
+				break;
+				case CRASH_BLANK:
+					blankonly = true;
+				break;
+				case CRASH_COUNT:
+					die(_("Corrupted crash dialog\n"));
+			}
+
+			unlinkat(g->profilefd, CRASHFILE, 0);
 		} else if (g->lockfd < 0 || flock(g->lockfd, LOCK_EX | LOCK_NB) == 0) {
 			err(_("Detected stale lock file, but no crash report?\n"));
 			if (g->lockfd >= 0) close(g->lockfd);
@@ -553,7 +609,7 @@ int main(int argc, char **argv) {
 	g->w->show();
 
 	// What to do on startup? If an url was given, don't do the normal start
-	if (optind >= argc) {
+	if (optind >= argc && !blankonly) {
 		s = getSetting("general.startup", NULL);
 		switch ((startup) s->val.u) {
 			case START_DIAL:
@@ -567,6 +623,11 @@ int main(int argc, char **argv) {
 				die("Config corruption in general.startup\n");
 		}
 	}
+
+	if (blankonly)
+		newtab("about:blank");
+	else if (restore)
+		crashrestore();
 
 	// Mainloop
 	g->run = 1;

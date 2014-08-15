@@ -104,4 +104,13 @@ enum startup {
 
 void generatemenu();
 
+enum crashchoice {
+	CRASH_RESTORE = 0,
+	CRASH_NORMAL,
+	CRASH_BLANK,
+	CRASH_COUNT
+};
+
+crashchoice crashdialog();
+
 #endif

@@ -1,0 +1,39 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0110 
+i18n_type 1 
+i18n_include "main.h" 
+i18n_function _ 
+header_name {.h} 
+code_name {.cxx}
+Function {crashdialog()} {open private return_type void
+} {
+  Fl_Window {} {
+    label {Crash recovery} open
+    xywh {411 237 350 240} type Double visible
+  } {
+    Fl_Box {} {
+      label {Looks like we crashed.}
+      xywh {11 10 327 55}
+    }
+    Fl_Round_Button restore {
+      label {Restore session}
+      private xywh {110 85 155 25} down_box ROUND_DOWN_BOX value 1
+    }
+    Fl_Round_Button normal {
+      label {Normal start}
+      private xywh {110 115 155 25} down_box ROUND_DOWN_BOX
+    }
+    Fl_Round_Button blank {
+      label {Blank page}
+      private xywh {110 145 155 25} down_box ROUND_DOWN_BOX
+    }
+    Fl_Return_Button {} {
+      label Start
+      callback {if (restore->value()) {
+} else if (normal->value()) {
+} else {
+}}
+      xywh {115 200 120 25}
+    }
+  }
+} 

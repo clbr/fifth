@@ -609,7 +609,7 @@ int main(int argc, char **argv) {
 	g->w->show();
 
 	// What to do on startup? If an url was given, don't do the normal start
-	if (optind >= argc && !blankonly) {
+	if (optind >= argc && !blankonly && !restore) {
 		s = getSetting("general.startup", NULL);
 		switch ((startup) s->val.u) {
 			case START_DIAL:
@@ -624,10 +624,13 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	if (blankonly)
+	if (blankonly) {
 		newtab("about:blank");
-	else if (restore)
+	} else if (restore) {
 		crashrestore();
+		if (!g->tabs.size())
+			newtab();
+	}
 
 	// Mainloop
 	g->run = 1;

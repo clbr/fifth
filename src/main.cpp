@@ -352,6 +352,7 @@ static void crashrestore() {
 
 	out:
 	fclose(f);
+	unlinkat(g->profilefd, CRASHFILE, 0);
 }
 
 int main(int argc, char **argv) {
@@ -441,8 +442,6 @@ int main(int argc, char **argv) {
 				case CRASH_COUNT:
 					die(_("Corrupted crash dialog\n"));
 			}
-
-			unlinkat(g->profilefd, CRASHFILE, 0);
 		} else if (g->lockfd < 0 || flock(g->lockfd, LOCK_EX | LOCK_NB) == 0) {
 			err(_("Detected stale lock file, but no crash report?\n"));
 			if (g->lockfd >= 0) close(g->lockfd);

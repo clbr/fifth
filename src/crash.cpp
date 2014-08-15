@@ -23,12 +23,15 @@ crashchoice crashdialog() {
 		{ restore = new Fl_Round_Button(110, 85, 155, 25, _("Restore session"));
 			restore->down_box(FL_ROUND_DOWN_BOX);
 			restore->value(1);
+			restore->type(FL_RADIO_BUTTON);
 		} // Fl_Round_Button* restore
 		{ normal = new Fl_Round_Button(110, 115, 155, 25, _("Normal start"));
 			normal->down_box(FL_ROUND_DOWN_BOX);
+			normal->type(FL_RADIO_BUTTON);
 		} // Fl_Round_Button* normal
 		{ blank = new Fl_Round_Button(110, 145, 155, 25, _("Blank page"));
 			blank->down_box(FL_ROUND_DOWN_BOX);
+			blank->type(FL_RADIO_BUTTON);
 		} // Fl_Round_Button* blank
 		{ Fl_Return_Button* o = new Fl_Return_Button(115, 200, 120, 25, _("Start"));
 			o->callback((Fl_Callback*)cb_Start);

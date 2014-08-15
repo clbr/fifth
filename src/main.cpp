@@ -16,8 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 #include "version.h"
-#include <sys/file.h>
 #include <getopt.h>
+#include <signal.h>
+#include <sys/file.h>
 #include <FL/Fl_Pack.H>
 
 globals *g;
@@ -277,6 +278,44 @@ static void initfavicons() {
 	wk_set_favicon_dir(g->profilepath, &vec);
 }
 
+static void quitsig(int) {
+	quitcb(NULL, NULL);
+}
+
+static void crashsig(int) {
+	static int inhandler = 0;
+
+	if (inhandler) // We caused another crash?
+		abort();
+
+	inhandler = 1;
+
+	// Write out all open tabs
+	const int fd = openat(g->profilefd, CRASHFILE, O_CREAT | O_WRONLY, 0600);
+	if (fd < 0) exit(1);
+
+	const u16 max = g->tabs.size();
+	swrite(fd, &max, sizeof(u16));
+
+	u32 i;
+	for (i = 0; i < max; i++) {
+		if (!g->tabs[i].url) {
+			const u16 len = 0;
+			swrite(fd, &len, sizeof(u16));
+			continue;
+		}
+
+		const u16 len = strlen(g->tabs[i].url);
+		swrite(fd, &len, sizeof(u16));
+		swrite(fd, g->tabs[i].url, len);
+	}
+
+	fsync(fd);
+	close(fd);
+	inhandler = 0;
+	exit(1);
+}
+
 int main(int argc, char **argv) {
 
 	g = new globals;
@@ -389,6 +428,15 @@ int main(int argc, char **argv) {
 		die(_("Failed to create certs directory\n"));
 	g->newremotes = 0;
 	pthread_mutex_init(&g->remotemutex, NULL);
+
+	signal(SIGTERM, quitsig);
+	signal(SIGINT, quitsig);
+	signal(SIGQUIT, quitsig);
+
+	signal(SIGILL, crashsig);
+	signal(SIGSEGV, crashsig);
+	signal(SIGFPE, crashsig);
+	signal(SIGBUS, crashsig);
 
 	loadConfig();
 	loadkeys();

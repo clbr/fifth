@@ -53,6 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ssl.h"
 #include "blocking.h"
 #include "about.h"
+#include "history.h"
 
 using namespace std;
 

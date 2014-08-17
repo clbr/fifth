@@ -494,6 +494,7 @@ int main(int argc, char **argv) {
 	signal(SIGBUS, crashsig);
 
 	loadConfig();
+	loadHistory();
 	loadkeys();
 	loadbookmarks();
 	loadblocking();
@@ -658,6 +659,7 @@ int main(int argc, char **argv) {
 	}
 
 	saveConfig();
+	saveHistory();
 
 	pthread_cancel(tid);
 	pthread_join(tid, NULL);

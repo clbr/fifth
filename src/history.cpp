@@ -100,9 +100,47 @@ u32 histbuf::idx(u32 i) const {
 
 
 void loadHistory() {
-	// TODO
+	const setting *s = getSetting("history.size");
+	g->history = new histbuf(s->val.u);
+
+	const int fd = openat(g->profilefd, HISTFILE, O_RDONLY);
+	if (fd < 0)
+		return;
+	FILE *f = fdopen(fd, "r");
+	if (!f)
+		die("fdopen\n");
+
+	const u32 len = 512;
+	char buf[len];
+	while (fgets(buf, len, f)) {
+		const time_t time = atoll(buf);
+		const char *url = strchr(buf, ' ');
+		if (!url)
+			continue;
+		url++;
+
+		g->history->add(url, time);
+	}
+
+	fclose(f);
 }
 
 void saveHistory() {
-	// TODO
+	const int fd = openat(g->profilefd, HISTFILE, O_WRONLY | O_TRUNC | O_CREAT, 0600);
+	if (fd < 0)
+		return;
+	FILE *f = fdopen(fd, "w");
+	if (!f)
+		die("fdopen\n");
+
+	u32 i;
+	const u32 max = g->history->size();
+	for (i = 0; i < max; i++) {
+		const time_t time = g->history->getTime(i);
+		const char * const url = g->history->getURL(i);
+
+		fprintf(f, "%lu %s\n", (unsigned long) time, url);
+	}
+
+	fclose(f);
 }

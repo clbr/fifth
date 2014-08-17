@@ -93,6 +93,8 @@ struct globals {
 
 	urlctx *blacklist;
 	urlctx *whitelist;
+
+	histbuf *history;
 };
 
 extern struct globals *g;

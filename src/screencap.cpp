@@ -19,8 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void screencap() {
 	const tab * const cur = &g->tabs[g->curtab];
-	if (cur->state != TS_WEB)
+	if (cur->state != TS_WEB) {
+		fl_alert(_("The current tab is not a web view."));
 		return;
+	}
 
 	setting *s = getSetting("general.downloaddir", NULL);
 	Fl_File_Chooser c(s->val.c, _("PNG files (*.png)"),

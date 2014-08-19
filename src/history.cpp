@@ -113,6 +113,8 @@ void loadHistory() {
 	const u32 len = 512;
 	char buf[len];
 	while (fgets(buf, len, f)) {
+		nukenewline(buf);
+
 		const time_t time = atoll(buf);
 		const char *url = strchr(buf, ' ');
 		if (!url)

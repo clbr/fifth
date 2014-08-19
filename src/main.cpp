@@ -125,6 +125,14 @@ static void aboutcb(Fl_Widget *, void *) {
 	newtab("about:fifth");
 }
 
+static void historycb(Fl_Widget *, void *) {
+	newtab("about:history");
+}
+
+static void configcb(Fl_Widget *, void *) {
+	newtab("about:config");
+}
+
 static void undocb(Fl_Widget *, void *) {
 	undo();
 }
@@ -244,6 +252,8 @@ void generatemenu() {
 		die("Bookmark corruption\n");
 
 	g->menu->add(_("&Tools/&Downloads"), menukey("keys.transfers"), transfercb);
+	g->menu->add(_("&Tools/&History"), 0, historycb);
+	g->menu->add(_("&Tools/&Advanced config"), 0, configcb);
 	g->menu->add(_("&Tools/&Web inspector"), 0, 0, 0, FL_MENU_INACTIVE);
 	g->menu->add(_("&Tools/&Error console"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
 	g->menu->add(_("&Tools/&Page settings"), 0, 0, 0, FL_MENU_INACTIVE);

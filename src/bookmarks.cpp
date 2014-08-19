@@ -71,6 +71,14 @@ void loadbookmarks() {
 
 void savebookmarks() {
 
+	// Backups
+	renameat(g->profilefd, BOOKMARKFILE ".bak2",
+			g->profilefd, BOOKMARKFILE ".bak3");
+	renameat(g->profilefd, BOOKMARKFILE ".bak",
+			g->profilefd, BOOKMARKFILE ".bak2");
+	renameat(g->profilefd, BOOKMARKFILE,
+			g->profilefd, BOOKMARKFILE ".bak");
+
 	const int fd = openat(g->profilefd, BOOKMARKFILE, O_WRONLY);
 	if (fd < 0)
 		die("Failed saving bookmarks\n");

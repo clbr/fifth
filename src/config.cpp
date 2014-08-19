@@ -212,6 +212,14 @@ void saveConfig() {
 	if (g->bench)
 		gettimeofday(&old, NULL);
 
+	// Backups
+	renameat(g->profilefd, CONFIGFILE ".bak2",
+			g->profilefd, CONFIGFILE ".bak3");
+	renameat(g->profilefd, CONFIGFILE ".bak",
+			g->profilefd, CONFIGFILE ".bak2");
+	renameat(g->profilefd, CONFIGFILE,
+			g->profilefd, CONFIGFILE ".bak");
+
 	int fd = openat(g->profilefd, CONFIGFILE, O_WRONLY | O_TRUNC | O_CREAT, 0600);
 	if (fd < 0)
 		die(_("Cannot open config file for saving\n"));

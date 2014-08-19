@@ -137,6 +137,97 @@ static const char *aboutconfig() {
 	return strdup(s.c_str());
 }
 
+static const char *abouthistory() {
+
+	string s = "<html><head><title>about:history</title>"
+			"<script type=\"text/javascript\">"
+			"function filter(val) {"
+				"var elem = document.getElementsByTagName('tr');"
+				"for (i = 0; i < elem.length; i++) {"
+					"if (val.length < 1) {"
+						"elem[i].style.display = '';"
+					"} else {"
+						"if (elem[i].className.indexOf(val) == -1)"
+							"elem[i].style.display = 'none';"
+						"else "
+							"elem[i].style.display = '';"
+					"}"
+				"}"
+			"}"
+			"</script>\n"
+			"<style type=\"text/css\">\n"
+				"table { width: 100%; border-collapse: collapse; }\n"
+				"tr { border-top: 1px green solid;"
+					"border-bottom: 1px green solid;"
+				"}\n"
+				"td {"
+					"padding: 0.3em;"
+				"}\n"
+				"td.name {"
+					"width: 20em;"
+				"}\n"
+				"div#scroller {"
+					"height: 90%;"
+					"overflow: auto;"
+				"}\n"
+			"</style></head><body><center>";
+
+	s.reserve(16384);
+
+
+	s += "<input type=\"text\" size=\"80\" placeholder=\"Filter...\" "
+		"oninput=\"filter(this.value)\">"
+		"<hr>";
+
+	s += "<div id=\"scroller\"><table>\n";
+	u32 i;
+	const u32 max = g->history->size();
+	for (i = 0; i < max; i++) {
+		const time_t time = g->history->getTime(i);
+		const char * const url = g->history->getURL(i);
+
+		const struct tm * const local = localtime(&time);
+		char timestr[80];
+		strftime(timestr, 80, "%d %b %Y", local);
+
+		if (!fl_utf8locale()) {
+			char tmp[80];
+			memcpy(tmp, timestr, 80);
+			size_t inleft = strlen(tmp);
+			size_t outsize = 80;
+
+			char *inptr = tmp, *outptr = timestr;
+			iconv(g->conv, &inptr, &inleft, &outptr, &outsize);
+		}
+
+		s += "<tr class=\"";
+		s += timestr;
+		s += " ";
+		s += url;
+		s += "\"><td class=\"name\">";
+
+		s += timestr;
+
+		strftime(timestr, 80, " %H:%M", local);
+
+		s += timestr;
+		s += "</td>";
+
+		s += "</td><td class=\"url\"><a href=\"";
+		s += url;
+		s += "\">";
+		s += url;
+		s += "</a>";
+
+		s += "</td></tr>\n";
+	}
+	s += "</table></div>";
+
+	s += "</center></body></html>";
+
+	return strdup(s.c_str());
+}
+
 const char *aboutpage(const char * const page) {
 
 	#define is(a) if (!strcmp(page, a))
@@ -144,6 +235,8 @@ const char *aboutpage(const char * const page) {
 		return aboutme();
 	} else is ("config") {
 		return aboutconfig();
+	} else is ("history") {
+		return abouthistory();
 	}
 	#undef is
 

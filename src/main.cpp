@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main.h"
 #include "version.h"
 #include <getopt.h>
+#include <langinfo.h>
 #include <signal.h>
 #include <sys/file.h>
 #include <FL/Fl_Pack.H>
@@ -499,6 +500,8 @@ int main(int argc, char **argv) {
 	loadbookmarks();
 	loadblocking();
 
+	g->conv = iconv_open("UTF-8//TRANSLIT", nl_langinfo(CODESET));
+
 	pthread_t tid;
 	pthread_attr_t attr;
 	pthread_attr_init(&attr);
@@ -661,6 +664,7 @@ int main(int argc, char **argv) {
 	saveConfig();
 	saveHistory();
 
+	iconv_close(g->conv);
 	pthread_cancel(tid);
 	pthread_join(tid, NULL);
 	unlinkat(g->profilefd, LOCKFILE, 0);

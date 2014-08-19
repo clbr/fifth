@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <FL/Fl_Shared_Image.H>
 #include <FL/Fl_Menu_Bar.H>
 #include <webkit.h>
+#include <iconv.h>
 
 #include "autoconfig.h"
 #include "helpers.h"
@@ -95,6 +96,8 @@ struct globals {
 	urlctx *whitelist;
 
 	histbuf *history;
+
+	iconv_t conv;
 };
 
 extern struct globals *g;

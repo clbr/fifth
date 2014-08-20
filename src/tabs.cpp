@@ -473,6 +473,10 @@ static void statuscb(webview * const view) {
 	g->status->redraw();
 }
 
+static void historycb(const char *url, const char * /* title */, const time_t now) {
+	g->history->add(url, now);
+}
+
 static void setcbs(webview * const web) {
 
 	web->titleChangedCB(titlecb);
@@ -480,6 +484,7 @@ static void setcbs(webview * const web) {
 	web->progressChangedCB(progresscb);
 	web->faviconChangedCB(faviconcb);
 	web->statusChangedCB(statuscb);
+	web->historyAddCB(historycb);
 }
 
 void newtab() {

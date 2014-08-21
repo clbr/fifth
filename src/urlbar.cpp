@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main.h"
 #include "urlicons.h"
 #include "searchicons.h"
+#include "wmicon.h"
 #include "textweb.h"
 #include <FL/Fl_PNG_Image.H>
 
@@ -217,6 +218,8 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	new Fl_PNG_Image("newtab.png", img(newtab_png));
 	new Fl_PNG_Image("destop.png", img(destop_png));
 	new Fl_PNG_Image("arrange.png", img(arrange_png));
+	Fl_PNG_Image wmicon("wmicon.png", img(wmicon_png));
+	g->w->icon(&wmicon);
 
 	prev->image(new Fl_PNG_Image("prev.png", img(twoleftarrow_png)));
 	back->image(new Fl_PNG_Image("back.png", img(leftarrow_png)));

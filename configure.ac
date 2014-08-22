@@ -76,6 +76,16 @@ fi
 LIBS=["$LIBS $DEPS_LIBS"]
 AC_CHECK_LIB([webkitfltk], [webkitInit], [], AC_MSG_ERROR([libwebkitfltk not found]))
 
+# Check for webkitfltk version
+AC_MSG_CHECKING([webkitfltk version is ok])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <webkit.h>]],
+	[[
+	#if WK_FLTK_MAJOR != 0 || WK_FLTK_MINOR != 0
+	#error unsupported webkitfltk version
+	#endif
+	]])], [AC_MSG_RESULT([yes])], [AC_MSG_FAILURE([Unsupported webkit version, 0.0 required])]
+	)
+
 CXXFLAGS=["$CXXFLAGS $DEPS_CFLAGS $CPPDEPS_CFLAGS"]
 
 # Checks for header files.

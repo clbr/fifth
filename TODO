@@ -1,7 +1,7 @@
 video widget
 settings dialog
 about:config setting
-turn off css per tab
+turn off css/js/img per tab
 zooming per tab
 bookmark editing
 more spoofing
@@ -9,3 +9,5 @@ autocomplete url widget
 
 cookie control
 more cert info in SSL error
+userjs
+usercss

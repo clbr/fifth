@@ -187,6 +187,15 @@ void paste() {
 //	cur->web->paste();
 }
 
+static void home() {
+	tab * const cur = &g->tabs[g->curtab];
+
+	const setting *s = getSetting("general.homepage");
+
+	cur->state = TS_WEB;
+	cur->web->load(s->val.c);
+}
+
 void loadkeys() {
 	g->keys.clear();
 
@@ -272,6 +281,9 @@ void loadkeys() {
 
 	key = settingkey("keys.transfers");
 	g->keys[key] = transfers;
+
+	key = settingkey("keys.home");
+	g->keys[key] = home;
 }
 
 u32 keytou32(const keybinding &key) {

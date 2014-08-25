@@ -56,6 +56,7 @@ const struct setting defaultSettings[] = {
 	{"keys.findnext",	ST_U32, { .u = 65472 }}, // F3
 	{"keys.findprev",	ST_U32, { .u = 134283200 }}, // shift + F3
 	{"keys.fwd", 		ST_U32, { .u = 120}}, // x
+	{"keys.home",		ST_U32, { .u = 33554464}}, // ctrl + space
 	{"keys.newtab",	 	ST_U32, { .u = 33554548}}, // ctrl + t
 	{"keys.next",		ST_U32, { .u = 134217848}}, // shift + x
 	{"keys.nexttab",	ST_U32, { .u = 33619721}}, // ctrl + tab

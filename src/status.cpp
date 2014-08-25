@@ -118,6 +118,57 @@ void statusbar::draw() {
 	u32 startx = x();
 	const u32 endx = x() + w() - 1;
 
+	// Button labels
+	const tab * const cur = &g->tabs[g->curtab];
+
+	switch (cur->css) {
+		case TRI_AUTO:
+			css->label(_("css: auto"));
+		break;
+		case TRI_OFF:
+			css->label(_("css: off"));
+		break;
+		case TRI_ON:
+			css->label(_("css: on"));
+		break;
+	}
+
+	switch (cur->js) {
+		case TRI_AUTO:
+			js->label(_("js: auto"));
+		break;
+		case TRI_OFF:
+			js->label(_("js: off"));
+		break;
+		case TRI_ON:
+			js->label(_("js: on"));
+		break;
+	}
+
+	switch (cur->img) {
+		case TRI_AUTO:
+			img->label(_("img: auto"));
+		break;
+		case TRI_OFF:
+			img->label(_("img: off"));
+		break;
+		case TRI_ON:
+			img->label(_("img: on"));
+		break;
+	}
+
+	if (cur->state == TS_WEB) {
+		css->activate();
+		js->activate();
+		img->activate();
+		zoom->activate();
+	} else {
+		css->deactivate();
+		js->deactivate();
+		img->deactivate();
+		zoom->deactivate();
+	}
+
 	if (damage() == FL_DAMAGE_CHILD) {
 		draw_children();
 		return;
@@ -145,7 +196,6 @@ void statusbar::draw() {
 	fl_line(startx, posy, endx, posy);
 
 	// SSL secure?
-	const tab * const cur = &g->tabs[g->curtab];
 	if (cur->url && !strncmp(cur->url, "https://", 8)) {
 		const u32 secw = h();
 

@@ -55,5 +55,10 @@ int zoomer::handle(const int e) {
 		return 1;
 	}
 
+	if (e == FL_MOUSEWHEEL) {
+		handle_drag(clamp(increment(value(), -Fl::event_dy())));
+		return 1;
+	}
+
 	return Fl_Roller::handle(e);
 }

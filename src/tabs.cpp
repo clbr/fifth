@@ -488,8 +488,20 @@ static void persite(webview * const view, const char * const url) {
 
 	setting *s = NULL;
 
-	s = getSetting("general.javascript", site);
-	view->setBool(WK_SETTING_JS, s->val.u);
+	if (cur->js == TRI_AUTO) {
+		s = getSetting("general.javascript", site);
+		view->setBool(WK_SETTING_JS, s->val.u);
+	}
+
+	if (cur->css == TRI_AUTO) {
+		s = getSetting("general.css", site);
+		view->setBool(WK_SETTING_CSS, s->val.u);
+	}
+
+	if (cur->img == TRI_AUTO) {
+		s = getSetting("general.images", site);
+		view->setBool(WK_SETTING_IMG, s->val.u);
+	}
 }
 
 static void setcbs(webview * const web) {

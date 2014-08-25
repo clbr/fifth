@@ -274,8 +274,10 @@ void statusbar::reposbuttons() {
 void statusbar::refreshzoom() {
 	const tab * const cur = &g->tabs[g->curtab];
 
-	if (cur->state != TS_WEB)
+	if (cur->state != TS_WEB) {
+		zoom->value(1);
 		return;
+	}
 
 	zoom->value(cur->web->getDouble(WK_SETTING_ZOOM));
 }

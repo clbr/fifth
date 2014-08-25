@@ -86,9 +86,17 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	fl_measure(_("img: auto"), tmpw, tmph);
 	imgw = tmpw + pad;
 
+	static const char * const tritip =
+		_("Auto: decided based on per-site settings and global settings.\n"
+		"On and off: override the settings for this tab.");
+
 	js = new Fl_Button(1, y + 1, jsw, h - 2, _("js: auto"));
 	css = new Fl_Button(1, y + 1, cssw, h - 2, _("css: auto"));
 	img = new Fl_Button(1, y + 1, imgw, h - 2, _("img: auto"));
+
+	js->tooltip(tritip);
+	css->tooltip(tritip);
+	img->tooltip(tritip);
 
 	zoom = new zoomer(1, y + 1, zoomerw, h - 2);
 	zoom->type(FL_HORIZONTAL);

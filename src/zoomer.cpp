@@ -51,6 +51,7 @@ int zoomer::handle(const int e) {
 
 	if (e == FL_PUSH && Fl::event_clicks()) {
 		value(1);
+		do_callback();
 		return 1;
 	}
 

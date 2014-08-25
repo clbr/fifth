@@ -516,6 +516,7 @@ void newtab() {
 	windowtitle();
 	searchenginestate();
 	urlbarstate();
+	g->status->refreshzoom();
 	g->w->redraw();
 	g->url->url->take_focus();
 
@@ -568,6 +569,7 @@ void newtab(const char *url) {
 	g->tabs.push_back(tab);
 	g->curtab = g->tabs.size() - 1;
 	urlbarstate();
+	g->status->refreshzoom();
 	g->w->redraw();
 
 	setcbs(tab.web);

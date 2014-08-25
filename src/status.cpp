@@ -140,6 +140,15 @@ static void imgtoggle(Fl_Widget *, void *) {
 	}
 }
 
+static void zoomed(Fl_Widget *w, void *) {
+	tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	const Fl_Roller *r = (Fl_Roller *) w;
+	cur->web->setDouble(WK_SETTING_ZOOM, r->value());
+}
+
 statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	resizable(NULL);
 
@@ -189,6 +198,7 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	zoom = new zoomer(1, y + 1, zoomerw, h - 2);
 	zoom->type(FL_HORIZONTAL);
+	zoom->callback(zoomed);
 
 	reposbuttons();
 

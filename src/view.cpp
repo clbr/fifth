@@ -333,6 +333,11 @@ int view::handle(const int e) {
 		g->status->hidefind();
 
 	if (cur->state == TS_WEB && cur->web) {
+		if (e == FL_MOUSEWHEEL && Fl::event_ctrl()) {
+			g->status->wheelzoom();
+			return 1;
+		}
+
 		if (e != FL_KEYDOWN && e != FL_KEYUP)
 			return cur->web->handle(e);
 	}

@@ -380,3 +380,7 @@ void statusbar::refreshzoom() {
 
 	zoom->value(cur->web->getDouble(WK_SETTING_ZOOM));
 }
+
+void statusbar::wheelzoom() {
+	zoom->handle(FL_MOUSEWHEEL);
+}

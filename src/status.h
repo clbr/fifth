@@ -39,6 +39,7 @@ public:
 	void resize(int, int, int, int) override;
 
 	void refreshzoom();
+	void wheelzoom();
 private:
 	void reposbuttons();
 

@@ -50,7 +50,14 @@ static void prevcb(Fl_Widget *, void *) {
 	g->tabs[g->curtab].web->find(search->value(), false, false);
 }
 
+static const u32 jsw = 90;
+static const u32 cssw = 90;
+static const u32 imgw = 90;
+static const u32 zoomerw = 100;
+
 statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
+	resizable(NULL);
+
 	lockicon = new Fl_PNG_Image("lock.png", lock_png, sizeof(lock_png));
 
 	search = new Fl_Input(x + h, y + 1, 150, h - 2);
@@ -62,8 +69,16 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	hidefind();
 
-	zoom = new zoomer(x + w - 100 - 3, y + 1, 100, h - 2);
+	js = new Fl_Button(1, y + 1, jsw, h - 2, _("js: auto"));
+
+	css = new Fl_Button(1, y + 1, cssw, h - 2, _("css: auto"));
+
+	img = new Fl_Button(1, y + 1, imgw, h - 2, _("img: auto"));
+
+	zoom = new zoomer(1, y + 1, zoomerw, h - 2);
 	zoom->type(FL_HORIZONTAL);
+
+	reposbuttons();
 
 	end();
 
@@ -167,4 +182,18 @@ void statusbar::hidefind() {
 	next->hide();
 	prev->hide();
 	total->hide();
+}
+
+void statusbar::resize(int x, int y, int w, int h) {
+	Fl_Group::resize(x, y, w, h);
+
+	reposbuttons();
+}
+
+void statusbar::reposbuttons() {
+
+	zoom->position(x() + w() - zoomerw - 3, y() + 1);
+	img->position(zoom->x() - imgw - 3, y() + 1);
+	css->position(img->x() - cssw - 3, y() + 1);
+	js->position(css->x() - jsw - 3, y() + 1);
 }

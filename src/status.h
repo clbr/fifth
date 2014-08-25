@@ -36,7 +36,10 @@ public:
 	void findprev();
 	void hidefind();
 
+	void resize(int, int, int, int) override;
 private:
+	void reposbuttons();
+
 	Fl_Input *search;
 	Fl_Button *next, *prev;
 	Fl_Box *total;

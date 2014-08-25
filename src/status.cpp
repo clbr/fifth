@@ -62,7 +62,7 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	hidefind();
 
-	zoom = new zoomer(x + w - 150 - 3, y + 1, 150, h - 2);
+	zoom = new zoomer(x + w - 100 - 3, y + 1, 100, h - 2);
 	zoom->type(FL_HORIZONTAL);
 
 	end();

@@ -310,6 +310,16 @@ void view::resize(int x, int y, int w, int h) {
 	widths[4] = others;
 	widths[5] = 0;
 	dlbrowser->column_widths(widths);
+
+	// Invalidate speed dial icons on resize
+	for (i = 0; i < 9; i++) {
+		if (dialicons[i])
+			delete dialicons[i];
+		dialicons[i] = NULL;
+		if (dialdeicons[i])
+			delete dialdeicons[i];
+		dialdeicons[i] = NULL;
+	}
 }
 
 int view::handle(const int e) {

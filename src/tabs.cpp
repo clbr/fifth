@@ -477,6 +477,21 @@ static void historycb(const char *url, const char * /* title */, const time_t no
 	g->history->add(url, now);
 }
 
+// Apply per-site settings when going to new sites
+static void persite(webview * const view, const char * const url) {
+	tab * const cur = findtab(view);
+	if (!cur || cur->state != TS_WEB)
+		return;
+
+	char site[120];
+	url2site(url, site, 120, true);
+
+	setting *s = NULL;
+
+	s = getSetting("general.javascript", site);
+	view->setBool(WK_SETTING_JS, s->val.u);
+}
+
 static void setcbs(webview * const web) {
 
 	web->titleChangedCB(titlecb);
@@ -485,6 +500,7 @@ static void setcbs(webview * const web) {
 	web->faviconChangedCB(faviconcb);
 	web->statusChangedCB(statuscb);
 	web->historyAddCB(historycb);
+	web->siteChangingCB(persite);
 }
 
 void newtab() {

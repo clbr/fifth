@@ -55,6 +55,37 @@ static u32 cssw = 80;
 static u32 imgw = 80;
 static const u32 zoomerw = 100;
 
+static void tritoggle(tabtristate *val) {
+
+	if (*val == TRI_AUTO)
+		*val = TRI_OFF;
+	else if (*val == TRI_OFF)
+		*val = TRI_ON;
+	else
+		*val = TRI_AUTO;
+}
+
+static void csstoggle(Fl_Widget *, void *) {
+	tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+	tritoggle(&cur->css);
+}
+
+static void jstoggle(Fl_Widget *, void *) {
+	tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+	tritoggle(&cur->js);
+}
+
+static void imgtoggle(Fl_Widget *, void *) {
+	tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+	tritoggle(&cur->img);
+}
+
 statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	resizable(NULL);
 
@@ -97,6 +128,10 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	js->tooltip(tritip);
 	css->tooltip(tritip);
 	img->tooltip(tritip);
+
+	js->callback(jstoggle);
+	css->callback(csstoggle);
+	img->callback(imgtoggle);
 
 	zoom = new zoomer(1, y + 1, zoomerw, h - 2);
 	zoom->type(FL_HORIZONTAL);

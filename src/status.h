@@ -37,6 +37,8 @@ public:
 	void hidefind();
 
 	void resize(int, int, int, int) override;
+
+	void refreshzoom();
 private:
 	void reposbuttons();
 

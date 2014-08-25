@@ -674,6 +674,7 @@ void activatetab(const u16 tab) {
 	searchenginestate();
 	urlbarstate();
 	g->status->hidefind();
+	g->status->refreshzoom();
 
 	g->w->redraw();
 

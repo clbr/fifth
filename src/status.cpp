@@ -270,3 +270,12 @@ void statusbar::reposbuttons() {
 	css->position(img->x() - cssw - 3, y() + 1);
 	js->position(css->x() - jsw - 3, y() + 1);
 }
+
+void statusbar::refreshzoom() {
+	const tab * const cur = &g->tabs[g->curtab];
+
+	if (cur->state != TS_WEB)
+		return;
+
+	zoom->value(cur->web->getDouble(WK_SETTING_ZOOM));
+}

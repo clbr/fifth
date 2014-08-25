@@ -429,6 +429,9 @@ int main(int argc, char **argv) {
 	findProfile(customprofile);
 	PHYSFS_deinit();
 
+	// Fallback before we load the config, so the crash dialog isn't 100% ugly
+	Fl::scheme("gtk+");
+
 	// Is this a crash, a remote call, or a normal start?
 	bool blankonly = false;
 	bool restore = false;

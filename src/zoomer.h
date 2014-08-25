@@ -14,35 +14,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef STATUS_H
-#define STATUS_H
+#ifndef ZOOMER_H
+#define ZOOMER_H
 
-#include <FL/Fl_Group.H>
+#include <FL/Fl_Roller.H>
 
-class Fl_Input;
-class Fl_Button;
-class Fl_Box;
-class Fl_Roller;
-
-class statusbar: public Fl_Group {
+class zoomer: public Fl_Roller {
 public:
-	statusbar(int x, int y, int w, int h);
+	zoomer(int, int, int, int);
 
 	void draw() override;
-	int handle(int e) override;
-
-	void startfind();
-	void findnext();
-	void findprev();
-	void hidefind();
-
-private:
-	Fl_Input *search;
-	Fl_Button *next, *prev;
-	Fl_Box *total;
-
-	Fl_Button *js, *css, *img;
-	Fl_Roller *zoom;
 };
 
 #endif

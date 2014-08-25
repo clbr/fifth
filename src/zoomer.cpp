@@ -14,35 +14,35 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef STATUS_H
-#define STATUS_H
+#include "main.h"
+#include "zoomer.h"
 
-#include <FL/Fl_Group.H>
+zoomer::zoomer(int x, int y, int w, int h): Fl_Roller(x, y, w, h) {
+	tooltip(_("Page zoom"));
+	range(0.1, 10);
+	value(1);
+	step(1, 20);
+}
 
-class Fl_Input;
-class Fl_Button;
-class Fl_Box;
-class Fl_Roller;
+void zoomer::draw() {
+	Fl_Roller::draw();
 
-class statusbar: public Fl_Group {
-public:
-	statusbar(int x, int y, int w, int h);
+	const float val = value() * 100;
 
-	void draw() override;
-	int handle(int e) override;
+	fl_font(FL_HELVETICA, 12);
 
-	void startfind();
-	void findnext();
-	void findprev();
-	void hidefind();
+	char tmp[10];
+	snprintf(tmp, 10, "%.0f%%", val);
 
-private:
-	Fl_Input *search;
-	Fl_Button *next, *prev;
-	Fl_Box *total;
+	int tw = 0, th = 0, tx, ty;
+	fl_measure(tmp, tw, th, 0);
 
-	Fl_Button *js, *css, *img;
-	Fl_Roller *zoom;
-};
+	tx = x() + (w() - tw) / 2;
+	ty = y() + (h() - th) / 2;
 
-#endif
+	fl_color(FL_GRAY);
+	fl_rectf(tx, ty, tw, th);
+
+	fl_color(FL_BLACK);
+	fl_draw(tmp, tx, ty - fl_descent() + fl_height());
+}

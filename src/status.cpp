@@ -16,6 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 #include "lockicon.h"
+#include "zoomer.h"
+
 #include <FL/Fl_PNG_Image.H>
 #include <FL/Fl_Box.H>
 
@@ -59,6 +61,9 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	total = new Fl_Box(prev->x() + 100 + 3, y + 1, 100, h - 2);
 
 	hidefind();
+
+	zoom = new zoomer(x + w - 150 - 3, y + 1, 150, h - 2);
+	zoom->type(FL_HORIZONTAL);
 
 	end();
 

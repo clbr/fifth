@@ -4,7 +4,7 @@ fifth_SOURCES = config.cpp defaults.c helpers.cpp main.cpp remote.cpp \
 		settings.cpp window.cpp status.cpp view.cpp tabs.cpp urlbar.cpp \
 		urlbutton.cpp textweb.cpp inputplace.cpp keys.cpp screencap.cpp \
 		bookmarks.cpp adddial.cpp ssl.cpp blocking.cpp about.cpp crash.cpp \
-		history.cpp
+		history.cpp zoomer.cpp
 
 CLEANFILES = version.h
 

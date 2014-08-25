@@ -50,9 +50,9 @@ static void prevcb(Fl_Widget *, void *) {
 	g->tabs[g->curtab].web->find(search->value(), false, false);
 }
 
-static const u32 jsw = 90;
-static const u32 cssw = 90;
-static const u32 imgw = 90;
+static u32 jsw = 60;
+static u32 cssw = 80;
+static u32 imgw = 80;
 static const u32 zoomerw = 100;
 
 statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
@@ -69,10 +69,25 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
 	hidefind();
 
+	// Calculate button widths
+	fl_font(labelfont(), labelsize());
+	int tmpw, tmph;
+	const u32 pad = 10;
+
+	tmpw = 0;
+	fl_measure(_("js: auto"), tmpw, tmph);
+	jsw = tmpw + pad;
+
+	tmpw = 0;
+	fl_measure(_("css: auto"), tmpw, tmph);
+	cssw = tmpw + pad;
+
+	tmpw = 0;
+	fl_measure(_("img: auto"), tmpw, tmph);
+	imgw = tmpw + pad;
+
 	js = new Fl_Button(1, y + 1, jsw, h - 2, _("js: auto"));
-
 	css = new Fl_Button(1, y + 1, cssw, h - 2, _("css: auto"));
-
 	img = new Fl_Button(1, y + 1, imgw, h - 2, _("img: auto"));
 
 	zoom = new zoomer(1, y + 1, zoomerw, h - 2);

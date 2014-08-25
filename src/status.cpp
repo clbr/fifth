@@ -70,6 +70,24 @@ static void csstoggle(Fl_Widget *, void *) {
 	if (cur->state != TS_WEB)
 		return;
 	tritoggle(&cur->css);
+
+	switch (cur->css) {
+		case TRI_AUTO:
+		{
+			if (!cur->url) break;
+			char site[120];
+			url2site(cur->url, site, 120);
+			const setting *s = getSetting("general.css", site);
+			cur->web->setBool(WK_SETTING_CSS, s->val.u);
+		}
+		break;
+		case TRI_ON:
+			cur->web->setBool(WK_SETTING_CSS, true);
+		break;
+		case TRI_OFF:
+			cur->web->setBool(WK_SETTING_CSS, false);
+		break;
+	}
 }
 
 static void jstoggle(Fl_Widget *, void *) {
@@ -77,6 +95,24 @@ static void jstoggle(Fl_Widget *, void *) {
 	if (cur->state != TS_WEB)
 		return;
 	tritoggle(&cur->js);
+
+	switch (cur->js) {
+		case TRI_AUTO:
+		{
+			if (!cur->url) break;
+			char site[120];
+			url2site(cur->url, site, 120);
+			const setting *s = getSetting("general.javascript", site);
+			cur->web->setBool(WK_SETTING_JS, s->val.u);
+		}
+		break;
+		case TRI_ON:
+			cur->web->setBool(WK_SETTING_JS, true);
+		break;
+		case TRI_OFF:
+			cur->web->setBool(WK_SETTING_JS, false);
+		break;
+	}
 }
 
 static void imgtoggle(Fl_Widget *, void *) {
@@ -84,6 +120,24 @@ static void imgtoggle(Fl_Widget *, void *) {
 	if (cur->state != TS_WEB)
 		return;
 	tritoggle(&cur->img);
+
+	switch (cur->img) {
+		case TRI_AUTO:
+		{
+			if (!cur->url) break;
+			char site[120];
+			url2site(cur->url, site, 120);
+			const setting *s = getSetting("general.images", site);
+			cur->web->setBool(WK_SETTING_IMG, s->val.u);
+		}
+		break;
+		case TRI_ON:
+			cur->web->setBool(WK_SETTING_IMG, true);
+		break;
+		case TRI_OFF:
+			cur->web->setBool(WK_SETTING_IMG, false);
+		break;
+	}
 }
 
 statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {

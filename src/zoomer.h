@@ -24,6 +24,8 @@ public:
 	zoomer(int, int, int, int);
 
 	void draw() override;
+
+	int handle(int) override;
 };
 
 #endif

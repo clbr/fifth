@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "zoomer.h"
 
 zoomer::zoomer(int x, int y, int w, int h): Fl_Roller(x, y, w, h) {
-	tooltip(_("Page zoom"));
+	tooltip(_("Page zoom. Double-click to return to 100%."));
 	range(0.1, 10);
 	value(1);
 	step(1, 20);
@@ -45,4 +45,14 @@ void zoomer::draw() {
 
 	fl_color(FL_BLACK);
 	fl_draw(tmp, tx, ty - fl_descent() + fl_height());
+}
+
+int zoomer::handle(const int e) {
+
+	if (e == FL_PUSH && Fl::event_clicks()) {
+		value(1);
+		return 1;
+	}
+
+	return Fl_Roller::handle(e);
 }

@@ -50,6 +50,12 @@ enum tabsearch {
 	TSE_COUNT
 };
 
+enum tabtristate {
+	TRI_OFF = 0,
+	TRI_ON,
+	TRI_AUTO
+};
+
 struct tab {
 	tabstate state;
 	tabsearch engine;
@@ -63,6 +69,10 @@ struct tab {
 	const char *sslsite;
 
 	float progress;
+
+	tabtristate css;
+	tabtristate js;
+	tabtristate img;
 
 	tab();
 	const char *title() const;

@@ -4,9 +4,12 @@ about:config setting
 bookmark editing
 more spoofing
 autocomplete url widget
+cache
+error console
 
 cookie control
 more cert info in SSL error
 userjs
 usercss
 blocking UI
+inspector

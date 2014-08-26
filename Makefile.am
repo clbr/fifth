@@ -1,3 +1,6 @@
 SUBDIRS=src
 
 ACLOCAL_AMFLAGS = -I m4
+
+EXTRA_DIST = BACKGROUND DESIGN icon64.png icon128.png icon256.png \
+		logo.png WEBKITBUGS

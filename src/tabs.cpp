@@ -294,7 +294,6 @@ tab::tab(): state(TS_WEB), engine(TSE_DDG), web(NULL), lastactive(msec()),
 }
 
 tab::~tab() {
-	delete errors;
 }
 
 const char *tab::title() const {
@@ -558,6 +557,7 @@ void closetab() {
 			if (g->tabs[0].web) {
 				g->tabs[0].web->parent()->remove(g->tabs[0].web);
 				delete g->tabs[0].web;
+				delete g->tabs[0].errors;
 			}
 		}
 
@@ -576,6 +576,7 @@ void closetab() {
 			if (g->tabs[g->curtab].web) {
 				g->tabs[g->curtab].web->parent()->remove(g->tabs[g->curtab].web);
 				delete g->tabs[g->curtab].web;
+				delete g->tabs[g->curtab].errors;
 			}
 		}
 

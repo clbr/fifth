@@ -173,6 +173,10 @@ static void transfercb(Fl_Widget *, void *) {
 	transfers();
 }
 
+static void errorcon(Fl_Widget *, void *) {
+	errorlog();
+}
+
 static void downloadrefresh() {
 	if (g->tabs[g->curtab].state == TS_DOWNLOAD) {
 		g->v->refreshdownloads();
@@ -255,7 +259,7 @@ void generatemenu() {
 	g->menu->add(_("&Tools/&History"), 0, historycb);
 	g->menu->add(_("&Tools/&Advanced config"), 0, configcb);
 	g->menu->add(_("&Tools/&Web inspector"), 0, 0, 0, FL_MENU_INACTIVE);
-	g->menu->add(_("&Tools/&Error console"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+	g->menu->add(_("&Tools/&Error console"), 0, errorcon, 0, FL_MENU_DIVIDER);
 	g->menu->add(_("&Tools/&Page settings"), 0, 0, 0, FL_MENU_INACTIVE);
 	g->menu->add(_("&Tools/&Settings"), 0, 0, 0, FL_MENU_INACTIVE);
 

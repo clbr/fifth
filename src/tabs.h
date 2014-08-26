@@ -78,6 +78,7 @@ struct tab {
 	tabtristate img;
 
 	tab();
+	~tab();
 	const char *title() const;
 };
 

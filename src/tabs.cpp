@@ -293,6 +293,10 @@ tab::tab(): state(TS_WEB), engine(TSE_DDG), web(NULL), lastactive(msec()),
 	errors = new histbuf(1000);
 }
 
+tab::~tab() {
+	delete errors;
+}
+
 const char *tab::title() const {
 
 	const char *tmp = NULL;

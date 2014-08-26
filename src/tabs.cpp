@@ -514,6 +514,7 @@ static void errorcb(webview * const view, const char *err) {
 		return;
 
 	cur->errors->add(err, 0);
+	refresherr(cur->errors);
 }
 
 static void setcbs(webview * const web) {

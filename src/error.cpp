@@ -55,6 +55,21 @@ static void clearcb(Fl_Widget *, void *ptr) {
 	errlist->clear();
 }
 
+void refresherr(const histbuf * const src) {
+	if (!w || !w->shown())
+		return;
+
+	if (filterin->user_data() != src)
+		return;
+
+	errlist->clear();
+	const u32 max = src->size();
+	u32 i;
+	for (i = 0; i < max; i++) {
+		errlist->add(src->getURL(i));
+	}
+}
+
 void errorlog() {
 	tab * const cur = &g->tabs[g->curtab];
 	if (cur->state != TS_WEB)

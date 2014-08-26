@@ -119,5 +119,6 @@ enum crashchoice {
 
 crashchoice crashdialog();
 void errorlog();
+void refresherr(const histbuf * const src);
 
 #endif

@@ -1,0 +1,33 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0110 
+i18n_type 1 
+i18n_include "main.h" 
+i18n_function _ 
+header_name {.h} 
+code_name {.cxx}
+Function {errorlog()} {open return_type void
+} {
+  Fl_Window {} {
+    label {Error console} open
+    xywh {169 188 905 800} type Double visible
+  } {
+    Fl_Browser errlist {
+      xywh {10 10 885 745}
+    }
+    Fl_Input {} {
+      label {Filter:}
+      callback foo
+      xywh {50 765 370 25} when 1
+    }
+    Fl_Button {} {
+      label Close
+      callback {parent()->hide()}
+      xywh {770 765 125 25}
+    }
+    Fl_Button {} {
+      label Clear
+      callback foo
+      xywh {635 765 125 25}
+    }
+  }
+} 

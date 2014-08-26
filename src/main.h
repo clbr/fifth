@@ -118,5 +118,6 @@ enum crashchoice {
 };
 
 crashchoice crashdialog();
+void errorlog();
 
 #endif

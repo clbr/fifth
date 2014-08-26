@@ -67,12 +67,12 @@ void errorlog() {
 			o->when(FL_WHEN_CHANGED);
 			o->user_data(cur->errors);
 		} // Fl_Input* o
-		{ Fl_Button* o = new Fl_Button(770, 765, 125, 25, _("Close"));
-			o->callback((Fl_Callback*)cb_Close);
-		} // Fl_Button* o
 		{ Fl_Button* o = new Fl_Button(635, 765, 125, 25, _("Clear"));
 			o->callback(clearcb);
 			o->user_data(cur->errors);
+		} // Fl_Button* o
+		{ Fl_Button* o = new Fl_Button(770, 765, 125, 25, _("Close"));
+			o->callback((Fl_Callback*)cb_Close);
 		} // Fl_Button* o
 		o->end();
 	} // Fl_Double_Window* o

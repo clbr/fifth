@@ -32,7 +32,7 @@ static void filtercb(Fl_Input *in, void *ptr) {
 
 	histbuf *h = (histbuf *) ptr;
 	const char *val = in->value();
-	if (!val || strlen(val) < 2)
+	if (!val)
 		return;
 
 	const u32 max = h->size();

@@ -41,7 +41,7 @@ static void findProfile(const bool found) {
 		if (g->profilefd < 0)
 			die(_("Failed to get embedded profile dir, %s\n"), exedir);
 		g->datafd = g->profilefd;
-		g->profilepath = exedir;
+		g->profilepath = strdup(exedir);
 	} else if (found) {
 		// System install with custom profile location
 		g->datafd = open(DATADIR, O_RDONLY);

@@ -196,10 +196,63 @@ static void home() {
 	cur->web->load(s->val.c);
 }
 
+template <int T> static void dialer() {
+	tab * const cur = &g->tabs[g->curtab];
+
+	char tmp[] = "dial.1";
+	tmp[5] += T;
+	const setting *s = getSetting(tmp);
+	if (!s->val.c || strlen(s->val.c) < 2)
+		return;
+
+	cur->state = TS_WEB;
+	cur->web->load(s->val.c);
+}
+
 void loadkeys() {
 	g->keys.clear();
 
 	keybinding key;
+
+	u32 i;
+	for (i = 0; i < 9; i++) {
+		char tmp[] = "keys.dial1";
+		tmp[9] += i;
+
+		key = settingkey(tmp);
+
+		// Sigh, the compiler couldn't unroll this.
+		// g->keys[key] = dialer<i>;
+		switch (i) {
+			case 0:
+				g->keys[key] = dialer<0>;
+			break;
+			case 1:
+				g->keys[key] = dialer<1>;
+			break;
+			case 2:
+				g->keys[key] = dialer<2>;
+			break;
+			case 3:
+				g->keys[key] = dialer<3>;
+			break;
+			case 4:
+				g->keys[key] = dialer<4>;
+			break;
+			case 5:
+				g->keys[key] = dialer<5>;
+			break;
+			case 6:
+				g->keys[key] = dialer<6>;
+			break;
+			case 7:
+				g->keys[key] = dialer<7>;
+			break;
+			case 8:
+				g->keys[key] = dialer<8>;
+			break;
+		}
+	}
 
 	key = settingkey("keys.back");
 	g->keys[key] = back;

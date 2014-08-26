@@ -23,6 +23,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "main.h"
 
 static Fl_Browser *errlist=(Fl_Browser *)0;
+static Fl_Double_Window* w = NULL;
 
 static void cb_Close(Fl_Button *b, void*) {
 	b->parent()->hide();
@@ -57,8 +58,8 @@ void errorlog() {
 	if (cur->state != TS_WEB)
 		return;
 
-	Fl_Double_Window* w;
-	{ Fl_Double_Window* o = new Fl_Double_Window(905, 800, _("Error console"));
+	if (!w) {
+		Fl_Double_Window* o = new Fl_Double_Window(905, 800, _("Error console"));
 		w = o;
 		w->resizable(w);
 		{ errlist = new Fl_Browser(10, 10, 885, 745);

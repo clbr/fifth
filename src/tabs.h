@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 
 class webview;
+class histbuf;
 
 class tabbar: public Fl_Widget {
 public:
@@ -67,6 +68,8 @@ struct tab {
 	const char *url;
 	const char *search;
 	const char *sslsite;
+
+	histbuf *errors;
 
 	float progress;
 

@@ -290,6 +290,7 @@ tab::tab(): state(TS_WEB), engine(TSE_DDG), web(NULL), lastactive(msec()),
 		icon(NULL), url(NULL), search(NULL), sslsite(NULL),
 		progress(100), css(TRI_AUTO), js(TRI_AUTO), img(TRI_AUTO) {
 
+	errors = new histbuf(1000);
 }
 
 const char *tab::title() const {
@@ -504,6 +505,14 @@ static void persite(webview * const view, const char * const url) {
 	}
 }
 
+static void errorcb(webview * const view, const char *err) {
+	tab * const cur = findtab(view);
+	if (!cur || cur->state != TS_WEB)
+		return;
+
+	cur->errors->add(err, 0);
+}
+
 static void setcbs(webview * const web) {
 
 	web->titleChangedCB(titlecb);
@@ -513,6 +522,7 @@ static void setcbs(webview * const web) {
 	web->statusChangedCB(statuscb);
 	web->historyAddCB(historycb);
 	web->siteChangingCB(persite);
+	web->errorCB(errorcb);
 }
 
 void newtab() {

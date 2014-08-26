@@ -60,6 +60,7 @@ void errorlog() {
 	Fl_Double_Window* w;
 	{ Fl_Double_Window* o = new Fl_Double_Window(905, 800, _("Error console"));
 		w = o;
+		w->resizable(w);
 		{ errlist = new Fl_Browser(10, 10, 885, 745);
 		} // Fl_Browser* errlist
 		{ Fl_Input* o = new Fl_Input(50, 765, 370, 25, _("Filter:"));

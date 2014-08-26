@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Must be in alphabetical order.
 const struct setting defaultSettings[] = {
+	{"cache.disk",		ST_U32, { .u = 20971520 }}, // 20 mb
 	{"dial.1",		ST_CHAR, { .c = "" }},
 	{"dial.2",		ST_CHAR, { .c = "" }},
 	{"dial.3",		ST_CHAR, { .c = "" }},

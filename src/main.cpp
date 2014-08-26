@@ -551,6 +551,7 @@ int main(int argc, char **argv) {
 	wk_set_download_func(downloadfinish);
 	wk_set_aboutpage_func(aboutpage);
 	initfavicons();
+	wk_set_cache_dir(g->profilepath);
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);
@@ -561,6 +562,9 @@ int main(int argc, char **argv) {
 	w = s->val.u;
 	s = getSetting("window.h", NULL);
 	h = s->val.u;
+
+	s = getSetting("cache.disk");
+	wk_set_cache_max(s->val.u);
 
 	s = getSetting("fltk.scheme", NULL);
 	Fl::scheme(s->val.c);

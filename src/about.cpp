@@ -180,9 +180,9 @@ static const char *abouthistory() {
 		"<hr>";
 
 	s += "<div id=\"scroller\"><table>\n";
-	u32 i;
+	s32 i;
 	const u32 max = g->history->size();
-	for (i = 0; i < max; i++) {
+	for (i = max - 1; i >= 0; i--) {
 		const time_t time = g->history->getTime(i);
 		const char * const url = g->history->getURL(i);
 

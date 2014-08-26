@@ -24,6 +24,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 static Fl_Browser *errlist=(Fl_Browser *)0;
 static Fl_Double_Window* w = NULL;
+static Fl_Input *filterin = NULL;
+static Fl_Button *clearbtn = NULL;
 
 static void cb_Close(Fl_Button *b, void*) {
 	b->parent()->hide();
@@ -67,17 +69,20 @@ void errorlog() {
 		{ Fl_Input* o = new Fl_Input(50, 765, 370, 25, _("Filter:"));
 			o->callback((Fl_Callback *) filtercb);
 			o->when(FL_WHEN_CHANGED);
-			o->user_data(cur->errors);
+			filterin = o;
 		} // Fl_Input* o
 		{ Fl_Button* o = new Fl_Button(635, 765, 125, 25, _("Clear"));
 			o->callback(clearcb);
-			o->user_data(cur->errors);
+			clearbtn = o;
 		} // Fl_Button* o
 		{ Fl_Button* o = new Fl_Button(770, 765, 125, 25, _("Close"));
 			o->callback((Fl_Callback*)cb_Close);
 		} // Fl_Button* o
 		o->end();
 	} // Fl_Double_Window* o
+
+	filterin->user_data(cur->errors);
+	clearbtn->user_data(cur->errors);
 
 	errlist->clear();
 	const u32 max = cur->errors->size();

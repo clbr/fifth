@@ -216,7 +216,16 @@ static const char *abouthistory() {
 		s += "</td><td class=\"url\"><a href=\"";
 		s += url;
 		s += "\">";
-		s += url;
+
+		if (strlen(url) < 80) {
+			s += url;
+		} else {
+			char tmp[80];
+			snprintf(tmp, 80, "%.76s...", url);
+			tmp[79] = '\0';
+			s += tmp;
+		}
+
 		s += "</a>";
 
 		s += "</td></tr>\n";

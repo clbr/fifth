@@ -66,13 +66,14 @@ static const char *aboutconfig() {
 					"padding: 0.3em;"
 				"}\n"
 				"div#scroller {"
-					"height: 90%;"
+					"height: 87%;"
 					"overflow: auto;"
 				"}\n"
 			"</style></head><body><center>";
 
 	s.reserve(16384);
 
+	s += "Most settings require a restart.<br>";
 
 	s += "<input type=\"text\" size=\"80\" placeholder=\"Filter...\" "
 		"oninput=\"filter(this.value)\">"

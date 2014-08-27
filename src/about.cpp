@@ -122,6 +122,8 @@ static const char *aboutconfig() {
 				die("Setting corruption\n");
 		}
 
+		s += "\" class=\"";
+		s += defaultSettings[i].name;
 		s += "\">"
 			"<input type=\"button\" value=\"Save\" name=\"save\" class=\"";
 		s += defaultSettings[i].name;

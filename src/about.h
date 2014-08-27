@@ -19,4 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const char *aboutpage(const char * const page);
 
+void configchange(const char *name, const char *id, const char *cssclass,
+			const char *value);
+
 #endif

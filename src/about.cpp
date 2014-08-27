@@ -253,3 +253,44 @@ const char *aboutpage(const char * const page) {
 
 	return NULL;
 }
+
+void configchange(const char *name, const char * /*id*/, const char *cssclass,
+			const char */*value*/) {
+
+	tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB || strcmp(cur->url, "about:config"))
+		return;
+
+	setting *s = getSetting(cssclass);
+	if (!s)
+		die(_("Tried to change a nonexistent setting '%s'\n"), cssclass);
+
+	if (!strcmp(name, "reset")) {
+		setting *defaultval = (setting *) bsearch(cssclass, defaultSettings,
+							numDefaults,
+							sizeof(setting), settingcmp);
+		s->val = defaultval->val;
+	} else if (!strcmp(name, "save")) {
+		const char *val = cur->web->getValue("input", "text", cssclass);
+		if (!val) die(_("Failed to find about:config text field\n"));
+
+		switch (s->type) {
+			case ST_CHAR:
+				s->val.c = strdup(val);
+			break;
+			case ST_U32:
+				s->val.u = atoi(val);
+			break;
+			case ST_FLOAT:
+				s->val.f = atof(val);
+			break;
+			default:
+				die(_("Unknown setting type\n"));
+		}
+
+		free((char *) val);
+	} else die("Received unexpected about:config event\n");
+
+	saveConfig();
+	cur->web->refresh();
+}

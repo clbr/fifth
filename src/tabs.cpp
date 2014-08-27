@@ -467,6 +467,11 @@ static void progresscb(webview * const view, float val) {
 		cur->icon = NULL;
 		g->url->url->input().image(NULL);
 	}
+
+	// Is it a finished about:config? A more generic mechanism may be worth it later.
+	if (val > 99 && !strcmp(cur->url, "about:config")) {
+		cur->web->bindEvent("input", "button", "click", configchange);
+	}
 }
 
 static void statuscb(webview * const view) {

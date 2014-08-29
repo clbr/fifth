@@ -535,8 +535,11 @@ static void setcbs(webview * const web) {
 }
 
 void newtab() {
-	if (g->tabs.size())
+	if (g->tabs.size()) {
 		saveurlbar();
+		if (g->tabs[g->curtab].web)
+			g->tabs[g->curtab].web->hide();
+	}
 
 	Fl_Group::current(g->v);
 	tab tab;
@@ -559,6 +562,7 @@ void closetab() {
 		if (g->tabs[0].state == TS_WEB) {
 			saveurlbar();
 			g->closedtabs.push_back(g->tabs[0]);
+			g->tabs[0].web->hide();
 		} else {
 			if (g->tabs[0].web) {
 				g->tabs[0].web->parent()->remove(g->tabs[0].web);
@@ -578,6 +582,7 @@ void closetab() {
 		if (g->tabs[g->curtab].state == TS_WEB) {
 			saveurlbar();
 			g->closedtabs.push_back(g->tabs[g->curtab]);
+			g->tabs[g->curtab].web->hide();
 		} else {
 			if (g->tabs[g->curtab].web) {
 				g->tabs[g->curtab].web->parent()->remove(g->tabs[g->curtab].web);
@@ -593,8 +598,11 @@ void closetab() {
 }
 
 void newtab(const char *url) {
-	if (g->tabs.size())
+	if (g->tabs.size()) {
 		saveurlbar();
+		if (g->tabs[g->curtab].web)
+			g->tabs[g->curtab].web->hide();
+	}
 
 	Fl_Group::current(g->v);
 	tab tab;

@@ -277,6 +277,14 @@ static webview *popupcb(const char *url) {
 	return g->tabs[g->curtab].web;
 }
 
+static const char *useragent(const char *url) {
+	char site[120];
+	url2site(url, site, 120);
+
+	const setting * const s = getSetting("spoof.useragent", site);
+	return s->val.c;
+}
+
 static void initfavicons() {
 	vector<const char *> vec;
 	vec.reserve(9);
@@ -552,6 +560,7 @@ int main(int argc, char **argv) {
 	wk_set_aboutpage_func(aboutpage);
 	initfavicons();
 	wk_set_cache_dir(g->profilepath);
+	wk_set_useragent_func(useragent);
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);

@@ -196,6 +196,14 @@ static void urlResults() {
 
 	g->url->url->list->clear();
 
+	// Quick duplicate check
+	for (i = 1; i < results.size(); i++) {
+		if (!strcmp(results[i - 1].url, results[i].url)) {
+			i--;
+			results.erase(results.begin() + i);
+		}
+	}
+
 	max = results.size();
 	if (max < 1)
 		return;

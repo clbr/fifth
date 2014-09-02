@@ -173,7 +173,7 @@ static void urlResults() {
 		if (ret < 1)
 			continue;
 
-		res r = {g->history->getURL(i), "", (u32) ret};
+		res r = {g->history->getURL(i), "(history)", (u32) ret};
 		results.push_back(r);
 	}
 
@@ -184,10 +184,13 @@ static void urlResults() {
 			continue;
 
 		int ret = ratedsearch(needle, cur.name);
-		if (ret < 1)
+		if (ret < 0)
 			continue;
 		int ret2 = ratedsearch(needle, cur.url);
-		if (ret2 < 1)
+		if (ret2 < 0)
+			continue;
+
+		if (ret + ret2 < 1)
 			continue;
 
 		res r = {cur.url, cur.name, (u32) ret + ret2};

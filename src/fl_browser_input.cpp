@@ -180,6 +180,9 @@ int fl_browser_input::arrowbrow::handle(const int e) {
 						return 1;
 					}
 				break;
+				case FL_Escape:
+					parent()->hide();
+				break;
 			}
 		break;
 	}

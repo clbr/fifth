@@ -217,6 +217,9 @@ static void urlResults() {
 
 	std::sort(results.begin(), results.end());
 
+	if (max > 100)
+		max = 100;
+
 	for (i = 0; i < max; i++) {
 		char tmp[640];
 		snprintf(tmp, 640, "%s\t%s", results[i].url, results[i].name.c_str());

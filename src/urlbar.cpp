@@ -241,6 +241,9 @@ static void dogo(Fl_Widget *w, void *) {
 		return;
 	}
 
+	if (g->url->url->win->shown())
+		g->url->url->win->hide();
+
 	if (!strncmp(val, "javascript:", 11) && g->tabs[g->curtab].state == TS_WEB) {
 		g->tabs[g->curtab].web->executeJS(val + 11);
 		return;

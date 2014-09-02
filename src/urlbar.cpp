@@ -234,7 +234,7 @@ static void dogo(Fl_Widget *w, void *) {
 	// We need to differentiate between changed and enter-pressed states.
 	if (i->changed()) {
 		urlResults();
-		if (g->url->url->list->size() > 2) {
+		if (g->url->url->list->size()) {
 			g->url->url->popup();
 			i->take_focus();
 		}

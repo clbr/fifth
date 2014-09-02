@@ -155,12 +155,16 @@ static void urlResults() {
 	const char * const needle = g->url->url->inp->value();
 
 	struct res {
-		const char *url;
-		const char *name;
+		const char *url; // static
+		const char *name; // malloced
 		u32 score;
 
 		bool operator <(const res &other) const {
 			return score > other.score; // Descending order
+		}
+
+		~res() {
+			free((char *) name);
 		}
 	};
 
@@ -173,7 +177,7 @@ static void urlResults() {
 		if (ret < 1)
 			continue;
 
-		res r = {g->history->getURL(i), "(history)", (u32) ret};
+		res r = {g->history->getURL(i), strdup("(history)"), (u32) ret};
 		results.push_back(r);
 	}
 
@@ -193,7 +197,10 @@ static void urlResults() {
 		if (ret + ret2 < 1)
 			continue;
 
-		res r = {cur.url, cur.name, (u32) ret + ret2};
+		char *ptr;
+		asprintf(&ptr, "%s (bookmark)", cur.name);
+
+		res r = {cur.url, ptr, (u32) ret + ret2};
 		results.push_back(r);
 	}
 

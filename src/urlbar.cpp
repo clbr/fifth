@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "searchicons.h"
 #include "wmicon.h"
 #include <FL/Fl_PNG_Image.H>
+#include <algorithm>
 
 Fl_PNG_Image *ddglogo, *googlelogo;
 
@@ -151,6 +152,62 @@ static void dosearch(Fl_Widget *w, void *) {
 
 static void urlResults() {
 	// Search through bookmarks and history, sort by how good a match each was
+	const char * const needle = g->url->url->inp->value();
+
+	struct res {
+		const char *url;
+		const char *name;
+		u32 score;
+
+		bool operator <(const res &other) const {
+			return score > other.score; // Descending order
+		}
+	};
+
+	vector<res> results;
+
+	u32 i, max;
+	max = g->history->size();
+	for (i = 0; i < max; i++) {
+		const int ret = ratedsearch(needle, g->history->getURL(i));
+		if (ret < 1)
+			continue;
+
+		res r = {g->history->getURL(i), "", (u32) ret};
+		results.push_back(r);
+	}
+
+	max = g->bookmarks.size();
+	for (i = 0; i < max; i++) {
+		const bookmark &cur = g->bookmarks[i];
+		if (!cur.name || !cur.url)
+			continue;
+
+		int ret = ratedsearch(needle, cur.name);
+		if (ret < 1)
+			continue;
+		int ret2 = ratedsearch(needle, cur.url);
+		if (ret2 < 1)
+			continue;
+
+		res r = {cur.url, cur.name, (u32) ret + ret2};
+		results.push_back(r);
+	}
+
+	g->url->url->list->clear();
+
+	max = results.size();
+	if (max < 1)
+		return;
+
+	std::sort(results.begin(), results.end());
+
+	for (i = 0; i < max; i++) {
+		char tmp[640];
+		snprintf(tmp, 640, "%s\t%s", results[i].url, results[i].name);
+		tmp[639] = '\0';
+		g->url->url->list->add(tmp);
+	}
 }
 
 static void dogo(Fl_Widget *w, void *) {

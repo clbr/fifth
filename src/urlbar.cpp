@@ -149,14 +149,23 @@ static void dosearch(Fl_Widget *w, void *) {
 	free(first);
 }
 
+static void urlResults() {
+	// Search through bookmarks and history, sort by how good a match each was
+}
+
 static void dogo(Fl_Widget *w, void *) {
-	const inputplace * const i = (inputplace *) w;
+	inputplace * const i = (inputplace *) w;
 	const char * const val = i->value();
 	if (strlen(val) < 2 || allspace(val))
 		return;
 
 	// We need to differentiate between changed and enter-pressed states.
 	if (i->changed()) {
+		urlResults();
+		if (g->url->url->list->size() > 2) {
+			g->url->url->popup();
+			i->take_focus();
+		}
 		return;
 	}
 

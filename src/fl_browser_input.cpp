@@ -186,3 +186,7 @@ int fl_browser_input::arrowbrow::handle(const int e) {
 
 	return Fl_Hold_Browser::handle(e);
 }
+
+void fl_browser_input::popup() {
+	but->do_callback();
+}

@@ -14,9 +14,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "fl_browser_input.h"
 #include <FL/Enumerations.H>
+#include <FL/fl_draw.H>
 #include <algorithm>
+
+#include "fl_browser_input.h"
 
 static void btn_cb(Fl_Widget *, void *ptr) {
 
@@ -80,8 +82,8 @@ fl_browser_input::fl_browser_input(int x, int y, int w, int h): Fl_Group(x, y, w
 	inp->box(FL_FLAT_BOX);
 	inp->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED | FL_WHEN_CHANGED);
 
-	but = new Fl_Button(x + w - h, y, h, h);
-	but->label("@-32>");
+	but = new nicebtn(x + w - h, y, h, h);
+	//but->label("@-32>");
 	but->user_data(this);
 	but->callback(btn_cb);
 

@@ -46,7 +46,20 @@ public:
 	inputplace *inp;
 
 private:
-	Fl_Button *but;
+	class nicebtn: public Fl_Button {
+	public:
+		nicebtn(int x, int y, int w, int h): Fl_Button(x, y, w, h) {}
+
+		void draw() override {
+			draw_box(FL_UP_BOX, color());
+			fl_color(active_r() ? labelcolor() : fl_inactive(labelcolor()));
+			int xc = x()+w()/2, yc=y()+h()/2;
+			fl_polygon(xc-4,yc-2,xc+4,yc-2,xc,yc+2);
+			if (Fl::focus() == this) draw_focus();
+		}
+	};
+
+	nicebtn *but;
 };
 
 #endif

@@ -81,7 +81,7 @@ fl_browser_input::fl_browser_input(int x, int y, int w, int h): Fl_Group(x, y, w
 	inp->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED | FL_WHEN_CHANGED);
 
 	but = new Fl_Button(x + w - h, y, h, h);
-	but->label("@-22>");
+	but->label("@-32>");
 	but->user_data(this);
 	but->callback(btn_cb);
 
@@ -111,8 +111,9 @@ void fl_browser_input::resize(int x, int y, int w, int h) {
 	w -= Fl::box_dw(box());
 	h -= Fl::box_dh(box());
 
-	inp->resize(x, y, w - h, h);
-	but->resize(x + w - h, y, h, h);
+	const u32 buttonw = 17;
+	inp->resize(x, y, w - buttonw, h);
+	but->resize(x + w - buttonw, y, buttonw, h);
 }
 
 int fl_browser_input::handle(const int e) {

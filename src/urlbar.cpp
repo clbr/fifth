@@ -196,16 +196,16 @@ static void stopcb(Fl_Widget *, void *) {
 
 urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 
-	prev = new urlbutton(0, 0, 0, 0);
-	back = new urlbutton(0, 0, 0, 0);
-	fwd = new urlbutton(0, 0, 0, 0);
-	next = new urlbutton(0, 0, 0, 0);
-	refresh = new urlbutton(0, 0, 0, 0);
+	prev = new urlbutton(0, 0, 10, 10);
+	back = new urlbutton(0, 0, 10, 10);
+	fwd = new urlbutton(0, 0, 10, 10);
+	next = new urlbutton(0, 0, 10, 10);
+	refresh = new urlbutton(0, 0, 10, 10);
 
-	url = new fl_browser_input(0, 0, 0, 0);
-	search = new textweb(0, 0, 0, 0);
+	url = new fl_browser_input(0, 0, 10, 10);
+	search = new textweb(0, 0, 10, 10);
 
-	tabs = new urlbutton(0, 0, 0, 0);
+	tabs = new urlbutton(0, 0, 10, 10);
 	tabs->callback(tabscb);
 
 	end();

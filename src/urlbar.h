@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "urlbutton.h"
 #include "textweb.h"
+#include "fl_browser_input.h"
 
 class Fl_PNG_Image;
 
@@ -35,7 +36,8 @@ public:
 	bool isStop() const;
 
 	urlbutton *prev, *back, *fwd, *next, *refresh, *tabs;
-	textweb *url, *search;
+	fl_browser_input *url;
+	textweb *search;
 private:
 	void reposbuttons();
 

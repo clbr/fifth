@@ -37,6 +37,8 @@ public:
 		int handle(int) override;
 	};
 
+	inputplace &input() const { return *inp; }
+
 	Fl_Double_Window *win;
 	arrowbrow *list;
 	inputplace *inp;

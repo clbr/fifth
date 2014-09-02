@@ -78,7 +78,6 @@ fl_browser_input::fl_browser_input(int x, int y, int w, int h): Fl_Group(x, y, w
 
 	inp = new inputplace(x, y, w - h, h);
 	inp->box(FL_FLAT_BOX);
-	inp->placeholder("moi");
 	inp->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED | FL_WHEN_CHANGED);
 
 	but = new Fl_Button(x + w - h, y, h, h);
@@ -101,6 +100,19 @@ fl_browser_input::fl_browser_input(int x, int y, int w, int h): Fl_Group(x, y, w
 	win->resizable(list);
 
 	win->end();
+}
+
+void fl_browser_input::resize(int x, int y, int w, int h) {
+
+	Fl_Widget::resize(x, y, w, h);
+
+	x += Fl::box_dx(box());
+	y += Fl::box_dy(box());
+	w -= Fl::box_dw(box());
+	h -= Fl::box_dh(box());
+
+	inp->resize(x, y, w - h, h);
+	but->resize(x + w - h, y, h, h);
 }
 
 int fl_browser_input::handle(const int e) {

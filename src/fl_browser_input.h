@@ -30,6 +30,8 @@ public:
 
 	int handle(int) override;
 
+	void resize(int, int, int, int) override;
+
 	class arrowbrow: public Fl_Hold_Browser {
 	public:
 		arrowbrow(int x, int y, int w, int h): Fl_Hold_Browser(x, y, w, h) {}

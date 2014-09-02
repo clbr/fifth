@@ -156,15 +156,11 @@ static void urlResults() {
 
 	struct res {
 		const char *url; // static
-		const char *name; // malloced
+		string name;
 		u32 score;
 
 		bool operator <(const res &other) const {
 			return score > other.score; // Descending order
-		}
-
-		~res() {
-			free((char *) name);
 		}
 	};
 
@@ -177,7 +173,7 @@ static void urlResults() {
 		if (ret < 1)
 			continue;
 
-		res r = {g->history->getURL(i), strdup("(history)"), (u32) ret};
+		res r = {g->history->getURL(i), "(history)", (u32) ret};
 		results.push_back(r);
 	}
 
@@ -197,10 +193,11 @@ static void urlResults() {
 		if (ret + ret2 < 1)
 			continue;
 
-		char *ptr;
-		asprintf(&ptr, "%s (bookmark)", cur.name);
+		char tmp[160];
+		snprintf(tmp, 160, "%s (bookmark)", cur.name);
+		tmp[159] = '\0';
 
-		res r = {cur.url, ptr, (u32) ret + ret2};
+		res r = {cur.url, tmp, (u32) ret + ret2};
 		results.push_back(r);
 	}
 
@@ -222,7 +219,7 @@ static void urlResults() {
 
 	for (i = 0; i < max; i++) {
 		char tmp[640];
-		snprintf(tmp, 640, "%s\t%s", results[i].url, results[i].name);
+		snprintf(tmp, 640, "%s\t%s", results[i].url, results[i].name.c_str());
 		tmp[639] = '\0';
 		g->url->url->list->add(tmp);
 	}

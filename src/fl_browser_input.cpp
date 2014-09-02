@@ -79,7 +79,7 @@ fl_browser_input::fl_browser_input(int x, int y, int w, int h): Fl_Group(x, y, w
 	inp = new inputplace(x, y, w - h, h);
 	inp->box(FL_FLAT_BOX);
 	inp->placeholder("moi");
-	inp->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
+	inp->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED | FL_WHEN_CHANGED);
 
 	but = new Fl_Button(x + w - h, y, h, h);
 	but->label("@-22>");

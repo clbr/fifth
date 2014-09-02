@@ -28,13 +28,13 @@ public:
 	fl_browser_input(int x, int y, int w, int h);
 	virtual ~fl_browser_input() {}
 
-	int handle(int);
+	int handle(int) override;
 
 	class arrowbrow: public Fl_Hold_Browser {
 	public:
 		arrowbrow(int x, int y, int w, int h): Fl_Hold_Browser(x, y, w, h) {}
 
-		int handle(int);
+		int handle(int) override;
 	};
 
 	Fl_Double_Window *win;

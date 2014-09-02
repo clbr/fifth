@@ -203,6 +203,7 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	refresh = new urlbutton(0, 0, 10, 10);
 
 	url = new fl_browser_input(0, 0, 10, 10);
+	begin(); // We need to still be current
 	search = new textweb(0, 0, 10, 10);
 
 	tabs = new urlbutton(0, 0, 10, 10);

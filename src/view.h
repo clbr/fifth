@@ -52,7 +52,8 @@ public:
 	void refreshdownloads(const bool force = false);
 
 	void regenbookmarks();
-	const Fl_Tree_Item *selectedbookmark() const;
+	Fl_Tree_Item *selectedbookmark() const;
+	void removetree(Fl_Tree_Item *);
 
 	const dl *selecteddl() const;
 private:

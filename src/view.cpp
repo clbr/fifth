@@ -202,7 +202,7 @@ static void bookeditcb(Fl_Widget *, void *) {
 }
 
 static void bookdelcb(Fl_Widget *, void *) {
-	const Fl_Tree_Item * const item = g->v->selectedbookmark();
+	Fl_Tree_Item * const item = g->v->selectedbookmark();
 	if (!item)
 		return;
 
@@ -210,7 +210,7 @@ static void bookdelcb(Fl_Widget *, void *) {
 	if (!mark)
 		return;
 
-	printf("Would delete %s TODO\n", mark->name);
+	g->v->removetree(item);
 }
 
 static void bookapplycb(Fl_Widget *, void *) {
@@ -281,6 +281,7 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	bookapply = new Fl_Button(bookdel->x() + STOPW + 3, y + 3, REDOW, DLBUTTONH);
 	bookapply->label(_("Apply changes"));
 	bookapply->callback(bookapplycb);
+	bookapply->deactivate();
 	bookapply->show();
 
 	bookmarks = new Fl_Tree(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
@@ -921,6 +922,7 @@ void view::drawbookmarks() {
 void view::regenbookmarks() {
 
 	bookmarks->clear();
+	bookapply->deactivate();
 
 	const u32 max = g->bookmarks.size();
 	u32 i;
@@ -968,6 +970,11 @@ void view::regenbookmarks() {
 		if (item->has_children()) item->usericon(folder);
 }
 
-const Fl_Tree_Item *view::selectedbookmark() const {
+Fl_Tree_Item *view::selectedbookmark() const {
 	return bookmarks->first_selected_item();
+}
+
+void view::removetree(Fl_Tree_Item *item) {
+	bookmarks->remove(item);
+	bookapply->activate();
 }

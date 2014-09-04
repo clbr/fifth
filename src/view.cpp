@@ -886,7 +886,7 @@ void view::refreshdownloads(const bool force) {
 }
 
 void view::drawbookmarks() {
-
+	Fl_Group::draw();
 }
 
 void view::regenbookmarks() {

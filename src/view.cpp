@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main.h"
 #include <FL/fl_ask.H>
 #include <FL/Fl_Hold_Browser.H>
+#include <FL/Fl_Tree.H>
 
 #define SSLCHECKFWD "ilovebieber"
 #define SSLCHECKBACK "rebeibevoli"
@@ -187,6 +188,15 @@ static void dlbrowsercb(Fl_Widget *w, void *) {
 	g->v->redraw();
 }
 
+static void bookeditcb(Fl_Widget *w, void *) {
+}
+
+static void bookdelcb(Fl_Widget *w, void *) {
+}
+
+static void bookapplycb(Fl_Widget *w, void *) {
+}
+
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 		mousex(0), mousey(0), mousein(false), downloads(UINT_MAX) {
 
@@ -237,6 +247,25 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	dlgroup->end();
 
 	bookgroup = new Fl_Group(x, y, w, h);
+
+	bookedit = new Fl_Button(x + 3, y + 3, STOPW, DLBUTTONH);
+	bookedit->label(_("Edit"));
+	bookedit->callback(bookeditcb);
+	bookedit->show();
+
+	bookdel = new Fl_Button(x + 3 + STOPW + 3, y + 3, STOPW, DLBUTTONH);
+	bookdel->label(_("Delete"));
+	bookdel->callback(bookdelcb);
+	bookdel->show();
+
+	bookapply = new Fl_Button(bookdel->x() + STOPW + 3, y + 3, REDOW, DLBUTTONH);
+	bookapply->label(_("Apply changes"));
+	bookapply->callback(bookapplycb);
+	bookapply->show();
+
+	bookmarks = new Fl_Tree(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
+
+	bookgroup->resizable(bookmarks);
 	bookgroup->end();
 
 	end();

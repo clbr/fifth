@@ -15,8 +15,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "main.h"
-#include <FL/Fl_Return_Button.H>
+#include <FL/Fl_Box.H>
 #include <FL/Fl_Choice.H>
+#include <FL/Fl_Return_Button.H>
 
 #define BOOKMARKFILE "bookmarks"
 
@@ -199,4 +200,41 @@ void addbookmark() {
 	addwin->show();
 	name->take_focus();
 	name->position(0, name->size());
+}
+
+static Fl_Double_Window *bookedit_win=(Fl_Double_Window *)0;
+static Fl_Input *bookedit_name=(Fl_Input *)0;
+static Fl_Input *bookedit_url=(Fl_Input *)0;
+
+static void bookedit_cancel(Fl_Widget*, void*) {
+	bookedit_win->hide();
+}
+
+static void bookedit_ok(Fl_Widget*, void*) {
+	bookedit_win->hide();
+}
+
+void editbookmark(bookmark * const ptr) {
+	if (!bookedit_win) {
+		bookedit_win = new Fl_Double_Window(350, 180, _("Edit bookmark"));
+		{ bookedit_name = new Fl_Input(60, 20, 265, 25, _("Name:"));
+		} // Fl_Input* bookedit_name
+		{ bookedit_url = new Fl_Input(60, 55, 265, 25, _("URL:"));
+		} // Fl_Input* bookedit_url
+		{ Fl_Box* o = new Fl_Box(60, 80, 265, 50, _("URL changes get applied immediately."));
+			o->align(FL_ALIGN_WRAP);
+		} // Fl_Box* o
+		{ Fl_Button * o = new Fl_Button(60, 130, 115, 30, _("OK"));
+			o->callback(bookedit_ok);
+		} // Fl_Button* o
+		{ Fl_Button* o = new Fl_Button(195, 130, 115, 30, _("Cancel"));
+			o->callback(bookedit_cancel);
+		} // Fl_Button* o
+		bookedit_win->end();
+	} // Fl_Double_Window* bookedit_win
+
+	bookedit_name->value(ptr->name);
+	bookedit_url->value(ptr->url);
+
+	bookedit_win->show();
 }

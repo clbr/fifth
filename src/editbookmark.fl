@@ -1,0 +1,36 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0110 
+i18n_type 1 
+i18n_include "main.h" 
+i18n_function _ 
+header_name {.h} 
+code_name {.cxx}
+Function {make_window()} {open
+} {
+  Fl_Window bookedit_win {
+    label {Edit bookmark} open selected
+    private xywh {379 398 350 180} type Double visible
+  } {
+    Fl_Input bookedit_name {
+      label {Name:}
+      private xywh {60 20 265 25}
+    }
+    Fl_Input bookedit_url {
+      label {URL:}
+      private xywh {60 55 265 25}
+    }
+    Fl_Box {} {
+      label {URL changes get applied immediately.}
+      xywh {60 80 265 50} align 128
+    }
+    Fl_Button {} {
+      label OK
+      xywh {60 130 115 30}
+    }
+    Fl_Button {} {
+      label Cancel
+      callback {parent()->hide();}
+      xywh {195 130 115 30}
+    }
+  }
+} 

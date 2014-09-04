@@ -983,6 +983,8 @@ void view::removetree(Fl_Tree_Item *item) {
 void view::applytree() {
 
 	for (Fl_Tree_Item *item = bookmarks->first(); item; item=item->next()) {
+		if (item == bookmarks->root())
+			continue;
 		printf("Would apply %s\n", item->label());
 	}
 

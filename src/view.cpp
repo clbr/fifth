@@ -265,7 +265,6 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 
 	bookmarks = new Fl_Tree(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 
-	bookgroup->resizable(bookmarks);
 	bookgroup->end();
 
 	end();
@@ -345,6 +344,12 @@ void view::resize(int x, int y, int w, int h) {
 	widths[4] = others;
 	widths[5] = 0;
 	dlbrowser->column_widths(widths);
+
+	// Bookmark ones
+	bookedit->position(x + 3, y + 3);
+	bookdel->position(x + 3 + STOPW + 3, y + 3);
+	bookapply->position(bookdel->x() + STOPW + 3, y + 3);
+	bookmarks->resize(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 
 	// Invalidate speed dial icons on resize
 	for (i = 0; i < 9; i++) {
@@ -886,7 +891,10 @@ void view::refreshdownloads(const bool force) {
 }
 
 void view::drawbookmarks() {
-	Fl_Group::draw();
+	draw_child(*bookedit);
+	draw_child(*bookdel);
+	draw_child(*bookapply);
+	draw_child(*bookmarks);
 }
 
 void view::regenbookmarks() {

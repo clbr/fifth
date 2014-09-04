@@ -265,6 +265,7 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	bookapply->show();
 
 	bookmarks = new Fl_Tree(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
+	bookmarks->showroot(0);
 
 	bookgroup->end();
 
@@ -900,10 +901,50 @@ void view::drawbookmarks() {
 
 void view::regenbookmarks() {
 
-	//bookmarks->clear();
+	bookmarks->clear();
 
-	// Once created, assign folder icons (TODO, do in create phase)
+	const u32 max = g->bookmarks.size();
+	u32 i;
+	u32 depth = 0;
+	string dirs[32];
+
+	for (i = 0; i < max; i++) {
+		const bookmark &cur = g->bookmarks[i];
+
+		if (!cur.name) {
+			depth--;
+		} else if (!cur.url) {
+			depth++;
+			if (depth >= 32)
+				die("Too deep bookmark hierarchy\n");
+			dirs[depth] = cur.name;
+
+			string tmp;
+			u32 d;
+			for (d = 1; d <= depth - 1; d++) {
+				tmp += dirs[d];
+				tmp += "/";
+			}
+			tmp += cur.name;
+
+			Fl_Tree_Item * const it = bookmarks->add(tmp.c_str());
+			it->user_data(&g->bookmarks[i]);
+		} else {
+			string tmp;
+			u32 d;
+			for (d = 1; d <= depth; d++) {
+				tmp += dirs[d];
+				tmp += "/";
+			}
+			tmp += cur.name;
+
+			Fl_Tree_Item * const it = bookmarks->add(tmp.c_str());
+			it->user_data(&g->bookmarks[i]);
+		}
+	}
+
+	// Once created, assign folder icons
 	Fl_Image *folder = Fl_Shared_Image::get("folder.png");
 	for (Fl_Tree_Item *item = bookmarks->first(); item; item=item->next())
-		item->usericon(folder);
+		if (item->has_children()) item->usericon(folder);
 }

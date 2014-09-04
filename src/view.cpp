@@ -986,11 +986,41 @@ void view::removetree(Fl_Tree_Item *item) {
 
 void view::applytree() {
 
+	vector<bookmark> news;
+	Fl_Tree_Item *lastparent = NULL;
+
 	for (Fl_Tree_Item *item = bookmarks->first(); item; item=item->next()) {
 		if (item == bookmarks->root())
 			continue;
-		printf("Would apply %s\n", item->label());
+
+		const bookmark * const mark = (const bookmark *) item->user_data();
+		if (!mark || !mark->url) { // Dir
+			bookmark tmp;
+			tmp.name = strdup(item->label());
+			tmp.url = NULL;
+			news.push_back(tmp);
+
+			lastparent = item;
+		} else {
+			if (lastparent && lastparent != item->parent()) {
+				bookmark tmp;
+				tmp.name = tmp.url = NULL;
+				news.push_back(tmp);
+
+				lastparent = item->parent();
+			}
+
+			bookmark tmp;
+			tmp.name = strdup(item->label());
+			tmp.url = mark->url;
+			news.push_back(tmp);
+		}
 	}
 
+	g->bookmarks = news;
+
+	savebookmarks();
 	generatemenu();
+	regenbookmarks();
+	bookmarks->redraw();
 }

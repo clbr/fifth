@@ -79,7 +79,7 @@ void savebookmarks() {
 	renameat(g->profilefd, BOOKMARKFILE,
 			g->profilefd, BOOKMARKFILE ".bak");
 
-	const int fd = openat(g->profilefd, BOOKMARKFILE, O_WRONLY);
+	const int fd = openat(g->profilefd, BOOKMARKFILE, O_WRONLY | O_CREAT, 0600);
 	if (fd < 0)
 		die("Failed saving bookmarks\n");
 	FILE * const f = fdopen(fd, "w");

@@ -227,6 +227,7 @@ static void bookedit_ok(Fl_Widget*, void *ptr) {
 
 	g->v->regenbookmarks();
 	g->v->redraw();
+	generatemenu();
 	savebookmarks();
 }
 

@@ -236,6 +236,9 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 
 	dlgroup->end();
 
+	bookgroup = new Fl_Group(x, y, w, h);
+	bookgroup->end();
+
 	end();
 }
 
@@ -255,6 +258,9 @@ void view::draw() {
 		break;
 		case TS_DOWNLOAD:
 			drawdl();
+		break;
+		case TS_BOOKMARKS:
+			drawbookmarks();
 		break;
 		case TS_SSLERR:
 			ssltext->show();
@@ -346,6 +352,10 @@ int view::handle(const int e) {
 		case TS_DOWNLOAD:
 			if (e != FL_UNFOCUS)
 				return dlgroup->handle(e);
+		break;
+		case TS_BOOKMARKS:
+			if (e != FL_UNFOCUS)
+				return bookgroup->handle(e);
 		break;
 		case TS_SSLERR:
 			if (e != FL_UNFOCUS)
@@ -844,4 +854,12 @@ void view::refreshdownloads(const bool force) {
 		last = now;
 		redraw();
 	}
+}
+
+void view::drawbookmarks() {
+
+}
+
+void view::regenbookmarks() {
+
 }

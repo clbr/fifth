@@ -314,6 +314,9 @@ const char *tab::title() const {
 		case TS_SSLERR:
 			return _("Security risk");
 		break;
+		case TS_BOOKMARKS:
+			return _("Edit bookmarks");
+		break;
 		case TS_COUNT:
 			die("Tab corruption\n");
 	}

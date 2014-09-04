@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class Fl_Button;
 class Fl_Input;
 class Fl_Hold_Browser;
+class Fl_Tree;
 class sslview;
 
 struct dl {
@@ -49,11 +50,14 @@ public:
 	void resetssl();
 	void refreshdownloads(const bool force = false);
 
+	void regenbookmarks();
+
 	const dl *selecteddl() const;
 private:
 	void drawdial();
 	void drawssl();
 	void drawdl();
+	void drawbookmarks();
 
 	void dialdims(u32 *, u32 *, u32 *, u32 *, u32 *, u32 *, u32 *) const;
 	void regendl(const std::vector<dl> &vec);
@@ -71,6 +75,10 @@ private:
 	Fl_Button *dlstop, *dlredo, *dlclean;
 	Fl_Hold_Browser *dlbrowser;
 	std::vector<dl> lastdls;
+
+	Fl_Group *bookgroup;
+	Fl_Button *bookedit, *bookdel, *bookapply;
+	Fl_Tree *bookmarks;
 
 	Fl_RGB_Image *dialicons[9], *dialdeicons[9];
 };

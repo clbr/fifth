@@ -42,6 +42,7 @@ enum tabstate {
 	TS_DOWNLOAD,
 	TS_SSLERR,
 	TS_SPEEDDIAL,
+	TS_BOOKMARKS,
 	TS_COUNT
 };
 

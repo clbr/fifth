@@ -177,6 +177,27 @@ static void errorcon(Fl_Widget *, void *) {
 	errorlog();
 }
 
+static void editbookcb(Fl_Widget *, void *) {
+	// Early exit: do nothing if current tab is such
+	if (g->tabs[g->curtab].state == TS_BOOKMARKS)
+		return;
+
+	// Does a bookmarks tab already exist?
+	const u32 max = g->tabs.size();
+	u32 i;
+	for (i = 0; i < max; i++) {
+		if (g->tabs[i].state == TS_BOOKMARKS) {
+			activatetab(i);
+			return;
+		}
+	}
+
+	newtab();
+	g->tabs[g->curtab].state = TS_BOOKMARKS;
+	g->v->regenbookmarks();
+	g->w->redraw();
+}
+
 static void downloadrefresh() {
 	if (g->tabs[g->curtab].state == TS_DOWNLOAD) {
 		g->v->refreshdownloads();
@@ -224,7 +245,7 @@ void generatemenu() {
 	g->menu->add(_("&Edit/Find p&revious"), menukey("keys.findprev"), findprevcb);
 
 	g->menu->add(_("&Bookmarks/&Add bookmark"), menukey("keys.addbookmark"), addbookmarkcb);
-	g->menu->add(_("&Bookmarks/&Edit bookmarks"), 0, 0, 0, FL_MENU_INACTIVE | FL_MENU_DIVIDER);
+	g->menu->add(_("&Bookmarks/&Edit bookmarks"), 0, editbookcb, 0, FL_MENU_DIVIDER);
 
 	u32 i;
 	const u32 max = g->bookmarks.size();

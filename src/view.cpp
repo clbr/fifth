@@ -199,8 +199,6 @@ static void bookeditcb(Fl_Widget *, void *) {
 		return;
 
 	editbookmark(mark);
-	g->v->regenbookmarks();
-	g->v->redraw();
 }
 
 static void bookdelcb(Fl_Widget *, void *) {

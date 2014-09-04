@@ -224,6 +224,10 @@ static void bookedit_ok(Fl_Widget*, void *ptr) {
 		which->url = strdup(bookedit_url->value());
 
 	bookedit_win->hide();
+
+	g->v->regenbookmarks();
+	g->v->redraw();
+	savebookmarks();
 }
 
 void editbookmark(bookmark * const ptr) {

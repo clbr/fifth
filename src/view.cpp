@@ -977,4 +977,5 @@ Fl_Tree_Item *view::selectedbookmark() const {
 void view::removetree(Fl_Tree_Item *item) {
 	bookmarks->remove(item);
 	bookapply->activate();
+	bookmarks->redraw();
 }

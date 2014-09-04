@@ -189,13 +189,32 @@ static void dlbrowsercb(Fl_Widget *w, void *) {
 	g->v->redraw();
 }
 
-static void bookeditcb(Fl_Widget *w, void *) {
+static void bookeditcb(Fl_Widget *, void *) {
+	const Fl_Tree_Item * const item = g->v->selectedbookmark();
+	if (!item)
+		return;
+
+	bookmark * const mark = (bookmark *) item->user_data();
+	if (!mark)
+		return;
+
+	printf("Would edit %s TODO\n", mark->name);
 }
 
-static void bookdelcb(Fl_Widget *w, void *) {
+static void bookdelcb(Fl_Widget *, void *) {
+	const Fl_Tree_Item * const item = g->v->selectedbookmark();
+	if (!item)
+		return;
+
+	bookmark * const mark = (bookmark *) item->user_data();
+	if (!mark)
+		return;
+
+	printf("Would delete %s TODO\n", mark->name);
 }
 
-static void bookapplycb(Fl_Widget *w, void *) {
+static void bookapplycb(Fl_Widget *, void *) {
+	printf("Would apply tree TODO\n");
 }
 
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
@@ -947,4 +966,8 @@ void view::regenbookmarks() {
 	Fl_Image *folder = Fl_Shared_Image::get("folder.png");
 	for (Fl_Tree_Item *item = bookmarks->first(); item; item=item->next())
 		if (item->has_children()) item->usericon(folder);
+}
+
+const Fl_Tree_Item *view::selectedbookmark() const {
+	return bookmarks->first_selected_item();
 }

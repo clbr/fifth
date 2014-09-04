@@ -23,6 +23,7 @@ class Fl_Button;
 class Fl_Input;
 class Fl_Hold_Browser;
 class Fl_Tree;
+class Fl_Tree_Item;
 class sslview;
 
 struct dl {
@@ -51,6 +52,7 @@ public:
 	void refreshdownloads(const bool force = false);
 
 	void regenbookmarks();
+	const Fl_Tree_Item *selectedbookmark() const;
 
 	const dl *selecteddl() const;
 private:

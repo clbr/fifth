@@ -217,6 +217,10 @@ static void bookapplycb(Fl_Widget *, void *) {
 	g->v->applytree();
 }
 
+static void bookdircb(Fl_Widget *, void *) {
+	// TODO
+}
+
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 		mousex(0), mousey(0), mousein(false), downloads(UINT_MAX) {
 
@@ -242,7 +246,6 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	dlstop->label(_(" Stop"));
 	dlstop->callback(dlstopcb);
 	dlstop->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
-	dlstop->show();
 
 	dlredo = new Fl_Button(x + 3 + STOPW + 3, y + 3, REDOW, DLBUTTONH);
 	dlredo->image(Fl_Shared_Image::get("refresh.png"));
@@ -250,7 +253,6 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	dlredo->label(_(" Redownload"));
 	dlredo->callback(dlredocb);
 	dlredo->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
-	dlredo->show();
 
 	dlclean = new Fl_Button(dlredo->x() + REDOW + 3, y + 3, 120, DLBUTTONH);
 	dlclean->image(Fl_Shared_Image::get("arrange.png"));
@@ -258,7 +260,6 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	dlclean->tooltip(_("Remove all finished downloads from the list."));
 	dlclean->callback(dlcleancb);
 	dlclean->align(FL_ALIGN_CENTER | FL_ALIGN_IMAGE_NEXT_TO_TEXT);
-	dlclean->show();
 
 	dlbrowser = new delbrowser(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 	dlbrowser->column_char('\t');
@@ -271,18 +272,19 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	bookedit = new Fl_Button(x + 3, y + 3, STOPW, DLBUTTONH);
 	bookedit->label(_("Edit"));
 	bookedit->callback(bookeditcb);
-	bookedit->show();
 
 	bookdel = new Fl_Button(x + 3 + STOPW + 3, y + 3, STOPW, DLBUTTONH);
 	bookdel->label(_("Delete"));
 	bookdel->callback(bookdelcb);
-	bookdel->show();
 
 	bookapply = new Fl_Button(bookdel->x() + STOPW + 3, y + 3, REDOW, DLBUTTONH);
 	bookapply->label(_("Apply changes"));
 	bookapply->callback(bookapplycb);
 	bookapply->deactivate();
-	bookapply->show();
+
+	bookdir = new Fl_Button(bookapply->x() + REDOW + 3, y + 3, REDOW, DLBUTTONH);
+	bookdir->label(_("New directory"));
+	bookdir->callback(bookdircb);
 
 	bookmarks = new Fl_Tree(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 	bookmarks->showroot(0);
@@ -371,6 +373,7 @@ void view::resize(int x, int y, int w, int h) {
 	bookedit->position(x + 3, y + 3);
 	bookdel->position(x + 3 + STOPW + 3, y + 3);
 	bookapply->position(bookdel->x() + STOPW + 3, y + 3);
+	bookdir->position(bookapply->x() + REDOW + 3, y + 3);
 	bookmarks->resize(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 
 	// Invalidate speed dial icons on resize
@@ -916,6 +919,7 @@ void view::drawbookmarks() {
 	draw_child(*bookedit);
 	draw_child(*bookdel);
 	draw_child(*bookapply);
+	draw_child(*bookdir);
 	draw_child(*bookmarks);
 }
 

@@ -319,6 +319,7 @@ urlbar::urlbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
 	new Fl_PNG_Image("newtab.png", img(newtab_png));
 	new Fl_PNG_Image("destop.png", img(destop_png));
 	new Fl_PNG_Image("arrange.png", img(arrange_png));
+	new Fl_PNG_Image("folder.png", img(folder_png));
 	Fl_PNG_Image wmicon("wmicon.png", img(wmicon_png));
 	g->w->icon(&wmicon);
 

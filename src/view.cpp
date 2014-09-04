@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <FL/fl_ask.H>
 #include <FL/Fl_Hold_Browser.H>
 #include <FL/Fl_Tree.H>
+#include <FL/Fl_Tree_Item.H>
 
 #define SSLCHECKFWD "ilovebieber"
 #define SSLCHECKBACK "rebeibevoli"
@@ -899,4 +900,10 @@ void view::drawbookmarks() {
 
 void view::regenbookmarks() {
 
+	//bookmarks->clear();
+
+	// Once created, assign folder icons (TODO, do in create phase)
+	Fl_Image *folder = Fl_Shared_Image::get("folder.png");
+	for (Fl_Tree_Item *item = bookmarks->first(); item; item=item->next())
+		item->usericon(folder);
 }

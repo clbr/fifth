@@ -198,7 +198,9 @@ static void bookeditcb(Fl_Widget *, void *) {
 	if (!mark)
 		return;
 
-	printf("Would edit %s TODO\n", mark->name);
+	editbookmark(mark);
+	g->v->regenbookmarks();
+	g->v->redraw();
 }
 
 static void bookdelcb(Fl_Widget *, void *) {

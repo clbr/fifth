@@ -54,6 +54,7 @@ public:
 	void regenbookmarks();
 	Fl_Tree_Item *selectedbookmark() const;
 	void removetree(Fl_Tree_Item *);
+	void applytree();
 
 	const dl *selecteddl() const;
 private:

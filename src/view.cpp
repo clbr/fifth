@@ -214,7 +214,7 @@ static void bookdelcb(Fl_Widget *, void *) {
 }
 
 static void bookapplycb(Fl_Widget *, void *) {
-	printf("Would apply tree TODO\n");
+	g->v->applytree();
 }
 
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
@@ -978,4 +978,13 @@ void view::removetree(Fl_Tree_Item *item) {
 	bookmarks->remove(item);
 	bookapply->activate();
 	bookmarks->redraw();
+}
+
+void view::applytree() {
+
+	for (Fl_Tree_Item *item = bookmarks->first(); item; item=item->next()) {
+		printf("Would apply %s\n", item->label());
+	}
+
+	generatemenu();
 }

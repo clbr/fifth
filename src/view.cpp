@@ -908,7 +908,7 @@ vector<dl> getdownloads() {
 void view::refreshdownloads(const bool force) {
 	static u64 last = 0;
 	const u64 now = msec();
-	if (now - last > 1000 || force) {
+	if (force || now - last > 1000) {
 		downloads = UINT_MAX;
 		last = now;
 		redraw();

@@ -1019,14 +1019,16 @@ void view::applytree() {
 			tmp.url = NULL;
 			news.push_back(tmp);
 
+			lastparent = item;
+
 			if (!item->next() || item->next()->parent() == item->parent()) {
 				// Add an end-of-dir marker for empty dirs
 				bookmark tmp;
 				tmp.name = tmp.url = NULL;
 				news.push_back(tmp);
-			}
 
-			lastparent = item;
+				lastparent = item->parent();
+			}
 		} else {
 			if (lastparent && lastparent != item->parent()) {
 				bookmark tmp;

@@ -1044,6 +1044,10 @@ void view::applytree() {
 
 void view::newdir() {
 	Fl_Tree_Item * const it = bookmarks->add(_("New directory"));
+	if (!it) {
+		fl_alert(_("Could not create directory. Perhaps a same-named one exists?"));
+		return;
+	}
 
 	Fl_Image *folder = Fl_Shared_Image::get("folder.png");
 	it->usericon(folder);

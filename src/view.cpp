@@ -1059,9 +1059,7 @@ void view::applytree() {
 				lastparent = item->parent();
 			}
 		} else {
-			if (lastparent &&
-				(lastparent != item->parent() ||
-				(!item->next() && item->parent() != bookmarks->root()) )) {
+			if (lastparent && lastparent != item->parent()) {
 				bookmark tmp;
 				tmp.name = tmp.url = NULL;
 				news.push_back(tmp);
@@ -1073,6 +1071,15 @@ void view::applytree() {
 			tmp.name = strdup(item->label());
 			tmp.url = mark->url;
 			news.push_back(tmp);
+
+			if (lastparent && !item->next() &&
+				item->parent() != bookmarks->root()) {
+				bookmark tmp;
+				tmp.name = tmp.url = NULL;
+				news.push_back(tmp);
+
+				lastparent = item->parent();
+			}
 		}
 	}
 

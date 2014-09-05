@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 textweb::textweb(int x, int y, int w, int h): Fl_Input_Choice(x, y, w, h) {
 	input().when(FL_WHEN_ENTER_KEY|FL_WHEN_NOT_CHANGED);
+	menubutton().clear_visible_focus();
 }
 
 void textweb::draw() {

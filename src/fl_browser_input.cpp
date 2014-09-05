@@ -86,6 +86,7 @@ fl_browser_input::fl_browser_input(int x, int y, int w, int h): Fl_Group(x, y, w
 	//but->label("@-32>");
 	but->user_data(this);
 	but->callback(btn_cb);
+	but->clear_visible_focus();
 
 	end();
 

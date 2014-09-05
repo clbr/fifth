@@ -1,0 +1,30 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0110 
+i18n_type 1 
+i18n_include "main.h" 
+i18n_function _ 
+header_name {.h} 
+code_name {.cxx}
+Function {movebookmark(const char *name)} {open return_type void
+} {
+  Fl_Window bookmove_win {
+    label {Move to directory} open
+    private xywh {239 210 430 330} type Double visible
+  } {
+    Fl_Box bookmove_lbl {
+      label {Moving ""}
+      private xywh {17 10 395 30}
+    }
+    Fl_Input bookmove_tree {
+      private xywh {17 40 395 240}
+    }
+    Fl_Button {} {
+      label OK
+      xywh {45 290 130 30}
+    }
+    Fl_Button {} {
+      label Cancel
+      xywh {250 290 130 30}
+    }
+  }
+} 

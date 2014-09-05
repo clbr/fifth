@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Choice.H>
 #include <FL/Fl_Return_Button.H>
+#include <FL/Fl_Tree.H>
 
 #define BOOKMARKFILE "bookmarks"
 
@@ -262,4 +263,55 @@ void editbookmark(bookmark * const ptr) {
 	bookedit_okbtn->user_data(ptr);
 
 	bookedit_win->show();
+}
+
+static void bookmoveok_cb(Fl_Widget *w, void*) {
+	w->parent()->user_data((void *) 1);
+	w->parent()->hide();
+}
+
+static void bookmovecancel_cb(Fl_Widget *w, void*) {
+	w->parent()->user_data(NULL);
+	w->parent()->hide();
+}
+
+Fl_Tree_Item *movebookmark(const char *name) {
+
+	static Fl_Double_Window *bookmove_win=(Fl_Double_Window *)0;
+	static Fl_Box *bookmove_lbl=(Fl_Box *)0;
+	static Fl_Tree *bookmove_tree = NULL;
+
+	if (!bookmove_win) {
+		bookmove_win = new Fl_Double_Window(430, 330, _("Move to directory"));
+		{ bookmove_lbl = new Fl_Box(17, 10, 395, 30, _("Moving \"\""));
+		} // Fl_Box* bookmove_lbl
+		{ bookmove_tree = new Fl_Tree(17, 40, 395, 240);
+		} // Fl_Input* bookmove_tree
+		{ Fl_Button *o = new Fl_Button(45, 290, 130, 30, _("OK"));
+			o->callback(bookmoveok_cb);
+		} // Fl_Button* o
+		{ Fl_Button *o = new Fl_Button(250, 290, 130, 30, _("Cancel"));
+			o->callback(bookmovecancel_cb);
+		} // Fl_Button* o
+		bookmove_win->end();
+	} // Fl_Double_Window* bookmove_win
+
+	bookmove_win->user_data(NULL);
+
+	char tmp[320];
+	snprintf(tmp, 320, "Moving \"%s\"", name);
+	tmp[319] = '\0';
+
+	g->v->listdirs(bookmove_tree);
+	bookmove_lbl->copy_label(tmp);
+
+	bookmove_win->show();
+
+	while (bookmove_win->shown())
+		Fl::wait();
+
+	if (!bookmove_win->user_data())
+		return NULL;
+
+	return bookmove_tree->first_selected_item();
 }

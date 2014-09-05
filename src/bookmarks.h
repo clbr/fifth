@@ -28,6 +28,7 @@ struct bookmark {
 
 void addbookmark();
 void editbookmark(bookmark * const);
+Fl_Tree_Item *movebookmark(const char *name);
 
 void adddial(const u32 which);
 

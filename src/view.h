@@ -55,6 +55,8 @@ public:
 	Fl_Tree_Item *selectedbookmark() const;
 	void removetree(Fl_Tree_Item *);
 	void applytree();
+	void newdir();
+	void movetodir(Fl_Tree_Item *item, Fl_Tree_Item *dir);
 
 	const dl *selecteddl() const;
 private:

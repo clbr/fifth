@@ -218,7 +218,7 @@ static void bookapplycb(Fl_Widget *, void *) {
 }
 
 static void bookdircb(Fl_Widget *, void *) {
-	// TODO
+	g->v->newdir();
 }
 
 static void bookmovecb(Fl_Widget *, void *) {
@@ -1010,6 +1010,12 @@ void view::applytree() {
 			tmp.url = NULL;
 			news.push_back(tmp);
 
+			if (!item->next()) { // Add an end-of-dir marker for a last empty dir
+				bookmark tmp;
+				tmp.name = tmp.url = NULL;
+				news.push_back(tmp);
+			}
+
 			lastparent = item;
 		} else {
 			if (lastparent && lastparent != item->parent()) {
@@ -1033,4 +1039,18 @@ void view::applytree() {
 	generatemenu();
 	regenbookmarks();
 	bookmarks->redraw();
+}
+
+void view::newdir() {
+	Fl_Tree_Item * const it = bookmarks->add(_("New directory"));
+
+	Fl_Image *folder = Fl_Shared_Image::get("folder.png");
+	it->usericon(folder);
+
+	bookapply->activate();
+	bookmarks->redraw();
+}
+
+void view::movetodir(Fl_Tree_Item *item, Fl_Tree_Item *dir) {
+
 }

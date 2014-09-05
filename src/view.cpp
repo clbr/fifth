@@ -1056,7 +1056,9 @@ void view::applytree() {
 				lastparent = item->parent();
 			}
 		} else {
-			if (lastparent && lastparent != item->parent()) {
+			if (lastparent &&
+				(lastparent != item->parent() ||
+				(!item->next() && item->parent() != bookmarks->root()) )) {
 				bookmark tmp;
 				tmp.name = tmp.url = NULL;
 				news.push_back(tmp);

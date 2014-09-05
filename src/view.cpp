@@ -1052,8 +1052,7 @@ void view::newdir() {
 	Fl_Image *folder = Fl_Shared_Image::get("folder.png");
 	it->usericon(folder);
 
-	bookapply->activate();
-	bookmarks->redraw();
+	applytree();
 }
 
 void view::movetodir(Fl_Tree_Item *item, Fl_Tree_Item *dir) {

@@ -225,6 +225,12 @@ static void bookmovecb(Fl_Widget *, void *) {
 	// TODO
 }
 
+static void booktreecb(Fl_Widget *w, void *) {
+	const Fl_Tree * const t = (Fl_Tree *) w;
+	if (t->callback_reason() == FL_TREE_REASON_DRAGGED)
+		g->v->treechanged();
+}
+
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 		mousex(0), mousey(0), mousein(false), downloads(UINT_MAX) {
 
@@ -296,6 +302,8 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 
 	bookmarks = new Fl_Tree(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 	bookmarks->showroot(0);
+	bookmarks->selectmode(FL_TREE_SELECT_SINGLE_DRAGGABLE);
+	bookmarks->callback(booktreecb);
 
 	bookgroup->end();
 
@@ -1057,4 +1065,8 @@ void view::newdir() {
 
 void view::movetodir(Fl_Tree_Item *item, Fl_Tree_Item *dir) {
 
+}
+
+void view::treechanged() {
+	bookapply->activate();
 }

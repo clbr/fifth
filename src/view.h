@@ -57,6 +57,7 @@ public:
 	void applytree();
 	void newdir();
 	void movetodir(Fl_Tree_Item *item, Fl_Tree_Item *dir);
+	void treechanged();
 
 	const dl *selecteddl() const;
 private:

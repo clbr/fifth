@@ -221,6 +221,10 @@ static void bookdircb(Fl_Widget *, void *) {
 	// TODO
 }
 
+static void bookmovecb(Fl_Widget *, void *) {
+	// TODO
+}
+
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 		mousex(0), mousey(0), mousein(false), downloads(UINT_MAX) {
 
@@ -273,18 +277,22 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	bookedit->label(_("Edit"));
 	bookedit->callback(bookeditcb);
 
-	bookdel = new Fl_Button(x + 3 + STOPW + 3, y + 3, STOPW, DLBUTTONH);
+	bookdel = new Fl_Button(bookedit->x() + bookedit->w() + 3, y + 3, STOPW, DLBUTTONH);
 	bookdel->label(_("Delete"));
 	bookdel->callback(bookdelcb);
 
-	bookapply = new Fl_Button(bookdel->x() + STOPW + 3, y + 3, REDOW, DLBUTTONH);
+	bookdir = new Fl_Button(bookdel->x() + bookdel->w() + 3, y + 3, REDOW, DLBUTTONH);
+	bookdir->label(_("New directory"));
+	bookdir->callback(bookdircb);
+
+	bookmove = new Fl_Button(bookdir->x() + bookdir->w() + 3, y + 3, REDOW, DLBUTTONH);
+	bookmove->label(_("Move to directory"));
+	bookmove->callback(bookmovecb);
+
+	bookapply = new Fl_Button(bookmove->x() + bookmove->w() + 3, y + 3, REDOW, DLBUTTONH);
 	bookapply->label(_("Apply changes"));
 	bookapply->callback(bookapplycb);
 	bookapply->deactivate();
-
-	bookdir = new Fl_Button(bookapply->x() + REDOW + 3, y + 3, REDOW, DLBUTTONH);
-	bookdir->label(_("New directory"));
-	bookdir->callback(bookdircb);
 
 	bookmarks = new Fl_Tree(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 	bookmarks->showroot(0);
@@ -371,9 +379,10 @@ void view::resize(int x, int y, int w, int h) {
 
 	// Bookmark ones
 	bookedit->position(x + 3, y + 3);
-	bookdel->position(x + 3 + STOPW + 3, y + 3);
-	bookapply->position(bookdel->x() + STOPW + 3, y + 3);
-	bookdir->position(bookapply->x() + REDOW + 3, y + 3);
+	bookdel->position(bookedit->x() + bookedit->w() + 3, y + 3);
+	bookdir->position(bookdel->x() + bookdel->w() + 3, y + 3);
+	bookmove->position(bookdir->x() + bookdir->w() + 3, y + 3);
+	bookapply->position(bookmove->x() + bookmove->w() + 3, y + 3);
 	bookmarks->resize(x, y + 3 + 3 + DLBUTTONH, w, h - 3 - 3 - DLBUTTONH);
 
 	// Invalidate speed dial icons on resize
@@ -918,8 +927,9 @@ void view::refreshdownloads(const bool force) {
 void view::drawbookmarks() {
 	draw_child(*bookedit);
 	draw_child(*bookdel);
-	draw_child(*bookapply);
 	draw_child(*bookdir);
+	draw_child(*bookmove);
+	draw_child(*bookapply);
 	draw_child(*bookmarks);
 }
 

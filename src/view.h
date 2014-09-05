@@ -81,7 +81,7 @@ private:
 	std::vector<dl> lastdls;
 
 	Fl_Group *bookgroup;
-	Fl_Button *bookedit, *bookdel, *bookapply, *bookdir;
+	Fl_Button *bookedit, *bookdel, *bookdir, *bookmove, *bookapply;
 	Fl_Tree *bookmarks;
 
 	Fl_RGB_Image *dialicons[9], *dialdeicons[9];

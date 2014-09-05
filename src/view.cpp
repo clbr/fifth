@@ -1019,7 +1019,8 @@ void view::applytree() {
 			tmp.url = NULL;
 			news.push_back(tmp);
 
-			if (!item->next()) { // Add an end-of-dir marker for a last empty dir
+			if (!item->next() || item->next()->parent() == item->parent()) {
+				// Add an end-of-dir marker for empty dirs
 				bookmark tmp;
 				tmp.name = tmp.url = NULL;
 				news.push_back(tmp);

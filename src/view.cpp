@@ -231,6 +231,9 @@ static void bookmovecb(Fl_Widget *, void *) {
 	if (!newparent)
 		return;
 
+	if (item == newparent)
+		return;
+
 	item->move_into(newparent, 0);
 	g->v->treechanged();
 	g->v->noitem();

@@ -320,6 +320,14 @@ static const char *httpaccept(const char *url) {
 	return s->val.c;
 }
 
+static const char *httplang(const char *url) {
+	char site[120];
+	url2site(url, site, 120);
+
+	const setting * const s = getSetting("spoof.language", site);
+	return s->val.c;
+}
+
 static void initfavicons() {
 	vector<const char *> vec;
 	vec.reserve(9);
@@ -600,6 +608,7 @@ int main(int argc, char **argv) {
 	wk_set_useragent_func(useragent);
 	wk_set_tz_func(spooftz);
 	wk_set_accept_func(httpaccept);
+	wk_set_language_func(httplang);
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);

@@ -60,6 +60,7 @@ public:
 	void treechanged();
 	void enableditem();
 	void noitem();
+	void listdirs(Fl_Tree *) const;
 
 	const dl *selecteddl() const;
 private:

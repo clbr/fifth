@@ -1100,3 +1100,24 @@ void view::enableditem() {
 	bookdel->activate();
 	bookmove->activate();
 }
+
+void view::listdirs(Fl_Tree *out) const {
+
+	out->clear();
+	out->showroot(1);
+	Fl_Image *folder = Fl_Shared_Image::get("folder.png");
+
+	out->root()->usericon(folder);
+
+	for (Fl_Tree_Item *item = bookmarks->first(); item; item=item->next()) {
+		if (item == bookmarks->root())
+			continue;
+
+		const bookmark * const mark = (const bookmark *) item->user_data();
+		if (!mark || !mark->url) { // Dir
+			Fl_Tree_Item *added = out->add(item->label());
+			added->user_data(item);
+			added->usericon(folder);
+		}
+	}
+}

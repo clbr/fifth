@@ -211,6 +211,7 @@ static void bookdelcb(Fl_Widget *, void *) {
 		return;
 
 	g->v->removetree(item);
+	g->v->noitem();
 }
 
 static void bookapplycb(Fl_Widget *, void *) {
@@ -227,8 +228,20 @@ static void bookmovecb(Fl_Widget *, void *) {
 
 static void booktreecb(Fl_Widget *w, void *) {
 	const Fl_Tree * const t = (Fl_Tree *) w;
-	if (t->callback_reason() == FL_TREE_REASON_DRAGGED)
-		g->v->treechanged();
+	const Fl_Tree_Reason reason = t->callback_reason();
+	switch (reason) {
+		case FL_TREE_REASON_DRAGGED:
+			g->v->treechanged();
+		break;
+		case FL_TREE_REASON_SELECTED:
+			g->v->enableditem();
+		break;
+		case FL_TREE_REASON_DESELECTED:
+			g->v->noitem();
+		break;
+		default:
+		break;
+	}
 }
 
 view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
@@ -308,6 +321,8 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	bookgroup->end();
 
 	end();
+
+	noitem();
 }
 
 void view::draw() {
@@ -1072,4 +1087,16 @@ void view::movetodir(Fl_Tree_Item *item, Fl_Tree_Item *dir) {
 
 void view::treechanged() {
 	bookapply->activate();
+}
+
+void view::noitem() {
+	bookedit->deactivate();
+	bookdel->deactivate();
+	bookmove->deactivate();
+}
+
+void view::enableditem() {
+	bookedit->activate();
+	bookdel->activate();
+	bookmove->activate();
 }

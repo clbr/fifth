@@ -56,7 +56,6 @@ public:
 	void removetree(Fl_Tree_Item *);
 	void applytree();
 	void newdir();
-	void movetodir(Fl_Tree_Item *item, Fl_Tree_Item *dir);
 	void treechanged();
 	void enableditem();
 	void noitem();

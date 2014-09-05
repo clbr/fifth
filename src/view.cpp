@@ -223,7 +223,18 @@ static void bookdircb(Fl_Widget *, void *) {
 }
 
 static void bookmovecb(Fl_Widget *, void *) {
-	// TODO
+	Fl_Tree_Item * const item = g->v->selectedbookmark();
+	if (!item)
+		return;
+
+	Fl_Tree_Item * const newparent = movebookmark(item->label());
+	if (!newparent)
+		return;
+
+	item->move_into(newparent, 0);
+	g->v->treechanged();
+	g->v->noitem();
+	g->v->redraw();
 }
 
 static void booktreecb(Fl_Widget *w, void *) {
@@ -1081,10 +1092,6 @@ void view::newdir() {
 	applytree();
 }
 
-void view::movetodir(Fl_Tree_Item *item, Fl_Tree_Item *dir) {
-
-}
-
 void view::treechanged() {
 	bookapply->activate();
 }
@@ -1107,8 +1114,6 @@ void view::listdirs(Fl_Tree *out) const {
 	out->showroot(1);
 	Fl_Image *folder = Fl_Shared_Image::get("folder.png");
 
-	out->root()->usericon(folder);
-
 	for (Fl_Tree_Item *item = bookmarks->first(); item; item=item->next()) {
 		if (item == bookmarks->root())
 			continue;
@@ -1120,4 +1125,7 @@ void view::listdirs(Fl_Tree *out) const {
 			added->usericon(folder);
 		}
 	}
+
+	out->root()->usericon(folder);
+	out->root()->user_data(bookmarks->root());
 }

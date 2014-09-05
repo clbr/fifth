@@ -313,5 +313,8 @@ Fl_Tree_Item *movebookmark(const char *name) {
 	if (!bookmove_win->user_data())
 		return NULL;
 
-	return bookmove_tree->first_selected_item();
+	Fl_Tree_Item *picked = bookmove_tree->first_selected_item();
+	if (!picked)
+		return NULL;
+	return (Fl_Tree_Item *) picked->user_data();
 }

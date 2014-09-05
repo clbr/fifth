@@ -306,6 +306,12 @@ static const char *useragent(const char *url) {
 	return s->val.c;
 }
 
+static int spooftz() {
+	// Webkit caches the timezone, so having it per-site wouldn't work.
+	const setting * const s = getSetting("spoof.timezone");
+	return s->val.u;
+}
+
 static void initfavicons() {
 	vector<const char *> vec;
 	vec.reserve(9);
@@ -584,6 +590,7 @@ int main(int argc, char **argv) {
 	initfavicons();
 	wk_set_cache_dir(g->profilepath);
 	wk_set_useragent_func(useragent);
+	wk_set_tz_func(spooftz);
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);

@@ -981,7 +981,8 @@ void view::regenbookmarks() {
 	// Once created, assign folder icons
 	Fl_Image *folder = Fl_Shared_Image::get("folder.png");
 	for (Fl_Tree_Item *item = bookmarks->first(); item; item=item->next())
-		if (item->has_children()) item->usericon(folder);
+		if (item->has_children() || !item->user_data() ||
+			!((bookmark *)item->user_data())->url) item->usericon(folder);
 }
 
 Fl_Tree_Item *view::selectedbookmark() const {

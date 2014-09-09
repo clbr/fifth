@@ -24,8 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
 
-void persitewindow();
-
 static Fl_Double_Window *pswin=(Fl_Double_Window *)0;
 
 static Fl_Input *pssite=(Fl_Input *)0;

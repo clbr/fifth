@@ -57,8 +57,7 @@ static void cb_psok(Fl_Widget *w, void*) {
 
 void persitewindow(const char * const site) {
 
-	static const Fl_Menu_Item menu_tristate[] = {
-		{_("Auto"), 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+	static const Fl_Menu_Item menu_bool[] = {
 		{_("Off"), 0,	0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
 		{_("On"), 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
 		{0,0,0,0,0,0,0,0,0}
@@ -72,18 +71,18 @@ void persitewindow(const char * const site) {
 				} // Fl_Input* pssite
 				{ pscss = new Fl_Choice(112, 125, 380, 25, _("CSS:"));
 					pscss->down_box(FL_BORDER_BOX);
-					pscss->menu(menu_tristate);
+					pscss->menu(menu_bool);
 				} // Fl_Choice* pscss
 				{ Fl_Box* o = new Fl_Box(85, 105, 400, 2);
 					o->box(FL_THIN_DOWN_BOX);
 				} // Fl_Box* o
 				{ psjs = new Fl_Choice(112, 160, 380, 25, _("Javascript:"));
 					psjs->down_box(FL_BORDER_BOX);
-					psjs->menu(menu_tristate);
+					psjs->menu(menu_bool);
 				} // Fl_Choice* psjs
 				{ psimg = new Fl_Choice(112, 195, 380, 25, _("Images:"));
 					psimg->down_box(FL_BORDER_BOX);
-					psimg->menu(menu_tristate);
+					psimg->menu(menu_bool);
 				} // Fl_Choice* psimg
 				{ Fl_Box* o = new Fl_Box(85, 240, 400, 2);
 					o->box(FL_THIN_DOWN_BOX);
@@ -129,6 +128,32 @@ void persitewindow(const char * const site) {
 	} // Fl_Double_Window* pswin
 
 	// Init values
+	const setting *s;
+	pssite->value(site);
+
+	s = getSetting("general.css", site);
+	pscss->value(!!s->val.u);
+
+	s = getSetting("general.javascript", site);
+	psjs->value(!!s->val.u);
+
+	s = getSetting("general.images", site);
+	psimg->value(!!s->val.u);
+
+	// Cookies tab
+
+	// Spoof tab
+	s = getSetting("spoof.accept", site);
+	psspoofaccept->value(s->val.c);
+
+	s = getSetting("spoof.language", site);
+	psspooflang->value(s->val.c);
+
+	s = getSetting("spoof.timezone", site);
+	psspooftz->value(s->val.c);
+
+	s = getSetting("spoof.useragent", site);
+	psspoofua->value(s->val.c);
 
 	pswin->show();
 }

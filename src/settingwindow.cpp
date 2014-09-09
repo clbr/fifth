@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 #include <FL/Fl.H>
+#include <FL/fl_ask.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Tabs.H>
 #include <FL/Fl_Group.H>
@@ -166,11 +167,23 @@ static void loadblacklist() {
 }
 
 static void addentry(Fl_Widget *, void *) {
-
+	const char *msg = fl_input(_("Add a new blacklist entry"), "");
+	if (msg)
+		sblacklist->add(msg);
+	sblacklist->redraw();
 }
 
 static void editentry(Fl_Widget *, void *) {
+	const u32 cur = sblacklist->value();
+	if (!cur) {
+		fl_alert(_("No entry selected"));
+		return;
+	}
 
+	const char *msg = fl_input(_("Add a new blacklist entry"), sblacklist->text(cur));
+	if (msg)
+		sblacklist->text(cur, msg);
+	sblacklist->redraw();
 }
 
 void settingswindow() {

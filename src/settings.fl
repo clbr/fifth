@@ -269,5 +269,9 @@ Function {settingswindow()} {open return_type void
       callback {parent()->hide();}
       private xywh {490 435 115 25}
     }
+    Fl_Box {} {
+      label {Some settings may require a restart.}
+      xywh {10 435 340 25}
+    }
   }
 } 

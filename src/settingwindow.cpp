@@ -655,6 +655,8 @@ in here. Note that autocomplete is not yet implemented."));
 		{ Fl_Button* o = new Fl_Button(490, 435, 115, 25, _("Cancel"));
 			o->callback((Fl_Callback*)cb_Cancel);
 		} // Fl_Button* o
+		{ new Fl_Box(10, 435, 340, 25, _("Some settings may require a restart."));
+		}
 		swin->size_range(615, 470, 615, 470);
 		swin->end();
 	} // Fl_Double_Window* swin

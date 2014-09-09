@@ -456,6 +456,12 @@ in here. Note that autocomplete is not yet implemented."));
 	loadblacklist();
 
 	// Advanced programs tab
+	s = getSetting("exec.downloadnotify");
+	sdlnotify->value(s->val.c);
+
+	s = getSetting("exec.open");
+	sdlopen->value(s->val.c);
+
 	// Advanced history tab
 	// Advanced cookies tab
 	// Advanced hotkeys tab

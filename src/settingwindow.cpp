@@ -463,7 +463,14 @@ in here. Note that autocomplete is not yet implemented."));
 	sdlopen->value(s->val.c);
 
 	// Advanced history tab
+	s = getSetting("history.size");
+	shistory->value(s->val.u);
+
+	s = getSetting("cache.disk");
+	scache->value(s->val.u);
+
 	// Advanced cookies tab
+
 	// Advanced hotkeys tab
 
 	swin->show();

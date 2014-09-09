@@ -89,8 +89,83 @@ static Fl_Group *advcookies=(Fl_Group *)0;
 static Fl_Group *advhotkeys=(Fl_Group *)0;
 static Fl_Browser *shotkeys=(Fl_Browser *)0;
 
+class getwin: public Fl_Double_Window {
+public:
+	getwin(): Fl_Double_Window(400, 100), val(0) {
+		label(_("Press the wanted keys..."));
+	}
+
+	int handle(int e) override {
+		if (e == FL_KEYDOWN) {
+			// Skip modifiers
+			const int k = Fl::event_key();
+			if (k == FL_Control_L ||
+				k == FL_Control_R ||
+				k == FL_Meta_L ||
+				k == FL_Meta_R ||
+				k == FL_Alt_L ||
+				k == FL_Alt_R ||
+				k == FL_Shift_L ||
+				k == FL_Shift_R)
+				return Fl_Double_Window::handle(e);
+
+			keybinding key;
+			key.key = k;
+			key.ctrl = Fl::event_ctrl();
+			key.alt = Fl::event_alt();
+			key.shift = Fl::event_shift();
+
+			val = keytou32(key);
+
+			hide();
+			return 1;
+		}
+		return Fl_Double_Window::handle(e);
+	}
+
+	u32 val;
+};
+
+static u32 getkey() {
+	getwin *g = new getwin();
+	g->show();
+	while (g->shown())
+		Fl::wait();
+
+	const u32 val = g->val;
+	delete g;
+	return val;
+}
+
 static void cb_Edithotkey(Fl_Button*, void*) {
-	puts("");
+	const u32 cur = shotkeys->value();
+	if (!cur) {
+		fl_alert(_("No key selected"));
+		return;
+	}
+
+	const char * const which = shotkeys->text(cur);
+	char tmp[120];
+	strncpy(tmp, which, 120);
+	u32 i;
+	for (i = 0; tmp[i]; i++)
+		if (tmp[i] == '\t') {
+			tmp[i] = '\0';
+			break;
+		}
+
+	setting * const s = getSetting(tmp);
+	const u32 val = getkey();
+	s->val.u = val;
+
+	const u32 key = menukey(tmp);
+	char tmp2[120];
+	snprintf(tmp2, 120, "%s\t%s", tmp,
+		fl_shortcut_label(key));
+	tmp2[119] = '\0';
+
+	shotkeys->text(cur, tmp2);
+	shotkeys->redraw();
 }
 
 static void cb_Clearhotkey(Fl_Button*, void*) {

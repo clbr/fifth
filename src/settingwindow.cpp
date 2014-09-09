@@ -78,8 +78,8 @@ static Fl_Input *sdlopen=(Fl_Input *)0;
 static Fl_Group *advhist=(Fl_Group *)0;
 static Fl_Spinner *shistory=(Fl_Spinner *)0;
 
-static void cb_Clear(Fl_Button*, void*) {
-	puts("");
+static void cb_Clear(Fl_Button*, void*) { // Clear history
+	g->history->clear();
 }
 
 static Fl_Spinner *scache=(Fl_Spinner *)0;

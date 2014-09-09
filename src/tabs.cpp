@@ -472,7 +472,7 @@ static void progresscb(webview * const view, float val) {
 	}
 
 	// Is it a finished about:config? A more generic mechanism may be worth it later.
-	if (val > 99 && !strcmp(cur->url, "about:config")) {
+	if (val > 99 && cur->url && !strcmp(cur->url, "about:config")) {
 		cur->web->bindEvent("input", "button", "click", configchange);
 	}
 }

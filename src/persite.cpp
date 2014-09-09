@@ -129,10 +129,12 @@ void persitewindow(const char * const site) {
 		{ Fl_Tabs* o = new Fl_Tabs(0, 0, 570, 390);
 			{ Fl_Group* o = new Fl_Group(0, 40, 570, 350, _("Common"));
 				{ pssite = new Fl_Input(112, 65, 380, 25, _("Site:"));
+					pssite->when(0);
 				} // Fl_Input* pssite
 				{ pscss = new Fl_Choice(112, 125, 380, 25, _("CSS:"));
 					pscss->down_box(FL_BORDER_BOX);
 					pscss->menu(menu_bool);
+					pscss->when(0);
 				} // Fl_Choice* pscss
 				{ Fl_Box* o = new Fl_Box(85, 105, 400, 2);
 					o->box(FL_THIN_DOWN_BOX);
@@ -140,10 +142,12 @@ void persitewindow(const char * const site) {
 				{ psjs = new Fl_Choice(112, 160, 380, 25, _("Javascript:"));
 					psjs->down_box(FL_BORDER_BOX);
 					psjs->menu(menu_bool);
+					psjs->when(0);
 				} // Fl_Choice* psjs
 				{ psimg = new Fl_Choice(112, 195, 380, 25, _("Images:"));
 					psimg->down_box(FL_BORDER_BOX);
 					psimg->menu(menu_bool);
+					psimg->when(0);
 				} // Fl_Choice* psimg
 				{ Fl_Box* o = new Fl_Box(85, 240, 400, 2);
 					o->box(FL_THIN_DOWN_BOX);
@@ -151,10 +155,12 @@ void persitewindow(const char * const site) {
 				{ psusercss = new Fl_Input(112, 260, 380, 25, _("User CSS:"));
 					psusercss->deactivate();
 					psusercss->value(_("Not implemented yet"));
+					psusercss->when(0);
 				} // Fl_Input* psusercss
 				{ psuserjs = new Fl_Input(112, 300, 380, 25, _("User JS:"));
 					psuserjs->deactivate();
 					psuserjs->value(_("Not implemented yet"));
+					psuserjs->when(0);
 				} // Fl_Input* psuserjs
 				o->end();
 			} // Fl_Group* o
@@ -167,12 +173,16 @@ void persitewindow(const char * const site) {
 			{ Fl_Group* o = new Fl_Group(0, 40, 535, 350, _("Spoofing"));
 				o->hide();
 				{ psspoofaccept = new Fl_Input(140, 65, 380, 25, _("Accept header:"));
+					psspoofaccept->when(0);
 				} // Fl_Input* psspoofaccept
 				{ psspooflang = new Fl_Input(140, 100, 380, 25, _("Language header:"));
+					psspooflang->when(0);
 				} // Fl_Input* psspooflang
 				{ psspooftz = new Fl_Input(140, 135, 380, 25, _("Timezone:"));
+					psspooftz->when(0);
 				} // Fl_Input* psspooftz
 				{ psspoofua = new Fl_Input(140, 170, 380, 25, _("User-agent:"));
+					psspoofua->when(0);
 				} // Fl_Input* psspooftz
 				o->end();
 			} // Fl_Group* o

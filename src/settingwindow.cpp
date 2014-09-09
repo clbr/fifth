@@ -440,12 +440,15 @@ void settingswindow() {
 				{ sstartup = new Fl_Choice(115, 80, 380, 25, _("Startup:"));
 					sstartup->down_box(FL_BORDER_BOX);
 					sstartup->menu(menu_sstartup);
+					sstartup->when(0);
 				} // Fl_Choice* sstartup
 				{ shomepage = new Fl_Input(115, 115, 380, 25, _("Home page:"));
+					shomepage->when(0);
 				} // Fl_Input* shomepage
 				{ scss = new Fl_Choice(117, 180, 380, 25, _("CSS:"));
 					scss->down_box(FL_BORDER_BOX);
 					scss->menu(menu_bool);
+					scss->when(0);
 				} // Fl_Choice* scss
 				{ Fl_Box* o = new Fl_Box(107, 160, 400, 2);
 					o->box(FL_THIN_DOWN_BOX);
@@ -453,10 +456,12 @@ void settingswindow() {
 				{ sjs = new Fl_Choice(117, 215, 380, 25, _("Javascript:"));
 					sjs->down_box(FL_BORDER_BOX);
 					sjs->menu(menu_bool);
+					sjs->when(0);
 				} // Fl_Choice* sjs
 				{ simg = new Fl_Choice(117, 250, 380, 25, _("Images:"));
 					simg->down_box(FL_BORDER_BOX);
 					simg->menu(menu_bool);
+					simg->when(0);
 				} // Fl_Choice* simg
 				{ Fl_Box* o = new Fl_Box(107, 295, 400, 2);
 					o->box(FL_THIN_DOWN_BOX);
@@ -464,10 +469,12 @@ void settingswindow() {
 				{ susercss = new Fl_Input(117, 315, 380, 25, _("User CSS:"));
 					susercss->deactivate();
 					susercss->value(_("Not implemented yet"));
+					susercss->when(0);
 				} // Fl_Input* susercss
 				{ suserjs = new Fl_Input(117, 355, 380, 25, _("User JS:"));
 					suserjs->deactivate();
 					suserjs->value(_("Not implemented yet"));
+					suserjs->when(0);
 				} // Fl_Input* suserjs
 				o->end();
 			} // Fl_Group* o
@@ -479,56 +486,75 @@ in here. Note that autocomplete is not yet implemented."));
 					o->align(132|FL_ALIGN_INSIDE);
 				} // Fl_Box* o
 				{ sfill0 = new Fl_Input(30, 160, 250, 25);
+					sfill0->when(0);
 				} // Fl_Input* sfill0
 				{ sfill1 = new Fl_Input(30, 198, 250, 25);
+					sfill1->when(0);
 				} // Fl_Input* sfill1
 				{ sfill2 = new Fl_Input(30, 237, 250, 25);
+					sfill2->when(0);
 				} // Fl_Input* sfill2
 				{ sfill3 = new Fl_Input(30, 276, 250, 25);
+					sfill3->when(0);
 				} // Fl_Input* sfill3
 				{ sfill4 = new Fl_Input(30, 315, 250, 25);
+					sfill4->when(0);
 				} // Fl_Input* sfill4
 				{ sfill5 = new Fl_Input(325, 160, 250, 25);
+					sfill5->when(0);
 				} // Fl_Input* sfill5
 				{ sfill6 = new Fl_Input(325, 198, 250, 25);
+					sfill6->when(0);
 				} // Fl_Input* sfill6
 				{ sfill7 = new Fl_Input(325, 237, 250, 25);
+					sfill7->when(0);
 				} // Fl_Input* sfill7
 				{ sfill8 = new Fl_Input(325, 276, 250, 25);
+					sfill8->when(0);
 				} // Fl_Input* sfill8
 				{ sfill9 = new Fl_Input(325, 315, 250, 25);
+					sfill9->when(0);
 				} // Fl_Input* sfill9
 				o->end();
 			} // Fl_Group* o
 			{ Fl_Group* o = new Fl_Group(0, 40, 615, 380, _("Spoofing"));
 				o->hide();
 				{ sspoofaccept = new Fl_Input(170, 65, 420, 25, _("Accept header:"));
+					sspoofaccept->when(0);
 				} // Fl_Input* sspoofaccept
 				{ sspooflang = new Fl_Input(170, 100, 420, 25, _("Language header:"));
+					sspooflang->when(0);
 				} // Fl_Input* sspooflang
 				{ sspooftz = new Fl_Input(170, 135, 420, 25, _("Timezone:"));
+					sspooftz->when(0);
 				} // Fl_Input* sspooftz
 				{ sspoofua = new Fl_Input(170, 170, 420, 25, _("User-agent:"));
+					sspoofua->when(0);
 				} // Fl_Input* sspoofua
 				o->end();
 			} // Fl_Group* o
 			{ Fl_Group* o = new Fl_Group(0, 40, 615, 380, _("Looks"));
 				o->hide();
 				{ sfont = new Fl_Input(157, 65, 380, 25, _("Default font:"));
+					sfont->when(0);
 				} // Fl_Input* sfont
 				{ sfixed = new Fl_Input(155, 101, 380, 25, _("Fixed font:"));
+					sfixed->when(0);
 				} // Fl_Input* sfixed
 				{ sfontsize = new Fl_Spinner(155, 137, 380, 25, _("Default font size:"));
 					sfontsize->minimum(8);
 					sfontsize->maximum(128);
+					sfontsize->when(0);
 				} // Fl_Spinner* sfontsize
 				{ sfixedsize = new Fl_Spinner(155, 173, 380, 25, _("Default fixed size:"));
 					sfixedsize->minimum(8);
 					sfixedsize->maximum(128);
+					sfixedsize->when(0);
 				} // Fl_Spinner* sfixedsize
 				{ sminfontsize = new Fl_Spinner(155, 210, 380, 25, _("Minimum font size:"));
 					sminfontsize->minimum(8);
 					sminfontsize->maximum(128);
+					sminfontsize->when(0);
 				} // Fl_Spinner* sminfontsize
 				o->end();
 			} // Fl_Group* o
@@ -560,9 +586,11 @@ in here. Note that autocomplete is not yet implemented."));
 					advprog->hide();
 					{ sdlnotify = new Fl_Input(305, 70, 300, 25, _("Download notification program:"));
 						sdlnotify->align(132);
+						sdlnotify->when(0);
 					} // Fl_Input* sdlnotify
 					{ sdlopen = new Fl_Input(305, 110, 300, 25, _("Open downloads with:"));
 						sdlopen->align(132);
+						sdlopen->when(0);
 					} // Fl_Input* sdlopen
 					advprog->end();
 				} // Fl_Group* advprog
@@ -573,6 +601,7 @@ in here. Note that autocomplete is not yet implemented."));
 						shistory->maximum(10000);
 						shistory->step(100);
 						shistory->value(100);
+						shistory->when(0);
 					} // Fl_Spinner* shistory
 					{ Fl_Button* o = new Fl_Button(395, 105, 180, 25, _("Clear history"));
 						o->callback((Fl_Callback*)cb_Clear);
@@ -580,6 +609,7 @@ in here. Note that autocomplete is not yet implemented."));
 					{ scache = new Fl_Spinner(395, 175, 180, 25, _("Cache size (megabytes):"));
 						scache->maximum(1000);
 						scache->value(20);
+						scache->when(0);
 					} // Fl_Spinner* scache
 					advhist->end();
 				} // Fl_Group* advhist

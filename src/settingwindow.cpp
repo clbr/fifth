@@ -106,6 +106,34 @@ static void cb_Cancel(Fl_Button *b, void*) {
 	b->window()->hide();
 }
 
+static void advancedcb(Fl_Widget *w, void*) {
+	Fl_Browser *b = (Fl_Browser *) w;
+
+	advfilter->hide();
+	advprog->hide();
+	advhist->hide();
+	advcookies->hide();
+	advhotkeys->hide();
+
+	switch (b->value()) {
+		case 1:
+			advfilter->show();
+		break;
+		case 2:
+			advprog->show();
+		break;
+		case 3:
+			advhist->show();
+		break;
+		case 4:
+			advcookies->show();
+		break;
+		case 5:
+			advhotkeys->show();
+		break;
+	}
+}
+
 void settingswindow() {
 
 	static const Fl_Menu_Item menu_bool[] = {
@@ -222,6 +250,7 @@ in here. Note that autocomplete is not yet implemented."));
 					o->add(_("History"));
 					o->add(_("Cookies"));
 					o->add(_("Hotkeys"));
+					o->callback(advancedcb);
 				} // Fl_Browser* o
 				{ advfilter = new Fl_Group(155, 45, 455, 375);
 					advfilter->hide();

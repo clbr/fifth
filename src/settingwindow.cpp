@@ -89,12 +89,32 @@ static Fl_Group *advcookies=(Fl_Group *)0;
 static Fl_Group *advhotkeys=(Fl_Group *)0;
 static Fl_Browser *shotkeys=(Fl_Browser *)0;
 
-static void cb_Edit(Fl_Button*, void*) { // edit this hotkey
+static void cb_Edithotkey(Fl_Button*, void*) {
 	puts("");
 }
 
-static void cb_Clear1(Fl_Button*, void*) { // clear this hotkey
-	puts("");
+static void cb_Clearhotkey(Fl_Button*, void*) {
+	const u32 cur = shotkeys->value();
+	if (!cur) {
+		fl_alert(_("No key selected"));
+		return;
+	}
+
+	const char * const which = shotkeys->text(cur);
+	char tmp[120];
+	strncpy(tmp, which, 120);
+	u32 i;
+	for (i = 0; tmp[i]; i++)
+		if (tmp[i] == '\t') {
+			tmp[i] = '\0';
+			break;
+		}
+
+	setting * const s = getSetting(tmp);
+	s->val.u = 0;
+
+	shotkeys->text(cur, tmp);
+	shotkeys->redraw();
 }
 
 static void cb_OK(Fl_Button *b, void*) {
@@ -359,10 +379,10 @@ in here. Note that autocomplete is not yet implemented."));
 						shotkeys->column_widths(wid);
 					} // Fl_Browser* shotkeys
 					{ Fl_Button* o = new Fl_Button(290, 390, 150, 25, _("Edit hotkey"));
-						o->callback((Fl_Callback*)cb_Edit);
+						o->callback((Fl_Callback*)cb_Edithotkey);
 					} // Fl_Button* o
 					{ Fl_Button* o = new Fl_Button(450, 390, 150, 25, _("Clear hotkey"));
-						o->callback((Fl_Callback*)cb_Clear1);
+						o->callback((Fl_Callback*)cb_Clearhotkey);
 					} // Fl_Button* o
 					advhotkeys->end();
 				} // Fl_Group* advhotkeys

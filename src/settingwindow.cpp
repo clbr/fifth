@@ -75,6 +75,7 @@ static Fl_Browser *sblacklist=(Fl_Browser *)0;
 static Fl_Group *advprog=(Fl_Group *)0;
 static Fl_Input *sdlnotify=(Fl_Input *)0;
 static Fl_Input *sdlopen=(Fl_Input *)0;
+static Fl_Input *sstream=(Fl_Input *)0;
 
 static Fl_Group *advhist=(Fl_Group *)0;
 static Fl_Spinner *shistory=(Fl_Spinner *)0;
@@ -329,6 +330,11 @@ static void cb_OK(Fl_Button *b, void*) {
 	if (sdlopen->changed()) {
 		s = getSetting("exec.open");
 		s->val.c = strdup(sdlopen->value());
+	}
+
+	if (sstream->changed()) {
+		s = getSetting("exec.stream");
+		s->val.c = strdup(sstream->value());
 	}
 
 	// Advanced history tab
@@ -592,6 +598,10 @@ in here. Note that autocomplete is not yet implemented."));
 						sdlopen->align(132);
 						sdlopen->when(0);
 					} // Fl_Input* sdlopen
+					{ sstream = new Fl_Input(305, 150, 300, 25, _("Stream with:"));
+						sstream->align(132);
+						sstream->when(0);
+					} // Fl_Input* sstream
 					advprog->end();
 				} // Fl_Group* advprog
 				{ advhist = new Fl_Group(155, 45, 455, 375);
@@ -733,6 +743,9 @@ in here. Note that autocomplete is not yet implemented."));
 
 	s = getSetting("exec.open");
 	sdlopen->value(s->val.c);
+
+	s = getSetting("exec.stream");
+	sstream->value(s->val.c);
 
 	// Advanced history tab
 	s = getSetting("history.size");

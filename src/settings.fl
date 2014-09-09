@@ -185,10 +185,10 @@ Function {settingswindow()} {open return_type void
           code0 {add("FOO");}
         }
         Fl_Group advfilter {open
-          private xywh {155 45 455 375}
+          private xywh {155 45 455 375} hide
         } {
           Fl_Button {} {
-            label {Edit filtered content} selected
+            label {Edit filtered content}
             xywh {160 55 195 30}
           }
           Fl_Button {} {
@@ -200,7 +200,7 @@ Function {settingswindow()} {open return_type void
           }
         }
         Fl_Group advprog {open
-          private xywh {155 45 455 375} hide
+          private xywh {155 45 455 375}
         } {
           Fl_Input sdlnotify {
             label {Download notification program:}
@@ -209,6 +209,10 @@ Function {settingswindow()} {open return_type void
           Fl_Input sdlopen {
             label {Open downloads with:}
             private xywh {305 110 300 25} align 132
+          }
+          Fl_Input sstream {
+            label {Stream with:} selected
+            private xywh {305 150 300 25} align 132
           }
         }
         Fl_Group advhist {open

@@ -40,6 +40,7 @@ const struct setting defaultSettings[] = {
 	{"dial.9",		ST_CHAR, { .c = "" }},
 	{"exec.downloadnotify",	ST_CHAR, { .c = "flnotify -bg '#1e2832' -fg white -b -r -t 4" }},
 	{"exec.open",		ST_CHAR, { .c = "xdg-open" }},
+	{"exec.stream",		ST_CHAR, { .c = "mplayer -fs" }},
 	{"fltk.scheme",		ST_CHAR, { .c = "gtk+" }},
 	{"fonts.default",	ST_CHAR, { .c = "Times New Roman" }},
 	{"fonts.fixed",		ST_CHAR, { .c = "monospace" }},

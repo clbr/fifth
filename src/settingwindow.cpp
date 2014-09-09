@@ -270,6 +270,31 @@ static void cb_OK(Fl_Button *b, void*) {
 	}
 
 	// Looks tab
+	if (sfont->changed()) {
+		s = getSetting("fonts.default");
+		s->val.c = strdup(sfont->value());
+	}
+
+	if (sfixed->changed()) {
+		s = getSetting("fonts.fixed");
+		s->val.c = strdup(sfixed->value());
+	}
+
+	if (sfontsize->changed()) {
+		s = getSetting("fonts.size");
+		s->val.u = sfontsize->value();
+	}
+
+	if (sfixedsize->changed()) {
+		s = getSetting("fonts.fixedsize");
+		s->val.u = sfixedsize->value();
+	}
+
+	if (sminfontsize->changed()) {
+		s = getSetting("fonts.minsize");
+		s->val.u = sminfontsize->value();
+	}
+
 	// Advanced filter tab
 	// Advanced programs tab
 	// Advanced history tab

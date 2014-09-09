@@ -266,6 +266,7 @@ in here. Note that autocomplete is not yet implemented."));
 					advcookies->end();
 				} // Fl_Group* advcookies
 				{ advhotkeys = new Fl_Group(155, 45, 455, 375);
+					advhotkeys->hide();
 					{ shotkeys = new Fl_Browser(160, 50, 445, 330);
 						shotkeys->type(2);
 					} // Fl_Browser* shotkeys

@@ -334,12 +334,12 @@ static void cb_OK(Fl_Button *b, void*) {
 	// Advanced history tab
 	if (shistory->changed()) {
 		s = getSetting("history.size");
-		s->val.u = shistory->value() * 1024 * 1024;
+		s->val.u = shistory->value();
 	}
 
 	if (scache->changed()) {
 		s = getSetting("cache.disk");
-		s->val.u = scache->value();
+		s->val.u = scache->value() * 1024 * 1024;
 	}
 
 	// Advanced cookies tab

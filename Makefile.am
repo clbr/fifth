@@ -26,3 +26,4 @@ install-data-hook:
 	install -D -m644 icon128.png $(iconsdir)/128x128/apps/fifth.png
 	install -D -m644 icon256.png $(iconsdir)/256x256/apps/fifth.png
 	install -D -m644 fifth.desktop $(DESTDIR)$(datadir)/applications/fifth.desktop
+	chmod 755 $(DESTDIR)$(pkgdatadir)/convert-opera-bookmarks.sh

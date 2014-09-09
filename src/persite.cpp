@@ -150,7 +150,9 @@ void persitewindow(const char * const site) {
 	psspooflang->value(s->val.c);
 
 	s = getSetting("spoof.timezone", site);
-	psspooftz->value(s->val.c);
+	char tmp[120];
+	snprintf(tmp, 120, "%u", s->val.u);
+	psspooftz->value(tmp);
 
 	s = getSetting("spoof.useragent", site);
 	psspoofua->value(s->val.c);

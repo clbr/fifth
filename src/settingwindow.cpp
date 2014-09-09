@@ -196,8 +196,34 @@ static void cb_OK(Fl_Button *b, void*) {
 	b->window()->hide();
 
 	// Apply settings
+	setting *s;
 
 	// Common tab
+	if (sstartup->changed()) {
+		s = getSetting("general.startup");
+		s->val.u = sstartup->value();
+	}
+
+	if (shomepage->changed()) {
+		s = getSetting("general.homepage");
+		s->val.c = shomepage->value();
+	}
+
+	if (scss->changed()) {
+		s = getSetting("general.css");
+		s->val.u = scss->value();
+	}
+
+	if (sjs->changed()) {
+		s = getSetting("general.javascript");
+		s->val.u = sjs->value();
+	}
+
+	if (simg->changed()) {
+		s = getSetting("general.images");
+		s->val.u = simg->value();
+	}
+
 	// Autocomplete tab
 	// Spoofing tab
 	// Looks tab
@@ -206,6 +232,8 @@ static void cb_OK(Fl_Button *b, void*) {
 	// Advanced history tab
 	// Advanced cookies tab
 	// Advanced hotkeys tab
+
+	saveConfig();
 }
 
 static void cb_Cancel(Fl_Button *b, void*) {

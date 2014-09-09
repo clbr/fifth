@@ -391,6 +391,21 @@ in here. Note that autocomplete is not yet implemented."));
 	sspoofua->position(0);
 
 	// Looks tab
+	s = getSetting("fonts.default");
+	sfont->value(s->val.c);
+
+	s = getSetting("fonts.fixed");
+	sfixed->value(s->val.c);
+
+	s = getSetting("fonts.size");
+	sfontsize->value(s->val.u);
+
+	s = getSetting("fonts.fixedsize");
+	sfixedsize->value(s->val.u);
+
+	s = getSetting("fonts.minsize");
+	sminfontsize->value(s->val.u);
+
 	// Advanced filter tab
 	// Advanced programs tab
 	// Advanced history tab

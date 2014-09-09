@@ -537,6 +537,26 @@ static void setcbs(webview * const web) {
 	web->errorCB(errorcb);
 }
 
+static void webdefaults(webview * const web) {
+
+	const setting *s;
+
+	s = getSetting("fonts.default");
+	web->setChar(WK_SETTING_DEFAULT_FONT, s->val.c);
+
+	s = getSetting("fonts.fixed");
+	web->setChar(WK_SETTING_FIXED_FONT, s->val.c);
+
+	s = getSetting("fonts.size");
+	web->setInt(WK_SETTING_FONT_SIZE, s->val.u);
+
+	s = getSetting("fonts.minsize");
+	web->setInt(WK_SETTING_MINIMUM_FONT_SIZE, s->val.u);
+
+	s = getSetting("fonts.fixedsize");
+	web->setInt(WK_SETTING_FIXED_SIZE, s->val.u);
+}
+
 void newtab() {
 	if (g->tabs.size()) {
 		saveurlbar();
@@ -558,6 +578,7 @@ void newtab() {
 	g->url->url->take_focus();
 
 	setcbs(tab.web);
+	webdefaults(tab.web);
 }
 
 void closetab() {
@@ -617,6 +638,7 @@ void newtab(const char *url) {
 	g->w->redraw();
 
 	setcbs(tab.web);
+	webdefaults(tab.web);
 
 	tab.web->load(url);
 	tab.web->take_focus();
@@ -635,6 +657,7 @@ void newtabbg(const char *url) {
 	g->tabwidget->redraw();
 
 	setcbs(tab.web);
+	webdefaults(tab.web);
 
 	tab.web->load(url);
 }

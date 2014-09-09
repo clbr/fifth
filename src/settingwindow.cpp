@@ -83,6 +83,8 @@ static void cb_Clear(Fl_Button*, void*) { // Clear history
 	g->history->clear();
 }
 
+static bool blacklistchanged;
+
 static Fl_Spinner *scache=(Fl_Spinner *)0;
 static Fl_Group *advcookies=(Fl_Group *)0;
 
@@ -192,6 +194,25 @@ static void cb_Clearhotkey(Fl_Button*, void*) {
 	shotkeys->redraw();
 }
 
+static void saveblacklist() {
+	const int fd = openat(g->profilefd, BLACKNAME, O_WRONLY | O_CREAT, 0600);
+	if (fd < 0)
+		return; // Maybe doesn't exist yet?
+	FILE * const f = fdopen(fd, "w");
+	if (!f) {
+		close(fd);
+		return;
+	}
+
+	u32 i;
+	const u32 max = sblacklist->size();
+	for (i = 0; i < max; i++) {
+		fprintf(f, "%s\n", sblacklist->text(i + 1));
+	}
+
+	fclose(f);
+}
+
 static void cb_OK(Fl_Button *b, void*) {
 	b->window()->hide();
 
@@ -296,6 +317,9 @@ static void cb_OK(Fl_Button *b, void*) {
 	}
 
 	// Advanced filter tab
+	if (blacklistchanged)
+		saveblacklist();
+
 	// Advanced programs tab
 	// Advanced history tab
 	// Advanced cookies tab
@@ -338,6 +362,7 @@ static void advancedcb(Fl_Widget *w, void*) {
 
 static void loadblacklist() {
 	sblacklist->clear();
+	blacklistchanged = false;
 
 	const int fd = openat(g->profilefd, BLACKNAME, O_RDONLY);
 	if (fd < 0)
@@ -362,6 +387,7 @@ static void addentry(Fl_Widget *, void *) {
 	if (msg)
 		sblacklist->add(msg);
 	sblacklist->redraw();
+	blacklistchanged = true;
 }
 
 static void editentry(Fl_Widget *, void *) {
@@ -375,6 +401,7 @@ static void editentry(Fl_Widget *, void *) {
 	if (msg)
 		sblacklist->text(cur, msg);
 	sblacklist->redraw();
+	blacklistchanged = true;
 }
 
 void settingswindow() {

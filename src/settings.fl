@@ -132,23 +132,23 @@ Function {settingswindow()} {open return_type void
       }
       Fl_Group {} {
         label Spoofing open
-        xywh {0 40 615 380} hide
+        xywh {0 40 615 380}
       } {
         Fl_Input sspoofaccept {
-          label {Accept header:}
-          private xywh {170 65 380 25}
+          label {Accept header:} selected
+          private xywh {170 65 420 25}
         }
         Fl_Input sspooflang {
           label {Language header:}
-          private xywh {170 100 380 25}
+          private xywh {170 100 420 25}
         }
         Fl_Input sspooftz {
           label {Timezone:}
-          private xywh {170 135 380 25}
+          private xywh {170 135 420 25}
         }
         Fl_Input sspoofua {
           label {User-agent:}
-          private xywh {170 170 380 25}
+          private xywh {170 170 420 25}
         }
       }
       Fl_Group {} {
@@ -172,13 +172,13 @@ Function {settingswindow()} {open return_type void
           private xywh {155 173 380 25} minimum 8 maximum 128
         }
         Fl_Spinner sminfontsize {
-          label {Minimum font size:} selected
+          label {Minimum font size:}
           private xywh {155 210 380 25} minimum 8 maximum 128
         }
       }
       Fl_Group {} {
         label Advanced open
-        xywh {0 40 620 385}
+        xywh {0 40 620 385} hide
       } {
         Fl_Browser {} {
           xywh {10 50 140 365} type Hold

@@ -221,13 +221,13 @@ in here. Note that autocomplete is not yet implemented."));
 			} // Fl_Group* o
 			{ Fl_Group* o = new Fl_Group(0, 40, 615, 380, _("Spoofing"));
 				o->hide();
-				{ sspoofaccept = new Fl_Input(170, 65, 380, 25, _("Accept header:"));
+				{ sspoofaccept = new Fl_Input(170, 65, 420, 25, _("Accept header:"));
 				} // Fl_Input* sspoofaccept
-				{ sspooflang = new Fl_Input(170, 100, 380, 25, _("Language header:"));
+				{ sspooflang = new Fl_Input(170, 100, 420, 25, _("Language header:"));
 				} // Fl_Input* sspooflang
-				{ sspooftz = new Fl_Input(170, 135, 380, 25, _("Timezone:"));
+				{ sspooftz = new Fl_Input(170, 135, 420, 25, _("Timezone:"));
 				} // Fl_Input* sspooftz
-				{ sspoofua = new Fl_Input(170, 170, 380, 25, _("User-agent:"));
+				{ sspoofua = new Fl_Input(170, 170, 420, 25, _("User-agent:"));
 				} // Fl_Input* sspoofua
 				o->end();
 			} // Fl_Group* o

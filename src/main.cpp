@@ -328,6 +328,16 @@ static const char *httplang(const char *url) {
 	return s->val.c;
 }
 
+static void persitesettings(const char *url) {
+	if (!url)
+		return;
+
+	char site[120];
+	url2site(url, site, 120);
+
+	persitewindow(site);
+}
+
 static void initfavicons() {
 	vector<const char *> vec;
 	vec.reserve(9);
@@ -609,6 +619,7 @@ int main(int argc, char **argv) {
 	wk_set_tz_func(spooftz);
 	wk_set_accept_func(httpaccept);
 	wk_set_language_func(httplang);
+	wk_set_persite_settings_func(persitesettings);
 
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);

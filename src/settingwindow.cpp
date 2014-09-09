@@ -354,6 +354,9 @@ in here. Note that autocomplete is not yet implemented."));
 					advhotkeys->hide();
 					{ shotkeys = new Fl_Browser(160, 50, 445, 330);
 						shotkeys->type(2);
+						shotkeys->column_char('\t');
+						static const int wid[] = {220, 220, 0};
+						shotkeys->column_widths(wid);
 					} // Fl_Browser* shotkeys
 					{ Fl_Button* o = new Fl_Button(290, 390, 150, 25, _("Edit hotkey"));
 						o->callback((Fl_Callback*)cb_Edit);
@@ -472,6 +475,22 @@ in here. Note that autocomplete is not yet implemented."));
 	// Advanced cookies tab
 
 	// Advanced hotkeys tab
+	shotkeys->clear();
+	for (i = 0; i < numDefaults; i++) {
+		const int ret = strncmp(defaultSettings[i].name, "keys.", 5);
+		if (ret < 0)
+			continue;
+		if (ret > 0)
+			break;
+
+		const u32 key = menukey(defaultSettings[i].name);
+		char tmp[120];
+		snprintf(tmp, 120, "%s\t%s", defaultSettings[i].name,
+			fl_shortcut_label(key));
+		tmp[119] = '\0';
+
+		shotkeys->add(tmp);
+	}
 
 	swin->show();
 }

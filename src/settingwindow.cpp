@@ -118,7 +118,6 @@ void settingswindow() {
 		swin = new Fl_Double_Window(615, 470, _("Settings"));
 		{ Fl_Tabs* o = new Fl_Tabs(0, 0, 620, 425);
 			{ Fl_Group* o = new Fl_Group(0, 40, 615, 380, _("Common"));
-				o->hide();
 				{ sstartup = new Fl_Choice(115, 80, 380, 25, _("Startup:"));
 					sstartup->down_box(FL_BORDER_BOX);
 					sstartup->menu(menu_sstartup);
@@ -215,6 +214,7 @@ in here. Note that autocomplete is not yet implemented."));
 				o->end();
 			} // Fl_Group* o
 			{ Fl_Group* o = new Fl_Group(0, 40, 620, 385, _("Advanced"));
+				o->hide();
 				{ Fl_Browser* o = new Fl_Browser(10, 50, 140, 365);
 					o->type(2);
 					o->add(_("Filter"));

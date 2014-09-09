@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+TryExec=fifth
+Encoding=UTF-8
+Name=Fifth
+GenericName=Web browser
+Exec=fifth %u
+Terminal=false
+Categories=Application;FLTK;Network;WebBrowser
+Icon=fifth.png
+MimeType=text/html;text/xml;application/xhtml+xml
+Comment=Web Browser
+Type=Application

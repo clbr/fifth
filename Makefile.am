@@ -5,6 +5,8 @@ ACLOCAL_AMFLAGS = -I m4
 dist_pkgdata_DATA = BACKGROUND DESIGN icon64.png icon128.png icon256.png \
 		logo.png WEBKITBUGS
 
+EXTRA_DIST = fifth.desktop
+
 bindist: BASE = $(PACKAGE_TARNAME)-$(PACKAGE_VERSION)
 bindist: BINFILES = $(wildcard icon*png) src/fifth BACKGROUND COPYING DESIGN TODO WEBKITBUGS
 bindist: all
@@ -23,3 +25,4 @@ install-data-hook:
 	install -D -m644 icon64.png $(iconsdir)/64x64/apps/fifth.png
 	install -D -m644 icon128.png $(iconsdir)/128x128/apps/fifth.png
 	install -D -m644 icon256.png $(iconsdir)/256x256/apps/fifth.png
+	install -D -m644 fifth.desktop $(DESTDIR)$(datadir)/applications/fifth.desktop

@@ -34,7 +34,7 @@ void loadbookmarks() {
 		return;
 
 	enum {
-		BUFSIZE = 640
+		BUFSIZE = 2048
 	};
 
 	char tmp[BUFSIZE];

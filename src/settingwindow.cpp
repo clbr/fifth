@@ -332,8 +332,24 @@ in here. Note that autocomplete is not yet implemented."));
 	} // Fl_Double_Window* swin
 
 	// Init values
+	const setting *s;
 
 	// Common tab
+	s = getSetting("general.startup");
+	sstartup->value(s->val.u);
+
+	s = getSetting("general.homepage");
+	shomepage->value(s->val.c);
+
+	s = getSetting("general.css");
+	scss->value(s->val.u);
+
+	s = getSetting("general.javascript");
+	sjs->value(s->val.u);
+
+	s = getSetting("general.images");
+	simg->value(s->val.u);
+
 	// Autocomplete tab
 	// Spoofing tab
 	// Looks tab

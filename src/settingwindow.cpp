@@ -100,6 +100,16 @@ static void cb_OK(Fl_Button *b, void*) {
 	b->window()->hide();
 
 	// Apply settings
+
+	// Common tab
+	// Autocomplete tab
+	// Spoofing tab
+	// Looks tab
+	// Advanced filter tab
+	// Advanced programs tab
+	// Advanced history tab
+	// Advanced cookies tab
+	// Advanced hotkeys tab
 }
 
 static void cb_Cancel(Fl_Button *b, void*) {
@@ -322,6 +332,16 @@ in here. Note that autocomplete is not yet implemented."));
 	} // Fl_Double_Window* swin
 
 	// Init values
+
+	// Common tab
+	// Autocomplete tab
+	// Spoofing tab
+	// Looks tab
+	// Advanced filter tab
+	// Advanced programs tab
+	// Advanced history tab
+	// Advanced cookies tab
+	// Advanced hotkeys tab
 
 	swin->show();
 }

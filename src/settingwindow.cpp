@@ -321,8 +321,19 @@ static void cb_OK(Fl_Button *b, void*) {
 		saveblacklist();
 
 	// Advanced programs tab
+	if (sdlnotify->changed()) {
+		s = getSetting("exec.downloadnotify");
+		s->val.c = strdup(sdlnotify->value());
+	}
+
+	if (sdlopen->changed()) {
+		s = getSetting("exec.open");
+		s->val.c = strdup(sdlopen->value());
+	}
+
 	// Advanced history tab
 	// Advanced cookies tab
+
 	// Advanced hotkeys tab
 
 	saveConfig();

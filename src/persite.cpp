@@ -114,6 +114,8 @@ static void cb_psok(Fl_Widget *w, void*) {
 		s.val.c = strdup(psspoofua->value());
 		vec.push_back(s);
 	}
+
+	saveConfig();
 }
 
 void persitewindow(const char * const site) {

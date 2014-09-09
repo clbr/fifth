@@ -706,10 +706,10 @@ in here. Note that autocomplete is not yet implemented."));
 
 	// Advanced history tab
 	s = getSetting("history.size");
-	shistory->value(s->val.u / 1024 / 1024);
+	shistory->value(s->val.u);
 
 	s = getSetting("cache.disk");
-	scache->value(s->val.u);
+	scache->value(s->val.u / 1024 / 1024);
 
 	// Advanced cookies tab
 

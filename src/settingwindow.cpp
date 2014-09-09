@@ -165,6 +165,14 @@ static void loadblacklist() {
 	fclose(f);
 }
 
+static void addentry(Fl_Widget *, void *) {
+
+}
+
+static void editentry(Fl_Widget *, void *) {
+
+}
+
 void settingswindow() {
 
 	static const Fl_Menu_Item menu_bool[] = {
@@ -285,7 +293,11 @@ in here. Note that autocomplete is not yet implemented."));
 				} // Fl_Browser* o
 				{ advfilter = new Fl_Group(155, 45, 455, 375);
 					advfilter->hide();
-					{ new Fl_Button(160, 55, 195, 30, _("Edit filtered content"));
+					{ Fl_Button *o = new Fl_Button(160, 55, 195, 30, _("Edit filtered content"));
+						o->callback(editentry);
+					} // Fl_Button* o
+					{ Fl_Button *o = new Fl_Button(365, 55, 195, 30, _("Add new entry"));
+						o->callback(addentry);
 					} // Fl_Button* o
 					{ sblacklist = new Fl_Browser(160, 95, 445, 320);
 						sblacklist->type(2);

@@ -132,10 +132,10 @@ Function {settingswindow()} {open return_type void
       }
       Fl_Group {} {
         label Spoofing open
-        xywh {0 40 615 380}
+        xywh {0 40 615 380} hide
       } {
         Fl_Input sspoofaccept {
-          label {Accept header:} selected
+          label {Accept header:}
           private xywh {170 65 420 25}
         }
         Fl_Input sspooflang {
@@ -178,18 +178,22 @@ Function {settingswindow()} {open return_type void
       }
       Fl_Group {} {
         label Advanced open
-        xywh {0 40 620 385} hide
+        xywh {0 40 620 385}
       } {
         Fl_Browser {} {
           xywh {10 50 140 365} type Hold
           code0 {add("FOO");}
         }
         Fl_Group advfilter {open
-          private xywh {155 45 455 375} hide
+          private xywh {155 45 455 375}
         } {
           Fl_Button {} {
-            label {Edit filtered content}
+            label {Edit filtered content} selected
             xywh {160 55 195 30}
+          }
+          Fl_Button {} {
+            label {Add new entry}
+            xywh {365 55 195 30}
           }
           Fl_Browser sblacklist {
             private xywh {160 95 445 320} type Hold
@@ -233,7 +237,7 @@ Function {settingswindow()} {open return_type void
           }
         }
         Fl_Group advhotkeys {open
-          private xywh {155 45 455 375}
+          private xywh {155 45 455 375} hide
         } {
           Fl_Browser shotkeys {
             private xywh {160 50 445 330} type Hold

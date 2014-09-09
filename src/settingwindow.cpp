@@ -332,9 +332,19 @@ static void cb_OK(Fl_Button *b, void*) {
 	}
 
 	// Advanced history tab
+	if (shistory->changed()) {
+		s = getSetting("history.size");
+		s->val.u = shistory->value() * 1024 * 1024;
+	}
+
+	if (scache->changed()) {
+		s = getSetting("cache.disk");
+		s->val.u = scache->value();
+	}
+
 	// Advanced cookies tab
 
-	// Advanced hotkeys tab
+	// Advanced hotkeys tab - nothing needed
 
 	saveConfig();
 }
@@ -696,7 +706,7 @@ in here. Note that autocomplete is not yet implemented."));
 
 	// Advanced history tab
 	s = getSetting("history.size");
-	shistory->value(s->val.u);
+	shistory->value(s->val.u / 1024 / 1024);
 
 	s = getSetting("cache.disk");
 	scache->value(s->val.u);

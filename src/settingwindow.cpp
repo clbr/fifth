@@ -370,7 +370,26 @@ in here. Note that autocomplete is not yet implemented."));
 		s = getSetting(tgt);
 		autos[i]->value(s->val.c);
 	}
+
 	// Spoofing tab
+	s = getSetting("spoof.accept");
+	sspoofaccept->value(s->val.c);
+	sspoofaccept->position(0);
+
+	s = getSetting("spoof.language");
+	sspooflang->value(s->val.c);
+	sspooflang->position(0);
+
+	s = getSetting("spoof.timezone");
+	char tmp[120];
+	snprintf(tmp, 120, "%u", s->val.u);
+	sspooftz->value(tmp);
+	sspooftz->position(0);
+
+	s = getSetting("spoof.useragent");
+	sspoofua->value(s->val.c);
+	sspoofua->position(0);
+
 	// Looks tab
 	// Advanced filter tab
 	// Advanced programs tab

@@ -249,6 +249,26 @@ static void cb_OK(Fl_Button *b, void*) {
 	}
 
 	// Spoofing tab
+	if (sspoofaccept->changed()) {
+		s = getSetting("spoof.accept");
+		s->val.c = strdup(sspoofaccept->value());
+	}
+
+	if (sspooflang->changed()) {
+		s = getSetting("spoof.language");
+		s->val.c = strdup(sspooflang->value());
+	}
+
+	if (sspooftz->changed()) {
+		s = getSetting("spoof.timezone");
+		s->val.u = atoi(sspooftz->value());
+	}
+
+	if (sspoofua->changed()) {
+		s = getSetting("spoof.useragent");
+		s->val.c = strdup(sspoofua->value());
+	}
+
 	// Looks tab
 	// Advanced filter tab
 	// Advanced programs tab

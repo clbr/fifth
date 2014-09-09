@@ -145,17 +145,21 @@ void persitewindow(const char * const site) {
 	// Spoof tab
 	s = getSetting("spoof.accept", site);
 	psspoofaccept->value(s->val.c);
+	psspoofaccept->position(0);
 
 	s = getSetting("spoof.language", site);
 	psspooflang->value(s->val.c);
+	psspooflang->position(0);
 
 	s = getSetting("spoof.timezone", site);
 	char tmp[120];
 	snprintf(tmp, 120, "%u", s->val.u);
 	psspooftz->value(tmp);
+	psspooftz->position(0);
 
 	s = getSetting("spoof.useragent", site);
 	psspoofua->value(s->val.c);
+	psspoofua->position(0);
 
 	pswin->show();
 }

@@ -75,6 +75,7 @@ void loadblocking() {
 
 			if (textst.st_mtime > binst.st_mtime) {
 				blacktext();
+				saveblocking();
 			} else {
 				const int fd = openat(g->profilefd, BLACKNAMEBIN, O_RDONLY);
 				if (fd < 0)
@@ -83,6 +84,7 @@ void loadblocking() {
 			}
 		} else {
 			blacktext();
+			saveblocking();
 		}
 	}
 

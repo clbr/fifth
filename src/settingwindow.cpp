@@ -206,7 +206,7 @@ static void cb_OK(Fl_Button *b, void*) {
 
 	if (shomepage->changed()) {
 		s = getSetting("general.homepage");
-		s->val.c = shomepage->value();
+		s->val.c = strdup(shomepage->value());
 	}
 
 	if (scss->changed()) {
@@ -225,6 +225,29 @@ static void cb_OK(Fl_Button *b, void*) {
 	}
 
 	// Autocomplete tab
+	static Fl_Input *autos[10] = {
+		sfill0,
+		sfill1,
+		sfill2,
+		sfill3,
+		sfill4,
+		sfill5,
+		sfill6,
+		sfill7,
+		sfill8,
+		sfill9
+	};
+	u32 i;
+	for (i = 0; i < 10; i++) {
+		if (!autos[i]->changed())
+			continue;
+
+		char tgt[] = "autocomplete.0";
+		tgt[13] += i;
+		s = getSetting(tgt);
+		s->val.c = strdup(autos[i]->value());
+	}
+
 	// Spoofing tab
 	// Looks tab
 	// Advanced filter tab

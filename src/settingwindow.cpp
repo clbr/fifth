@@ -418,7 +418,7 @@ static void editentry(Fl_Widget *, void *) {
 		return;
 	}
 
-	const char *msg = fl_input(_("Add a new blacklist entry"), sblacklist->text(cur));
+	const char *msg = fl_input(_("Edit blacklist entry"), sblacklist->text(cur));
 	if (msg)
 		sblacklist->text(cur, msg);
 	sblacklist->redraw();

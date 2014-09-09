@@ -18,6 +18,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Must be in alphabetical order.
 const struct setting defaultSettings[] = {
+	{"autocomplete.0",	ST_CHAR, { .c = "" }},
+	{"autocomplete.1",	ST_CHAR, { .c = "" }},
+	{"autocomplete.2",	ST_CHAR, { .c = "" }},
+	{"autocomplete.3",	ST_CHAR, { .c = "" }},
+	{"autocomplete.4",	ST_CHAR, { .c = "" }},
+	{"autocomplete.5",	ST_CHAR, { .c = "" }},
+	{"autocomplete.6",	ST_CHAR, { .c = "" }},
+	{"autocomplete.7",	ST_CHAR, { .c = "" }},
+	{"autocomplete.8",	ST_CHAR, { .c = "" }},
+	{"autocomplete.9",	ST_CHAR, { .c = "" }},
 	{"cache.disk",		ST_U32, { .u = 20971520 }}, // 20 mb
 	{"dial.1",		ST_CHAR, { .c = "" }},
 	{"dial.2",		ST_CHAR, { .c = "" }},

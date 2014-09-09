@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 
-#define WHITENAME "whitelist"
-#define WHITENAMEBIN "whitelist.bin"
-#define BLACKNAME "blacklist"
-#define BLACKNAMEBIN "blaclist.bin"
-
 static void whitetext() {
 	const int fd = openat(g->profilefd, WHITENAME, O_RDONLY);
 	if (fd < 0)

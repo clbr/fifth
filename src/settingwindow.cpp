@@ -351,6 +351,25 @@ in here. Note that autocomplete is not yet implemented."));
 	simg->value(s->val.u);
 
 	// Autocomplete tab
+	static Fl_Input *autos[10] = {
+		sfill0,
+		sfill1,
+		sfill2,
+		sfill3,
+		sfill4,
+		sfill5,
+		sfill6,
+		sfill7,
+		sfill8,
+		sfill9
+	};
+	u32 i;
+	for (i = 0; i < 10; i++) {
+		char tgt[] = "autocomplete.0";
+		tgt[13] += i;
+		s = getSetting(tgt);
+		autos[i]->value(s->val.c);
+	}
 	// Spoofing tab
 	// Looks tab
 	// Advanced filter tab

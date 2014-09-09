@@ -5,7 +5,7 @@ fifth_SOURCES = config.cpp defaults.c helpers.cpp main.cpp remote.cpp \
 		urlbutton.cpp textweb.cpp inputplace.cpp keys.cpp screencap.cpp \
 		bookmarks.cpp adddial.cpp ssl.cpp blocking.cpp about.cpp crash.cpp \
 		history.cpp zoomer.cpp error.cpp fl_browser_input.cpp viewbookmark.cpp \
-		viewdl.cpp
+		viewdl.cpp persite.cpp
 
 CLEANFILES = version.h
 

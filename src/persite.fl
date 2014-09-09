@@ -1,0 +1,135 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0110 
+i18n_type 1 
+i18n_include "main.h" 
+i18n_function _ 
+header_name {.h} 
+code_name {.cxx}
+Function {persitewindow()} {open return_type void
+} {
+  Fl_Window pswin {
+    label {Per-site settings} open
+    private xywh {276 296 535 435} type Double size_range {535 435 535 435} visible
+  } {
+    Fl_Tabs {} {open
+      xywh {0 0 570 390}
+    } {
+      Fl_Group {} {
+        label Common open
+        xywh {0 40 570 350}
+      } {
+        Fl_Input pssite {
+          label {Site:}
+          private xywh {112 65 380 25}
+        }
+        Fl_Choice pscss {
+          label {CSS:} open
+          private xywh {112 125 380 25} down_box BORDER_BOX
+        } {
+          MenuItem {} {
+            label Auto
+            xywh {0 0 30 20}
+          }
+          MenuItem {} {
+            label Off
+            xywh {10 10 30 20}
+          }
+          MenuItem {} {
+            label On
+            xywh {20 20 30 20}
+          }
+        }
+        Fl_Box {} {
+          xywh {85 105 400 2} box THIN_DOWN_BOX
+        }
+        Fl_Choice psjs {
+          label {Javascript:} open
+          private xywh {112 160 380 25} down_box BORDER_BOX
+        } {
+          MenuItem {} {
+            label Auto
+            xywh {10 10 30 20}
+          }
+          MenuItem {} {
+            label Off
+            xywh {20 20 30 20}
+          }
+          MenuItem {} {
+            label On
+            xywh {30 30 30 20}
+          }
+        }
+        Fl_Choice psimg {
+          label {Images:} open
+          private xywh {112 195 380 25} down_box BORDER_BOX
+        } {
+          MenuItem {} {
+            label Auto
+            xywh {20 20 30 20}
+          }
+          MenuItem {} {
+            label Off
+            xywh {30 30 30 20}
+          }
+          MenuItem {} {
+            label On
+            xywh {40 40 30 20}
+          }
+        }
+        Fl_Box {} {
+          xywh {85 240 400 2} box THIN_DOWN_BOX
+        }
+        Fl_Input psusercss {
+          label {User CSS:}
+          private xywh {112 260 380 25} deactivate
+          code0 {value(_("Not implemented yet"));}
+        }
+        Fl_Input psuserjs {
+          label {User JS:}
+          private xywh {112 300 380 25} deactivate
+          code0 {value(_("Not implemented yet"));}
+        }
+      }
+      Fl_Group {} {
+        label Cookies open
+        xywh {0 40 535 350} hide
+      } {
+        Fl_Box {} {
+          label {Cookie control has not been implemented yet.}
+          xywh {25 65 460 115}
+        }
+      }
+      Fl_Group {} {
+        label Spoofing open
+        xywh {0 40 535 350} hide
+      } {
+        Fl_Input psspoofaccept {
+          label {Accept header:}
+          private xywh {140 65 380 25}
+        }
+        Fl_Input psspooflang {
+          label {Language header:}
+          private xywh {140 100 380 25}
+        }
+        Fl_Input psspooftz {
+          label {Timezone:}
+          private xywh {140 135 380 25}
+        }
+        Fl_Input psspoofua {
+          label {User-agent:}
+          private xywh {140 170 380 25}
+        }
+      }
+    }
+    Fl_Button psok {
+      label OK
+      callback foo
+      private xywh {285 400 115 25}
+    }
+    Fl_Button pscancel {
+      label Cancel
+      callback {parent()->hide();}
+      private xywh {410 400 115 25}
+    }
+  }
+} 

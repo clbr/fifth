@@ -55,6 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "blocking.h"
 #include "about.h"
 #include "history.h"
+#include "persite.h"
 
 using namespace std;
 

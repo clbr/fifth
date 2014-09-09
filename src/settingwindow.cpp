@@ -545,7 +545,7 @@ in here. Note that autocomplete is not yet implemented."));
 				} // Fl_Browser* o
 				{ advfilter = new Fl_Group(155, 45, 455, 375);
 					advfilter->hide();
-					{ Fl_Button *o = new Fl_Button(160, 55, 195, 30, _("Edit filtered content"));
+					{ Fl_Button *o = new Fl_Button(160, 55, 195, 30, _("Edit filtering entry"));
 						o->callback(editentry);
 					} // Fl_Button* o
 					{ Fl_Button *o = new Fl_Button(365, 55, 195, 30, _("Add new entry"));

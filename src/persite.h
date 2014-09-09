@@ -18,5 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERSITE_H
 
 void persitewindow(const char * const site);
+void settingswindow();
 
 #endif

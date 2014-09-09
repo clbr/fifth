@@ -223,6 +223,21 @@ static void downloadfinish(const char *, const char *file) {
 	}
 }
 
+static void pagesetcb(Fl_Widget *, void *) {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	char site[120];
+	url2site(cur->url, site, 120);
+
+	persitewindow(site);
+}
+
+static void setcb(Fl_Widget *, void *) {
+	settingswindow();
+}
+
 void generatemenu() {
 
 	g->menu->clear();
@@ -281,8 +296,8 @@ void generatemenu() {
 	g->menu->add(_("&Tools/&Advanced config"), 0, configcb);
 	g->menu->add(_("&Tools/&Web inspector"), 0, 0, 0, FL_MENU_INACTIVE);
 	g->menu->add(_("&Tools/&Error console"), 0, errorcon, 0, FL_MENU_DIVIDER);
-	g->menu->add(_("&Tools/&Page settings"), 0, 0, 0, FL_MENU_INACTIVE);
-	g->menu->add(_("&Tools/&Settings"), 0, 0, 0, FL_MENU_INACTIVE);
+	g->menu->add(_("&Tools/&Page settings"), 0, pagesetcb);
+	g->menu->add(_("&Tools/&Settings"), 0, setcb);
 
 	g->menu->add(_("&Help/&Report a bug"), 0, bugcb);
 	g->menu->add(_("&Help/&About"), 0, aboutcb);

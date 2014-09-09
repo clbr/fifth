@@ -1,0 +1,265 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0110 
+i18n_type 1 
+i18n_include "main.h" 
+i18n_function _ 
+header_name {.h} 
+code_name {.cxx}
+Function {settingswindow()} {open return_type void
+} {
+  Fl_Window swin {
+    label Settings open
+    private xywh {276 296 615 470} type Double size_range {615 470 615 470} visible
+  } {
+    Fl_Tabs {} {open
+      xywh {0 0 620 425}
+    } {
+      Fl_Group {} {
+        label Common open
+        xywh {0 40 615 380} hide
+      } {
+        Fl_Choice sstartup {
+          label {Startup:} open
+          private xywh {115 80 380 25} down_box BORDER_BOX
+        } {
+          MenuItem {} {
+            label {Speed dial}
+            xywh {302 20 30 20}
+          }
+          MenuItem {} {
+            label Homepage
+            xywh {302 30 30 20}
+          }
+        }
+        Fl_Input shomepage {
+          label {Home page:}
+          private xywh {115 115 380 25}
+        }
+        Fl_Choice scss {
+          label {CSS:} open
+          private xywh {117 180 380 25} down_box BORDER_BOX
+        } {
+          MenuItem {} {
+            label Off
+            xywh {292 10 30 20}
+          }
+          MenuItem {} {
+            label On
+            xywh {292 20 30 20}
+          }
+        }
+        Fl_Box {} {
+          xywh {107 160 400 2} box THIN_DOWN_BOX
+        }
+        Fl_Choice sjs {
+          label {Javascript:} open
+          private xywh {117 215 380 25} down_box BORDER_BOX
+        } {
+          MenuItem {} {
+            label Off
+            xywh {292 20 30 20}
+          }
+          MenuItem {} {
+            label On
+            xywh {292 30 30 20}
+          }
+        }
+        Fl_Choice simg {
+          label {Images:} open
+          private xywh {117 250 380 25} down_box BORDER_BOX
+        } {
+          MenuItem {} {
+            label Off
+            xywh {292 30 30 20}
+          }
+          MenuItem {} {
+            label On
+            xywh {292 40 30 20}
+          }
+        }
+        Fl_Box {} {
+          xywh {107 295 400 2} box THIN_DOWN_BOX
+        }
+        Fl_Input susercss {
+          label {User CSS:}
+          private xywh {117 315 380 25} deactivate
+          code0 {value(_("Not implemented yet"));}
+        }
+        Fl_Input suserjs {
+          label {User JS:}
+          private xywh {117 355 380 25} deactivate
+          code0 {value(_("Not implemented yet"));}
+        }
+      }
+      Fl_Group {} {
+        label Autocomplete open
+        xywh {0 40 615 380} hide
+      } {
+        Fl_Box {} {
+          label {Fifth will never store what you fill in forms, as that would be a security risk. The only options suggested for autocomplete are those you explicitly fill in here. Note that autocomplete is not yet implemented.}
+          xywh {32 65 550 75} align 148
+        }
+        Fl_Input sfill0 {
+          private xywh {30 160 250 25}
+        }
+        Fl_Input sfill1 {
+          private xywh {30 198 250 25}
+        }
+        Fl_Input sfill2 {
+          private xywh {30 237 250 25}
+        }
+        Fl_Input sfill3 {
+          private xywh {30 276 250 25}
+        }
+        Fl_Input sfill4 {
+          private xywh {30 315 250 25}
+        }
+        Fl_Input sfill5 {
+          private xywh {325 160 250 25}
+        }
+        Fl_Input sfill6 {
+          private xywh {325 198 250 25}
+        }
+        Fl_Input sfill7 {
+          private xywh {325 237 250 25}
+        }
+        Fl_Input sfill8 {
+          private xywh {325 276 250 25}
+        }
+        Fl_Input sfill9 {
+          private xywh {325 315 250 25}
+        }
+      }
+      Fl_Group {} {
+        label Spoofing open
+        xywh {0 40 615 380} hide
+      } {
+        Fl_Input sspoofaccept {
+          label {Accept header:}
+          private xywh {170 65 380 25}
+        }
+        Fl_Input sspooflang {
+          label {Language header:}
+          private xywh {170 100 380 25}
+        }
+        Fl_Input sspooftz {
+          label {Timezone:}
+          private xywh {170 135 380 25}
+        }
+        Fl_Input sspoofua {
+          label {User-agent:}
+          private xywh {170 170 380 25}
+        }
+      }
+      Fl_Group {} {
+        label Looks open
+        xywh {0 40 615 380} hide
+      } {
+        Fl_Input sfont {
+          label {Default font:}
+          private xywh {157 65 380 25}
+        }
+        Fl_Input sfixed {
+          label {Fixed font:}
+          private xywh {155 101 380 25}
+        }
+        Fl_Spinner sfontsize {
+          label {Default font size:}
+          private xywh {155 137 380 25} minimum 8 maximum 128
+        }
+        Fl_Spinner sfixedsize {
+          label {Default fixed size:}
+          private xywh {155 173 380 25} minimum 8 maximum 128
+        }
+        Fl_Spinner sminfontsize {
+          label {Minimum font size:} selected
+          private xywh {155 210 380 25} minimum 8 maximum 128
+        }
+      }
+      Fl_Group {} {
+        label Advanced open
+        xywh {0 40 620 385}
+      } {
+        Fl_Browser {} {
+          xywh {10 50 140 365} type Hold
+          code0 {add("FOO");}
+        }
+        Fl_Group advfilter {open
+          private xywh {155 45 455 375} hide
+        } {
+          Fl_Button {} {
+            label {Edit filtered content}
+            xywh {160 55 195 30}
+          }
+          Fl_Browser sblacklist {
+            private xywh {160 95 445 320} type Hold
+          }
+        }
+        Fl_Group advprog {open
+          private xywh {155 45 455 375} hide
+        } {
+          Fl_Input sdlnotify {
+            label {Download notification program:}
+            private xywh {305 70 300 25} align 132
+          }
+          Fl_Input sdlopen {
+            label {Open downloads with:}
+            private xywh {305 110 300 25} align 132
+          }
+        }
+        Fl_Group advhist {open
+          private xywh {155 45 455 375} hide
+        } {
+          Fl_Spinner shistory {
+            label {Remembered addresses:}
+            private xywh {395 70 180 25} minimum 100 maximum 10000 step 100 value 100
+          }
+          Fl_Button {} {
+            label {Clear history}
+            callback {puts("");}
+            xywh {395 105 180 25}
+          }
+          Fl_Spinner scache {
+            label {Cache size (megabytes):}
+            private xywh {395 175 180 25} maximum 1000 value 20
+          }
+        }
+        Fl_Group advcookies {open
+          private xywh {155 45 455 375} hide
+        } {
+          Fl_Box {} {
+            label {Cookie control is not yet implemented.}
+            xywh {180 70 400 90}
+          }
+        }
+        Fl_Group advhotkeys {open
+          private xywh {155 45 455 375}
+        } {
+          Fl_Browser shotkeys {
+            private xywh {160 50 445 330} type Hold
+          }
+          Fl_Button {} {
+            label {Edit hotkey}
+            callback {puts("");}
+            xywh {290 390 150 25}
+          }
+          Fl_Button {} {
+            label {Clear hotkey}
+            callback {puts("");}
+            xywh {450 390 150 25}
+          }
+        }
+      }
+    }
+    Fl_Button {} {
+      label OK
+      callback {puts("");}
+      private xywh {365 435 115 25}
+    }
+    Fl_Button {} {
+      label Cancel
+      callback {parent()->hide();}
+      private xywh {490 435 115 25}
+    }
+  }
+} 

@@ -144,6 +144,27 @@ static void advancedcb(Fl_Widget *w, void*) {
 	}
 }
 
+static void loadblacklist() {
+	sblacklist->clear();
+
+	const int fd = openat(g->profilefd, BLACKNAME, O_RDONLY);
+	if (fd < 0)
+		return; // Maybe doesn't exist yet?
+	FILE * const f = fdopen(fd, "r");
+	if (!f) {
+		close(fd);
+		return;
+	}
+
+	char buf[600];
+	while (fgets(buf, 600, f)) {
+		nukenewline(buf);
+		sblacklist->add(buf);
+	}
+
+	fclose(f);
+}
+
 void settingswindow() {
 
 	static const Fl_Menu_Item menu_bool[] = {
@@ -407,6 +428,8 @@ in here. Note that autocomplete is not yet implemented."));
 	sminfontsize->value(s->val.u);
 
 	// Advanced filter tab
+	loadblacklist();
+
 	// Advanced programs tab
 	// Advanced history tab
 	// Advanced cookies tab

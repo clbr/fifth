@@ -27,6 +27,6 @@ int isblocked(const char *);
 #define WHITENAME "whitelist"
 #define WHITENAMEBIN "whitelist.bin"
 #define BLACKNAME "blacklist"
-#define BLACKNAMEBIN "blaclist.bin"
+#define BLACKNAMEBIN "blacklist.bin"
 
 #endif

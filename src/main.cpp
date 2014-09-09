@@ -649,6 +649,9 @@ int main(int argc, char **argv) {
 	s = getSetting("cache.disk");
 	wk_set_cache_max(s->val.u);
 
+	s = getSetting("exec.stream");
+	wk_set_streaming_prog(strdup(s->val.c));
+
 	s = getSetting("fltk.scheme", NULL);
 	Fl::scheme(s->val.c);
 

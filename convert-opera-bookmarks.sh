@@ -25,6 +25,8 @@ awk 'BEGIN { RS="\n\n"; FS="\n\t" }
 		if ($i ~ /^NAME/) {
 			name = $i
 			sub(/^NAME=/, "", name)
+			gsub(/\//, "\\\\", name)
+			# FLTK does not like fwd slashes in names
 		} else if ($i ~ /^URL/) {
 			url = $i
 			sub(/^URL=/, "", url)

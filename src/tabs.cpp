@@ -413,6 +413,18 @@ static void titlecb() {
 	urlbarstate();
 }
 
+static void donecheck(void *) {
+	const tab * const cur = &g->tabs[g->curtab];
+	if (cur->state != TS_WEB)
+		return;
+
+	if (cur->web->isLoading())
+		g->url->refreshstate(false);
+	else
+		g->url->refreshstate(true);
+	g->url->redraw();
+}
+
 static void stopcb(webview * const view) {
 	const tab * const cur = &g->tabs[g->curtab];
 	if (cur->state != TS_WEB || cur->web != view)
@@ -424,6 +436,9 @@ static void stopcb(webview * const view) {
 		g->url->refreshstate(true);
 
 	g->url->redraw();
+
+	// Some pages have slower sub-resources. Wait a second
+	Fl::add_timeout(1, donecheck);
 }
 
 static void faviconcb(webview * const view) {

@@ -1,11 +1,13 @@
 #!/bin/sh -e
 
+unset path
 if [ "$#" -ne 2 ]; then
 	echo "This script converts bookmarks from Opera's adr format to that used by Fifth."
 	echo "Usage: $0 input output"
 	echo
-	[ -f ~/.opera/opera6.adr ] && echo "Found opera6.adr at ~/.opera/opera6.adr"
-	[ -f ~/.opera/bookmarks.adr ] && echo "Found bookmarks.adr at ~/.opera/bookmarks.adr"
+	[ -f ~/.opera/bookmarks.adr ] && path="~/.opera/bookmarks.adr"
+	[ -f ~/.opera/opera6.adr ] && path="~/.opera/opera6.adr"
+	[ -n "$path" ] && echo "Example: $0 $path ~/.fifth/bookmarks"
 	echo
 	exit 0
 fi

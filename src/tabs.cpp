@@ -430,7 +430,9 @@ static void stopcb(webview * const view) {
 	if (cur->state != TS_WEB || cur->web != view)
 		return;
 
-	if (cur->web->isLoading())
+	const bool loading = cur->web->isLoading();
+
+	if (loading)
 		g->url->refreshstate(false);
 	else
 		g->url->refreshstate(true);
@@ -438,7 +440,8 @@ static void stopcb(webview * const view) {
 	g->url->redraw();
 
 	// Some pages have slower sub-resources. Wait a second
-	Fl::add_timeout(1, donecheck);
+	if (loading)
+		Fl::add_timeout(1, donecheck);
 }
 
 static void faviconcb(webview * const view) {

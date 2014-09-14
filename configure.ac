@@ -105,5 +105,5 @@ echo Distributable binary: $distributable
 echo -e "\n\t\t*********\n\n"],
 [distributable=$distributable])
 
-AC_CONFIG_FILES([Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile doc/Makefile])
 AC_OUTPUT

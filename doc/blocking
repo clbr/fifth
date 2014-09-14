@@ -1,0 +1,32 @@
+Content blocking in Fifth
+=========================
+
+Fifth supports two types of content blocking, blacklisting and
+whitelisting. Both may be used at the same time. The blacklist may be
+used for things like conventional ad blocking, and the whitelist for
+kiosk-type scenarios where only certain sites are allowed, for example.
+
+The file names are "blacklist" and "whitelist", present in your profile
+directory (~/.fifth in a system install).
+
+File format
+-----------
+
+The format for both files is one pattern per line. A pattern may be a
+direct string, or it may contain * wildcards. No comments or empty lines
+are allowed.
+
+For example, these lines would block a specific image, and a certain
+annoying site:
+
+----
+http://foo.com/dir/image.jpg
+http*facebook.*
+http*//*fbcdn.*/*
+----
+
+Conversion from Opera
+---------------------
+
+The format used by Opera is close, containing only some header comments
+and a white/blacklist boolean that need to be stripped out.

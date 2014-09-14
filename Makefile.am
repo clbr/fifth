@@ -3,7 +3,8 @@ SUBDIRS = src doc
 ACLOCAL_AMFLAGS = -I m4
 
 dist_pkgdata_DATA = BACKGROUND DESIGN icon64.png icon128.png icon256.png \
-		logo.png WEBKITBUGS convert-opera-bookmarks.sh
+		logo.png WEBKITBUGS
+dist_pkgdata_SCRIPTS = convert-opera-bookmarks.sh
 
 EXTRA_DIST = fifth.desktop
 
@@ -29,4 +30,3 @@ install-data-hook:
 	install -D -m644 icon128.png $(iconsdir)/128x128/apps/fifth.png
 	install -D -m644 icon256.png $(iconsdir)/256x256/apps/fifth.png
 	install -D -m644 fifth.desktop $(DESTDIR)$(datadir)/applications/fifth.desktop
-	chmod 755 $(DESTDIR)$(pkgdatadir)/convert-opera-bookmarks.sh

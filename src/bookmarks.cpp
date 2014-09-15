@@ -122,6 +122,13 @@ static void doadd() {
 	b.name = strdup(name->value());
 	b.url = strdup(url->value());
 
+	// Filter slashes
+	char *ptr = strchr(b.name, '/');
+	for (; ptr && *ptr; ptr++) {
+		if (*ptr == '/')
+			*ptr = '|';
+	}
+
 	// Which dir did they want?
 	const u32 pos = (u32) (uintptr_t) dir->menu()[dir->value()].user_data();
 	if (!pos) {

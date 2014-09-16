@@ -776,6 +776,7 @@ int main(int argc, char **argv) {
 	pthread_join(tid, NULL);
 	unlinkat(g->profilefd, LOCKFILE, 0);
 	delete g->w;
+	delete g->history;
 	free(g->settings);
 	delete g;
 	return 0;

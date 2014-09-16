@@ -158,6 +158,7 @@ static void urlResults() {
 		const char *url; // static
 		string name;
 		u32 score;
+		bool bookmark;
 
 		bool operator <(const res &other) const {
 			return score > other.score; // Descending order
@@ -173,7 +174,7 @@ static void urlResults() {
 		if (ret < 1)
 			continue;
 
-		res r = {g->history->getURL(i), "(history)", (u32) ret};
+		res r = {g->history->getURL(i), "(history)", (u32) ret, false};
 		results.push_back(r);
 	}
 
@@ -197,7 +198,7 @@ static void urlResults() {
 		snprintf(tmp, 160, "%s (bookmark)", cur.name);
 		tmp[159] = '\0';
 
-		res r = {cur.url, tmp, (u32) ret + ret2};
+		res r = {cur.url, tmp, (u32) ret + ret2, true};
 		results.push_back(r);
 	}
 

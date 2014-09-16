@@ -630,6 +630,7 @@ int main(int argc, char **argv) {
 	wk_set_aboutpage_func(aboutpage);
 	initfavicons();
 	wk_set_cache_dir(g->profilepath);
+	wk_set_cookie_path(g->profilepath);
 	wk_set_useragent_func(useragent);
 	wk_set_tz_func(spooftz);
 	wk_set_accept_func(httpaccept);

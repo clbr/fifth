@@ -16,6 +16,7 @@ bindist: all
 	rm -rf $(BASE); \
 	mkdir $(BASE); \
 	cp $(BINFILES) $(BASE); \
+	mkdir $(BASE)/doc; cp doc/* $(BASE)/doc; rm $(BASE)/doc/Makefile*; \
 	cp /usr/lib/{libssl,libcrypto}*.so.*.* $(BASE); \
 	cp /usr/lib/{libcurl,libpng12,libphysfs,libcares,librtmp}*.so.? $(BASE); \
 	cp /usr/lib/libjpeg*.so.?? $(BASE); \

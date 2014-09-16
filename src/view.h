@@ -43,6 +43,7 @@ struct dl {
 class view: public Fl_Group {
 public:
 	view(int x, int y, int w, int h);
+	~view();
 
 	void draw() override;
 	void resize(int, int, int, int) override;

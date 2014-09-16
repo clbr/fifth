@@ -743,3 +743,16 @@ void view::drawssl() {
 void view::resetssl() {
 	ssltext->value("");
 }
+
+view::~view() {
+	u32 i;
+
+	for (i = 0; i < 9; i++) {
+		if (dialicons[i])
+			delete dialicons[i];
+		dialicons[i] = NULL;
+		if (dialdeicons[i])
+			delete dialdeicons[i];
+		dialdeicons[i] = NULL;
+	}
+}

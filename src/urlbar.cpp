@@ -208,7 +208,7 @@ static void urlResults() {
 			continue;
 
 		char tmp[160];
-		snprintf(tmp, 160, "%s (bookmark)", cur.name);
+		snprintf(tmp, 160, "bookmark: %s", cur.name);
 		tmp[159] = '\0';
 
 		res r = {cur.url, tmp, (u32) ret + ret2, true};

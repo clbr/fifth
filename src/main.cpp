@@ -784,6 +784,7 @@ int main(int argc, char **argv) {
 		free(g->bookmarks[i].url);
 	}
 
+	free((char *) g->profilepath);
 	free(g->settings);
 	delete g;
 	return 0;

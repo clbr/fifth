@@ -777,6 +777,13 @@ int main(int argc, char **argv) {
 	unlinkat(g->profilefd, LOCKFILE, 0);
 	delete g->w;
 	delete g->history;
+
+	const u32 max = g->bookmarks.size();
+	for (i = 0; i < max; i++) {
+		free(g->bookmarks[i].name);
+		free(g->bookmarks[i].url);
+	}
+
 	free(g->settings);
 	delete g;
 	return 0;

@@ -150,20 +150,33 @@ static void dosearch(Fl_Widget *w, void *) {
 	free(first);
 }
 
+struct res {
+	const char *url; // static
+	string name;
+	u32 score;
+	bool bookmark;
+
+	bool operator <(const res &other) const {
+		return score > other.score; // Descending order
+	}
+};
+
+static bool resbyurl(const res &one, const res &two) {
+	// return true if one is before two
+
+	if (one.bookmark && !two.bookmark)
+		return false;
+	if (!one.bookmark && two.bookmark)
+		return true;
+	const int val = strcmp(one.url, two.url);
+	if (val == 0)
+		return false;
+	return val < 0;
+}
+
 static void urlResults() {
 	// Search through bookmarks and history, sort by how good a match each was
 	const char * const needle = g->url->url->inp->value();
-
-	struct res {
-		const char *url; // static
-		string name;
-		u32 score;
-		bool bookmark;
-
-		bool operator <(const res &other) const {
-			return score > other.score; // Descending order
-		}
-	};
 
 	vector<res> results;
 
@@ -205,6 +218,7 @@ static void urlResults() {
 	g->url->url->list->clear();
 
 	// Quick duplicate check
+	std::sort(results.begin(), results.end(), resbyurl);
 	for (i = 1; i < results.size(); i++) {
 		if (!strcmp(results[i - 1].url, results[i].url)) {
 			i--;

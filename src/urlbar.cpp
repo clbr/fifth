@@ -211,7 +211,7 @@ static void urlResults() {
 		snprintf(tmp, 160, "bookmark: %s", cur.name);
 		tmp[159] = '\0';
 
-		res r = {cur.url, tmp, (u32) ret + ret2, true};
+		res r = {cur.url, tmp, (u32) ret + ret2 + 1, true};
 		results.push_back(r);
 	}
 

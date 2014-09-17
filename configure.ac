@@ -61,7 +61,7 @@ AC_CHECK_LIB([z], [compress], [], AC_MSG_ERROR([libz not found]))
 AC_CHECK_LIB([jpeg], [jpeg_set_quality], [], AC_MSG_ERROR([libjpeg not found]))
 AC_CHECK_LIB([physfs], [PHYSFS_init], [], AC_MSG_ERROR([physfs not found]))
 PKG_CHECK_MODULES([DEPS], [libxslt libxml-2.0 sqlite3 \
-				freetype2 fontconfig cairo libpng libcurl \
+				freetype2 fontconfig cairo >= 1.12.17 libpng libcurl \
 				openssl >= 0.9.8 glib-2.0])
 # We don't require glib, but harfbuzz does, and doesn't list it in pkg-config.
 if test "x$distributable" = "xyes"; then

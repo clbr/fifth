@@ -207,6 +207,7 @@ template <int T> static void dialer() {
 
 	cur->state = TS_WEB;
 	cur->web->load(s->val.c);
+	cur->web->take_focus();
 }
 
 void loadkeys() {

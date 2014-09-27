@@ -175,7 +175,7 @@ static bool resbyurl(const res &one, const res &two) {
 }
 
 static void urlResults() {
-	// Search through bookmarks and history, sort by how good a match each was
+	// Search through bookmarks and history etc, sort by how good a match each was
 	const char * const needle = g->url->url->inp->value();
 
 	vector<res> results;
@@ -212,6 +212,28 @@ static void urlResults() {
 		tmp[159] = '\0';
 
 		res r = {cur.url, tmp, (u32) ret + ret2 + 1, true};
+		results.push_back(r);
+	}
+
+	for (i = 0; i < 9; i++) {
+		char tgt[] = "dial.1";
+		tgt[5] += i;
+		const setting * const s = getSetting(tgt);
+		if (!s->val.c || !s->val.c[0])
+			continue;
+
+		const int ret = ratedsearch(needle, s->val.c);
+		if (ret < 1)
+			continue;
+
+		char site[120];
+		url2site(s->val.c, site, 120);
+
+		char tmp[160];
+		snprintf(tmp, 160, "dial: %s", site);
+		tmp[159] = '\0';
+
+		res r = {s->val.c, tmp, (u32) ret, true};
 		results.push_back(r);
 	}
 

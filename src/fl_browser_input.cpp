@@ -24,7 +24,7 @@ static void btn_cb(Fl_Widget *, void *ptr) {
 
 	fl_browser_input *bi = (fl_browser_input *) ptr;
 
-	if (bi->win->shown()) {
+	if (bi->win->shown() && !bi->popping) {
 		bi->win->hide();
 		return;
 	}
@@ -70,7 +70,8 @@ static void brow_cb(Fl_Widget *, void *ptr) {
 	bi->inp->value(picked, len);
 }
 
-fl_browser_input::fl_browser_input(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
+fl_browser_input::fl_browser_input(int x, int y, int w, int h): Fl_Group(x, y, w, h),
+			popping(false) {
 
 	box(FL_DOWN_BOX);
 
@@ -137,9 +138,12 @@ int fl_browser_input::handle(const int e) {
 				break;
 			}
 		break;
-		case FL_FOCUS:
-			if (win->shown())
+		case FL_UNFOCUS:
+			if (win->shown() && !popping && Fl::focus() &&
+				!win->contains(Fl::focus()) &&
+				Fl::focus() != inp) {
 				win->hide();
+			}
 		break;
 	}
 
@@ -198,7 +202,12 @@ int fl_browser_input::arrowbrow::handle(const int e) {
 }
 
 void fl_browser_input::popup() {
+	popping = true;
+
 	but->do_callback();
+	inp->take_focus();
+
+	popping = false;
 }
 
 void fl_browser_input::hidewin() {

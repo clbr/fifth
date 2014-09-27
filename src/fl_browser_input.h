@@ -48,6 +48,8 @@ public:
 	arrowbrow *list;
 	inputplace *inp;
 
+	bool popping;
+
 private:
 	class nicebtn: public Fl_Button {
 	public:

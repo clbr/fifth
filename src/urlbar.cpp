@@ -246,15 +246,18 @@ static void urlResults() {
 static void dogo(Fl_Widget *w, void *) {
 	inputplace * const i = (inputplace *) w;
 	const char * const val = i->value();
-	if (strlen(val) < 2 || allspace(val))
+	if (strlen(val) < 2 || allspace(val)) {
+		g->url->url->hidewin();
 		return;
+	}
 
 	// We need to differentiate between changed and enter-pressed states.
 	if (i->changed()) {
 		urlResults();
 		if (g->url->url->list->size()) {
 			g->url->url->popup();
-			i->take_focus();
+		} else {
+			g->url->url->hidewin();
 		}
 		return;
 	}

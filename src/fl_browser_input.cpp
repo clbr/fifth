@@ -200,3 +200,8 @@ int fl_browser_input::arrowbrow::handle(const int e) {
 void fl_browser_input::popup() {
 	but->do_callback();
 }
+
+void fl_browser_input::hidewin() {
+	if (win->shown())
+		win->hide();
+}

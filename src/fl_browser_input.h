@@ -40,6 +40,7 @@ public:
 	};
 
 	void popup();
+	void hidewin();
 
 	inputplace &input() const { return *inp; }
 

@@ -124,12 +124,17 @@ int fl_browser_input::handle(const int e) {
 
 	switch (e) {
 		case FL_KEYDOWN:
-			if (Fl::event_key() == FL_Down) {
-				if (win->shown())
-					win->take_focus();
-				else
-					but->do_callback();
-				return 1;
+			switch (Fl::event_key()) {
+				case FL_Down:
+					if (win->shown())
+						win->take_focus();
+					else
+						but->do_callback();
+					return 1;
+				break;
+				case FL_Escape:
+					win->hide();
+				break;
 			}
 		break;
 		case FL_FOCUS:

@@ -51,6 +51,7 @@ static void btn_cb(Fl_Widget *, void *ptr) {
 	bi->win->size(bi->w(), winh);
 	bi->win->position(bi->window()->x() + bi->x(), bottom);
 	bi->win->show();
+	bi->win->wait_for_expose();
 }
 
 static void brow_cb(Fl_Widget *, void *ptr) {

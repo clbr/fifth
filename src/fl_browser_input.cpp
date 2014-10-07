@@ -35,7 +35,7 @@ static void btn_cb(Fl_Widget *, void *ptr) {
 	bi->list->column_widths(widths);
 
 	const u32 lines = bi->list->size();
-	const u32 linepixels = lines * (bi->list->textsize() + 2) + 6;
+	const u32 linepixels = lines * (bi->list->textsize() + 3) + 6;
 	if (lines) {
 		bi->list->value(1);
 	} else {

@@ -239,6 +239,10 @@ static void urlResults() {
 
 	g->url->url->list->clear();
 
+	max = results.size();
+	if (max < 1)
+		return;
+
 	// Quick duplicate check
 	std::sort(results.begin(), results.end(), resbyurl);
 	for (i = 1; i < results.size(); i++) {

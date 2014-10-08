@@ -20,7 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <langinfo.h>
 #include <signal.h>
 #include <sys/file.h>
+#include <sys/prctl.h>
 #include <FL/Fl_Pack.H>
+
+#ifndef PR_SET_TIMERSLACK
+#define PR_SET_TIMERSLACK 29
+#define PR_GET_TIMERSLACK 30
+#endif
 
 globals *g;
 
@@ -457,6 +463,8 @@ int main(int argc, char **argv) {
 	srand(time(NULL));
 	setlocale(LC_ALL, "");
 	setlocale(LC_NUMERIC, "C");
+	// Reduce CPU usage by aligning wakeups to 0.5ms
+	prctl(PR_SET_TIMERSLACK, 500 * 1000, 0, 0, 0);
 
 	// Opts
 	bool customprofile = false;

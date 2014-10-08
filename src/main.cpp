@@ -359,6 +359,13 @@ static void persitesettings(const char *url) {
 	persitewindow(site);
 }
 
+static void faviconsdone() {
+
+	if (g->run) {
+		g->v->redraw();
+	}
+}
+
 static void initfavicons() {
 	vector<const char *> vec;
 	vec.reserve(9);
@@ -372,7 +379,7 @@ static void initfavicons() {
 			vec.push_back(s->val.c);
 	}
 
-	wk_set_favicon_dir(g->profilepath, &vec);
+	wk_set_favicon_dir(g->profilepath, &vec, faviconsdone);
 }
 
 static void quitsig(int) {
@@ -459,6 +466,7 @@ int main(int argc, char **argv) {
 	g->debugkeys = false;
 	g->tabs.reserve(128);
 	g->closedtabs.reserve(128);
+	g->run = 0;
 
 	srand(time(NULL));
 	setlocale(LC_ALL, "");

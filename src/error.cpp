@@ -80,6 +80,7 @@ void errorlog() {
 		w = o;
 		w->resizable(w);
 		{ errlist = new Fl_Browser(10, 10, 885, 745);
+			errlist->format_char(0);
 		} // Fl_Browser* errlist
 		{ Fl_Input* o = new Fl_Input(50, 765, 370, 25, _("Filter:"));
 			o->callback((Fl_Callback *) filtercb);

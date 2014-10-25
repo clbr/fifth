@@ -99,5 +99,11 @@ int window::handle(const int e) {
 		return 1;
 	}
 
+	if (e == FL_FOCUS) {
+		if (g->tabs.size() && g->tabs[g->curtab].state == TS_WEB)
+			g->tabs[g->curtab].web->take_focus();
+		return 1;
+	}
+
 	return Fl_Window::handle(e);
 }

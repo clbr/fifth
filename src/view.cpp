@@ -733,10 +733,10 @@ void view::drawssl() {
 	fl_draw(tmp, x() + 200, cury, w() - 400, smallsize * 5, FL_ALIGN_CENTER | FL_ALIGN_WRAP);
 
 	cury += fl_height() * 5;
-	ssltext->resize(x() + 200, cury, ssltext->w(), ssltext->h());
+	ssltext->resize((w() - 506) / 2, cury, ssltext->w(), ssltext->h());
 	((Fl_Widget *) ssltext)->draw();
 
-	sslbutton->position(x() + 200 + 6 + ssltext->w(), cury);
+	sslbutton->position(ssltext->x() + 6 + ssltext->w(), cury);
 	((Fl_Widget *) sslbutton)->draw();
 }
 

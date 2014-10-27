@@ -386,13 +386,15 @@ static void quitsig(int) {
 	quitcb(NULL, NULL);
 }
 
-static void crashsig(int) {
+static void crashsig(int sig) {
 	static int inhandler = 0;
 
 	if (inhandler) // We caused another crash?
 		abort();
 
 	inhandler = 1;
+
+	printf("Crashing with signal %s (%u)\n", strsignal(sig), sig);
 
 	// Write out all open tabs
 	const int fd = openat(g->profilefd, CRASHFILE, O_CREAT | O_WRONLY, 0600);

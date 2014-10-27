@@ -785,8 +785,10 @@ void undotab() {
 	if (!g->closedtabs.size())
 		return;
 
-	g->tabs.push_back(g->closedtabs[0]);
-	g->closedtabs.erase(g->closedtabs.begin());
+	const u32 which = g->closedtabs.size() - 1;
+
+	g->tabs.push_back(g->closedtabs[which]);
+	g->closedtabs.erase(g->closedtabs.begin() + which);
 	activatetab(g->tabs.size() - 1);
 }
 

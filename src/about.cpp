@@ -200,7 +200,7 @@ static const char *abouthistory() {
 			size_t outsize = 80;
 
 			char *inptr = tmp, *outptr = timestr;
-			iconv(g->conv, &inptr, &inleft, &outptr, &outsize);
+			iconv(g->toutf, &inptr, &inleft, &outptr, &outsize);
 		}
 
 		s += "<tr class=\"";

@@ -98,7 +98,7 @@ struct globals {
 
 	histbuf *history;
 
-	iconv_t conv;
+	iconv_t toutf, fromutf;
 };
 
 extern struct globals *g;

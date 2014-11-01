@@ -613,7 +613,10 @@ int main(int argc, char **argv) {
 	loadbookmarks();
 	loadblocking();
 
-	g->conv = iconv_open("UTF-8//TRANSLIT", nl_langinfo(CODESET));
+	char utfbuf[160];
+	snprintf(utfbuf, 160, "%s//TRANSLIT", nl_langinfo(CODESET));
+	g->toutf = iconv_open("UTF-8//TRANSLIT", nl_langinfo(CODESET));
+	g->fromutf = iconv_open(utfbuf, "UTF-8");
 
 	pthread_t tid;
 	pthread_attr_t attr;
@@ -790,7 +793,8 @@ int main(int argc, char **argv) {
 	saveConfig();
 	saveHistory();
 
-	iconv_close(g->conv);
+	iconv_close(g->toutf);
+	iconv_close(g->fromutf);
 	pthread_cancel(tid);
 	pthread_join(tid, NULL);
 	unlinkat(g->profilefd, LOCKFILE, 0);

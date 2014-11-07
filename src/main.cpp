@@ -530,7 +530,7 @@ int main(int argc, char **argv) {
 	// Fallback before we load the config, so the crash dialog isn't 100% ugly
 	Fl::scheme("gtk+");
 
-	Fl_RGB_Image::scaling(FL_SCALING_BILINEAR);
+	Fl_Image::RGB_scaling(FL_RGB_SCALING_BILINEAR);
 
 	// Is this a crash, a remote call, or a normal start?
 	bool blankonly = false;

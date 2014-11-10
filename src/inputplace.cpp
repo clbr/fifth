@@ -89,6 +89,12 @@ int inputplace::handle(const int e) {
 				// Fallthrough
 			break;
 		}
+	} else if ((e == FL_PUSH || e == FL_DRAG) && image()) {
+		const int oldx = x();
+		resize(oldx + image()->w() + 6, y(), w(), h());
+		const int ret = Fl_Input::handle(e);
+		resize(oldx, y(), w(), h());
+		return ret;
 	}
 
 	return Fl_Input::handle(e);

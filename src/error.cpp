@@ -55,6 +55,30 @@ static void clearcb(Fl_Widget *, void *ptr) {
 	errlist->clear();
 }
 
+static void addsplit(const char in[]) {
+
+	char tmp[1024];
+
+	const char *cur = in, *end = strchrnul(in, '\n');
+
+	do {
+		const u32 len = end - cur;
+		if (len >= 1024)
+			return;
+
+		memcpy(tmp, cur, len);
+		tmp[len] = '\0';
+		if (tmp[len - 1] == '\n') tmp[len - 1] = '\0';
+
+		errlist->add(tmp);
+
+		if (!*end)
+			return;
+		cur = end + 1;
+		end = strchrnul(cur, '\n');
+	} while (1);
+}
+
 void refresherr(const histbuf * const src) {
 	if (!w || !w->shown())
 		return;
@@ -66,7 +90,10 @@ void refresherr(const histbuf * const src) {
 	const u32 max = src->size();
 	u32 i;
 	for (i = 0; i < max; i++) {
-		errlist->add(src->getURL(i));
+		if (strchr(src->getURL(i), '\n'))
+			addsplit(src->getURL(i));
+		else
+			errlist->add(src->getURL(i));
 	}
 }
 
@@ -104,7 +131,10 @@ void errorlog() {
 	const u32 max = cur->errors->size();
 	u32 i;
 	for (i = 0; i < max; i++) {
-		errlist->add(cur->errors->getURL(i));
+		if (strchr(cur->errors->getURL(i), '\n'))
+			addsplit(cur->errors->getURL(i));
+		else
+			errlist->add(cur->errors->getURL(i));
 	}
 
 	w->show();

@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 #include <FL/Fl_PNG_Image.H>
+#include <FL/Fl_Tooltip.H>
 
 static vector<u16> longorder;
 static u16 longpress;
@@ -210,11 +211,17 @@ int tabbar::handle(const int e) {
 			redraw();
 
 			if (ontab) {
-				if (!tooltip() || strcmp(tooltip(), g->tabs[which].title()))
+				if (!tooltip() || strcmp(tooltip(), g->tabs[which].title())) {
 					copy_tooltip(g->tabs[which].title());
+					Fl_Tooltip::enter(0);
+					Fl_Tooltip::enter(this);
+				}
 			} else {
-				if (!tooltip() || strcmp(tooltip(), ""))
+				if (!tooltip() || strcmp(tooltip(), "")) {
 					tooltip("");
+					Fl_Tooltip::enter(0);
+					Fl_Tooltip::enter(this);
+				}
 			}
 
 			return 1;

@@ -678,6 +678,7 @@ void newtabbg(const char *url) {
 	webdefaults(tab.web);
 
 	tab.web->load(url);
+	tab.web->hide();
 }
 
 struct tmptab {

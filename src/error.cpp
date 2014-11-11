@@ -16,13 +16,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
-#include <FL/Fl_Browser.H>
+#include <FL/Fl_Select_Browser.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Button.H>
 
 #include "main.h"
 
-static Fl_Browser *errlist=(Fl_Browser *)0;
+static Fl_Select_Browser *errlist=(Fl_Select_Browser *)0;
 static Fl_Double_Window* w = NULL;
 static Fl_Input *filterin = NULL;
 static Fl_Button *clearbtn = NULL;
@@ -53,6 +53,13 @@ static void clearcb(Fl_Widget *, void *ptr) {
 	histbuf *h = (histbuf *) ptr;
 	h->clear();
 	errlist->clear();
+}
+
+static void clipboardcb(Fl_Widget *, void *) {
+	if (errlist->value()) {
+		const char *text = errlist->text(errlist->value());
+		Fl::copy(text, strlen(text));
+	}
 }
 
 static void addsplit(const char in[]) {
@@ -106,8 +113,10 @@ void errorlog() {
 		Fl_Double_Window* o = new Fl_Double_Window(905, 800, _("Error console"));
 		w = o;
 		w->resizable(w);
-		{ errlist = new Fl_Browser(10, 10, 885, 745);
+		{ errlist = new Fl_Select_Browser(10, 10, 885, 745);
 			errlist->format_char(0);
+			errlist->callback(clipboardcb);
+			errlist->tooltip(_("Clicking on an item copies it to the clipboard."));
 		} // Fl_Browser* errlist
 		{ Fl_Input* o = new Fl_Input(50, 765, 370, 25, _("Filter:"));
 			o->callback((Fl_Callback *) filtercb);

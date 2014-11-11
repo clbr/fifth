@@ -6,3 +6,4 @@ blocking UI
 inspector
 some common useragents as buttons
 session saving
+middle click on a link should not toggle JS or go to closed frames

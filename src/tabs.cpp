@@ -452,8 +452,8 @@ static void stopcb(webview * const view) {
 }
 
 static void faviconcb(webview * const view) {
-	tab * const cur = &g->tabs[g->curtab];
-	if (cur->state != TS_WEB || cur->web != view)
+	tab * const cur = findtab(view);
+	if (!cur || cur->state != TS_WEB)
 		return;
 
 	if (cur->icon)

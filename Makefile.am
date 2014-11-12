@@ -9,7 +9,7 @@ dist_pkgdata_SCRIPTS = convert-opera-bookmarks.sh
 EXTRA_DIST = fifth.desktop
 
 bindist: BASE = $(PACKAGE_TARNAME)-$(PACKAGE_VERSION)
-bindist: BINFILES = src/fifth $(dist_pkgdata_DATA) $(EXTRA_DIST)
+bindist: BINFILES = src/fifth $(dist_pkgdata_DATA) $(EXTRA_DIST) $(dist_pkgdata_SCRIPTS)
 bindist: all
 	GLIBC=_`LANG=C locale --version | grep libc | cut -d\) -f2 | sed 's@^ @glibc-@'`; \
 	name=$(BASE)$${GLIBC}_`uname -m`; \

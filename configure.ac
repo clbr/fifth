@@ -95,6 +95,7 @@ CXXFLAGS=["$CXXFLAGS $DEPS_CFLAGS $CPPDEPS_CFLAGS"]
 # Random other things
 CFLAGS=["$CFLAGS -Wall -Wextra"]
 CXXFLAGS=["$CXXFLAGS -Wall -Wextra -std=gnu++11"]
+CXXFLAGS=["$CXXFLAGS -ffunction-sections -fdata-sections"]
 LDFLAGS=["$LDFLAGS -Wl,-O1 -Wl,-rpath,'\$\$ORIGIN'"]
 
 AC_CONFIG_COMMANDS([atag],[

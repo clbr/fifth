@@ -471,8 +471,10 @@ static void faviconcb(webview * const view) {
 		delete old;
 	}
 
-	g->url->url->input().image(cur->icon);
-	g->url->redraw();
+	if (g->tabs[g->curtab].web == view) {
+		g->url->url->input().image(cur->icon);
+		g->url->redraw();
+	}
 	g->tabwidget->redraw();
 }
 

@@ -360,8 +360,10 @@ static void searchenginestate() {
 	}
 }
 
-static void urlbarstate() {
+static void urlbarstate(bool curcheck = false) {
 	const tab * const cur = &g->tabs[g->curtab];
+	if (curcheck && (cur->state != TS_WEB || !cur->web))
+		return;
 
 	if (cur->url) {
 		g->url->url->input().value(cur->url);
@@ -417,7 +419,7 @@ static void titlecb() {
 			cur->url = strdup(cur->web->url());
 	}
 
-	urlbarstate();
+	urlbarstate(true);
 }
 
 static void donecheck(void *) {

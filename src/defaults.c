@@ -54,6 +54,7 @@ const struct setting defaultSettings[] = {
 	{"general.javascript", 	ST_U32, { .u = 1}},
 	{"general.startup", 	ST_U32, { .u = 0}},
 	{"history.size",	ST_U32, { .u = 1000}},
+	{"image.maxsize",	ST_U32, { .u = 1024}},
 	{"keys.addbookmark",	ST_U32, { .u = 33554532}}, // ctrl + d
 	{"keys.back", 		ST_U32, { .u = 122}}, // z
 	{"keys.closetab", 	ST_U32, { .u = 33554551}}, // ctrl + w

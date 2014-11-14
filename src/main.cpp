@@ -658,6 +658,9 @@ int main(int argc, char **argv) {
 	wk_set_language_func(httplang);
 	wk_set_persite_settings_func(persitesettings);
 
+	const u32 imgmax = getSetting("image.maxsize")->val.u;
+	wk_set_image_max(imgmax);
+
 	u32 x, y, w, h;
 	setting *s = getSetting("window.x", NULL);
 	x = s->val.u;

@@ -80,10 +80,10 @@ AC_CHECK_LIB([webkitfltk], [webkitInit], [], AC_MSG_ERROR([libwebkitfltk not fou
 AC_MSG_CHECKING([webkitfltk version is ok])
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <webkit.h>]],
 	[[
-	#if WK_FLTK_MAJOR != 0 || WK_FLTK_MINOR != 0
+	#if WK_FLTK_MAJOR != 0 || WK_FLTK_MINOR < 1
 	#error unsupported webkitfltk version
 	#endif
-	]])], [AC_MSG_RESULT([yes])], [AC_MSG_FAILURE([Unsupported webkit version, 0.0 required])]
+	]])], [AC_MSG_RESULT([yes])], [AC_MSG_FAILURE([Unsupported webkit version, 0.1 required])]
 	)
 
 CXXFLAGS=["$CXXFLAGS $DEPS_CFLAGS $CPPDEPS_CFLAGS"]

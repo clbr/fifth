@@ -1,0 +1,8 @@
+Fifth
+=====
+
+Fifth is a Linux-exclusive browser that carries the best features from Opera, as
+well as a few unique features that are likely to please Linux power users. It's
+based on a custom Webkit port to FLTK and comes licensed under the GPLv3.
+
+For tarball releases, screenshots, and other material see http://fifth-browser.sf.net

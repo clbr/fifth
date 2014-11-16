@@ -394,7 +394,7 @@ static void crashsig(int sig) {
 
 	inhandler = 1;
 
-	printf("Crashing with signal %s (%u)\n", strsignal(sig), sig);
+	printf("Crashing with signal %s (%d)\n", strsignal(sig), sig);
 
 	// Write out all open tabs
 	const int fd = openat(g->profilefd, CRASHFILE, O_CREAT | O_WRONLY, 0600);

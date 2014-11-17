@@ -43,8 +43,8 @@ VER=$($fltkconfig --version)
 MINOR=$(echo $VER | cut -d. -f2)
 PATCH=$(echo $VER | cut -d. -f3)
 
-if test "$MINOR" -lt 3 || test "$PATCH" -lt 2; then
-	AC_MSG_ERROR([FLTK >= 1.3.2 not found, got $VER])
+if test "$MINOR" -lt 3 || test "$PATCH" -lt 3; then
+	AC_MSG_ERROR([FLTK >= 1.3.3 not found, got $VER])
 fi
 
 CXXFLAGS=["$CXXFLAGS $($fltkconfig --cxxflags | sed 's@-I@-isystem @g')"]

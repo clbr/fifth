@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static const char *aboutme() {
 
-	const char str[] = "<html><head><title>about:fifth</title></head><bopdy><center>"
+	const char str[] = "<html><head><title>about:fifth</title></head><body><center>"
 				"<h3>Fifth "
 #if GIT
 				GITVERSION

@@ -67,7 +67,7 @@ PKG_CHECK_MODULES([DEPS], [libxslt libxml-2.0 sqlite3 \
 if test "x$distributable" = "xyes"; then
 	LIBS=["$LIBS -Wl,-Bstatic -static-libstdc++ -static-libgcc"]
 fi
-PKG_CHECK_MODULES([CPPDEPS], [harfbuzz harfbuzz-icu icu-uc icu-i18n])
+PKG_CHECK_MODULES([CPPDEPS], [harfbuzz harfbuzz-icu icu-uc icu-i18n webkitfltk])
 LIBS=["$LIBS $CPPDEPS_LIBS"]
 if test "x$distributable" = "xyes"; then
 	LIBS=["$LIBS -Wl,-Bdynamic"]
@@ -75,6 +75,7 @@ fi
 
 LIBS=["$LIBS $DEPS_LIBS"]
 AC_CHECK_LIB([webkitfltk], [webkitInit], [], AC_MSG_ERROR([libwebkitfltk not found]))
+CXXFLAGS=["$CXXFLAGS $DEPS_CFLAGS $CPPDEPS_CFLAGS"]
 
 # Check for webkitfltk version
 AC_MSG_CHECKING([webkitfltk version is ok])
@@ -85,8 +86,6 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <webkit.h>]],
 	#endif
 	]])], [AC_MSG_RESULT([yes])], [AC_MSG_FAILURE([Unsupported webkit version, 0.1 required])]
 	)
-
-CXXFLAGS=["$CXXFLAGS $DEPS_CFLAGS $CPPDEPS_CFLAGS"]
 
 # Checks for header files.
 

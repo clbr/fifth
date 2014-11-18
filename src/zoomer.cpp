@@ -41,7 +41,7 @@ void zoomer::draw() {
 	ty = y() + (h() - th) / 2;
 
 	fl_color(FL_GRAY);
-	fl_rectf(tx, ty, tw, th);
+	fl_rectf(tx, ty, tw, th - 1);
 
 	fl_color(FL_BLACK);
 	fl_draw(tmp, tx, ty - fl_descent() + fl_height());

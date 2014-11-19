@@ -195,6 +195,10 @@ int fl_browser_input::arrowbrow::handle(const int e) {
 				case FL_Escape:
 					parent()->hide();
 				break;
+				default:
+					parent()->hide();
+					inp->handle(e);
+				break;
 			}
 		break;
 	}

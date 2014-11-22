@@ -15,10 +15,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "main.h"
+#include <sys/prctl.h>
 
 void *listenRemote(void *) {
 
 	remotemsg m;
+
+	prctl(PR_SET_NAME, "fifth commander", 0, 0, 0);
 
 	long cur = fcntl(g->lockfd, F_GETFL);
 	cur = cur & ~(O_NONBLOCK);

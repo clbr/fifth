@@ -96,6 +96,7 @@ fl_browser_input::fl_browser_input(int x, int y, int w, int h): Fl_Group(x, y, w
 	//win->parent(window());
 	win->set_non_modal();
 	win->clear_border();
+	win->set_menu_window();
 
 	list = new arrowbrow(0, 0, 10, 10);
 	list->column_char('\t');

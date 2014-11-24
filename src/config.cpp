@@ -106,7 +106,7 @@ static void parseLine(const char *line) {
 		strncpy(val, line, bufsize);
 		val[bufsize - 1] = '\0';
 
-		vector<setting> &vec = g->sitesettings[site];
+		map<string, setting> &persite = g->sitesettings[site];
 
 		s.type = char2type(type);
 		setupSetting(s, name, val);
@@ -117,7 +117,7 @@ static void parseLine(const char *line) {
 					settingcmp);
 
 		if (check)
-			vec.push_back(s);
+			persite[s.name] = s;
 		else
 			die(_("Tried to add nonexistent site config item %s\n"), name);
 	} else {
@@ -261,33 +261,34 @@ void saveConfig() {
 	}
 
 	// Per-site config
-	map<string, vector<setting> >::const_iterator it;
+	map<string, map<string, setting> >::const_iterator it;
 	for (it = g->sitesettings.begin(); it != g->sitesettings.end(); it++) {
 		const string &site = it->first;
-		const vector<setting> &set = it->second;
+		const map<string, setting> &set = it->second;
 
-		const u32 max = set.size();
+		map<string, setting>::const_iterator perit;
 
-		for (i = 0; i < max; i++) {
+		for (perit = set.begin(); perit != set.end(); perit++) {
+			const setting &cur = perit->second;
 			char desc;
-			switch (set[i].type) {
+			switch (cur.type) {
 				case ST_CHAR:
 					desc = 'c';
 					fprintf(f, "site %s %s %c %s\n", site.c_str(),
-						set[i].name, desc,
-						set[i].val.c);
+						cur.name, desc,
+						cur.val.c);
 				break;
 				case ST_FLOAT:
 					desc = 'f';
 					fprintf(f, "site %s %s %c %f\n", site.c_str(),
-						set[i].name, desc,
-						set[i].val.f);
+						cur.name, desc,
+						cur.val.f);
 				break;
 				case ST_U32:
 					desc = 'u';
 					fprintf(f, "site %s %s %c %u\n", site.c_str(),
-						set[i].name, desc,
-						set[i].val.u);
+						cur.name, desc,
+						cur.val.u);
 				break;
 				case ST_COUNT:
 					die(_("Tried to save corrupt config\n"));

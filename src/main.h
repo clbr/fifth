@@ -67,7 +67,7 @@ struct globals {
 	int certfd;
 
 	setting *settings;
-	map<string, vector<setting> > sitesettings;
+	map<string, map<string, setting> > sitesettings;
 
 	vector<remotemsg> remotes;
 	u8 newremotes;

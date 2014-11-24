@@ -50,7 +50,7 @@ static void cb_pscancel(Fl_Button *b, void*) {
 static void cb_psok(Fl_Widget *w, void*) {
 	w->window()->hide();
 
-	vector<setting> &vec = g->sitesettings[pssite->value()];
+	map<string, setting> &vec = g->sitesettings[pssite->value()];
 	setting s;
 	bool force = false;
 
@@ -65,28 +65,28 @@ static void cb_psok(Fl_Widget *w, void*) {
 		strcpy(s.name, "general.css");
 		s.type = ST_U32;
 		s.val.u = pscss->value();
-		vec.push_back(s);
+		vec[s.name] = s;
 	}
 
 	if (psjs->changed() || force) {
 		strcpy(s.name, "general.javascript");
 		s.type = ST_U32;
 		s.val.u = psjs->value();
-		vec.push_back(s);
+		vec[s.name] = s;
 	}
 
 	if (psimg->changed() || force) {
 		strcpy(s.name, "general.images");
 		s.type = ST_U32;
 		s.val.u = psimg->value();
-		vec.push_back(s);
+		vec[s.name] = s;
 	}
 
 	if (psusercss->changed() || force) {
 		strcpy(s.name, "user.css");
 		s.type = ST_CHAR;
 		s.val.c = strdup(psusercss->value());
-		vec.push_back(s);
+		vec[s.name] = s;
 	}
 
 	// Cookies tab
@@ -96,28 +96,28 @@ static void cb_psok(Fl_Widget *w, void*) {
 		strcpy(s.name, "spoof.accept");
 		s.type = ST_CHAR;
 		s.val.c = strdup(psspoofaccept->value());
-		vec.push_back(s);
+		vec[s.name] = s;
 	}
 
 	if (psspooflang->changed() || force) {
 		strcpy(s.name, "spoof.language");
 		s.type = ST_CHAR;
 		s.val.c = strdup(psspooflang->value());
-		vec.push_back(s);
+		vec[s.name] = s;
 	}
 
 	if (psspooftz->changed() || force) {
 		strcpy(s.name, "spoof.timezone");
 		s.type = ST_U32;
 		s.val.u = atoi(psspooftz->value());
-		vec.push_back(s);
+		vec[s.name] = s;
 	}
 
 	if (psspoofua->changed() || force) {
 		strcpy(s.name, "spoof.useragent");
 		s.type = ST_CHAR;
 		s.val.c = strdup(psspoofua->value());
-		vec.push_back(s);
+		vec[s.name] = s;
 	}
 
 	saveConfig();

@@ -20,13 +20,10 @@ setting *getSetting(const char name[], const char * const site) {
 
 	// Get a setting, possibly overrided at the site level
 	if (site && g->sitesettings.count(site)) {
-		vector<setting> &vec = g->sitesettings[site];
-		const u32 max = vec.size();
-		u32 i;
-		for (i = 0; i < max; i++) {
-			if (!strcmp(name, vec[i].name))
-				return &vec[i];
-		}
+		map<string, setting> &vec = g->sitesettings[site];
+
+		if (vec.count(name))
+			return &vec[name];
 	}
 
 	return (setting *) bsearch(name, g->settings, numDefaults,

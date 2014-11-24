@@ -315,6 +315,10 @@ static webview *popupcb(const char *url) {
 	if (isblocked(url))
 		return NULL;
 
+	// Don't allow blank or previously blocked urls either
+	if (!strcmp(url, "about:blank"))
+		return NULL;
+
 	newtab(url);
 	return g->tabs[g->curtab].web;
 }

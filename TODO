@@ -8,3 +8,5 @@ some common useragents as buttons
 session saving
 middle click on a link should not toggle JS or go to closed frames
 pressing enter when searching should go to the link, not next match
+change per-site setting vec to map
+add a file browser button to usercss field

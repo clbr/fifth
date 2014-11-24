@@ -543,6 +543,9 @@ static void persite(webview * const view, const char * const url) {
 		s = getSetting("general.images", site);
 		view->setBool(WK_SETTING_IMG, s->val.u);
 	}
+
+	s = getSetting("user.css", site);
+	view->setChar(WK_SETTING_USER_CSS, s->val.c);
 }
 
 static void errorcb(webview * const view, const char *err) {

@@ -246,6 +246,11 @@ static void cb_OK(Fl_Button *b, void*) {
 		s->val.u = simg->value();
 	}
 
+	if (susercss->changed()) {
+		s = getSetting("user.css");
+		s->val.c = strdup(susercss->value());
+	}
+
 	// Autocomplete tab
 	static Fl_Input *autos[10] = {
 		sfill0,
@@ -473,8 +478,9 @@ void settingswindow() {
 					o->box(FL_THIN_DOWN_BOX);
 				} // Fl_Box* o
 				{ susercss = new Fl_Input(117, 315, 380, 25, _("User CSS:"));
-					susercss->deactivate();
-					susercss->value(_("Not implemented yet"));
+					susercss->tooltip(_("Only one user stylesheet can be "
+						"in effect at once. If there is no site-specific "
+						"one, the global one is used."));
 					susercss->when(0);
 				} // Fl_Input* susercss
 				{ suserjs = new Fl_Input(117, 355, 380, 25, _("User JS:"));
@@ -679,6 +685,9 @@ in here. Note that autocomplete is not yet implemented."));
 
 	s = getSetting("general.images");
 	simg->value(s->val.u);
+
+	s = getSetting("user.css");
+	susercss->value(s->val.c);
 
 	// Autocomplete tab
 	static Fl_Input *autos[10] = {

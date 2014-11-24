@@ -82,6 +82,13 @@ static void cb_psok(Fl_Widget *w, void*) {
 		vec.push_back(s);
 	}
 
+	if (psusercss->changed() || force) {
+		strcpy(s.name, "user.css");
+		s.type = ST_CHAR;
+		s.val.c = strdup(psusercss->value());
+		vec.push_back(s);
+	}
+
 	// Cookies tab
 
 	// Spoof tab
@@ -153,8 +160,9 @@ void persitewindow(const char * const site) {
 					o->box(FL_THIN_DOWN_BOX);
 				} // Fl_Box* o
 				{ psusercss = new Fl_Input(112, 260, 380, 25, _("User CSS:"));
-					psusercss->deactivate();
-					psusercss->value(_("Not implemented yet"));
+					psusercss->tooltip(_("Only one user stylesheet can be "
+						"in effect at once. If there is no site-specific "
+						"one, the global one is used."));
 					psusercss->when(0);
 				} // Fl_Input* psusercss
 				{ psuserjs = new Fl_Input(112, 300, 380, 25, _("User JS:"));
@@ -210,6 +218,15 @@ void persitewindow(const char * const site) {
 
 	s = getSetting("general.images", site);
 	psimg->value(!!s->val.u);
+
+	s = getSetting("user.css", site);
+	const setting *tmps = getSetting("user.css");
+	if (s != tmps) {
+		// A per-site usercss file is set
+		psusercss->value(s->val.c);
+	} else {
+		psusercss->value("");
+	}
 
 	// Cookies tab
 

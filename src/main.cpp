@@ -576,7 +576,18 @@ int main(int argc, char **argv) {
 
 				u32 i;
 				for (i = 1; i < (u32) argc; i++) {
-					sendRemote(RT_URL, strlen(argv[i]) + 1, argv[i]);
+					// Is it a relative-path local file?
+					if (!strstr(argv[i], "://") &&
+						access(argv[i], R_OK) == 0) {
+
+						char path[PATH_MAX];
+						if (realpath(argv[i], path))
+							sendRemote(RT_URL, strlen(path) + 1,
+									path);
+					} else {
+						sendRemote(RT_URL, strlen(argv[i]) + 1,
+								argv[i]);
+					}
 				}
 			} else {
 				puts(_("Opening a new tab in existing instance."));
@@ -635,8 +646,21 @@ int main(int argc, char **argv) {
 		for (i = optind; i < (u32) argc; i++) {
 			remotemsg m;
 			m.type = RT_URL;
-			m.size = strlen(argv[i]);
-			m.data = strdup(argv[i]);
+
+			// Is it a relative-path local file?
+			if (!strstr(argv[i], "://") &&
+				access(argv[i], R_OK) == 0) {
+
+				char path[PATH_MAX];
+				if (realpath(argv[i], path)) {
+					m.size = strlen(path);
+					m.data = strdup(path);
+				}
+			} else {
+				m.size = strlen(argv[i]);
+				m.data = strdup(argv[i]);
+			}
+
 			g->remotes.push_back(m);
 			g->newremotes = 1;
 		}

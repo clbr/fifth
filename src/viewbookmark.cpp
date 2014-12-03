@@ -124,6 +124,13 @@ void view::applytree() {
 			continue;
 
 		const bookmark * const mark = (const bookmark *) item->user_data();
+		if (lastparent && lastparent != item->parent()) {
+			bookmark tmp;
+			tmp.name = tmp.url = NULL;
+			news.push_back(tmp);
+
+			lastparent = item->parent();
+		}
 		if (!mark || !mark->url) { // Dir
 			bookmark tmp;
 			tmp.name = bookescape(item->label());
@@ -141,14 +148,6 @@ void view::applytree() {
 				lastparent = item->parent();
 			}
 		} else {
-			if (lastparent && lastparent != item->parent()) {
-				bookmark tmp;
-				tmp.name = tmp.url = NULL;
-				news.push_back(tmp);
-
-				lastparent = item->parent();
-			}
-
 			bookmark tmp;
 			tmp.name = bookescape(item->label());
 			tmp.url = mark->url;

@@ -20,6 +20,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <FL/Fl_Tree.H>
 #include <FL/Fl_Tree_Item.H>
 
+static char *bookescape(const char * const in) {
+
+	// Count \s
+	u32 slashes = 0, i;
+	for (i = 0; in[i]; i++) {
+		if (in[i] == '\\')
+			slashes++;
+	}
+
+	char *out = (char *) xcalloc(strlen(in) + 1 + slashes, 1);
+
+	u32 j = 0;
+	for (i = 0; in[i]; i++, j++) {
+		out[j] = in[i];
+		if (in[i] == '\\') {
+			j++;
+			out[j] = '\\';
+		}
+	}
+
+	return out;
+}
+
 void view::drawbookmarks() {
 	draw_child(*bookedit);
 	draw_child(*bookdel);
@@ -103,7 +126,7 @@ void view::applytree() {
 		const bookmark * const mark = (const bookmark *) item->user_data();
 		if (!mark || !mark->url) { // Dir
 			bookmark tmp;
-			tmp.name = strdup(item->label());
+			tmp.name = bookescape(item->label());
 			tmp.url = NULL;
 			news.push_back(tmp);
 
@@ -127,7 +150,7 @@ void view::applytree() {
 			}
 
 			bookmark tmp;
-			tmp.name = strdup(item->label());
+			tmp.name = bookescape(item->label());
 			tmp.url = mark->url;
 			news.push_back(tmp);
 

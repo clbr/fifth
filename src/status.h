@@ -40,6 +40,8 @@ public:
 
 	void refreshzoom();
 	void wheelzoom();
+
+	bool externalzoom;
 private:
 	void reposbuttons();
 

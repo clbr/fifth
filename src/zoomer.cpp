@@ -56,7 +56,7 @@ int zoomer::handle(const int e) {
 	}
 
 	if (e == FL_MOUSEWHEEL) {
-		if (Fl::event_inside(this))
+		if (Fl::event_inside(this) || g->status->externalzoom)
 			handle_drag(clamp(increment(value(), -Fl::event_dy())));
 		return 1;
 	}

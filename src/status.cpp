@@ -149,7 +149,9 @@ static void zoomed(Fl_Widget *w, void *) {
 	cur->web->setDouble(WK_SETTING_ZOOM, r->value());
 }
 
-statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h) {
+statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h),
+	externalzoom(false) {
+
 	resizable(NULL);
 
 	lockicon = new Fl_PNG_Image("lock.png", lock_png, sizeof(lock_png));
@@ -382,5 +384,7 @@ void statusbar::refreshzoom() {
 }
 
 void statusbar::wheelzoom() {
+	externalzoom = true;
 	zoom->handle(FL_MOUSEWHEEL);
+	externalzoom = false;
 }

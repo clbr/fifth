@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT([Fifth],[0.1.1],[])
+AC_INIT([Fifth],[0.2],[])
 AC_CONFIG_AUX_DIR([config])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([-Wall foreign dist-bzip2 no-dist-gzip])
@@ -81,10 +81,10 @@ CXXFLAGS=["$CXXFLAGS $DEPS_CFLAGS $CPPDEPS_CFLAGS"]
 AC_MSG_CHECKING([webkitfltk version is ok])
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <webkit.h>]],
 	[[
-	#if WK_FLTK_MAJOR != 0 || WK_FLTK_MINOR < 1
+	#if WK_FLTK_MAJOR != 0 || WK_FLTK_MINOR < 2
 	#error unsupported webkitfltk version
 	#endif
-	]])], [AC_MSG_RESULT([yes])], [AC_MSG_FAILURE([Unsupported webkit version, 0.1 required])]
+	]])], [AC_MSG_RESULT([yes])], [AC_MSG_FAILURE([Unsupported webkit version, 0.2 required])]
 	)
 
 # Checks for header files.

@@ -83,6 +83,9 @@ static void addsplit(const char in[]) {
 			return;
 		cur = end + 1;
 		end = strchrnul(cur, '\n');
+
+		if (!*end)
+			return;
 	} while (1);
 }
 

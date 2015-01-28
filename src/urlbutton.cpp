@@ -38,5 +38,19 @@ int urlbutton::handle(const int e) {
 		return 1;
 	}
 
+	tab * const cur = &g->tabs[g->curtab];
+	if (e == FL_KEYDOWN && cur->state == TS_WEB &&
+		(Fl::event_key() == FL_Left ||
+		Fl::event_key() == FL_Right ||
+		Fl::event_key() == FL_Up ||
+		Fl::event_key() == FL_Down ||
+		Fl::event_key() == FL_Page_Down ||
+		Fl::event_key() == FL_Page_Up)) {
+
+		// For example, pressing page down after clearing the trash.
+		cur->web->take_focus();
+		return cur->web->handle(e);
+	}
+
 	return Fl_Button::handle(e);
 }

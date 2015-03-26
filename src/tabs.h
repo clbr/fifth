@@ -32,6 +32,7 @@ public:
 
 private:
 	u32 mousex;
+	u32 dragstartx;
 	bool mousein;
 	bool dragging;
 	u32 srctab;

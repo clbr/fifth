@@ -25,7 +25,7 @@ static bool firstpress;
 extern Fl_PNG_Image *ddglogo, *googlelogo;
 
 tabbar::tabbar(int x, int y, int w, int h): Fl_Widget(x, y, w, h),
-		mousex(0), mousein(false), dragging(false), srctab(0) {
+		mousex(0), dragstartx(0), mousein(false), dragging(false), srctab(0) {
 	labelsize(12);
 }
 
@@ -203,7 +203,9 @@ int tabbar::handle(const int e) {
 		case FL_DRAG:
 			if (!dragging && ontab && Fl::event_state(FL_BUTTON1)) {
 				srctab = which;
-				dragging = true;
+
+				if (abs(Fl::event_x() - (int) dragstartx) >= 10)
+					dragging = true;
 			}
 			// Fallthrough
 		case FL_MOVE:
@@ -233,8 +235,14 @@ int tabbar::handle(const int e) {
 				return 1;
 			}
 
+			dragstartx = Fl::event_x();
+
 			return 1;
 		case FL_RELEASE:
+			// Tiny differences are mouse jerks, ignore under 10 pixels
+			if (abs(Fl::event_x() - (int) dragstartx) < 10)
+				dragging = false;
+
 			if (dragging) {
 				const tab tmp = g->tabs[srctab];
 

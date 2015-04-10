@@ -31,6 +31,7 @@ static Fl_Input *pssite=(Fl_Input *)0;
 static Fl_Choice *pscss=(Fl_Choice *)0;
 static Fl_Choice *psjs=(Fl_Choice *)0;
 static Fl_Choice *psimg=(Fl_Choice *)0;
+static Fl_Choice *pslocalstor=(Fl_Choice *)0;
 
 static Fl_Input *psusercss=(Fl_Input *)0;
 static Fl_Input *psuserjs=(Fl_Input *)0;
@@ -79,6 +80,13 @@ static void cb_psok(Fl_Widget *w, void*) {
 		strcpy(s.name, "general.images");
 		s.type = ST_U32;
 		s.val.u = psimg->value();
+		vec[s.name] = s;
+	}
+
+	if (pslocalstor->changed() || force) {
+		strcpy(s.name, "general.localstorage");
+		s.type = ST_U32;
+		s.val.u = pslocalstor->value();
 		vec[s.name] = s;
 	}
 
@@ -156,16 +164,21 @@ void persitewindow(const char * const site) {
 					psimg->menu(menu_bool);
 					psimg->when(0);
 				} // Fl_Choice* psimg
-				{ Fl_Box* o = new Fl_Box(85, 240, 400, 2);
+				{ pslocalstor = new Fl_Choice(112, 230, 380, 25, _("LocalStorage:"));
+					pslocalstor->down_box(FL_BORDER_BOX);
+					pslocalstor->menu(menu_bool);
+					pslocalstor->when(0);
+				} // Fl_Choice* pslocalstor
+				{ Fl_Box* o = new Fl_Box(85, 275, 400, 2);
 					o->box(FL_THIN_DOWN_BOX);
 				} // Fl_Box* o
-				{ psusercss = new Fl_Input(112, 260, 380, 25, _("User CSS:"));
+				{ psusercss = new Fl_Input(112, 295, 380, 25, _("User CSS:"));
 					psusercss->tooltip(_("Only one user stylesheet can be "
 						"in effect at once. If there is no site-specific "
 						"one, the global one is used."));
 					psusercss->when(0);
 				} // Fl_Input* psusercss
-				{ psuserjs = new Fl_Input(112, 300, 380, 25, _("User JS:"));
+				{ psuserjs = new Fl_Input(112, 335, 380, 25, _("User JS:"));
 					psuserjs->deactivate();
 					psuserjs->value(_("Not implemented yet"));
 					psuserjs->when(0);
@@ -218,6 +231,9 @@ void persitewindow(const char * const site) {
 
 	s = getSetting("general.images", site);
 	psimg->value(!!s->val.u);
+
+	s = getSetting("general.localstorage", site);
+	pslocalstor->value(!!s->val.u);
 
 	s = getSetting("user.css", site);
 	const setting *tmps = getSetting("user.css");

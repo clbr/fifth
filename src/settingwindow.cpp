@@ -42,6 +42,7 @@ static Fl_Input *shomepage=(Fl_Input *)0;
 static Fl_Choice *scss=(Fl_Choice *)0;
 static Fl_Choice *sjs=(Fl_Choice *)0;
 static Fl_Choice *simg=(Fl_Choice *)0;
+static Fl_Choice *slocalstor=(Fl_Choice *)0;
 
 static Fl_Input *susercss=(Fl_Input *)0;
 static Fl_Input *suserjs=(Fl_Input *)0;
@@ -244,6 +245,11 @@ static void cb_OK(Fl_Button *b, void*) {
 	if (simg->changed()) {
 		s = getSetting("general.images");
 		s->val.u = simg->value();
+	}
+
+	if (slocalstor->changed()) {
+		s = getSetting("general.localstorage");
+		s->val.u = slocalstor->value();
 	}
 
 	if (susercss->changed()) {
@@ -474,16 +480,21 @@ void settingswindow() {
 					simg->menu(menu_bool);
 					simg->when(0);
 				} // Fl_Choice* simg
-				{ Fl_Box* o = new Fl_Box(107, 295, 400, 2);
+				{ slocalstor = new Fl_Choice(117, 285, 380, 25, _("LocalStorage:"));
+					slocalstor->down_box(FL_BORDER_BOX);
+					slocalstor->menu(menu_bool);
+					slocalstor->when(0);
+				} // Fl_Choice* slocalstor
+				{ Fl_Box* o = new Fl_Box(107, 330, 400, 2);
 					o->box(FL_THIN_DOWN_BOX);
 				} // Fl_Box* o
-				{ susercss = new Fl_Input(117, 315, 380, 25, _("User CSS:"));
+				{ susercss = new Fl_Input(117, 350, 380, 25, _("User CSS:"));
 					susercss->tooltip(_("Only one user stylesheet can be "
 						"in effect at once. If there is no site-specific "
 						"one, the global one is used."));
 					susercss->when(0);
 				} // Fl_Input* susercss
-				{ suserjs = new Fl_Input(117, 355, 380, 25, _("User JS:"));
+				{ suserjs = new Fl_Input(117, 390, 380, 25, _("User JS:"));
 					suserjs->deactivate();
 					suserjs->value(_("Not implemented yet"));
 					suserjs->when(0);
@@ -685,6 +696,9 @@ in here. Note that autocomplete is not yet implemented."));
 
 	s = getSetting("general.images");
 	simg->value(s->val.u);
+
+	s = getSetting("general.localstorage");
+	slocalstor->value(s->val.u);
 
 	s = getSetting("user.css");
 	susercss->value(s->val.c);

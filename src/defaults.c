@@ -52,6 +52,7 @@ const struct setting defaultSettings[] = {
 	{"general.homepage", 	ST_CHAR, { .c = "about:blank"}},
 	{"general.images",	ST_U32, { .u = 1 }},
 	{"general.javascript", 	ST_U32, { .u = 1}},
+	{"general.localstorage",ST_U32, { .u = 0}},
 	{"general.startup", 	ST_U32, { .u = 0}},
 	{"history.size",	ST_U32, { .u = 1000}},
 	{"image.maxsize",	ST_U32, { .u = 1024}},

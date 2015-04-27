@@ -154,7 +154,8 @@ int fl_browser_input::handle(const int e) {
 
 int fl_browser_input::arrowbrow::handle(const int e) {
 
-	inputplace * const inp = ((fl_browser_input *) user_data())->inp;
+	fl_browser_input * const urlbar = (fl_browser_input *) user_data();
+	inputplace * const inp = urlbar->inp;
 
 	switch (e) {
 		case FL_RELEASE:
@@ -196,6 +197,10 @@ int fl_browser_input::arrowbrow::handle(const int e) {
 				case FL_Escape:
 					parent()->hide();
 				break;
+				case FL_Control_L:
+				case FL_Control_R:
+					urlbar->window()->handle(e);
+					// Fallthrough
 				default:
 					parent()->hide();
 					inp->handle(e);

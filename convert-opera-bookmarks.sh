@@ -36,10 +36,18 @@ awk 'BEGIN { RS="\n\n"; FS="\n\t" }
 	}
 
 	if ($1 == "#FOLDER") {
+		if (length(name) < 1)
+			name="INVALID"
+
 		print "name " name
 		print "url "
 		print ""
 	} else if ($1 == "#URL") {
+		if (length(name) < 1)
+			name="INVALID"
+		if (length(url) < 1)
+			url="INVALID"
+
 		print "name " name
 		print "url " url
 		print ""

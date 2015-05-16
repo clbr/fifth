@@ -1,0 +1,10 @@
+Using proxies
+=============
+
+At the time, there are no GUI options or advanced config entires exposing
+proxy support. However, proxies can be used with the usual curl environment
+variables - see "man curl".
+
+Example:
+all_proxy=socks5://localhost:1080 fifth
+http_proxy=http://user:password@1.2.3.4:5555 fifth

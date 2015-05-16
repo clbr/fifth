@@ -1,1 +1,1 @@
-dist_pkgdata_DATA = blocking
+dist_pkgdata_DATA = blocking proxy

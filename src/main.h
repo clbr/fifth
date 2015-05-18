@@ -56,6 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "about.h"
 #include "history.h"
 #include "persite.h"
+#include "uas.h"
 
 using namespace std;
 

@@ -150,6 +150,26 @@ Function {settingswindow()} {open return_type void
           label {User-agent:}
           private xywh {170 170 420 25}
         }
+        Fl_Button {} {
+          label Default selected
+          xywh {170 205 70 25}
+        }
+        Fl_Button {} {
+          label IE
+          xywh {250 205 70 25}
+        }
+        Fl_Button {} {
+          label Chrome
+          xywh {330 205 70 25}
+        }
+        Fl_Button {} {
+          label Safari
+          xywh {410 205 70 25}
+        }
+        Fl_Button {} {
+          label Opera
+          xywh {490 205 70 25}
+        }
       }
       Fl_Group {} {
         label Looks open

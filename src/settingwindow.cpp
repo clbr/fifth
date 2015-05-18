@@ -442,6 +442,12 @@ static void editentry(Fl_Widget *, void *) {
 	blacklistchanged = true;
 }
 
+static void uafunc(Fl_Widget *, void *ptr) {
+	const ua_t agent = (ua_t) (uintptr_t) ptr;
+	sspoofua->value(uas[agent]);
+	sspoofua->set_changed();
+}
+
 void settingswindow() {
 
 	static const Fl_Menu_Item menu_bool[] = {
@@ -554,6 +560,26 @@ in here. Note that autocomplete is not yet implemented."));
 				{ sspoofua = new Fl_Input(170, 170, 420, 25, _("User-agent:"));
 					sspoofua->when(0);
 				} // Fl_Input* sspoofua
+				{ Fl_Button *b = new Fl_Button(170, 205, 70, 25, _("Default"));
+					b->callback(uafunc);
+					b->user_data((void *) UA_DEFAULT);
+				}
+				{ Fl_Button *b = new Fl_Button(250, 205, 70, 25, _("IE"));
+					b->callback(uafunc);
+					b->user_data((void *) UA_IE);
+				}
+				{ Fl_Button *b = new Fl_Button(330, 205, 70, 25, _("Chrome"));
+					b->callback(uafunc);
+					b->user_data((void *) UA_CHROME);
+				}
+				{ Fl_Button *b = new Fl_Button(410, 205, 70, 25, _("Safari"));
+					b->callback(uafunc);
+					b->user_data((void *) UA_SAFARI);
+				}
+				{ Fl_Button *b = new Fl_Button(490, 205, 70, 25, _("Opera"));
+					b->callback(uafunc);
+					b->user_data((void *) UA_OPERA);
+				}
 				o->end();
 			} // Fl_Group* o
 			{ Fl_Group* o = new Fl_Group(0, 40, 615, 380, _("Looks"));

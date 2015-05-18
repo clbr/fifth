@@ -119,6 +119,26 @@ Function {persitewindow()} {open return_type void
           label {User-agent:}
           private xywh {140 170 380 25}
         }
+        Fl_Button {} {
+          label Default
+          xywh {140 205 70 25}
+        }
+        Fl_Button {} {
+          label IE
+          xywh {217 205 70 25}
+        }
+        Fl_Button {} {
+          label Chrome
+          xywh {295 205 70 25}
+        }
+        Fl_Button {} {
+          label Safari
+          xywh {372 205 70 25}
+        }
+        Fl_Button {} {
+          label Opera
+          xywh {450 205 70 25}
+        }
       }
     }
     Fl_Button psok {

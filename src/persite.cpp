@@ -131,6 +131,12 @@ static void cb_psok(Fl_Widget *w, void*) {
 	saveConfig();
 }
 
+static void uafunc(Fl_Widget *, void *ptr) {
+	const ua_t agent = (ua_t) (uintptr_t) ptr;
+	psspoofua->value(uas[agent]);
+	psspoofua->set_changed();
+}
+
 void persitewindow(const char * const site) {
 
 	static const Fl_Menu_Item menu_bool[] = {
@@ -205,6 +211,26 @@ void persitewindow(const char * const site) {
 				{ psspoofua = new Fl_Input(140, 170, 380, 25, _("User-agent:"));
 					psspoofua->when(0);
 				} // Fl_Input* psspooftz
+				{ Fl_Button *b = new Fl_Button(140, 205, 70, 25, _("Default"));
+					b->callback(uafunc);
+					b->user_data((void *) UA_DEFAULT);
+				}
+				{ Fl_Button *b = new Fl_Button(217, 205, 70, 25, _("IE"));
+					b->callback(uafunc);
+					b->user_data((void *) UA_IE);
+				}
+				{ Fl_Button *b = new Fl_Button(295, 205, 70, 25, _("Chrome"));
+					b->callback(uafunc);
+					b->user_data((void *) UA_CHROME);
+				}
+				{ Fl_Button *b = new Fl_Button(372, 205, 70, 25, _("Safari"));
+					b->callback(uafunc);
+					b->user_data((void *) UA_SAFARI);
+				}
+				{ Fl_Button *b = new Fl_Button(450, 205, 70, 25, _("Opera"));
+					b->callback(uafunc);
+					b->user_data((void *) UA_OPERA);
+				}
 				o->end();
 			} // Fl_Group* o
 			o->end();

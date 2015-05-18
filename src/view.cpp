@@ -592,6 +592,10 @@ static void maketrans(Fl_RGB_Image *img) {
 
 void view::drawdial() {
 
+	// To avoid partial redraws that would create an inconsistent state,
+	// always do full redraws.
+	fl_push_no_clip();
+
 	u32 ew, eh, pad, totalw, totalh, startx, starty;
 	dialdims(&startx, &starty, &totalw, &totalh, &pad, &ew, &eh);
 
@@ -693,6 +697,8 @@ void view::drawdial() {
 				FL_ALIGN_CENTER);
 		}
 	}
+
+	fl_pop_clip();
 }
 
 void view::drawssl() {

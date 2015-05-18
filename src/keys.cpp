@@ -194,6 +194,7 @@ static void home() {
 
 	cur->state = TS_WEB;
 	cur->web->load(s->val.c);
+	cur->web->take_focus();
 }
 
 template <int T> static void dialer() {

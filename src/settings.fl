@@ -156,19 +156,19 @@ Function {settingswindow()} {open return_type void
         }
         Fl_Button {} {
           label IE
-          xywh {250 205 70 25}
+          xywh {257 205 70 25}
         }
         Fl_Button {} {
           label Chrome
-          xywh {330 205 70 25}
+          xywh {345 205 70 25}
         }
         Fl_Button {} {
           label Safari
-          xywh {410 205 70 25}
+          xywh {432 205 70 25}
         }
         Fl_Button {} {
           label Opera
-          xywh {490 205 70 25}
+          xywh {520 205 70 25}
         }
       }
       Fl_Group {} {

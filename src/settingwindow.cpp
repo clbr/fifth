@@ -564,19 +564,19 @@ in here. Note that autocomplete is not yet implemented."));
 					b->callback(uafunc);
 					b->user_data((void *) UA_DEFAULT);
 				}
-				{ Fl_Button *b = new Fl_Button(250, 205, 70, 25, _("IE"));
+				{ Fl_Button *b = new Fl_Button(257, 205, 70, 25, _("IE"));
 					b->callback(uafunc);
 					b->user_data((void *) UA_IE);
 				}
-				{ Fl_Button *b = new Fl_Button(330, 205, 70, 25, _("Chrome"));
+				{ Fl_Button *b = new Fl_Button(345, 205, 70, 25, _("Chrome"));
 					b->callback(uafunc);
 					b->user_data((void *) UA_CHROME);
 				}
-				{ Fl_Button *b = new Fl_Button(410, 205, 70, 25, _("Safari"));
+				{ Fl_Button *b = new Fl_Button(432, 205, 70, 25, _("Safari"));
 					b->callback(uafunc);
 					b->user_data((void *) UA_SAFARI);
 				}
-				{ Fl_Button *b = new Fl_Button(490, 205, 70, 25, _("Opera"));
+				{ Fl_Button *b = new Fl_Button(520, 205, 70, 25, _("Opera"));
 					b->callback(uafunc);
 					b->user_data((void *) UA_OPERA);
 				}

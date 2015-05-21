@@ -82,13 +82,16 @@ Function {settingswindow()} {open return_type void
         }
         Fl_Input susercss {
           label {User CSS:}
-          private xywh {117 315 380 25} deactivate
+          private xywh {117 315 348 25} deactivate
           code0 {value(_("Not implemented yet"));}
         }
         Fl_Input suserjs {
           label {User JS:}
           private xywh {117 355 380 25} deactivate
           code0 {value(_("Not implemented yet"));}
+        }
+        Fl_Button {} {
+          xywh {470 315 25 25}
         }
       }
       Fl_Group {} {

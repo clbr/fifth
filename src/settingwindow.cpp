@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <FL/Fl.H>
 #include <FL/fl_ask.H>
 #include <FL/Fl_Double_Window.H>
+#include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_Tabs.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Choice.H>
@@ -420,6 +421,20 @@ static void loadblacklist() {
 	fclose(f);
 }
 
+static void cssfile(Fl_Widget *, void *) {
+
+	const char *home = getenv("HOME");
+	if (!home)
+		home = "/home";
+
+	const char *picked = fl_file_chooser(_("Select CSS file"), "*.css", home, 0);
+	if (!picked)
+		return;
+
+	susercss->value(picked);
+	susercss->set_changed();
+}
+
 static void addentry(Fl_Widget *, void *) {
 	const char *msg = fl_input(_("Add a new blacklist entry"), "");
 	if (msg)
@@ -494,12 +509,16 @@ void settingswindow() {
 				{ Fl_Box* o = new Fl_Box(107, 330, 400, 2);
 					o->box(FL_THIN_DOWN_BOX);
 				} // Fl_Box* o
-				{ susercss = new Fl_Input(117, 350, 380, 25, _("User CSS:"));
+				{ susercss = new Fl_Input(117, 350, 348, 25, _("User CSS:"));
 					susercss->tooltip(_("Only one user stylesheet can be "
 						"in effect at once. If there is no site-specific "
 						"one, the global one is used."));
 					susercss->when(0);
 				} // Fl_Input* susercss
+				{ Fl_Button *o = new Fl_Button(470, 350, 25, 25);
+					o->image(Fl_Shared_Image::get("folder.png"));
+					o->callback(cssfile);
+				}
 				{ suserjs = new Fl_Input(117, 390, 380, 25, _("User JS:"));
 					suserjs->deactivate();
 					suserjs->value(_("Not implemented yet"));

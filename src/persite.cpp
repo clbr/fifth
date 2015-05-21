@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main.h"
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
+#include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_Tabs.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Input.H>
@@ -137,6 +138,20 @@ static void uafunc(Fl_Widget *, void *ptr) {
 	psspoofua->set_changed();
 }
 
+static void cssfile(Fl_Widget *, void *) {
+
+	const char *home = getenv("HOME");
+	if (!home)
+		home = "/home";
+
+	const char *picked = fl_file_chooser(_("Select CSS file"), "*.css", home, 0);
+	if (!picked)
+		return;
+
+	psusercss->value(picked);
+	psusercss->set_changed();
+}
+
 void persitewindow(const char * const site) {
 
 	static const Fl_Menu_Item menu_bool[] = {
@@ -178,12 +193,16 @@ void persitewindow(const char * const site) {
 				{ Fl_Box* o = new Fl_Box(85, 275, 400, 2);
 					o->box(FL_THIN_DOWN_BOX);
 				} // Fl_Box* o
-				{ psusercss = new Fl_Input(112, 295, 380, 25, _("User CSS:"));
+				{ psusercss = new Fl_Input(112, 295, 348, 25, _("User CSS:"));
 					psusercss->tooltip(_("Only one user stylesheet can be "
 						"in effect at once. If there is no site-specific "
 						"one, the global one is used."));
 					psusercss->when(0);
 				} // Fl_Input* psusercss
+				{ Fl_Button *o = new Fl_Button(465, 295, 25, 25);
+					o->image(Fl_Shared_Image::get("folder.png"));
+					o->callback(cssfile);
+				}
 				{ psuserjs = new Fl_Input(112, 335, 380, 25, _("User JS:"));
 					psuserjs->deactivate();
 					psuserjs->value(_("Not implemented yet"));

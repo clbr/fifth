@@ -81,13 +81,16 @@ Function {persitewindow()} {open return_type void
         }
         Fl_Input psusercss {
           label {User CSS:}
-          private xywh {112 260 380 25} deactivate
+          private xywh {112 260 348 25} deactivate
           code0 {value(_("Not implemented yet"));}
         }
         Fl_Input psuserjs {
           label {User JS:}
           private xywh {112 300 380 25} deactivate
           code0 {value(_("Not implemented yet"));}
+        }
+        Fl_Button {} {
+          xywh {465 260 25 25}
         }
       }
       Fl_Group {} {

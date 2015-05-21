@@ -20,3 +20,4 @@ autoconfig.h
 
 cookies.dat
 *.tgz
+*.gcda

@@ -174,6 +174,7 @@ int fl_browser_input::arrowbrow::handle(const int e) {
 			switch (Fl::event_key()) {
 				case FL_Enter:
 					Fl_Hold_Browser::handle(e);
+					inp->handle(e);
 					if (value()) {
 						do_callback();
 						parent()->hide();

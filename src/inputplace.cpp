@@ -80,6 +80,7 @@ int inputplace::handle(const int e) {
 	if (e == FL_KEYBOARD) {
 		switch (Fl::event_key()) {
 			case FL_Down:
+			case FL_Up:
 				// Send it up so our parent may use it
 				return 0;
 			break;

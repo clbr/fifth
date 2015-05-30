@@ -135,6 +135,15 @@ int fl_browser_input::handle(const int e) {
 					list->do_callback();
 					return 1;
 				break;
+				case FL_Up:
+					if (win->shown())
+						win->take_focus();
+					else
+						but->do_callback();
+					list->value(list->size());
+					list->do_callback();
+					return 1;
+				break;
 				case FL_Escape:
 					win->hide();
 				break;

@@ -373,19 +373,23 @@ static void urlbarstate(bool curcheck = false) {
 	if (curcheck && (cur->state != TS_WEB || !cur->web))
 		return;
 
-	if (cur->url) {
-		g->url->url->input().value(cur->url);
-	} else {
-		g->url->url->input().static_value("");
+	if (Fl::focus() != &g->url->url->input()) {
+		if (cur->url) {
+			g->url->url->input().value(cur->url);
+		} else {
+			g->url->url->input().static_value("");
+		}
+		g->url->url->input().position(0);
 	}
-	g->url->url->input().position(0);
 
-	if (cur->search) {
-		g->url->search->input().value(cur->search);
-	} else {
-		g->url->search->input().static_value("");
+	if (Fl::focus() != &g->url->search->input()) {
+		if (cur->search) {
+			g->url->search->input().value(cur->search);
+		} else {
+			g->url->search->input().static_value("");
+		}
+		g->url->search->input().position(0);
 	}
-	g->url->search->input().position(0);
 
 	g->url->url->input().image(cur->icon);
 	urlbuttonstate();

@@ -9,6 +9,9 @@ kiosk-type scenarios where only certain sites are allowed, for example.
 The file names are "blacklist" and "whitelist", present in your profile
 directory (~/.fifth in a system install).
 
+The environment variable FIFTH_DEBUG_BLOCKING, if set, prints out
+any blocked resources to stderr.
+
 File format
 -----------
 

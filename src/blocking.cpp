@@ -127,18 +127,25 @@ void saveblocking() {
 // Return 0 for ok, 1 to block
 int isblocked(const char *url) {
 
+	static const char * const debug = getenv("FIFTH_DEBUG_BLOCKING");
 	int ret;
 
 	if (g->whitelist) {
 		ret = url_match(g->whitelist, url);
-		if (!ret)
+		if (!ret) {
+			if (debug)
+				err(_("Whitelist blocked '%s'\n"), url);
 			return 1;
+		}
 	}
 
 	if (g->blacklist) {
 		ret = url_match(g->blacklist, url);
-		if (ret)
+		if (ret) {
+			if (debug)
+				err(_("Blacklist blocked '%s'\n"), url);
 			return 1;
+		}
 	}
 
 	return 0;

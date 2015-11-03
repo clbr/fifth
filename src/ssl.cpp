@@ -50,14 +50,17 @@ int certcheck(const char *str, const char *host) {
 	return 1;
 }
 
-void certerr(webview *view, const char *url) {
+void certerr(webview *view, const char *url, const bool sub) {
 
 	// Find the tab with this view
 	tab * const cur = findtab(view);
 	if (!cur)
 		return;
 
-	cur->web->stop();
+	// Stop loading it was a sub-resource. If it was main, stop makes no sense, and
+	// crashes as well.
+	if (sub)
+		cur->web->stop();
 
 	cur->state = TS_SSLERR;
 	free((char *) cur->sslsite);

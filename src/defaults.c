@@ -96,7 +96,7 @@ const struct setting defaultSettings[] = {
 	{"spoof.accept",	ST_CHAR, { .c = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" }},
 	{"spoof.language",	ST_CHAR, { .c = "en-US,en;q=0.5" }},
 	{"spoof.timezone",	ST_U32, { .u = 0 }}, // GMT
-	{"spoof.useragent",	ST_CHAR, { .c = "Mozilla/5.0 (Windows NT 6.1; rv:24.0) Gecko/20100101 Firefox/24.0" }},
+	{"spoof.useragent",	ST_CHAR, { .c = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:38.0) Gecko/20100101 Firefox/38.0" }},
 	{"user.css",		ST_CHAR, { .c = "" }},
 	{"window.bars", 	ST_CHAR, { .c = "tab,url,main"}},
 	{"window.h", 		ST_U32, { .u = 600}},

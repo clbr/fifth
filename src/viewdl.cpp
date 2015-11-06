@@ -134,9 +134,11 @@ void view::regendl(const vector<dl> &vec) {
 		if (vec[i].finished) {
 			strcpy(percent, _("Finished"));
 			strcpy(eta, _("Finished"));
+			strcpy(speed, _("Finished"));
 		} else if (vec[i].failed) {
 			strcpy(percent, _("Failed"));
 			strcpy(eta, _("Never"));
+			strcpy(speed, _("Failed"));
 		}
 
 		// Name Size Percentage ETA Speed

@@ -1,5 +1,5 @@
 //
-// Fl_Input_Choice -- An input/chooser widget
+// Inputplace_Choice -- An input/chooser widget
 //            ______________  ____
 //           |              || __ |
 //           | input area   || \/ |
@@ -23,8 +23,8 @@
 // USA.
 //
 
-#ifndef _FL_INPUT_CHOICE_H
-#define _FL_INPUT_CHOICE_H
+#ifndef _INPUTPLACE_CHOICE_H
+#define _INPUTPLACE_CHOICE_H
 
 #include <FL/Fl.H>
 #include <FL/Fl_Input.H>
@@ -32,7 +32,7 @@
 #include <FL/fl_draw.H>
 #include "inputplace.h"
 
-class Fl_Input_Choice : public Fl_Group {
+class Inputplace_Choice : public Fl_Group {
 protected:
     // Private class to handle slightly 'special' behavior of menu button
     class InputMenuButton : public Fl_Menu_Button {
@@ -78,7 +78,7 @@ protected:
     InputMenuButton *_menu;
 
     static void _menu_cb(Fl_Widget*, void *data) { 
-        Fl_Input_Choice *o=(Fl_Input_Choice *)data;
+        Inputplace_Choice *o=(Inputplace_Choice *)data;
 	o->_menu_cb2(); 
     }
     void _menu_cb2() {
@@ -109,7 +109,7 @@ public:
         _menu->pullw = W;
     }
 
-    Fl_Input_Choice (int x,int y,int w,int h,const char*l=0) : Fl_Group(x,y,w,h,l) {
+    Inputplace_Choice (int x,int y,int w,int h,const char*l=0) : Fl_Group(x,y,w,h,l) {
 	Fl_Group::box(FL_DOWN_BOX);
 	align(FL_ALIGN_LEFT);				// default like Fl_Input
         _inp = new inputplace(_InpSizeX(), _InpSizeY(),
@@ -146,4 +146,4 @@ public:
     inputplace& input() { return(*_inp); }
 };
 
-#endif /*_FL_INPUT_CHOICE*/
+#endif /*_INPUTPLACE_CHOICE*/

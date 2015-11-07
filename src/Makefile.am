@@ -10,7 +10,7 @@ fifth_SOURCES = config.cpp defaults.c helpers.cpp main.cpp remote.cpp \
 		helpers.h history.h inputplace.h keys.h lockicon.h lrtypes.h macros.h main.h \
 		persite.h remote.h searchicons.h settings.h ssl.h status.h tabs.h textweb.h \
 		uas.h urlbar.h urlbutton.h urlicons.h view.h window.h wmicon.h zoomer.h \
-		Fl_Input_Choice.H
+		Inputplace_Choice.H
 
 CLEANFILES = version.h
 

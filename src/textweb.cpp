@@ -17,17 +17,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main.h"
 #include "textweb.h"
 
-textweb::textweb(int x, int y, int w, int h): Fl_Input_Choice(x, y, w, h) {
+textweb::textweb(int x, int y, int w, int h): Inputplace_Choice(x, y, w, h) {
 	input().when(FL_WHEN_ENTER_KEY|FL_WHEN_NOT_CHANGED);
 	menubutton().clear_visible_focus();
 }
 
 void textweb::draw() {
-	Fl_Input_Choice::draw();
+	Inputplace_Choice::draw();
 }
 
 int textweb::handle(const int e) {
-	if (Fl_Input_Choice::handle(e)) return 1;
+	if (Inputplace_Choice::handle(e)) return 1;
 	// Handle other events
 	if (e == FL_KEYBOARD) {
 		switch (Fl::event_key()) {

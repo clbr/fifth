@@ -17,11 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef TEXTWEB_H
 #define TEXTWEB_H
 
-#include <Fl_Input_Choice.H>
+#include <Inputplace_Choice.H>
 
 // A text field with autocomplete, dropdown, and favicon rendering.
 
-class textweb: public Fl_Input_Choice {
+class textweb: public Inputplace_Choice {
 public:
 	textweb(int x, int y, int w, int h);
 	void draw() override;

@@ -108,7 +108,8 @@ static void searchenginecb(Fl_Widget *w, void *) {
 static void dosearch(Fl_Widget *w, void *) {
 	const inputplace * const i = (inputplace *) w;
 	const char * const val = i->value();
-	if (strlen(val) < 2 || allspace(val))
+	const u32 len = strlen(val);
+	if (len < 1 || (len == 1 && isalpha(*val)) || allspace(val))
 		return;
 
 	char *first = strdup(i->value());

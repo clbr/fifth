@@ -28,8 +28,10 @@ static Fl_Box *total;
 static void nextcb(Fl_Widget *, void *) {
 	tab * const cur = &g->tabs[g->curtab];
 
-	if (cur->state != TS_WEB
-		|| search->size() < 2)
+	const u32 len = search->size();
+	if (cur->state != TS_WEB ||
+		len < 1 ||
+		(len == 1 && isalpha(*search->value())))
 		return;
 
 	cur->web->find(search->value());
@@ -43,8 +45,10 @@ static void nextcb(Fl_Widget *, void *) {
 }
 
 static void prevcb(Fl_Widget *, void *) {
-	if (g->tabs[g->curtab].state != TS_WEB
-		|| search->size() < 2)
+	const u32 len = search->size();
+	if (g->tabs[g->curtab].state != TS_WEB ||
+		len < 1 ||
+		(len == 1 && isalpha(*search->value())))
 		return;
 
 	g->tabs[g->curtab].web->find(search->value(), false, false);

@@ -17,7 +17,7 @@ bindist: all
 	mkdir $(BASE); \
 	cp $(BINFILES) $(BASE); \
 	mkdir $(BASE)/doc; cp doc/* $(BASE)/doc; rm $(BASE)/doc/Makefile*; \
-	cp /usr/lib/{libssl,libcrypto}*.so.*.* $(BASE); \
+	cp /usr/lib/{libssl,libcrypto}*.so.1.* $(BASE); \
 	cp /usr/lib/{libcurl,libpng12,libphysfs,libcares,librtmp}*.so.? $(BASE); \
 	cp /usr/lib/libjpeg*.so.?? $(BASE); \
 	tar --numeric-owner -cf - $(BASE) | pigz -9 > $${name}.tgz; \

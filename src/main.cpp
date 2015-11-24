@@ -465,6 +465,62 @@ static void crashrestore() {
 	unlinkat(g->profilefd, CRASHFILE, 0);
 }
 
+static void cookiecleanup(const char path[]) {
+
+	// Description of the Netscape cookie file format which Curl uses:
+	// .netscape.com     TRUE   /  FALSE  946684799   NETSCAPE_ID  100103
+	//
+	// Tab-separated input.
+	//
+	// domain
+	// flag - can all subdomains access it
+	// path
+	// secure
+	// expire
+	// name
+	// value
+
+	enum {
+		bufsize = 16384
+	};
+
+	char buf[bufsize];
+	signed long long expire;
+	const time_t now = time(NULL);
+
+	// Safe, because PATH_MAX is 4k
+	strcpy(buf, path);
+	strcat(buf, ".tmp");
+
+	FILE *in = fopen(path, "r");
+	FILE *out = fopen(buf, "w");
+
+	if (!in || !out)
+		return;
+
+	while (fgets(buf, bufsize, in)) {
+		if (!strchr(buf, '\t')) {
+			// Comment or empty, pass it through
+			fprintf(out, "%s", buf);
+			continue;
+		}
+
+		if (sscanf(buf, "%*s\t%*s\t%*s\t%*s\t%lld", &expire) != 1)
+			continue;
+
+		// Is it expired?
+		if (expire < now)
+			continue;
+
+		fprintf(out, "%s", buf);
+	}
+
+	strcpy(buf, path);
+	strcat(buf, ".tmp");
+
+	rename(buf, path);
+}
+
 int main(int argc, char **argv) {
 
 	g = new globals;
@@ -666,6 +722,12 @@ int main(int argc, char **argv) {
 		}
 		pthread_mutex_unlock(&g->remotemutex);
 	}
+
+	// Clean up old cookies - curl's own cleanup misses many
+	char *cookiepath;
+	asprintf(&cookiepath, "%s/cookies.dat", g->profilepath);
+	cookiecleanup(cookiepath);
+	free(cookiepath);
 
 	webkitInit();
 	wk_set_ssl_func(certcheck);

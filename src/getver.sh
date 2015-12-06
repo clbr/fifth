@@ -3,7 +3,7 @@
 ver=unknown
 enab=0
 
-[ -n "`which git`" ] && ver=`git describe` && enab=1
+[ -n "`which git`" ] && [ -d ../.git ] && ver=`git describe` && enab=1
 
 cat > version.h << EOF
 #ifndef VER_H

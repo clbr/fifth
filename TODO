@@ -7,3 +7,4 @@ session saving
 pressing enter when searching should go to the link, not next match
 previous button opens a menu of last few?
 FLTK tooltip @symbols
+security screen should have a button to add to blacklist

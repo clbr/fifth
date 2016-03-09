@@ -78,7 +78,7 @@ private:
 	u32 downloads;
 
 	sslview *sslgroup;
-	Fl_Button *sslbutton;
+	Fl_Button *sslbutton, *sslblackbutton;
 	Fl_Input *ssltext;
 
 	Fl_Group *dlgroup;

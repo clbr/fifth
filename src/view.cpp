@@ -67,6 +67,26 @@ static void sslcb(Fl_Widget *w, void *url) {
 	}
 }
 
+static void sslblackcb(Fl_Widget *, void *url) {
+
+	char site[120], toadd[160];
+	url2site((const char *) url, site, 120, false);
+
+	sprintf(toadd, "https://%s/*", site);
+
+	const int fd = openat(g->profilefd, BLACKNAME, O_APPEND | O_WRONLY | O_CREAT, 0600);
+	if (fd >= 0) {
+		dprintf(fd, "%s\n", toadd);
+		close(fd);
+
+		// TODO mutexed reload
+	}
+
+	g->tabs[g->curtab].state = TS_WEB;
+	g->w->redraw();
+	urlbuttonstate();
+}
+
 static void opendl(const char path[]) {
 
 	const setting *s = getSetting("exec.open");
@@ -256,6 +276,9 @@ view::view(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 
 	sslgroup = new sslview(x, y, w, h);
 
+	sslblackbutton = new Fl_Button(0, 0, 200, 25, _("Blacklist it, proceed"));
+	sslblackbutton->hide();
+	sslblackbutton->callback(sslblackcb);
 	ssltext = new Fl_Input(0, 0, 300, 25);
 	sslbutton = new Fl_Button(0, 0, 200, 25, _("I understand, proceed"));
 	sslbutton->hide();
@@ -334,6 +357,7 @@ void view::draw() {
 	tab * const cur = &g->tabs[g->curtab];
 
 	if (cur->state != TS_SSLERR) {
+		sslblackbutton->hide();
 		sslbutton->hide();
 		ssltext->hide();
 	}
@@ -353,10 +377,13 @@ void view::draw() {
 			ssltext->show();
 			sslbutton->show();
 			sslbutton->user_data((void *) cur->sslsite);
+			sslblackbutton->show();
+			sslblackbutton->user_data((void *) cur->sslsite);
 
 			drawssl();
 			draw_child(*ssltext);
 			draw_child(*sslbutton);
+			draw_child(*sslblackbutton);
 		break;
 		case TS_SPEEDDIAL:
 			drawdial();
@@ -720,6 +747,8 @@ void view::drawssl() {
 
 	cury += bigsize * 2;
 	fl_font(FL_HELVETICA, smallsize);
+	const u16 textw = min(w() - 400, 600);
+	const u16 textx = x() + (w() - textw) / 2;
 
 	char tmp[320];
 	snprintf(tmp, 320, _("Site: %s"), cur->sslsite);
@@ -728,17 +757,27 @@ void view::drawssl() {
 	fl_draw(tmp, x(), cury, w(), smallsize, FL_ALIGN_CENTER);
 
 	cury += fl_height() * 3;
-	fl_draw(_("This might be a man-in-the-middle attack. You're advised to close this tab."),
-		x(), cury, w(), smallsize, FL_ALIGN_CENTER);
+	fl_draw(_("This might be a man-in-the-middle attack. "
+		"You're advised to close this tab, or to blacklist the host."),
+		textx, cury, textw, smallsize * 3, FL_ALIGN_CENTER | FL_ALIGN_WRAP);
+
+
+	cury += fl_height() * 3;
+
+	sslblackbutton->position((w() - sslblackbutton->w()) / 2, cury);
+	((Fl_Widget *) sslblackbutton)->draw();
+
+	fl_color(FL_WHITE);
+	fl_font(FL_HELVETICA, smallsize);
 
 	snprintf(tmp, 320, _("If you're absolutely certain you want to continue at your risk, "
 				"to make sure you understand the gravity of the situation, "
 				"type %s backwards into the field below."),
 			SSLCHECKBACK);
-	cury += fl_height() * 3;
-	fl_draw(tmp, x() + 200, cury, w() - 400, smallsize * 5, FL_ALIGN_CENTER | FL_ALIGN_WRAP);
+	cury += fl_height() * 2;
+	fl_draw(tmp, textx, cury, textw, smallsize * 7, FL_ALIGN_CENTER | FL_ALIGN_WRAP);
 
-	cury += fl_height() * 5;
+	cury += fl_height() * 6;
 	ssltext->resize((w() - 506) / 2, cury, ssltext->w(), ssltext->h());
 	((Fl_Widget *) ssltext)->draw();
 

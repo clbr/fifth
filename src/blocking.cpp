@@ -16,18 +16,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 
+#define ATOMIC_SET(ptr, val) __sync_bool_compare_and_swap(&ptr, ptr, val)
+
 static void whitetext() {
 	const int fd = openat(g->profilefd, WHITENAME, O_RDONLY);
 	if (fd < 0)
 		die("Whitelist exists but failed open?\n");
-	g->whitelist = url_init_file2(fd);
+	ATOMIC_SET(g->whitelist, url_init_file2(fd));
 }
 
 static void blacktext() {
 	const int fd = openat(g->profilefd, BLACKNAME, O_RDONLY);
 	if (fd < 0)
 		die("Blacklist exists but failed open?\n");
-	g->blacklist = url_init_file2(fd);
+	ATOMIC_SET(g->blacklist, url_init_file2(fd));
 }
 
 void loadblocking() {
@@ -36,7 +38,8 @@ void loadblocking() {
 	if (g->bench)
 		gettimeofday(&old, NULL);
 
-	g->blacklist = g->whitelist = NULL;
+	ATOMIC_SET(g->blacklist, NULL);
+	ATOMIC_SET(g->whitelist, NULL);
 
 	const bool whitefound = !faccessat(g->profilefd, WHITENAME, R_OK, 0);
 	const bool whitebinfound = !faccessat(g->profilefd, WHITENAMEBIN, R_OK, 0);
@@ -58,7 +61,7 @@ void loadblocking() {
 				const int fd = openat(g->profilefd, WHITENAMEBIN, O_RDONLY);
 				if (fd < 0)
 					die("Whitelist binary exists but failed open?\n");
-				g->whitelist = url_init_file2(fd);
+				ATOMIC_SET(g->whitelist, url_init_file2(fd));
 			}
 		} else {
 			whitetext();
@@ -80,7 +83,7 @@ void loadblocking() {
 				const int fd = openat(g->profilefd, BLACKNAMEBIN, O_RDONLY);
 				if (fd < 0)
 					die("Blacklist binary exists but failed open?\n");
-				g->blacklist = url_init_file2(fd);
+				ATOMIC_SET(g->blacklist, url_init_file2(fd));
 			}
 		} else {
 			blacktext();
@@ -130,6 +133,7 @@ int isblocked(const char *url) {
 	static const char * const debug = getenv("FIFTH_DEBUG_BLOCKING");
 	int ret;
 
+	// These should be atomic reads, but on 64-bit it doesn't matter.
 	if (g->whitelist) {
 		ret = url_match(g->whitelist, url);
 		if (!ret) {

@@ -79,11 +79,11 @@ static void sslblackcb(Fl_Widget *, void *url) {
 		dprintf(fd, "%s\n", toadd);
 		close(fd);
 
-		// TODO mutexed reload
+		loadblocking();
 	}
 
 	g->tabs[g->curtab].state = TS_WEB;
-	g->w->redraw();
+	g->tabs[g->curtab].web->refresh();
 	urlbuttonstate();
 }
 

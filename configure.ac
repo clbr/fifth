@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT([Fifth],[0.4],[])
+AC_INIT([Fifth],[0.5],[])
 AC_CONFIG_AUX_DIR([config])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([-Wall foreign dist-bzip2 no-dist-gzip])

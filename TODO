@@ -8,4 +8,3 @@ pressing enter when searching should go to the link, not next match
 previous button opens a menu of last few?
 FLTK tooltip @symbols
 <optgroup> can be selected, isEnabled/selectedIndex?
-pressing space on checkboxes

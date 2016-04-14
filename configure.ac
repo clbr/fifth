@@ -51,10 +51,7 @@ CXXFLAGS=["$CXXFLAGS $($fltkconfig --cxxflags | sed 's@-I@-isystem @g')"]
 LIBS=["$LIBS $($fltkconfig --ldflags --use-images)"]
 
 # Checks for libraries.
-OLD_LDFLAGS=[$LDFLAGS]
-LDFLAGS=["$LDFLAGS -lz"]
-AC_CHECK_LIB([urlmatch], [url_init], [], AC_MSG_ERROR([liburlmatch not found]))
-LDFLAGS=[$OLD_LDFLAGS]
+AC_CHECK_LIB([urlmatch], [url_init], [], AC_MSG_ERROR([liburlmatch not found]), [-lz])
 AC_CHECK_LIB([dl], [dlopen], [], AC_MSG_ERROR([libdl not found]))
 AC_CHECK_LIB([rt], [sched_get_priority_min], [], AC_MSG_ERROR([librt not found]))
 AC_CHECK_LIB([z], [compress], [], AC_MSG_ERROR([libz not found]))

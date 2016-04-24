@@ -40,7 +40,7 @@ int certcheck(const char *str, const char *host) {
 		// TODO option for asking the user on all new certs
 		fd = openat(g->certfd, site, O_WRONLY | O_CREAT, 0644);
 		if (fd < 0)
-			die(_("Failed to create the certificate file\n"));
+			die(_("Failed to create the certificate file \"%s\", %s\n"), site, strerror(errno));
 
 		if (swrite(fd, str, len) != len)
 			die(_("Failed writing the certificate\n"));

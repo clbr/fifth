@@ -591,6 +591,7 @@ int main(int argc, char **argv) {
 	Fl::scheme("gtk+");
 
 	Fl_Image::RGB_scaling(FL_RGB_SCALING_BILINEAR);
+	fl_register_images();
 
 	// Is this a crash, a remote call, or a normal start?
 	bool blankonly = false;

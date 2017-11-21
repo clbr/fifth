@@ -398,7 +398,18 @@ static void crashsig(int sig) {
 
 	inhandler = 1;
 
-	printf("Crashing with signal %s (%d)\n", strsignal(sig), sig);
+	//dprintf(2, "Crashing with signal %s (%d)\n", strsignal(sig), sig);
+	char numbuf[8], *sigptr;
+	sprintf(numbuf, "%d", sig);
+	sigptr = strsignal(sig);
+
+	#define MSG "Crashing with signal "
+	write(2, MSG, sizeof(MSG) - 1);
+	write(2, sigptr, strlen(sigptr));
+	write(2, ", ", 2);
+	write(2, numbuf, strlen(numbuf));
+	write(2, "\n", 1);
+	#undef MSG
 
 	// Write out all open tabs
 	const int fd = openat(g->profilefd, CRASHFILE, O_CREAT | O_WRONLY, 0600);

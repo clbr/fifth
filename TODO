@@ -12,3 +12,4 @@ new download tab should be auto-closed (test with orava)
 enable webkit req anim frame
 click vs highlight pos difference in tabs
 shorten long titles in closed tabs
+if a download tab goes ssl block, don't clean it up

@@ -16,3 +16,4 @@ if a download tab goes ssl block, don't clean it up
 inline script blocking
 hard-whitelist *.gstatic.com, *.googleapis.com, useless to check for; same if both are let's encrypt
 histignore
+double-ssl error nonexistent cert fix

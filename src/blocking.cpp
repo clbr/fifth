@@ -45,6 +45,7 @@ void loadblocking() {
 	const bool whitebinfound = !faccessat(g->profilefd, WHITENAMEBIN, R_OK, 0);
 	const bool blackfound = !faccessat(g->profilefd, BLACKNAME, R_OK, 0);
 	const bool blackbinfound = !faccessat(g->profilefd, BLACKNAMEBIN, R_OK, 0);
+	const bool inlineblackfound = !faccessat(g->profilefd, INLINEBLACKNAME, R_OK, 0);
 
 	struct stat textst, binst;
 	if (whitefound) {
@@ -89,6 +90,39 @@ void loadblocking() {
 			blacktext();
 			saveblocking();
 		}
+	}
+
+	if (inlineblackfound) {
+		const int fd = openat(g->profilefd, INLINEBLACKNAME, O_RDONLY);
+		if (fd < 0)
+			die("Inline blacklist exists but failed open?\n");
+
+		FILE *f = fdopen(fd, "r");
+		if (!f)
+			die("fdopen failed\n");
+
+		char buf[PATH_MAX];
+		char *ptr;
+		charpair pair;
+
+		while (fgets(buf, PATH_MAX, f)) {
+			nukenewline(buf);
+			ptr = strchr(buf, ' ');
+			if (strlen(buf) < 4 ||
+				!ptr)
+				continue;
+
+			// We have url-wildcard pairs for inline script blocking.
+			*ptr = '\0';
+			ptr++;
+
+			pair.one = strdup(buf);
+			pair.two = strdup(ptr);
+
+			g->inlineblacklist.push_back(pair);
+		}
+
+		fclose(f);
 	}
 
 	if (g->bench) {
@@ -148,6 +182,27 @@ int isblocked(const char *url) {
 		if (ret) {
 			if (debug)
 				err(_("Blacklist blocked '%s'\n"), url);
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
+int isinlineblocked(const char *url, const char *script) {
+
+	char site[128];
+	url2site(url, site, 128, false);
+
+	static const char * const debug = getenv("FIFTH_DEBUG_BLOCKING");
+
+	vector<charpair>::const_iterator it = g->inlineblacklist.begin();
+	for (; it != g->inlineblacklist.end(); it++) {
+		if (!strcmp(site, it->one) &&
+			url_simplematch(it->two, script)) {
+			if (debug)
+				err(_("Inline script blacklist blocked '%s' at '%s'\n"),
+					script, site);
 			return 1;
 		}
 	}

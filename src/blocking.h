@@ -23,10 +23,17 @@ void loadblocking();
 void saveblocking();
 
 int isblocked(const char *);
+int isinlineblocked(const char *, const char *);
+
+struct charpair {
+	const char *one;
+	const char *two;
+};
 
 #define WHITENAME "whitelist"
 #define WHITENAMEBIN "whitelist.bin"
 #define BLACKNAME "blacklist"
 #define BLACKNAMEBIN "blacklist.bin"
+#define INLINEBLACKNAME "inlineblacklist"
 
 #endif

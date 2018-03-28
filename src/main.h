@@ -97,6 +97,8 @@ struct globals {
 	urlctx *blacklist;
 	urlctx *whitelist;
 
+	vector<charpair> inlineblacklist;
+
 	histbuf *history;
 
 	iconv_t toutf, fromutf;

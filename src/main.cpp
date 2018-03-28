@@ -750,6 +750,7 @@ int main(int argc, char **argv) {
 	wk_set_popup_func(popupcb);
 	wk_set_bgtab_func(newtabbg);
 	wk_set_urlblock_func(isblocked);
+	wk_set_inlineblock_func(isinlineblocked);
 	wk_set_download_refresh_func(downloadrefresh);
 	wk_set_new_download_func(transfers);
 	wk_set_download_func(downloadfinish);

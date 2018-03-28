@@ -526,6 +526,9 @@ static void cookiecleanup(const char path[]) {
 		fprintf(out, "%s", buf);
 	}
 
+	fclose(in);
+	fclose(out);
+
 	strcpy(buf, path);
 	strcat(buf, ".tmp");
 

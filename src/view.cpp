@@ -59,7 +59,7 @@ static void sslcb(Fl_Widget *w, void *url) {
 		fl_alert(_("Text doesn't match."));
 	} else {
 		fl_alert(_("Erasing the old certificate and returning to web view."));
-		if (unlinkat(g->certfd, site, 0))
+		if (unlinkat(g->certfd, site, 0) && errno != ENOENT)
 			die(_("Error removing certificate\n"));
 		g->tabs[g->curtab].state = TS_WEB;
 		g->w->redraw();

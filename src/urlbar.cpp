@@ -23,6 +23,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Fl_PNG_Image *ddglogo, *googlelogo;
 
+static char *shortdup(const char * const in, const u32 maxlen) {
+	const u32 len = strlen(in);
+	if (len < maxlen)
+		return strdup(in);
+
+	char *buf = (char *) calloc(maxlen + 1, 1);
+	memcpy(buf, in, maxlen - 3);
+	buf[maxlen - 1] =
+	buf[maxlen - 2] =
+	buf[maxlen - 3] = '.';
+
+	return buf;
+}
+
 static void tabscb(Fl_Widget *w, void *) {
 	vector<Fl_Menu_Item> items;
 	const u32 max = g->closedtabs.size();
@@ -40,7 +54,7 @@ static void tabscb(Fl_Widget *w, void *) {
 		int shortcut = 0;
 		if (!i) shortcut = menukey("keys.undotab");
 
-		Fl_Menu_Item it = {strdup(g->closedtabs[max - i - 1].title()),
+		Fl_Menu_Item it = {shortdup(g->closedtabs[max - i - 1].title(), 40),
 					shortcut, 0, (void *) (unsigned long) (max - i),
 					0,
 					FL_NORMAL_LABEL, FL_HELVETICA,

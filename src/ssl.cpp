@@ -16,6 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "main.h"
 
+#include <openssl/bio.h>
+#include <openssl/err.h>
+#include <openssl/pem.h>
+#include <openssl/x509.h>
+#include <openssl/x509v3.h>
+
 static u8 domaintailmatch(const char * const str, const char * const end) {
 
 	const u32 len = strlen(str);
@@ -61,12 +67,69 @@ static u8 skipcert(const char *host) {
 	return 0;
 }
 
+static u8 isletsencrypt(const char * const in) {
+
+	#define AKLEN 20
+
+	static const char tgtname[] = "/C=US/O=Let's Encrypt/CN=Let's Encrypt Authority X3";
+	static const u8 tgtak[AKLEN] = {
+		0xa8,0x4a,0x6a,0x63,0x04,0x7d,0xdd,0xba,
+		0xe6,0xd1,0x39,0xb7,0xa6,0x45,0x65,0xef,
+		0xf3,0xa8,0xec,0xa1
+	};
+	char buf[1024];
+	u16 len;
+	const u8 *ak;
+
+	BIO *bio = BIO_new_mem_buf((u8 *) in, strlen(in));
+	X509 *info = PEM_read_bio_X509(bio, NULL, NULL, NULL);
+	BIO_free_all(bio);
+
+	if (!info)
+		goto notlets;
+
+	X509_NAME_oneline(info->cert_info->issuer, buf, 1024);
+	if (strcmp(tgtname, buf))
+		goto notlets;
+
+	info->akid = (AUTHORITY_KEYID *)
+			X509_get_ext_d2i(info, NID_authority_key_identifier, NULL, NULL);
+	len = ASN1_STRING_length(info->akid->keyid);
+	ak = ASN1_STRING_data(info->akid->keyid);
+
+	if (len != AKLEN)
+		goto notlets;
+
+	if (memcmp(ak, tgtak, AKLEN))
+		goto notlets;
+
+	X509_free(info);
+	return 1;
+
+	notlets:
+
+	X509_free(info);
+	return 0;
+
+	#undef AKLEN
+
+	/*
+	Yes, an attacker could forge a cert pretending to be Let's Encrypt.
+	However, that case is indistinguishable from a real cert from them
+	that updates every N days.
+	*/
+}
+
 int certcheck(const char *str, const char *host) {
 
 	char site[128];
 	url2site(host, site, 128, false);
 
 	if (skipcert(site))
+		return 1;
+
+	// Also skip let's encrypt.
+	if (isletsencrypt(str))
 		return 1;
 
 	const u32 len = strlen(str);

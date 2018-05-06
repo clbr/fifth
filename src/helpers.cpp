@@ -123,11 +123,13 @@ ssize_t sread(const int fd, void *buf, const size_t count) {
 
 	u32 read = 0;
 	u8 *pos = (u8 *) buf;
-	while (read != count) {
+	while (read < count) {
 		const int ret = ::read(fd, pos, count);
 
-		if (ret <= 0)
+		if (ret < 0)
 			return ret;
+		if (ret == 0)
+			return read;
 
 		pos += ret;
 		read += ret;

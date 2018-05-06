@@ -92,7 +92,7 @@ void loadblocking() {
 		}
 	}
 
-	if (inlineblackfound) {
+	if (inlineblackfound && g->inlineblacklist.size() == 0) {
 		const int fd = openat(g->profilefd, INLINEBLACKNAME, O_RDONLY);
 		if (fd < 0)
 			die("Inline blacklist exists but failed open?\n");

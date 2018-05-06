@@ -476,6 +476,18 @@ static void crashrestore() {
 	unlinkat(g->profilefd, CRASHFILE, 0);
 }
 
+static void newdl() {
+
+	// If the download popped a new tab, try to close it
+	const u32 lasttab = g->tabs.size() - 1;
+	tab &cur = g->tabs[lasttab];
+	if (!cur.url && lasttab == g->curtab && cur.state == TS_WEB &&
+		!cur.web->canBack())
+		closetab();
+
+	transfers();
+}
+
 static void cookiecleanup(const char path[]) {
 
 	// Description of the Netscape cookie file format which Curl uses:
@@ -752,7 +764,7 @@ int main(int argc, char **argv) {
 	wk_set_urlblock_func(isblocked);
 	wk_set_inlineblock_func(isinlineblocked);
 	wk_set_download_refresh_func(downloadrefresh);
-	wk_set_new_download_func(transfers);
+	wk_set_new_download_func(newdl);
 	wk_set_download_func(downloadfinish);
 	wk_set_aboutpage_func(aboutpage);
 	initfavicons();

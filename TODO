@@ -8,7 +8,6 @@ pressing enter when searching should go to the link, not next match
 previous button opens a menu of last few?
 FLTK tooltip @symbols
 date crash
-new download tab should be auto-closed (test with orava)
 click vs highlight pos difference in tabs
 if a download tab goes ssl block, don't clean it up
 hard-whitelist if both are let's encrypt

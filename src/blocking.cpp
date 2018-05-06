@@ -32,6 +32,13 @@ static void blacktext() {
 	ATOMIC_SET(g->blacklist, url_init_file2(fd));
 }
 
+static void histtext() {
+	const int fd = openat(g->profilefd, HISTIGNORENAME, O_RDONLY);
+	if (fd < 0)
+		die("histignore exists but failed open?\n");
+	ATOMIC_SET(g->histignore, url_init_file2(fd));
+}
+
 void loadblocking() {
 
 	timeval old, now;
@@ -40,12 +47,15 @@ void loadblocking() {
 
 	ATOMIC_SET(g->blacklist, NULL);
 	ATOMIC_SET(g->whitelist, NULL);
+	ATOMIC_SET(g->histignore, NULL);
 
 	const bool whitefound = !faccessat(g->profilefd, WHITENAME, R_OK, 0);
 	const bool whitebinfound = !faccessat(g->profilefd, WHITENAMEBIN, R_OK, 0);
 	const bool blackfound = !faccessat(g->profilefd, BLACKNAME, R_OK, 0);
 	const bool blackbinfound = !faccessat(g->profilefd, BLACKNAMEBIN, R_OK, 0);
 	const bool inlineblackfound = !faccessat(g->profilefd, INLINEBLACKNAME, R_OK, 0);
+	const bool histignorefound = !faccessat(g->profilefd, HISTIGNORENAME, R_OK, 0);
+	const bool histignorebinfound = !faccessat(g->profilefd, HISTIGNORENAMEBIN, R_OK, 0);
 
 	struct stat textst, binst;
 	if (whitefound) {
@@ -125,6 +135,29 @@ void loadblocking() {
 		fclose(f);
 	}
 
+	if (histignorefound) {
+		if (histignorebinfound) {
+			// Check the binary is more recent - someone may have hand-edited
+			if (fstatat(g->profilefd, HISTIGNORENAME, &textst, 0))
+				die("histignore exists but failed stat?\n");
+			if (fstatat(g->profilefd, HISTIGNORENAMEBIN, &binst, 0))
+				die("histignore binary exists but failed stat?\n");
+
+			if (textst.st_mtime > binst.st_mtime) {
+				histtext();
+				saveblocking();
+			} else {
+				const int fd = openat(g->profilefd, HISTIGNORENAMEBIN, O_RDONLY);
+				if (fd < 0)
+					die("histignore binary exists but failed open?\n");
+				ATOMIC_SET(g->histignore, url_init_file2(fd));
+			}
+		} else {
+			histtext();
+			saveblocking();
+		}
+	}
+
 	if (g->bench) {
 		gettimeofday(&now, NULL);
 		printf("Loading the blocklists took %u us\n",
@@ -152,6 +185,14 @@ void saveblocking() {
 			die("Error saving the blacklist\n");
 		if (url_save_optimized2(g->blacklist, fd))
 			die("Error saving the blacklist\n");
+	}
+
+	if (g->histignore) {
+		const int fd = openat(g->profilefd, HISTIGNORENAMEBIN, O_WRONLY | O_CREAT, 0644);
+		if (fd < 0)
+			die("Error saving histignore\n");
+		if (url_save_optimized2(g->histignore, fd))
+			die("Error saving histignore\n");
 	}
 
 	if (g->bench) {

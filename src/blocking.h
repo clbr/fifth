@@ -35,5 +35,7 @@ struct charpair {
 #define BLACKNAME "blacklist"
 #define BLACKNAMEBIN "blacklist.bin"
 #define INLINEBLACKNAME "inlineblacklist"
+#define HISTIGNORENAME "histignore"
+#define HISTIGNORENAMEBIN "histignore.bin"
 
 #endif

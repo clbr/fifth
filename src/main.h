@@ -100,6 +100,7 @@ struct globals {
 	vector<charpair> inlineblacklist;
 
 	histbuf *history;
+	urlctx *histignore;
 
 	iconv_t toutf, fromutf;
 };

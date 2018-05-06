@@ -68,6 +68,16 @@ time_t histbuf::getTime(u32 i) const {
 
 void histbuf::add(const char *url, time_t time) {
 
+	// Should we ignore this entry?
+	static const char * const debug = getenv("FIFTH_DEBUG_HISTIGNORE");
+	if (g->histignore) {
+		if (url_match(g->histignore, url)) {
+			if (debug)
+				err(_("histignore ignored '%s'\n"), url);
+			return;
+		}
+	}
+
 	entry *e = NULL;
 
 	if (used >= allocated) {

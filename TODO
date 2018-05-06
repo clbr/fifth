@@ -10,5 +10,4 @@ FLTK tooltip @symbols
 date crash
 click vs highlight pos difference in tabs
 hard-whitelist if both are let's encrypt
-histignore
 warn about unicode urls

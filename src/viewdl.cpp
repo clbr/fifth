@@ -160,7 +160,8 @@ vector<dl> getdownloads() {
 
 	max = g->tabs.size();
 	for (i = 0; i < max; i++) {
-		if (g->tabs[i].state == TS_WEB && g->tabs[i].web &&
+		if ((g->tabs[i].state == TS_WEB || g->tabs[i].state == TS_SSLERR) &&
+			g->tabs[i].web &&
 			g->tabs[i].web->numDownloads()) {
 			dls = g->tabs[i].web->numDownloads();
 			for (d = 0; d < dls; d++) {
@@ -179,7 +180,8 @@ vector<dl> getdownloads() {
 
 	max = g->closedtabs.size();
 	for (i = 0; i < max; i++) {
-		if (g->closedtabs[i].state == TS_WEB && g->closedtabs[i].web &&
+		if ((g->closedtabs[i].state == TS_WEB || g->closedtabs[i].state == TS_SSLERR) &&
+			g->closedtabs[i].web &&
 			g->closedtabs[i].web->numDownloads()) {
 			dls = g->closedtabs[i].web->numDownloads();
 			for (d = 0; d < dls; d++) {

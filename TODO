@@ -9,7 +9,6 @@ previous button opens a menu of last few?
 FLTK tooltip @symbols
 date crash
 click vs highlight pos difference in tabs
-if a download tab goes ssl block, don't clean it up
 hard-whitelist if both are let's encrypt
 histignore
 warn about unicode urls

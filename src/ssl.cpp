@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 
+map<string, ssldata> sslinfo;
+
 static u8 domaintailmatch(const char * const str, const char * const end) {
 
 	const u32 len = strlen(str);
@@ -120,6 +122,93 @@ static u8 isletsencrypt(const char * const in) {
 	*/
 }
 
+static time_t ASN1_time(ASN1_TIME* time){
+	struct tm t;
+	const char *str = (const char *) time->data;
+	u8 i = 0;
+
+	memset(&t, 0, sizeof(t));
+
+	if (time->type == V_ASN1_UTCTIME) {/* two digit year */
+		t.tm_year = (str[i++] - '0') * 10;
+		t.tm_year += (str[i++] - '0');
+		if (t.tm_year < 70)
+			t.tm_year += 100;
+	} else if (time->type == V_ASN1_GENERALIZEDTIME) {/* four digit year */
+		t.tm_year = (str[i++] - '0') * 1000;
+		t.tm_year+= (str[i++] - '0') * 100;
+		t.tm_year+= (str[i++] - '0') * 10;
+		t.tm_year+= (str[i++] - '0');
+		t.tm_year -= 1900;
+	}
+	t.tm_mon  = (str[i++] - '0') * 10;
+	t.tm_mon += (str[i++] - '0') - 1; // -1 since January is 0 not 1.
+	t.tm_mday = (str[i++] - '0') * 10;
+	t.tm_mday+= (str[i++] - '0');
+	t.tm_hour = (str[i++] - '0') * 10;
+	t.tm_hour+= (str[i++] - '0');
+	t.tm_min  = (str[i++] - '0') * 10;
+	t.tm_min += (str[i++] - '0');
+	t.tm_sec  = (str[i++] - '0') * 10;
+	t.tm_sec += (str[i++] - '0');
+
+	return mktime(&t);
+}
+
+static void getinfo(const char *str, const char *site, const char *old) {
+
+	// Store the last SSL error info for this site.
+
+	ssldata ssl;
+	memset(&ssl, 0, sizeof(ssldata));
+	time_t tick;
+
+	BIO *bio = BIO_new_mem_buf((u8 *) str, strlen(str));
+	X509 *info = PEM_read_bio_X509(bio, NULL, NULL, NULL);
+	BIO_free_all(bio);
+
+	if (info) {
+		X509_NAME_oneline(info->cert_info->issuer, ssl.issuer, 64);
+		ssl.issuer[63] = '\0';
+
+		tick = ASN1_time(X509_get_notBefore(info));
+		ctime_r(&tick, ssl.created);
+		nukenewline(ssl.created);
+
+		tick = ASN1_time(X509_get_notAfter(info));
+		ctime_r(&tick, ssl.expires);
+		nukenewline(ssl.expires);
+
+		X509_free(info);
+	}
+
+	info = NULL;
+	if (*old) {
+		bio = BIO_new_mem_buf((u8 *) old, strlen(old));
+		info = PEM_read_bio_X509(bio, NULL, NULL, NULL);
+		BIO_free_all(bio);
+	}
+
+	if (info) {
+		X509_NAME_oneline(info->cert_info->issuer, ssl.previssuer, 64);
+		ssl.previssuer[63] = '\0';
+
+		tick = ASN1_time(X509_get_notBefore(info));
+		ctime_r(&tick, ssl.prevcreated);
+		nukenewline(ssl.prevcreated);
+
+		tick = ASN1_time(X509_get_notAfter(info));
+		ctime_r(&tick, ssl.prevexpires);
+		nukenewline(ssl.prevexpires);
+
+		X509_free(info);
+	}
+
+	sslinfo[site] = ssl;
+
+	while (ERR_get_error());
+}
+
 int certcheck(const char *str, const char *host) {
 
 	char site[128];
@@ -136,14 +225,16 @@ int certcheck(const char *str, const char *host) {
 	int fd = openat(g->certfd, site, O_RDONLY);
 	if (fd >= 0) {
 		// It must match byte-to-byte with the new one.
-		char buf[len];
-		if (sread(fd, buf, len) != len) {
+		char buf[32768] = { 0 };
+		if (sread(fd, buf, 32767) != len) {
 			close(fd);
+			getinfo(str, site, buf);
 			return 0;
 		}
 		close(fd);
 
 		if (memcmp(buf, str, len)) {
+			getinfo(str, site, buf);
 			return 0;
 		}
 	} else {

@@ -755,6 +755,27 @@ void view::drawssl() {
 	tmp[319] = '\0';
 
 	fl_draw(tmp, x(), cury, w(), smallsize, FL_ALIGN_CENTER);
+	cury += fl_height() * 2;
+
+	fl_draw(_("Disk - wire"), x(), cury, w(), smallsize, FL_ALIGN_CENTER);
+	cury += fl_height();
+
+	const ssldata &ssl = sslinfo[cur->sslsite];
+
+	snprintf(tmp, 320, _("%-32s - %-32s"), ssl.previssuer, ssl.issuer);
+	tmp[319] = '\0';
+	fl_draw(tmp, x(), cury, w(), smallsize, FL_ALIGN_CENTER);
+	cury += fl_height();
+
+	snprintf(tmp, 320, _("%-28s - %-28s"), ssl.prevcreated, ssl.created);
+	tmp[319] = '\0';
+	fl_draw(tmp, x(), cury, w(), smallsize, FL_ALIGN_CENTER);
+	cury += fl_height();
+
+	snprintf(tmp, 320, _("%-28s - %-28s"), ssl.prevexpires, ssl.expires);
+	tmp[319] = '\0';
+	fl_draw(tmp, x(), cury, w(), smallsize, FL_ALIGN_CENTER);
+	cury += fl_height();
 
 	cury += fl_height() * 3;
 	fl_draw(_("This might be a man-in-the-middle attack. "

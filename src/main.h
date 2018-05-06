@@ -36,6 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <webkit.h>
 #include <iconv.h>
 
+using namespace std;
+
 #include "autoconfig.h"
 #include "helpers.h"
 #include "settings.h"
@@ -57,8 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "history.h"
 #include "persite.h"
 #include "uas.h"
-
-using namespace std;
 
 struct globals {
 	const char *profilepath;

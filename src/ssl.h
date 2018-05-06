@@ -20,4 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 int certcheck(const char *, const char *);
 void certerr(webview *, const char *, const bool);
 
+struct ssldata {
+	char issuer[64];
+	char created[32];
+	char expires[32];
+
+	char previssuer[64];
+	char prevcreated[32];
+	char prevexpires[32];
+};
+
+extern map<string, ssldata> sslinfo;
+
 #endif

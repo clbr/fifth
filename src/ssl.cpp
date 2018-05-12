@@ -56,6 +56,7 @@ static const char * const whited[] = {
 	"gstatic.com",
 	"youtube.com",
 	"ytimg.com",
+	"ggpht.com",
 };
 
 static u8 skipcert(const char *host) {

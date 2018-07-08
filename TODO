@@ -12,3 +12,4 @@ warn about unicode urls
 JS ecmascript 6 let, arrow funcs, performance/user timing api
 !function(){try{new Function("(a=0)=>a"),!0}catch(n){alert("fail")}}();
 if (typeof performance == "undefined") alert("no performance")
+ignore curl errors from blocked pages

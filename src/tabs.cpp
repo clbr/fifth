@@ -751,6 +751,8 @@ vector<u16> taborder() {
 void nexttab() {
 	if (g->tabs.size() == 1)
 		return;
+	if (!longorder.size())
+		startctrl(); // In loaded scenarios, the ctrl press may arrive out of order
 
 	longpress++;
 	longpress %= longorder.size();

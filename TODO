@@ -14,3 +14,4 @@ JS ecmascript 6 let, arrow funcs, performance/user timing api
 if (typeof performance == "undefined") alert("no performance")
 shorten Webcore: thread prefix
 per-script cpu use, disabling if too much
+dragging text in the search field needs a full refresh

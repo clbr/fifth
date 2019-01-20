@@ -9,7 +9,7 @@ FLTK tooltip @symbols
 date crash
 click vs highlight pos difference in tabs
 warn about unicode urls
-JS ecmascript 6 let, arrow funcs, performance/user timing api
+JS ecmascript 6 let, arrow funcs, performance/user timing api, fetch
 !function(){try{new Function("(a=0)=>a"),!0}catch(n){alert("fail")}}();
 if (typeof performance == "undefined") alert("no performance")
 shorten Webcore: thread prefix

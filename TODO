@@ -16,3 +16,4 @@ shorten Webcore: thread prefix
 per-script cpu use, disabling if too much
 dragging text in the search field needs a full refresh
 share download cookies
+kickstarter error console crashes

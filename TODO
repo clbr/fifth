@@ -20,5 +20,6 @@ kickstarter error console crashes
 YT has worked around the buttons
 frameset subframe window.opens into another frame bug
 jsonp/maybe xmlhttprequest subverts blacklist
-cdn with constantly changing certs, cdn.jsdelivr.net
+cdn with constantly changing certs, cdnjs.cloudflare.com cdn.jsdelivr.net
 amazon like letsencrypt
+change cert error to a per-tab high-security mode, otherwise an insecure icon

@@ -23,3 +23,4 @@ jsonp/maybe xmlhttprequest subverts blacklist
 cdn with constantly changing certs, cdnjs.cloudflare.com cdn.jsdelivr.net
 amazon like letsencrypt
 change cert error to a per-tab high-security mode, otherwise an insecure icon
+closing a tab should hide the search bar

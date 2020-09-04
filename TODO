@@ -25,3 +25,4 @@ amazon like letsencrypt
 change cert error to a per-tab high-security mode, otherwise an insecure icon
 closing a tab should hide the search bar
 webcore image title "100x100 pixels" replace x with ascii x
+double-accept header

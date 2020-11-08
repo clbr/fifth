@@ -78,6 +78,8 @@ struct globals {
 	bool run;
 	bool debugkeys;
 
+	tabtristate sec;
+
 	window *w;
 	view *v;
 	urlbar *url;

@@ -42,7 +42,7 @@ static u8 domaintailmatch(const char * const str, const char * const end) {
 
 /* Google actively works against security by changing their certs
    several times a week. Since having the user click through is
-   worthless, whitelist google sites. */
+   worthless, whitelist google and similar sites. */
 static const char * const whited[] = {
 	"google.fi",
 	"google.com",
@@ -57,6 +57,8 @@ static const char * const whited[] = {
 	"youtube.com",
 	"ytimg.com",
 	"ggpht.com",
+	"cdnjs.cloudflare.com",
+	"cdn.jsdelivr.net",
 };
 
 static u8 skipcert(const char *host) {
@@ -222,8 +224,18 @@ int certcheck(const char *str, const char *host) {
 	if (isletsencrypt(str))
 		return 1;
 
+	bool insecure = false;
+	// Only accept errors if in secure mode.
+	if (g->sec == TRI_OFF)
+		insecure = true;
+	if (g->sec == TRI_AUTO &&
+		!getSetting("general.checkcerts")->val.u)
+		insecure = true;
+
 	const u32 len = strlen(str);
-	int fd = openat(g->certfd, site, O_RDONLY);
+	int fd = -1;
+	if (!insecure) fd = openat(g->certfd, site, O_RDONLY);
+
 	if (fd >= 0) {
 		// It must match byte-to-byte with the new one.
 		char buf[32768] = { 0 };

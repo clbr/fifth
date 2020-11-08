@@ -47,6 +47,7 @@ const struct setting defaultSettings[] = {
 	{"fonts.fixedsize",	ST_U32, { .u = 16 }},
 	{"fonts.minsize",	ST_U32, { .u = 8 }},
 	{"fonts.size",		ST_U32, { .u = 16 }},
+	{"general.checkcerts",	ST_U32, { .u = 0 }},
 	{"general.css",		ST_U32, { .u = 1 }},
 	{"general.downloaddir", ST_CHAR, { .c = "/tmp" }},
 	{"general.homepage", 	ST_CHAR, { .c = "about:blank"}},

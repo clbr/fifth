@@ -57,6 +57,7 @@ static void prevcb(Fl_Widget *, void *) {
 static u32 jsw = 60;
 static u32 cssw = 80;
 static u32 imgw = 80;
+static u32 secw = 80;
 static const u32 zoomerw = 100;
 
 static void tritoggle(tabtristate *val) {
@@ -144,6 +145,10 @@ static void imgtoggle(Fl_Widget *, void *) {
 	}
 }
 
+static void sectoggle(Fl_Widget *, void *) {
+	tritoggle(&g->sec);
+}
+
 static void zoomed(Fl_Widget *w, void *) {
 	tab * const cur = &g->tabs[g->curtab];
 	if (cur->state != TS_WEB)
@@ -186,6 +191,10 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	fl_measure(_("img: auto"), tmpw, tmph);
 	imgw = tmpw + pad;
 
+	tmpw = 0;
+	fl_measure(_("sec: auto"), tmpw, tmph);
+	secw = tmpw + pad;
+
 	static const char * const tritip =
 		_("Auto: decided based on per-site settings and global settings.\n"
 		"On and off: override the settings for this tab.");
@@ -193,14 +202,17 @@ statusbar::statusbar(int x, int y, int w, int h): Fl_Group(x, y, w, h),
 	js = new Fl_Button(1, y + 1, jsw, h - 2, _("js: auto"));
 	css = new Fl_Button(1, y + 1, cssw, h - 2, _("css: auto"));
 	img = new Fl_Button(1, y + 1, imgw, h - 2, _("img: auto"));
+	sec = new Fl_Button(1, y + 1, secw, h - 2, _("sec: auto"));
 
 	js->tooltip(tritip);
 	css->tooltip(tritip);
 	img->tooltip(tritip);
+	sec->tooltip(tritip);
 
 	js->callback(jstoggle);
 	css->callback(csstoggle);
 	img->callback(imgtoggle);
+	sec->callback(sectoggle);
 
 	zoom = new zoomer(1, y + 1, zoomerw, h - 2);
 	zoom->type(FL_HORIZONTAL);
@@ -262,15 +274,29 @@ void statusbar::draw() {
 		break;
 	}
 
+	switch (g->sec) {
+		case TRI_AUTO:
+			sec->label(_("sec: auto"));
+		break;
+		case TRI_OFF:
+			sec->label(_("sec: off"));
+		break;
+		case TRI_ON:
+			sec->label(_("sec: on"));
+		break;
+	}
+
 	if (cur->state == TS_WEB) {
 		css->activate();
 		js->activate();
 		img->activate();
+		sec->activate();
 		zoom->activate();
 	} else {
 		css->deactivate();
 		js->deactivate();
 		img->deactivate();
+		sec->deactivate();
 		zoom->deactivate();
 	}
 
@@ -371,7 +397,8 @@ void statusbar::resize(int x, int y, int w, int h) {
 void statusbar::reposbuttons() {
 
 	zoom->position(x() + w() - zoomerw - 3, y() + 1);
-	img->position(zoom->x() - imgw - 3, y() + 1);
+	sec->position(zoom->x() - secw - 3, y() + 1);
+	img->position(sec->x() - imgw - 3, y() + 1);
 	css->position(img->x() - cssw - 3, y() + 1);
 	js->position(css->x() - jsw - 3, y() + 1);
 }

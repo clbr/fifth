@@ -49,7 +49,7 @@ private:
 	Fl_Button *next, *prev;
 	Fl_Box *total;
 
-	Fl_Button *js, *css, *img;
+	Fl_Button *js, *css, *img, *sec;
 	Fl_Roller *zoom;
 };
 

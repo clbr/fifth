@@ -93,7 +93,7 @@ static u8 isletsencrypt(const char * const in) {
 	if (!info)
 		goto notlets;
 
-	X509_NAME_oneline(info->cert_info->issuer, buf, 1024);
+	X509_NAME_oneline(X509_get_issuer_name(info), buf, 1024);
 	if (strcmp(tgtname, buf))
 		goto notlets;
 
@@ -171,7 +171,7 @@ static void getinfo(const char *str, const char *site, const char *old) {
 	BIO_free_all(bio);
 
 	if (info) {
-		X509_NAME_oneline(info->cert_info->issuer, ssl.issuer, 64);
+		X509_NAME_oneline(X509_get_issuer_name(info), ssl.issuer, 64);
 		ssl.issuer[63] = '\0';
 
 		tick = ASN1_time(X509_get_notBefore(info));
@@ -193,7 +193,7 @@ static void getinfo(const char *str, const char *site, const char *old) {
 	}
 
 	if (info) {
-		X509_NAME_oneline(info->cert_info->issuer, ssl.previssuer, 64);
+		X509_NAME_oneline(X509_get_issuer_name(info), ssl.previssuer, 64);
 		ssl.previssuer[63] = '\0';
 
 		tick = ASN1_time(X509_get_notBefore(info));

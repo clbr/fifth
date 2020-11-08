@@ -33,6 +33,7 @@ public:
 	bool ctrl, shift;
 private:
 	const char *placeholdertext;
+	bool adjustingdrag;
 };
 
 #endif

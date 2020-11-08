@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "main.h"
 
 inputplace::inputplace(int x, int y, int w, int h): Fl_Input(x, y, w, h),
-		drawprogress(false), placeholdertext(NULL) {
+		drawprogress(false), placeholdertext(NULL), adjustingdrag(false) {
 	align(FL_ALIGN_INSIDE | FL_ALIGN_LEFT);
 }
 
@@ -32,7 +32,7 @@ void inputplace::draw() {
 
 	u32 xoff = 0;
 
-	if (image()) {
+	if (image() && !adjustingdrag) {
 		const u32 iw = image()->w();
 		xoff = iw + 6;
 		draw_label();
@@ -77,6 +77,7 @@ void inputplace::draw() {
 }
 
 int inputplace::handle(const int e) {
+
 	if (e == FL_KEYBOARD) {
 		switch (Fl::event_key()) {
 			case FL_Down:
@@ -90,12 +91,19 @@ int inputplace::handle(const int e) {
 				// Fallthrough
 			break;
 		}
-	} else if ((e == FL_PUSH || e == FL_DRAG) && image()) {
-		const int oldx = x();
-		resize(oldx + image()->w() + 6, y(), w(), h());
-		const int ret = Fl_Input::handle(e);
-		resize(oldx, y(), w(), h());
-		return ret;
+	} else if ((e == FL_PUSH || e == FL_DRAG || e == FL_DND_DRAG) && image()) {
+		if (!adjustingdrag) { // may recurse within the same frame
+			adjustingdrag = true;
+			const int oldx = x();
+			const int oldw = w();
+			resize(oldx + image()->w() + 6, y(), w() - image()->w() - 6, h());
+			const int ret = Fl_Input::handle(e);
+			resize(oldx, y(), oldw, h());
+			adjustingdrag = false;
+			return ret;
+		} else {
+			return Fl_Input::handle(e);
+		}
 	}
 
 	return Fl_Input::handle(e);

@@ -12,7 +12,6 @@ warn about unicode urls
 JS ecmascript 6 let, arrow funcs, performance/user timing api, fetch
 !function(){try{new Function("(a=0)=>a"),!0}catch(n){alert("fail")}}();
 if (typeof performance == "undefined") alert("no performance")
-shorten Webcore: thread prefix
 per-script cpu use, disabling if too much
 dragging text in the search field needs a full refresh
 share download cookies

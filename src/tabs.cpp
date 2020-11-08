@@ -662,6 +662,9 @@ void closetab() {
 		g->curtab = next;
 		activatetab(g->curtab);
 	}
+
+	if (g->url->url->win->shown())
+		g->url->url->win->hide();
 }
 
 void newtab(const char *url) {

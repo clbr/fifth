@@ -21,5 +21,4 @@ YT has worked around the buttons
 frameset subframe window.opens into another frame bug
 jsonp/maybe xmlhttprequest subverts blacklist
 closing a tab should hide the search bar
-webcore image title "100x100 pixels" replace x with ascii x
 double-accept header
